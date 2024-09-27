@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="Godot 3D Player Controller"
+run/main_scene="res://addons/3d_player_controller/player_3d.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Globals="*res://scenes/globals.gd"
 
 [rendering]
 
