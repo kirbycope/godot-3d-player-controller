@@ -675,6 +675,50 @@ func setup_controls():
 		key_event.physical_keycode = KEY_F3
 		InputMap.action_add_event("debug", key_event)
 
+	# Check if [dpad_up] action is not in the Input Map
+	if not InputMap.has_action("dpad_up"):
+
+		# Add the [dpad_up] action to the Input Map
+		InputMap.add_action("dpad_up")
+
+		# Controller [dpad, up]
+		var joypad_button_event = InputEventJoypadButton.new()
+		joypad_button_event.button_index = JOY_BUTTON_DPAD_UP
+		InputMap.action_add_event("dpad_up", joypad_button_event)
+
+	# Check if [dpad_left] action is not in the Input Map
+	if not InputMap.has_action("dpad_left"):
+
+		# Add the [dpad_left] action to the Input Map
+		InputMap.add_action("dpad_left")
+
+		# Controller [dpad, left]
+		var joypad_button_event = InputEventJoypadButton.new()
+		joypad_button_event.button_index = JOY_BUTTON_DPAD_LEFT
+		InputMap.action_add_event("dpad_left", joypad_button_event)
+
+	# Check if [dpad_down] action is not in the Input Map
+	if not InputMap.has_action("dpad_down"):
+
+		# Add the [dpad_down] action to the Input Map
+		InputMap.add_action("dpad_down")
+
+		# Controller [dpad, down]
+		var joypad_button_event = InputEventJoypadButton.new()
+		joypad_button_event.button_index = JOY_BUTTON_DPAD_DOWN
+		InputMap.action_add_event("dpad_down", joypad_button_event)
+
+	# Check if [dpad_up] action is not in the Input Map
+	if not InputMap.has_action("dpad_right"):
+
+		# Add the [dpad_right] action to the Input Map
+		InputMap.add_action("dpad_right")
+
+		# Controller [dpad, right]
+		var joypad_button_event = InputEventJoypadButton.new()
+		joypad_button_event.button_index = JOY_BUTTON_DPAD_RIGHT
+		InputMap.action_add_event("dpad_right", joypad_button_event)
+
 	# Check if [move_up] action is not in the Input Map
 	if not InputMap.has_action("move_up"):
 

@@ -134,8 +134,8 @@ func _process(_delta: float) -> void:
 
 			# Get Left-stick magnitude
 			var left_stick_input = Vector2(
-				Input.get_axis("left", "right"),
-				Input.get_axis("forward", "backward")
+				Input.get_axis("ui_left", "ui_right"),
+				Input.get_axis("ui_up", "ui_down")
 			)
 
 			# Apply position based on left-stick magnitude
