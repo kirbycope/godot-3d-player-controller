@@ -1,7 +1,6 @@
 extends Control
 
-var game_paused: bool = false
-#var game_paused: bool = Globals.game_paused
+var game_paused: bool = Globals.game_paused
 
 ## Called once for every event before _unhandled_input(), allowing you to consume some events.
 func _input(event) -> void:
