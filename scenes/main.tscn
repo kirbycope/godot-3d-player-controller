@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=8 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="PackedScene" uid="uid://b80ulfowrgt55" path="res://scenes/player_3d.tscn" id="1_qnqwy"]
+[ext_resource type="Texture2D" uid="uid://e6rn4rs3cr0v" path="res://assets/kenney_nl/prototype_textures/PNG/Dark/texture_09.png" id="2_d2mly"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_kmje3"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -15,8 +16,9 @@ background_mode = 2
 sky = SubResource("Sky_idkqp")
 tonemap_mode = 2
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fbshx"]
-albedo_color = Color(0.233925, 0.233925, 0.233925, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j64gc"]
+albedo_texture = ExtResource("2_d2mly")
+uv1_triplanar = true
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_oaegt")
@@ -31,6 +33,6 @@ environment = SubResource("Environment_8b5by")
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 use_collision = true
 size = Vector3(128, 0, 128)
-material = SubResource("StandardMaterial3D_fbshx")
+material = SubResource("StandardMaterial3D_j64gc")
 
 [node name="Player3D" parent="." instance=ExtResource("1_qnqwy")]
