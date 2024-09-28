@@ -9,6 +9,3 @@ func _ready() -> void:
 
 	# Make sure the game is unpaused
 	Globals.game_paused = false
-
-	# Align visuals with the camera
-	$Player3D/Visuals.rotation = Vector3(0.0, 0.0, $Player3D/CameraMount.rotation.z)
