@@ -708,7 +708,7 @@ func setup_controls():
 		joypad_button_event.button_index = JOY_BUTTON_DPAD_DOWN
 		InputMap.action_add_event("dpad_down", joypad_button_event)
 
-	# Check if [dpad_up] action is not in the Input Map
+	# Check if [dpad_right] action is not in the Input Map
 	if not InputMap.has_action("dpad_right"):
 
 		# Add the [dpad_right] action to the Input Map
