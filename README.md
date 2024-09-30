@@ -11,7 +11,7 @@ Include this addon with your project. No need to "activate" as the inteded usage
 1. Move the file to a folder names `ci` in your project
 1. Open your project in VS Code
 1. Open the "Git Bash" terminal
-1. Run `bash ci/install-addons.sh`
+1. Run `bash ci/install-3d-player-controller.sh`
     - This script will download the [3d_player_controller](/addons/3d_player_controller) folder from _this_ repo and then cleanup the `.git` files/folders.
 
 ## Game Pack
