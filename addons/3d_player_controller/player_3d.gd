@@ -1,9 +1,28 @@
 extends CharacterBody3D
 
-var animations_crouching = ["crawling_in_place", "crouching_idle"]
-var animations_flying = ["flying", "flying_fast"]
-var animations_hanging = ["hanging_idle"]
-var animations_jumping = ["falling_idle"]
+# Change the animation names to those in character's animation player
+const crouching_idle = "crouching_idle"
+const crawling_in_place = "crawling_in_place"
+const idle = "idle"
+const falling_idle = "falling_idle"
+const flying = "flying"
+const flying_fast = "flying_fast"
+const hanging_idle = "hanging_idle"
+const kicking_low_left = "kicking_low_left"
+const kicking_low_right = "kicking_low_right"
+const punching_high_left = "punching_high_left"
+const punching_high_right = "punching_high_right"
+const punching_low_left = "punching_low_left"
+const punching_low_right = "punching_low_right"
+const running_in_place = "running_in_place"
+const sprinting_in_place = "sprinting_in_place"
+const walking_in_place = "walking_in_place"
+
+# State machine variables
+var animations_crouching = [crawling_in_place, crouching_idle]
+var animations_flying = [flying, flying_fast]
+var animations_hanging = [hanging_idle]
+var animations_jumping = [falling_idle]
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var is_animation_locked: bool = false
 var is_climbing: bool = false
@@ -95,9 +114,9 @@ func _input(event) -> void:
 				# Flag the player as "kicking with their left leg"
 				is_kicking_left = true
 				# Check if the animation player is not already playing the appropriate animation
-				if animation_player.current_animation != "kicking_low_left":
+				if animation_player.current_animation != kicking_low_left:
 					# Play the left "kicking" animation
-					animation_player.play("kicking_low_left")
+					animation_player.play(kicking_low_left)
 				# Check the kick hits something
 				check_kick_collision()
 
@@ -108,9 +127,9 @@ func _input(event) -> void:
 				# Flag the player as "kicking with their right leg"
 				is_kicking_right = true
 				# Check if the animation player is not already playing the appropriate animation
-				if animation_player.current_animation != "kicking_low_right":
+				if animation_player.current_animation != kicking_low_right:
 					# Play the right "kicking" animation
-					animation_player.play("kicking_low_right")
+					animation_player.play(kicking_low_right)
 				# Check the kick hits something
 				check_kick_collision()
 
@@ -123,15 +142,15 @@ func _input(event) -> void:
 				# Check if the player is crouching
 				if is_crouching:
 					# Check if the animation player is not already playing the appropriate animation
-					if animation_player.current_animation != "punching_low_left":
+					if animation_player.current_animation != punching_low_left:
 						# Play the left, low "punching" animation
-						animation_player.play("punching_low_left")
+						animation_player.play(punching_low_left)
 				# The player should be standing
 				else:
 					# Check if the animation player is not already playing the appropriate animation
-					if animation_player.current_animation != "punching_high_left":
+					if animation_player.current_animation != punching_high_left:
 						# Play the left "punching" animation
-						animation_player.play("punching_high_left")
+						animation_player.play(punching_high_left)
 				# Check the punch hits something
 				check_punch_collision()
 
@@ -144,15 +163,15 @@ func _input(event) -> void:
 				# Check if the player is crouching
 				if is_crouching:
 					# Check if the animation player is not already playing the appropriate animation
-					if animation_player.current_animation != "punching_low_right":
+					if animation_player.current_animation != punching_low_right:
 						# Play the right, low "punching" animation
-						animation_player.play("punching_low_right")
+						animation_player.play(punching_low_right)
 				# The player should be standing
 				else:
 					# Check if the animation player is not already playing the appropriate animation
-					if animation_player.current_animation != "punching_right":
+					if animation_player.current_animation != punching_high_right:
 						# Play the right "punching" animation
-						animation_player.play("punching_high_right")
+						animation_player.play(punching_high_right)
 				# Check the punch hits something
 				check_punch_collision()
 
@@ -185,7 +204,7 @@ func _physics_process(delta) -> void:
 	# Check if no animation is playing
 	if !animation_player.is_playing():
 		# Play the idle "Standing" animation
-		animation_player.play("idle")
+		animation_player.play(idle)
 		# Flag the animation player no longer locked
 		is_animation_locked = false
 		# Reset player state
@@ -308,9 +327,9 @@ func check_punch_collision() -> void:
 func check_top_edge_collision() -> void:
 	if !raycast_top.is_colliding() and raycast_high.is_colliding() and !is_climbing:
 		# Check if the current animation is not a "hanging" one
-		if animation_player.current_animation != "hanging_idle":
+		if animation_player.current_animation != hanging_idle:
 			# Play the idle "Hanging" animation
-			animation_player.play("hanging_idle")
+			animation_player.play(hanging_idle)
 		# Adjust for the animation's player position
 		var point = raycast_high.get_collision_point()
 		# Determine the direction away from the wall
@@ -465,14 +484,14 @@ func mangage_state() -> void:
 		# [sprint] button _pressed_
 		if Input.is_action_pressed("sprint"):
 			# Check if the current animation is not a flying one
-			if animation_player.current_animation != "flying_fast":
+			if animation_player.current_animation != flying_fast:
 				# Play the idle "flying Fast" animation
-				animation_player.play("flying_fast")
+				animation_player.play(flying_fast)
 		else:
 			# Check if the current animation is not a flying one
 			if animation_player.current_animation not in animations_flying:
 				# Play the idle "flying" animation
-				animation_player.play("flying")
+				animation_player.play(flying)
 
 	# Check if the player is hanging (from a ledge)
 	if is_hanging:
@@ -484,7 +503,7 @@ func mangage_state() -> void:
 			# Make the player start falling again
 			velocity.y = -gravity
 			# Play the idle "falling" animation
-			animation_player.play("falling_idle")
+			animation_player.play(falling_idle)
 
 		# [jump] button just _pressed_ (and the animation player is unlocked)
 		if Input.is_action_just_pressed("jump") and !is_animation_locked:
@@ -495,7 +514,7 @@ func mangage_state() -> void:
 			# Make the player start falling again
 			velocity.y = -gravity
 			# Play the idle "Standing" animation
-			animation_player.play("idle")
+			animation_player.play(idle)
 			# Find the target position
 			var collision_point = raycast_jumptarget.get_collision_point()
 			# Move the player
@@ -596,46 +615,46 @@ func set_player_idle_animation() -> void:
 		# Check if the current animation is not a crouching one
 		if animation_player.current_animation not in animations_crouching:
 			# Play the idle "Crouching" animation
-			animation_player.play("crouching_idle")
+			animation_player.play(crouching_idle)
 	# The player should not be crouching
 	else:
 		# Check if the current animation is still a crouching one
 		if animation_player.current_animation in animations_crouching:
 			# Play the standing "idle" animation
-			animation_player.play("idle")
+			animation_player.play(idle)
 	
 	# Check if the player is "flying"
 	if is_flying:
 		# Check if the current animation is not a flying one
 		if animation_player.current_animation not in animations_flying:
 			# Play the idle "flying" animation
-			animation_player.play("flying")
+			animation_player.play(flying)
 	# The player should not be flying
 	else:
 		# Check if the current animation is still a flying one
 		if animation_player.current_animation in animations_flying:
 			# Play the standing "idle" animation
-			animation_player.play("idle")
+			animation_player.play(idle)
 	
 	# Check if the player is "hanging"
 	if is_hanging:
 		# Check if the current animation is not a hanging one
 		if animation_player.current_animation not in animations_hanging:
 			# Play the idle "Hanging" animation
-			animation_player.play("hanging_idle")
+			animation_player.play(hanging_idle)
 	
 	# Check if the player is "jumping"
 	if is_jumping:
 		# Check if the current animation is not a jumping one
 		if animation_player.current_animation not in animations_jumping:
 			# Play the idle "Falling" animation
-			animation_player.play("falling_idle")
+			animation_player.play(falling_idle)
 	# The player should be "idle"
 	else:
 		# Check if the current animation is still a jumping one
 		if animation_player.current_animation in animations_jumping:
 			# Play the standing "idle" animation
-			animation_player.play("idle")
+			animation_player.play(idle)
 
 
 ## Sets the player's movement speed based on status.
@@ -1054,24 +1073,24 @@ func update_velocity(delta: float) -> void:
 				# Check if the player is crouching
 				if is_crouching:
 					# Play the crouching "move" animation
-					if animation_player.current_animation != "crawling_in_place":
-						animation_player.play("crawling_in_place")
+					if animation_player.current_animation != crawling_in_place:
+						animation_player.play(crawling_in_place)
 				# Check if the player is sprinting
 				elif is_sprinting:
 					# Play the sprinting "move" animation
-					if animation_player.current_animation != "sprinting_in_place":
-						animation_player.play("sprinting_in_place")
+					if animation_player.current_animation != sprinting_in_place:
+						animation_player.play(sprinting_in_place)
 				# The player must be walking or running
 				else:
 					# Check if the player is running
 					if player_current_speed > (player_running_speed - (player_running_speed - player_walking_speed) * 0.25):
 						# Play the walking "move" animation
-						if animation_player.current_animation != "running_in_place":
-							animation_player.play("running_in_place")
+						if animation_player.current_animation != running_in_place:
+							animation_player.play(running_in_place)
 					else:
 						# Play the walking "move" animation
-						if animation_player.current_animation != "walking_in_place":
-							animation_player.play("walking_in_place")
+						if animation_player.current_animation != walking_in_place:
+							animation_player.play(walking_in_place)
 			# Check if the player is not in "third person" perspective
 			if perspective == 0:
 				# Update the camera to look in the direction based on player input
