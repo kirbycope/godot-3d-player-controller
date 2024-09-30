@@ -1,3 +1,5 @@
+![Thumbnail](/ci/thumbnail.png)
+
 # godot-3d-player-controller
 A 3D Player Controller for the Godot Game Engine.
 
@@ -24,11 +26,11 @@ This game can be [exported](https://docs.godotengine.org/en/stable/tutorials/exp
 1. Change the type to "Godot Project Pack (*.pck)"
 1. Select "Save"
 
-### Export Game as Pack Using PowerShell
+### Export Game as Pack Using Bash
 1. Open the root folder using [VS Code](https://code.visualstudio.com/)
     - If you use GitHub Desktop, select the "Open in Visual Studio" button
-1. Open the [integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal)
-1. Run the following command, `. ".\ci\export-pack.ps1"`
+1. Open the [integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal) using the "Git Bash" profile
+1. Run the following command, `bash ci/export-pack.sh`
 
 ## Web Host
 This game can be hosted on GitHub Pages. Play it at [timothycope.com/godot-minecraft/](https://timothycope.com/godot-minecraft/).
