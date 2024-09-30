@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Set variables
-godot="C:\\Users\\kirby\\OneDrive\\Desktop\\Godot Game Engine.exe"
+godot=$(grep -o '"godotTools.editorPath.godot4": *"[^"]*"' .vscode/settings.json | cut -d '"' -f 4)
 preset="Web"
 project=$(basename "$(pwd)")
-path="C:\\GitHub\\${project}\ci\\${project}.pck"
+path="$(pwd)\\ci\\${project}.pck"
 
 # Print the command before running it
 echo "\"$godot\" --headless --export-pack \"$preset\" \"$path\""
