@@ -100,8 +100,8 @@ func _input(event) -> void:
 	# If the game is not paused...
 	if !Globals.game_paused:
 
-		# Check for mouse motion
-		if event is InputEventMouseMotion:
+		# Check for mouse motion and the camera is not locked
+		if event is InputEventMouseMotion and !Globals.fixed_camera:
 			# Rotate camera based on mouse movement
 			camera_rotate_by_mouse(event)
 
@@ -227,8 +227,8 @@ func _physics_process(delta) -> void:
 		var look_actions = ["look_down", "look_up", "look_left", "look_right"]
 		# Check each "look" action in the list
 		for action in look_actions:
-			# Check if the action is _pressesd_
-			if Input.is_action_pressed(action):
+			# Check if the action is _pressesd_ and the camera is not locked
+			if Input.is_action_pressed(action) and !Globals.fixed_camera:
 
 				# Rotate camera based on controller movement
 				camera_rotate_by_controller(delta)
