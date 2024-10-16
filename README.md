@@ -15,7 +15,7 @@ Include this addon with your project. No need to "activate" as the inteded usage
     - This script will download the [3d_player_controller](/addons/3d_player_controller) folder from _this_ repo and then cleanup the `.git` files/folders.
 
 ## Game Pack
-This game can be [exported](https://docs.godotengine.org/en/stable/tutorials/export/exporting_pcks.html#generating-pck-files) as a `.pck` and [imported](https://docs.godotengine.org/en/stable/tutorials/export/exporting_pcks.html#opening-pck-files-at-runtime) into another Godot game client. Download the [pack](ci\godot-minecraft.pck).
+This game can be [exported](https://docs.godotengine.org/en/stable/tutorials/export/exporting_pcks.html#generating-pck-files) as a `.pck` and [imported](https://docs.godotengine.org/en/stable/tutorials/export/exporting_pcks.html#opening-pck-files-at-runtime) into another Godot game client.
 
 ### Export Game as Pack
 1. Select "Project" > "Export.."
@@ -33,7 +33,7 @@ This game can be [exported](https://docs.godotengine.org/en/stable/tutorials/exp
 1. Run the following command, `bash ci/export-pack.sh`
 
 ## Web Host
-This game can be hosted on GitHub Pages. Play it at [timothycope.com/godot-minecraft/](https://timothycope.com/godot-minecraft/).
+This game can be hosted on GitHub Pages.
 
 ### Setting Up GitHub Pages
 Note: This only needs to be done once.
