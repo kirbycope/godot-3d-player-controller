@@ -21,6 +21,9 @@ var fixed_camera: bool = false
 ## Flag for if the game is Paused.
 var game_paused: bool = false
 
+## Flag for if the game has Started.
+var game_started: bool = false
+
 ## The Main scene.
 var main:
 	get:
