@@ -6,6 +6,9 @@ A 3D Player Controller for the Godot Game Engine.
 ## Getting Started
 Include this addon with your project. No need to "activate" as the inteded usage is to copy the controller files to the `/addons` folder and for you to then copy it to your scene/script folder and modify as need. This way if/when you pull down the latest, it will not overwrite your changes.
 
+<details>
+<summary>Using Addons</summary>
+
 ### Installing the Addon
 1. Download [install-3d-player-controller.sh](ci/install-3d-player-controller.sh)
 1. Move the file to a folder names `ci` in your project
@@ -13,6 +16,8 @@ Include this addon with your project. No need to "activate" as the inteded usage
 1. Open the "Git Bash" terminal
 1. Run `bash ci/install-3d-player-controller.sh`
     - This script will download the [3d_player_controller](/addons/3d_player_controller) folder from _this_ repo and then cleanup the `.git` files/folders.
+
+</details>
 
 <details>
 <summary>Export Game as Pack</summary>
