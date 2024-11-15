@@ -5,12 +5,12 @@ const crouching_idle = "crouching_idle"
 const crawling_in_place = "crawling_in_place"
 const idle = "idle"
 const falling_idle = "falling_idle"
-const flying = "flying"
+const flying = "flying_in_place"
 const flying_fast = "flying_fast"
 const hanging_idle = "hanging_idle"
 const kicking_low_left = "kicking_low_left"
 const kicking_low_right = "kicking_low_right"
-const jumping = "jumping"
+const jumping = falling_idle #"jumping"
 const punching_high_left = "punching_high_left"
 const punching_high_right = "punching_high_right"
 const punching_low_left = "punching_low_left"
@@ -31,6 +31,7 @@ var is_crouching: bool = false
 var is_double_jumping: bool = false
 var is_flying: bool = false
 var is_hanging: bool = false
+var is_holding: bool = false
 var is_jumping: bool = false
 var is_kicking_left: bool = false
 var is_kicking_right: bool = false
@@ -66,7 +67,9 @@ var timer_jump: float = 0.0
 @onready var animation_player = $Visuals/AuxScene/AnimationPlayer
 @onready var camera_mount = $CameraMount
 @onready var camera = $CameraMount/Camera3D
+@onready var item_mount = $ItemMount
 @onready var player_skeleton = $Visuals/AuxScene/Node/Skeleton3D
+@onready var raycast_lookat = $CameraMount/Camera3D/RayCast3D
 @onready var raycast_jumptarget = $Visuals/RayCast3D_JumpTarget
 @onready var raycast_top = $Visuals/RayCast3D_InFrontPlayer_Top
 @onready var raycast_high = $Visuals/RayCast3D_InFrontPlayer_High
@@ -176,6 +179,36 @@ func _input(event) -> void:
 				# Check the punch hits something
 				check_punch_collision()
 
+			# [use] button _pressed_ (while holding something)
+			if event.is_action_pressed("use") and is_holding:
+				# Get the nodes in the "held" group
+				var held_nodes = get_tree().get_nodes_in_group("held")
+				# Check if nodes were found in the group
+				if not held_nodes.is_empty():
+					# Get the first node in the "held" group
+					var held_node = held_nodes[0]
+					# Flag the node as no longer "held"
+					held_node.remove_from_group("held")
+					# Flag the player as "holding" something
+					is_holding = false
+					# Input handled, move on
+					return
+
+			# [use] button _pressed_ (while not holding something)
+			if event.is_action_pressed("use") and !is_holding:
+				# Check if the player is looking at something
+				if raycast_lookat.is_colliding():
+					# Get the object the RayCast is colliding with
+					var collider = raycast_lookat.get_collider()
+					# Check if the collider is a RigidBody3D
+					if collider is RigidBody3D:
+						# Flag the RigidBody3D as being "held"
+						collider.add_to_group("held")
+						# Flag the player as "holding" something
+						is_holding = true
+					# Input handled, move on
+						return
+
 		# [select] button _pressed_
 		if event.is_action_pressed("select"):
 			if perspective == 0:
@@ -243,6 +276,17 @@ func _physics_process(delta) -> void:
 
 	# Move the camera to player
 	move_camera()
+
+	# Check if the player is holding something
+	if is_holding:
+		# Get the nodes in the "held" group
+		var held_nodes = get_tree().get_nodes_in_group("held")
+		# Check if nodes were found in the group
+		if not held_nodes.is_empty():
+			# Get the first node in the "held" group
+			var held_node = held_nodes[0]
+			# Move the first node to the holding position
+			held_node.global_transform = item_mount.global_transform
 
 
 ## Check if the kick hits anything.

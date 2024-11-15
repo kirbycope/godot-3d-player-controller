@@ -4,18 +4,26 @@
 A 3D Player Controller for the Godot Game Engine.
 
 ## Getting Started
-Include this addon with your project. No need to "activate" as the inteded usage is to copy the controller files to the `/addons` folder and for you to then copy it to your scene/script folder and modify as need. This way if/when you pull down the latest, it will not overwrite your changes.
+Include this addon with your project. No need to "activate" as the intended usage is to copy the controller files to the `/addons` folder and for you to then copy it to your scene/script folder and modify as need. This way if/when you pull down the latest, it will not overwrite your changes.
+
+## Making Changes to this Repo
+1. Make changes to [pause.gd](/addons/3d_player_controller/pause.gd), [player_3d.gd](/addons/3d_player_controller/player_3d.gd), and/or [virtual_controller_3d.gd](/addons/3d_player_controller/virtual_controller_3d.gd)
+1. In Bash terminal and run, [/ci/export-pack.sh](/ci/export-pack.sh)
+	- This is used in the [Godot Game Client](https://github.com/kirbycope/godot-game-client)
+1. In Bash terminal and run, [/ci/export-web.sh](/ci/export-web.sh)
+	- This is used as demo at [http://timothycope.com/godot-3d-player-controller/](http://timothycope.com/godot-3d-player-controller/)
+1. Commit and push changes
 
 <details>
 <summary>Using Addons</summary>
 
 ### Installing the Addon
 1. Download [install-3d-player-controller.sh](ci/install-3d-player-controller.sh)
-1. Move the file to a folder names `ci` in your project
+1. Move the file to a folder named `ci` in your project
 1. Open your project in VS Code
 1. Open the "Git Bash" terminal
 1. Run `bash ci/install-3d-player-controller.sh`
-    - This script will download the [3d_player_controller](/addons/3d_player_controller) folder from _this_ repo and then cleanup the `.git` files/folders.
+	- This script will download the [3d_player_controller](/addons/3d_player_controller) folder from _this_ repo and then cleanup the `.git` files/folders.
 
 </details>
 
@@ -50,14 +58,14 @@ This game can be [exported](https://docs.godotengine.org/en/stable/tutorials/exp
 1. Select the preset "Web (Runnable)"
 1. Select "Export Project..."
 1. Select the "docs" folder
-    - The GitHub Pages config points to the `main` branch and `/docs` directory
+	- The GitHub Pages config points to the `main` branch and `/docs` directory
 1. Enter `index.html`
 1. Select "Save"
 1. Commit the code to trigger a GitHub Pages deployment (above)
 
 ### Export Game as Web App Using Bash
 1. Open the root folder using [VS Code](https://code.visualstudio.com/)
-    - If you use GitHub Desktop, select the "Open in Visual Studio" button
+	- If you use GitHub Desktop, select the "Open in Visual Studio" button
 1. Open the [integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal) using the "Git Bash" profile
 1. Run the following command, `bash ci/export-web.sh`
 
@@ -89,7 +97,7 @@ This game can be [exported](https://docs.godotengine.org/en/stable/tutorials/exp
 	- I use [OpenSSL for Windows](https://slproweb.com/products/Win32OpenSSL.html)
 	- Confirm installation by running `openssl -v` in cmd/terminal
 1. Open the root folder using [VS Code](https://code.visualstudio.com/)
-    - If you use GitHub Desktop, select the "Open in Visual Studio" button
+	- If you use GitHub Desktop, select the "Open in Visual Studio" button
 1. Open the [integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal)
 1. Run `openssl genrsa -aes256 -out localhost.key 2048`
 	- You will be prompted for a "PEM pass phrase", remember this for the next step
@@ -130,7 +138,7 @@ Note: This only needs to be done once.
 1. Go to the "Settings" tab of the repo
 1. Select "Pages" from left-nav
 1. Select `main` branch and `/docs` directory, then select "Save"
-    - A GitHub Action will deploy your website
+	- A GitHub Action will deploy your website
 1. On the main page of the GitHub repo, click the gear icon next to "About"
 1. Select "Use your GitHub Pages website", then select "Save changes"
 
@@ -138,7 +146,7 @@ Note: This only needs to be done once.
 Note: This only needs to be done once.</br>
 The following is needed to work with GitHub Pages.
 1. Select "Project" > "Export..."
-    - If you see errors, click the link for "Manage Export Templates" and then click "Download and Install"
+	- If you see errors, click the link for "Manage Export Templates" and then click "Download and Install"
 1. Select the preset "Web (Runnable)"
 1. For "Head Include", enter `<script src="coi-serviceworker.js"></script>`
 1. Download [coi.js](https://github.com/gzuidhof/coi-serviceworker/raw/master/coi-serviceworker.js) and add it to the `/docs` directory

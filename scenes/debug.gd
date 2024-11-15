@@ -56,9 +56,9 @@ func _input(event) -> void:
 				elif event.is_action_released("dpad_right"):
 					$XboxController/White/DPadRight.visible = true
 				# Ⓐ
-				if event.is_action_pressed("crouch"):
+				if event.is_action_pressed("jump"):
 					$XboxController/White/ButtonA.visible = false
-				elif event.is_action_released("crouch"):
+				elif event.is_action_released("jump"):
 					$XboxController/White/ButtonA.visible = true
 				# Ⓑ
 				if event.is_action_pressed("sprint"):
@@ -71,9 +71,9 @@ func _input(event) -> void:
 				elif event.is_action_released("use"):
 					$XboxController/White/ButtonX.visible = true
 				# Ⓨ
-				if event.is_action_pressed("jump"):
+				if event.is_action_pressed("crouch"):
 					$XboxController/White/ButtonY.visible = false
-				elif event.is_action_released("jump"):
+				elif event.is_action_released("crouch"):
 					$XboxController/White/ButtonY.visible = true
 				# ☰ (Start)
 				if event.is_action_pressed("start"):

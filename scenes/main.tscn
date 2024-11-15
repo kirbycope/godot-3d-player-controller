@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=10 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="PackedScene" uid="uid://b80ulfowrgt55" path="res://scenes/player_3d.tscn" id="1_qnqwy"]
@@ -20,6 +20,12 @@ tonemap_mode = 2
 albedo_texture = ExtResource("2_d2mly")
 uv1_triplanar = true
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_3tkmj"]
+size = Vector3(0.69, 0.69, 0.69)
+
+[sub_resource type="BoxMesh" id="BoxMesh_egegn"]
+size = Vector3(0.69, 0.69, 0.69)
+
 [node name="Main" type="Node3D"]
 script = ExtResource("1_oaegt")
 
@@ -36,3 +42,12 @@ size = Vector3(128, 0, 128)
 material = SubResource("StandardMaterial3D_j64gc")
 
 [node name="Player3D" parent="." instance=ExtResource("1_qnqwy")]
+
+[node name="MetalBox" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -2)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MetalBox"]
+shape = SubResource("BoxShape3D_3tkmj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MetalBox"]
+mesh = SubResource("BoxMesh_egegn")
