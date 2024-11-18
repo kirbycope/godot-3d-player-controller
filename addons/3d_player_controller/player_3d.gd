@@ -68,6 +68,8 @@ var timer_jump: float = 0.0
 @onready var camera_mount = $CameraMount
 @onready var camera = $CameraMount/Camera3D
 @onready var item_mount = $ItemMount
+@onready var player_collision_height = $CollisionShape3D.shape.height
+@onready var player_collision_position = $CollisionShape3D.position
 @onready var player_skeleton = $Visuals/AuxScene/Node/Skeleton3D
 @onready var raycast_lookat = $CameraMount/Camera3D/RayCast3D
 @onready var raycast_jumptarget = $Visuals/RayCast3D_JumpTarget
@@ -581,11 +583,19 @@ func mangage_state() -> void:
 		if Input.is_action_pressed("crouch") and !is_animation_locked:
 			# Flag the player as "crouching"
 			is_crouching = true
+			# Reduce CollisionShape3D to half its original height
+			$CollisionShape3D.shape.height = player_collision_height / 2
+			# Lower CollisionShape3D to half its original position
+			$CollisionShape3D.position = player_collision_position / 2
 
 		# [crouch] button just _released_
 		if Input.is_action_just_released("crouch"):
 			# Flag player as no longer "crouching"
 			is_crouching = false
+			# Reset CollisionShape3D height
+			$CollisionShape3D.shape.height = player_collision_height
+			# Reset CollisionShape3D position
+			$CollisionShape3D.position = player_collision_position
 
 		# [jump] button just _pressed_ (and the animation player is unlocked)
 		if Input.is_action_just_pressed("jump") and !is_animation_locked:

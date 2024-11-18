@@ -94,8 +94,9 @@ This game can be [exported](https://docs.godotengine.org/en/stable/tutorials/exp
 ### Generate HTTPS Certificate
 "Secure Context - Check web server configuration (use HTTPS)" The following features required to run Godot projects on the Web. Do the following to setup
 1. Download and install the [ssl binary](https://wiki.openssl.org/index.php/Binaries)
-	- I use [OpenSSL for Windows](https://slproweb.com/products/Win32OpenSSL.html)
-	- Confirm installation by running `openssl -v` in cmd/terminal
+	- [Windows] Use [OpenSSL for Windows](https://slproweb.com/products/Win32OpenSSL.html)
+	- [MacOS] Use [Homebrew](https://brew.sh/) by running, `brew install openssl@3`
+1. Confirm installation by running `openssl -v` in cmd/terminal
 1. Open the root folder using [VS Code](https://code.visualstudio.com/)
 	- If you use GitHub Desktop, select the "Open in Visual Studio" button
 1. Open the [integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal)
@@ -119,8 +120,8 @@ This game can be [exported](https://docs.godotengine.org/en/stable/tutorials/exp
 		"liveServer.settings.root": "/",
 		"liveServer.settings.https": {
 			"enable": true,
-			"cert": "localhost.pem",
-			"key": "localhost.key",
+			"cert": "{path/to/your/}localhost.pem",
+			"key": "{path/to/your/}localhost.key",
 			"passphrase": "{PEM pass phrase}"
 		}
 	}

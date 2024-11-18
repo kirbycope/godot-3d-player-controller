@@ -6,6 +6,11 @@ preset="Web"
 project=$(basename "$(pwd)")
 path="$(pwd)\\ci\\${project}.pck"
 
+# Check if the path ends with Godot.app and modify it accordingly
+if [[ "$godot" == */Godot.app ]]; then
+    godot="${godot}/Contents/MacOS/Godot"
+fi
+
 # Print the command before running it
 echo "\"$godot\" --headless --export-pack \"$preset\" \"$path\""
 

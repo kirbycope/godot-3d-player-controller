@@ -1,11 +1,11 @@
 {
-    "godotTools.editorPath.godot4": "c:\\Users\\kirby\\OneDrive\\Desktop\\Godot Game Engine.exe",
+    "godotTools.editorPath.godot4": "/Applications/Godot.app",
 
     "liveServer.settings.root": "/",
     "liveServer.settings.https": {
         "enable": true,
-        "cert": "C:\\GitHub\\godot-game-client\\localhost.pem",
-        "key": "C:\\GitHub\\godot-game-client\\localhost.key",
+        "cert": "/Users/timothycope/Documents/GitHub/localhost.pem",
+        "key": "/Users/timothycope/Documents/GitHub/localhost.key",
         "passphrase": "godot"
     }
 
