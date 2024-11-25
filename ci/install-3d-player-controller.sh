@@ -3,7 +3,7 @@
 # 1. Open VS Code
 # 2. Open New Terminal
 # 3. Select 'git bash'
-# 4. Run `bash ci/install-addons.sh`
+# 4. Run `bash ci/install-3d-player-controller.sh`
 
 
 # Navigate to the addons folder in the current repository
