@@ -62,6 +62,9 @@ var timer_jump: float = 0.0
 @export var player_running_speed: float = 3.5
 @export var player_sprinting_speed: float = 5.0
 @export var player_walking_speed: float = 1.0
+@export var zoom_max: float = 3.0
+@export var zoom_min: float = 1.0
+@export var zoom_speed: float = 0.2
 
 # Note: `@onready` variables are set when the scene is loaded.
 @onready var animation_player = $Visuals/AuxScene/AnimationPlayer
@@ -105,8 +108,16 @@ func _input(event) -> void:
 	# If the game is not paused...
 	if !Globals.game_paused:
 
+		if event.is_action_pressed("zoom_in"):
+			# Zoom in
+			camera.transform.origin.z = clamp(camera.transform.origin.z + zoom_speed, zoom_min, zoom_max)
+		elif  event.is_action_pressed("zoom_out"):
+			# Zoom out
+			camera.transform.origin.z = clamp(camera.transform.origin.z - zoom_speed, zoom_min, zoom_max)
+
 		# Check for mouse motion and the camera is not locked
 		if event is InputEventMouseMotion and !Globals.fixed_camera:
+
 			# Rotate camera based on mouse movement
 			camera_rotate_by_mouse(event)
 
@@ -1061,7 +1072,22 @@ func setup_controls():
 		joypad_axis_event.axis_value = 1.0
 		InputMap.action_add_event("left_kick", joypad_axis_event)
 
-	# Ⓛ3
+	# Ⓛ3 Check if [zoom_in] action
+	if not InputMap.has_action("zoom_in"):
+
+		# Add the [zoom_in] action to the Input Map
+		InputMap.add_action("zoom_in")
+
+		# Mouse [scroll-up]
+		var mouse_button_event = InputEventMouseButton.new()
+		mouse_button_event.button_index  = MOUSE_BUTTON_WHEEL_DOWN
+		mouse_button_event.pressed = true
+		InputMap.action_add_event("zoom_in", mouse_button_event)
+		
+		# Controller 🄻3
+		var joypad_button_event = InputEventJoypadButton.new()
+		joypad_button_event.button_index = JOY_BUTTON_LEFT_STICK
+		InputMap.action_add_event("zoom_in", joypad_button_event)
 
 	# 🅁1
 	if not InputMap.has_action("right_punch"):
@@ -1099,7 +1125,22 @@ func setup_controls():
 		joypad_axis_event.axis_value = 1.0
 		InputMap.action_add_event("right_kick", joypad_axis_event)
 
-	# Ⓡ3
+	# Ⓡ3 Check if [zoom_out] action
+	if not InputMap.has_action("zoom_out"):
+		
+		# Add the [zoom_out] action to the Input Map
+		InputMap.add_action("zoom_out")
+
+		# Mouse [scroll-up]
+		var mouse_button_event = InputEventMouseButton.new()
+		mouse_button_event.button_index  = MOUSE_BUTTON_WHEEL_UP
+		mouse_button_event.pressed = true
+		InputMap.action_add_event("zoom_out", mouse_button_event)
+		
+		# Controller 🄻3
+		var joypad_button_event = InputEventJoypadButton.new()
+		joypad_button_event.button_index = JOY_BUTTON_RIGHT_STICK
+		InputMap.action_add_event("zoom_out", joypad_button_event)
 
 
 ## Update the player's velocity based on input and status.
