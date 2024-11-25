@@ -41,7 +41,7 @@ use_collision = true
 size = Vector3(128, 0, 128)
 material = SubResource("StandardMaterial3D_j64gc")
 
-[node name="Player3D" parent="." instance=ExtResource("1_qnqwy")]
+[node name="Player" parent="." instance=ExtResource("1_qnqwy")]
 
 [node name="MetalBox" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -2)

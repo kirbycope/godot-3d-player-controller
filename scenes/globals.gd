@@ -48,11 +48,9 @@ func get_node_by_path_name(concatenated_name: String):
 			return child
 
 
-## Get the "Player3D" or "Player2D".
+## Get the "$Player" in the current Scene.
 func get_player():
-	var player = get_parent().find_child("Player3D", true, false)
-	if player == null:
-		player = get_parent().find_child("Player2D", true, false)
+	var player = get_parent().find_child("Player", true, false)
 	return player
 
 
