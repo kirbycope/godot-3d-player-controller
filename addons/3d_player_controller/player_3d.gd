@@ -108,11 +108,16 @@ func _input(event) -> void:
 	# If the game is not paused...
 	if !Globals.game_paused:
 
+		# [zoom in] button _pressed_
 		if event.is_action_pressed("zoom_in"):
-			# Zoom in
+
+			# Move the camera towards the player, slightly
 			camera.transform.origin.z = clamp(camera.transform.origin.z + zoom_speed, zoom_min, zoom_max)
-		elif  event.is_action_pressed("zoom_out"):
-			# Zoom out
+
+		# [zoom in] button _pressed_
+		if event.is_action_pressed("zoom_out"):
+
+			# Move the camera away from the player, slightly
 			camera.transform.origin.z = clamp(camera.transform.origin.z - zoom_speed, zoom_min, zoom_max)
 
 		# Check for mouse motion and the camera is not locked
@@ -229,6 +234,8 @@ func _input(event) -> void:
 				perspective = 1
 				# Set camera's position
 				camera.position = Vector3(0.0, 0.0, 0.0)
+				# Set the camera's raycast position to match the camera's position
+				raycast_lookat.position = Vector3(0.0, 0.0, 0.0)
 				# Align visuals with the camera
 				visuals.rotation = Vector3(0.0, 0.0, camera_mount.rotation.z)
 				
@@ -240,6 +247,8 @@ func _input(event) -> void:
 				camera_mount.position = Vector3(0.0, 1.65, 0.0)
 				# Set camera's position
 				camera.position = Vector3(0.0, 0.6, 2.5)
+				# Set the camera's raycast position to match the player's position
+				raycast_lookat.position = Vector3(0.0, 0.0, -2.5)
 				# Set the visual's rotation
 				visuals.rotation = Vector3(0.0, 0.0, 0.0)
 
