@@ -15,6 +15,7 @@ const punching_high_left = "punching_high_left"
 const punching_high_right = "punching_high_right"
 const punching_low_left = "punching_low_left"
 const punching_low_right = "punching_low_right"
+const rifle_idle = "rifle_aiming_idle"
 const running_in_place = "running_in_place"
 const sprinting_in_place = "sprinting_in_place"
 const walking_in_place = "walking_in_place"
@@ -302,10 +303,13 @@ func _physics_process(delta) -> void:
 	# Move the camera to player
 	move_camera()
 
-	# Move the $HeldItemMount to the right hand bone
-	move_held_item_mount()
+	# Check if the player is holding a rifle or a tool
+	if is_holding_rifle or is_holding_tool:
 
-	# Check if the player is holding something
+		# Move the position of the held item to the player's hand
+		move_held_item_mount()
+
+	# Check if the player is holding an object (hovering in front of them)
 	if is_holding:
 		# Get the nodes in the "held" group
 		var held_nodes = get_tree().get_nodes_in_group("held")
@@ -709,8 +713,8 @@ func move_held_item_mount():
 	# Set the rotation of the held item mount to match the bone's rotation
 	var bone_basis = bone_pose.basis.get_euler()
 	var rot_x = bone_basis.x
-	var rot_y = bone_basis.y
-	var rot_z = bone_basis.z
+	var rot_y = bone_basis.y - 0.2
+	var rot_z = bone_basis.z + 0.33
 	held_item_mount.rotation = Vector3(rot_x, rot_y, rot_z)
 
 
@@ -762,6 +766,10 @@ func set_player_idle_animation() -> void:
 		if animation_player.current_animation in animations_jumping:
 			# Play the standing "idle" animation
 			animation_player.play(idle)
+
+	# Check if the player is idle and holding a rifle
+	if is_holding_rifle and animation_player.current_animation == idle:
+		animation_player.play(rifle_idle)
 
 
 ## Sets the player's movement speed based on status.

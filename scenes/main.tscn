@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=14 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="PackedScene" uid="uid://b80ulfowrgt55" path="res://scenes/player_3d.tscn" id="1_qnqwy"]
@@ -34,6 +34,9 @@ uv1_triplanar = true
 material = SubResource("StandardMaterial3D_y8jba")
 size = Vector3(0.69, 0.69, 0.69)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_hm17w"]
+size = Vector3(0.5, 0.5, 0.5)
+
 [node name="Main" type="Node3D"]
 script = ExtResource("1_oaegt")
 
@@ -62,3 +65,11 @@ mesh = SubResource("BoxMesh_egegn")
 
 [node name="PortalGun" parent="." instance=ExtResource("5_k8xrp")]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -2, 0.5, -2)
+
+[node name="Area3D" type="Area3D" parent="PortalGun"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PortalGun/Area3D"]
+shape = SubResource("BoxShape3D_hm17w")
+
+[connection signal="body_entered" from="PortalGun/Area3D" to="." method="_on_area_3d_body_entered"]

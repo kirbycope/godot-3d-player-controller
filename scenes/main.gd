@@ -9,3 +9,24 @@ func _ready() -> void:
 
 	# Make sure the game is unpaused
 	Globals.game_paused = false
+	
+	$"PortalGun/AnimationPlayer".play("rotate")
+
+
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	if body is CharacterBody3D:
+		pick_up_portal_gun()
+
+func pick_up_portal_gun() -> void:
+
+		$Player.is_holding_rifle = true
+		$PortalGun.queue_free()
+
+		# Load the scene
+		var scene = load("res://scenes/portal_gun.tscn")
+
+		# Instantiate the scene
+		var instance = scene.instantiate()
+
+		# Add the instance to the player scene
+		$"Player/Visuals/HeldItemMount".add_child(instance)
