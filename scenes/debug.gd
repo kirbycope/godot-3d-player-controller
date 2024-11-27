@@ -114,21 +114,25 @@ func _process(_delta: float) -> void:
 	if visible:
 
 		# Panel
-		$Panel/CheckBox1.button_pressed = $"../../..".enable_double_jump
-		$Panel/CheckBox2.button_pressed = $"../../..".enable_flying
-		$Panel/CheckBox3.button_pressed = $"../../..".enable_vibration
-		$Panel/CheckBox4.button_pressed = $"../../..".is_animation_locked
-		$Panel/CheckBox5.button_pressed = $"../../..".is_crouching
-		$Panel/CheckBox6.button_pressed = $"../../..".is_double_jumping
-		$Panel/CheckBox7.button_pressed = $"../../..".is_flying
-		$Panel/CheckBox8.button_pressed = $"../../..".is_hanging
-		$Panel/CheckBox9.button_pressed = $"../../..".is_jumping
-		$Panel/CheckBox10.button_pressed = $"../../..".is_kicking_left
-		$Panel/CheckBox11.button_pressed = $"../../..".is_kicking_right
-		$Panel/CheckBox12.button_pressed = $"../../..".is_punching_left
-		$Panel/CheckBox13.button_pressed = $"../../..".is_punching_right
-		$Panel/CheckBox14.button_pressed = $"../../..".is_sprinting
-		$Panel/CheckBox15.button_pressed = Globals.game_paused
+		$Panel/EnableDoubleJump.button_pressed = $"../../..".enable_double_jump
+		$Panel/EnableFlying.button_pressed = $"../../..".enable_flying
+		$Panel/EnableVibration.button_pressed = $"../../..".enable_vibration
+		$Panel/IsAnimationLocked.button_pressed = $"../../..".is_animation_locked
+		$Panel/IsCrouching.button_pressed = $"../../..".is_crouching
+		$Panel/IsDoubleJumping.button_pressed = $"../../..".is_double_jumping
+		$Panel/IsFlying.button_pressed = $"../../..".is_flying
+		$Panel/IsHanging.button_pressed = $"../../..".is_hanging
+		$Panel/IsHolding.button_pressed = $"../../..".is_holding
+		$Panel/IsHoldingRifle.button_pressed = $"../../..".is_holding_rifle
+		$Panel/IsHoldingTool.button_pressed = $"../../..".is_holding_tool
+		$Panel/IsHanging.button_pressed = $"../../..".is_hanging
+		$Panel/IsJumping.button_pressed = $"../../..".is_jumping
+		$Panel/IsKickingLeft.button_pressed = $"../../..".is_kicking_left
+		$Panel/IsKickingRight.button_pressed = $"../../..".is_kicking_right
+		$Panel/IsPunchingLeft.button_pressed = $"../../..".is_punching_left
+		$Panel/IsPunchingRight.button_pressed = $"../../..".is_punching_right
+		$Panel/IsSprinting.button_pressed = $"../../..".is_sprinting
+		$Panel/GamePaused.button_pressed = Globals.game_paused
 
 		if last_input_device == "Controller":
 

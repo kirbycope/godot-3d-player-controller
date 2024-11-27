@@ -1,19 +1,21 @@
-[gd_scene load_steps=10 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=13 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="PackedScene" uid="uid://b80ulfowrgt55" path="res://scenes/player_3d.tscn" id="1_qnqwy"]
 [ext_resource type="Texture2D" uid="uid://e6rn4rs3cr0v" path="res://assets/kenney_nl/prototype_textures/PNG/Dark/texture_09.png" id="2_d2mly"]
+[ext_resource type="Texture2D" uid="uid://yjfepubkyyyr" path="res://assets/kenney_nl/prototype_textures/PNG/Light/texture_08.png" id="4_bf4q0"]
+[ext_resource type="PackedScene" uid="uid://cog5lww47pkyv" path="res://scenes/portal_gun.tscn" id="5_k8xrp"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_kmje3"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yu8tv"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 
-[sub_resource type="Sky" id="Sky_idkqp"]
-sky_material = SubResource("ProceduralSkyMaterial_kmje3")
+[sub_resource type="Sky" id="Sky_g3d2a"]
+sky_material = SubResource("ProceduralSkyMaterial_yu8tv")
 
-[sub_resource type="Environment" id="Environment_8b5by"]
+[sub_resource type="Environment" id="Environment_lhrw0"]
 background_mode = 2
-sky = SubResource("Sky_idkqp")
+sky = SubResource("Sky_g3d2a")
 tonemap_mode = 2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j64gc"]
@@ -23,18 +25,24 @@ uv1_triplanar = true
 [sub_resource type="BoxShape3D" id="BoxShape3D_3tkmj"]
 size = Vector3(0.69, 0.69, 0.69)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y8jba"]
+albedo_texture = ExtResource("4_bf4q0")
+uv1_scale = Vector3(1.4, 1.4, 1.4)
+uv1_triplanar = true
+
 [sub_resource type="BoxMesh" id="BoxMesh_egegn"]
+material = SubResource("StandardMaterial3D_y8jba")
 size = Vector3(0.69, 0.69, 0.69)
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_oaegt")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_8b5by")
+environment = SubResource("Environment_lhrw0")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 use_collision = true
@@ -51,3 +59,6 @@ shape = SubResource("BoxShape3D_3tkmj")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MetalBox"]
 mesh = SubResource("BoxMesh_egegn")
+
+[node name="PortalGun" parent="." instance=ExtResource("5_k8xrp")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -2, 0.5, -2)

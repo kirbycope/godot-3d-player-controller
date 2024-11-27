@@ -32,6 +32,8 @@ var is_double_jumping: bool = false
 var is_flying: bool = false
 var is_hanging: bool = false
 var is_holding: bool = false
+var is_holding_rifle: bool = false
+var is_holding_tool: bool = false
 var is_jumping: bool = false
 var is_kicking_left: bool = false
 var is_kicking_right: bool = false
@@ -70,6 +72,7 @@ var timer_jump: float = 0.0
 @onready var animation_player = $Visuals/AuxScene/AnimationPlayer
 @onready var camera_mount = $CameraMount
 @onready var camera = $CameraMount/Camera3D
+@onready var held_item_mount = $Visuals/HeldItemMount
 @onready var item_mount = $ItemMount
 @onready var player_collision_height = $CollisionShape3D.shape.height
 @onready var player_collision_position = $CollisionShape3D.position
@@ -298,6 +301,9 @@ func _physics_process(delta) -> void:
 
 	# Move the camera to player
 	move_camera()
+
+	# Move the $HeldItemMount to the right hand bone
+	move_held_item_mount()
 
 	# Check if the player is holding something
 	if is_holding:
@@ -681,6 +687,31 @@ func move_camera():
 		var bone_pose = player_skeleton.get_bone_global_pose(bone_index)
 		# Adjust the camera mount position to match the bone's relative position (adjusting for $Visuals/AuxScene scaling)
 		camera_mount.position = Vector3(-bone_pose.origin.x * 0.01, bone_pose.origin.y * 0.01, (-bone_pose.origin.z * 0.01) - 0.165)
+
+
+## Move the item being held in the player's hand to the player's hand.
+func move_held_item_mount():
+
+	# Get the right hand bone
+	var bone_name = "mixamorigRightHandIndex1"
+	var bone_index = player_skeleton.find_bone(bone_name)
+
+	# Get the overall transform of the specified bone, with respect to the player's skeleton.
+	var bone_pose = player_skeleton.get_bone_global_pose(bone_index)
+
+	# Adjust the held item mount position to match the bone's relative position (adjusting for $Visuals/AuxScene scaling)
+	var bone_origin = bone_pose.origin
+	var pos_x = (-bone_origin.x * 0.01)
+	var pos_y = (bone_origin.y * 0.01)
+	var pos_z = (-bone_origin.z * 0.01)
+	held_item_mount.position = Vector3(pos_x, pos_y, pos_z)
+
+	# Set the rotation of the held item mount to match the bone's rotation
+	var bone_basis = bone_pose.basis.get_euler()
+	var rot_x = bone_basis.x
+	var rot_y = bone_basis.y
+	var rot_z = bone_basis.z
+	held_item_mount.rotation = Vector3(rot_x, rot_y, rot_z)
 
 
 ## Sets the player's idle animation based on status.
