@@ -1,30 +1,36 @@
 extends CharacterBody3D
 
 # Change the animation names to those in character's animation player
-const crouching_idle = "crouching_idle"
-const crawling_in_place = "crawling_in_place"
-const idle = "idle"
-const falling_idle = "falling_idle"
-const flying = "flying_in_place"
-const flying_fast = "flying_fast"
-const hanging_idle = "hanging_idle"
-const kicking_low_left = "kicking_low_left"
-const kicking_low_right = "kicking_low_right"
-const jumping = falling_idle #"jumping"
-const punching_high_left = "punching_high_left"
-const punching_high_right = "punching_high_right"
-const punching_low_left = "punching_low_left"
-const punching_low_right = "punching_low_right"
-const rifle_idle = "rifle_aiming_idle"
-const running_in_place = "running_in_place"
-const sprinting_in_place = "sprinting_in_place"
-const walking_in_place = "walking_in_place"
+const crouching_idle = "Crouching_Idle"
+const crawling_in_place = "Crawling_In_Place"
+const standing_idle = "Standing_Idle"
+const falling_idle = "Falling_Idle"
+const flying = "Flying_In_Place"
+const flying_fast = "Flying_Fast"
+const hanging_idle = "Hanging_Idle"
+const kicking_low_left = "Kicking_Low_Left"
+const kicking_low_right = "Kicking_Low_Right"
+const jumping = falling_idle #"Jumping"
+const punching_high_left = "Punching_High_Left"
+const punching_high_right = "Punching_High_Right"
+const punching_low_left = "Punching_Low_Left"
+const punching_low_right = "Punching_Low_Right"
+const rifle_aiming_idle = "Rifle_Aiming_Idle"
+const rifle_aiming_idle_crouching = "Rifle_Aiming_Idle_Crouching"
+const rifle_idle = "Rifle_Low_Idle"
+const rifle_falling_idle = "Rifle_Falling_Idle"
+const rifle_walk_crouching = "Rilfe_Walk_Crouching"
+const rifle_run_in_place = "Rilfe_Low_Run_In_Place"
+const running_in_place = "Running_In_Place"
+const sprinting_in_place = "Sprinting_In_Place"
+const walking_in_place = "Walking_In_Place"
 
 # State machine variables
-var animations_crouching = [crawling_in_place, crouching_idle]
+var animations_crouching = [crawling_in_place, crouching_idle, rifle_aiming_idle_crouching, rifle_walk_crouching]
 var animations_flying = [flying, flying_fast]
 var animations_hanging = [hanging_idle]
 var animations_jumping = [falling_idle]
+var animations_rifle_handling = [rifle_idle, rifle_run_in_place]
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var is_animation_locked: bool = false
 var is_climbing: bool = false
@@ -118,7 +124,7 @@ func _input(event) -> void:
 			# Move the camera towards the player, slightly
 			camera.transform.origin.z = clamp(camera.transform.origin.z + zoom_speed, zoom_min, zoom_max)
 
-		# [zoom in] button _pressed_
+		# [zoom out] button _pressed_
 		if event.is_action_pressed("zoom_out"):
 
 			# Move the camera away from the player, slightly
@@ -263,8 +269,8 @@ func _physics_process(delta) -> void:
 
 	# Check if no animation is playing
 	if !animation_player.is_playing():
-		# Play the idle "Standing" animation
-		animation_player.play(idle)
+		# Play the standing_idle "Standing" animation
+		animation_player.play(standing_idle)
 		# Flag the animation player no longer locked
 		is_animation_locked = false
 		# Reset player state
@@ -273,7 +279,7 @@ func _physics_process(delta) -> void:
 		is_punching_left = false
 		is_punching_right = false
 
-	# Set the player's idle animation, as needed
+	# Set the player's standing_idle animation, as needed
 	set_player_idle_animation()
 
 	# If the game is not paused...
@@ -405,7 +411,7 @@ func check_top_edge_collision() -> void:
 	if !raycast_top.is_colliding() and raycast_high.is_colliding() and !is_climbing:
 		# Check if the current animation is not a "hanging" one
 		if animation_player.current_animation != hanging_idle:
-			# Play the idle "Hanging" animation
+			# Play the standing_idle "Hanging" animation
 			animation_player.play(hanging_idle)
 		# Adjust for the animation's player position
 		var point = raycast_high.get_collision_point()
@@ -562,12 +568,12 @@ func mangage_state() -> void:
 		if Input.is_action_pressed("sprint"):
 			# Check if the current animation is not a flying one
 			if animation_player.current_animation != flying_fast:
-				# Play the idle "flying Fast" animation
+				# Play the standing_idle "flying Fast" animation
 				animation_player.play(flying_fast)
 		else:
 			# Check if the current animation is not a flying one
 			if animation_player.current_animation not in animations_flying:
-				# Play the idle "flying" animation
+				# Play the standing_idle "flying" animation
 				animation_player.play(flying)
 
 	# Check if the player is hanging (from a ledge)
@@ -579,7 +585,7 @@ func mangage_state() -> void:
 			is_hanging = false
 			# Make the player start falling again
 			velocity.y = -gravity
-			# Play the idle "falling" animation
+			# Play the standing_idle "falling" animation
 			animation_player.play(falling_idle)
 
 		# [jump] button just _pressed_ (and the animation player is unlocked)
@@ -590,8 +596,8 @@ func mangage_state() -> void:
 			is_climbing = true
 			# Make the player start falling again
 			velocity.y = -gravity
-			# Play the idle "Standing" animation
-			animation_player.play(idle)
+			# Play the standing_idle "Standing" animation
+			animation_player.play(standing_idle)
 			# Find the target position
 			var collision_point = raycast_jumptarget.get_collision_point()
 			# Move the player
@@ -635,9 +641,15 @@ func mangage_state() -> void:
 			is_double_jumping = false
 			# Flag the player as "jumping"
 			is_jumping = true
-			# Play the "jumping" animation
-			animation_player.play(jumping)
-	
+			# Check if the "rifle handling", "jumping" animation is not already playing 
+			if is_holding_rifle and animation_player.current_animation != rifle_falling_idle:
+				# Play the "rifle handling", "jumping" animation 
+				animation_player.play(rifle_falling_idle)
+			# Check if the "jumping" animation is not already playing
+			elif !is_holding_rifle and animation_player.current_animation != jumping:
+				# Play the "jumping" animation
+				animation_player.play(jumping)
+
 	# The player should not be on a floor and not flying
 	else:
 
@@ -718,58 +730,75 @@ func move_held_item_mount():
 	held_item_mount.rotation = Vector3(rot_x, rot_y, rot_z)
 
 
-## Sets the player's idle animation based on status.
+## Sets the player's standing_idle animation based on status.
 func set_player_idle_animation() -> void:
 
 	# Check if the player is "crouching"
 	if is_crouching:
-		# Check if the current animation is not a crouching one
+		# Check if the current animation is not a "crouching" one
 		if animation_player.current_animation not in animations_crouching:
-			# Play the idle "Crouching" animation
-			animation_player.play(crouching_idle)
-	# The player should not be crouching
+			# Check if the player is "rifle handling"
+			if is_holding_rifle:
+				# Play the rifle handling "crouching" animation
+				animation_player.play(rifle_aiming_idle_crouching)
+			else:
+				# Play the standing idle "crouching" animation
+				animation_player.play(crouching_idle)
+	# The player should not be "crouching"
 	else:
-		# Check if the current animation is still a crouching one
+		# Check if the current animation is still a "crouching" one
 		if animation_player.current_animation in animations_crouching:
-			# Play the standing "idle" animation
-			animation_player.play(idle)
-	
+			# Stop the animation
+			animation_player.stop()
+
 	# Check if the player is "flying"
 	if is_flying:
-		# Check if the current animation is not a flying one
+		# Check if the current animation is not a "flying" one
 		if animation_player.current_animation not in animations_flying:
-			# Play the idle "flying" animation
+			# Play the standing_idle "flying" animation
 			animation_player.play(flying)
-	# The player should not be flying
+	# The player should not be "flying"
 	else:
-		# Check if the current animation is still a flying one
+		# Check if the current animation is still a "flying" one
 		if animation_player.current_animation in animations_flying:
-			# Play the standing "idle" animation
-			animation_player.play(idle)
+			# Stop the animation
+			animation_player.stop()
 
 	# Check if the player is "hanging"
 	if is_hanging:
-		# Check if the current animation is not a hanging one
+		# Check if the current animation is not a "hanging" one
 		if animation_player.current_animation not in animations_hanging:
-			# Play the idle "Hanging" animation
+			# Play the standing_idle "Hanging" animation
 			animation_player.play(hanging_idle)
-	
+	# The player should not be "hanging"
+	else:
+		# Check if the current animation is still a "hanging" one
+		if animation_player.current_animation in animations_hanging:
+			# Stop the animation
+			animation_player.stop()
+
 	# Check if the player is "jumping"
 	if is_jumping:
-		# Check if the current animation is not a jumping one
-		if animation_player.current_animation not in animations_jumping:
+		# Check if the player is "rifle handling" and the "jumping" animation is not already playing
+		if !is_holding_rifle and animation_player.current_animation != rifle_falling_idle:
+			# Play the standing_idle "Falling" animation
+			animation_player.play(rifle_falling_idle)
+		# Check if the "jumping" animation is not already playing
+		elif !is_holding_rifle and animation_player.current_animation != falling_idle:
 			# Play the idle "Falling" animation
 			animation_player.play(falling_idle)
-	# The player should be "idle"
+
+	# The player should be "standing idle"
 	else:
 		# Check if the current animation is still a jumping one
 		if animation_player.current_animation in animations_jumping:
-			# Play the standing "idle" animation
-			animation_player.play(idle)
+			# Stop the animation
+			animation_player.stop()
 
-	# Check if the player is idle and holding a rifle
-	if is_holding_rifle and animation_player.current_animation == idle:
-		animation_player.play(rifle_idle)
+	# Check if the animation player is not playing anything
+	if !animation_player.active:
+		# Play the standing "standing_idle" animation
+		animation_player.play(standing_idle)
 
 
 ## Sets the player's movement speed based on status.
@@ -1217,25 +1246,45 @@ func update_velocity(delta: float) -> void:
 			if is_on_floor():
 				# Check if the player is crouching
 				if is_crouching:
-					# Play the crouching "move" animation
-					if animation_player.current_animation != crawling_in_place:
+					# Check if the player is "rifle handling" and the "crawling" animation is not already playing
+					if is_holding_rifle and animation_player.current_animation != rifle_walk_crouching:
+						# Play the "rifle handling", "crawling" animation
+						animation_player.play(rifle_walk_crouching, -1, 0.5)
+					# Check if the "crawling" animation is not already playing
+					elif !is_holding_rifle and animation_player.current_animation != crawling_in_place:
+						# Play the "crawling" animation
 						animation_player.play(crawling_in_place)
 				# Check if the player is sprinting
 				elif is_sprinting:
-					# Play the sprinting "move" animation
-					if animation_player.current_animation != sprinting_in_place:
+					# Check if the player is "rifle handling" and the "sprinting" animation is not already playing
+					if is_holding_rifle and animation_player.current_animation != rifle_run_in_place:
+						# Play the "rifle handling", "sprinting" animation
+						animation_player.play(rifle_run_in_place)
+					# Check if the "sprinting" animation is not already playing 
+					elif !is_holding_rifle and animation_player.current_animation != sprinting_in_place:
+						# Play the "sprinting" animation
 						animation_player.play(sprinting_in_place)
 				# The player must be walking or running
 				else:
-					# Check if the player is running
-					if player_current_speed > (player_running_speed - (player_running_speed - player_walking_speed) * 0.25):
-						# Play the walking "move" animation
-						if animation_player.current_animation != running_in_place:
-							animation_player.play(running_in_place)
+					# Check if the player is "rifle handling"
+					if is_holding_rifle:
+						# Check if the "rifle handling", "running" animation is not already playing 
+						if animation_player.current_animation != rifle_run_in_place:
+							# Play the "rifle handling", "running" animation
+							animation_player.play(rifle_run_in_place, -1 , 0.8)
 					else:
-						# Play the walking "move" animation
-						if animation_player.current_animation != walking_in_place:
-							animation_player.play(walking_in_place)
+						# Check if the player is running
+						if player_current_speed > (player_running_speed - (player_running_speed - player_walking_speed) * 0.25):
+							# Check if the "running" animation is not already playing 
+							if animation_player.current_animation != running_in_place:
+								# Play the "walking" animation
+								animation_player.play(running_in_place)
+						# The player must be walking
+						else:
+							# Check if the "walking" animation is not already playing 
+							if animation_player.current_animation != walking_in_place:
+							# Play the "walking" animation
+								animation_player.play(walking_in_place)
 			# Check if the player is not in "third person" perspective
 			if perspective == 0:
 				# Update the camera to look in the direction based on player input
@@ -1247,7 +1296,7 @@ func update_velocity(delta: float) -> void:
 	# If no movement detected...
 	else:
 		# Stop any/all "move" animations
-		var animations = ["crawling_in_place", "running_in_place", "walking_in_place"]
+		var animations = [crawling_in_place, rifle_run_in_place, rifle_walk_crouching, running_in_place, sprinting_in_place, walking_in_place]
 		for animation in animations:
 			if animation_player.current_animation == animation:
 				animation_player.stop()

@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://uo70wpw5yysu"
-path="res://.godot/imported/hanging_idle.fbx-29516bf7b0d9136a549d0d1235fb6143.scn"
+uid="uid://dnyqi84uwc5g0"
+path="res://.godot/imported/Hanging_Idle.fbx-d6938dc4952eb4ad0cc850d56b143e3f.scn"
 
 [deps]
 
-source_file="res://assets/mixamo/animations/hanging_idle.fbx"
-dest_files=["res://.godot/imported/hanging_idle.fbx-29516bf7b0d9136a549d0d1235fb6143.scn"]
+source_file="res://assets/mixamo/animations/Hanging_Idle.fbx"
+dest_files=["res://.godot/imported/Hanging_Idle.fbx-d6938dc4952eb4ad0cc850d56b143e3f.scn"]
 
 [params]
 

@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://d11v7mbh71nl6"
-path="res://.godot/imported/running_in_place.fbx-68ebc6768ac1177af46bdbd41f305503.scn"
+uid="uid://w2l4cl7ofvm0"
+path="res://.godot/imported/Running_In_Place.fbx-06aa9c8738dd60336ad694059c13c786.scn"
 
 [deps]
 
-source_file="res://assets/mixamo/animations/running_in_place.fbx"
-dest_files=["res://.godot/imported/running_in_place.fbx-68ebc6768ac1177af46bdbd41f305503.scn"]
+source_file="res://assets/mixamo/animations/Running_In_Place.fbx"
+dest_files=["res://.godot/imported/Running_In_Place.fbx-06aa9c8738dd60336ad694059c13c786.scn"]
 
 [params]
 

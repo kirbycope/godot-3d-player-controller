@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://ce75h3jsrk2a3"
-path="res://.godot/imported/punching_high_left.fbx-5c019b6646fbf8b45a95b1b504c8f01d.scn"
+uid="uid://43y65su0plqc"
+path="res://.godot/imported/Punching_High_Left.fbx-f0d6bd5007d9afa210a0d5be9b6b1344.scn"
 
 [deps]
 
-source_file="res://assets/mixamo/animations/punching_high_left.fbx"
-dest_files=["res://.godot/imported/punching_high_left.fbx-5c019b6646fbf8b45a95b1b504c8f01d.scn"]
+source_file="res://assets/mixamo/animations/Punching_High_Left.fbx"
+dest_files=["res://.godot/imported/Punching_High_Left.fbx-f0d6bd5007d9afa210a0d5be9b6b1344.scn"]
 
 [params]
 
