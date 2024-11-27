@@ -17,8 +17,8 @@ const punching_low_left = "Punching_Low_Left"
 const punching_low_right = "Punching_Low_Right"
 const rifle_aiming_idle = "Rifle_Aiming_Idle"
 const rifle_aiming_idle_crouching = "Rifle_Aiming_Idle_Crouching"
-const rifle_idle = "Rifle_Low_Idle"
 const rifle_falling_idle = "Rifle_Falling_Idle"
+const rifle_low_idle = "Rifle_Low_Idle"
 const rifle_walk_crouching = "Rilfe_Walk_Crouching"
 const rifle_run_in_place = "Rilfe_Low_Run_In_Place"
 const running_in_place = "Running_In_Place"
@@ -30,7 +30,7 @@ var animations_crouching = [crawling_in_place, crouching_idle, rifle_aiming_idle
 var animations_flying = [flying, flying_fast]
 var animations_hanging = [hanging_idle]
 var animations_jumping = [falling_idle]
-var animations_rifle_handling = [rifle_idle, rifle_run_in_place]
+var animations_rifle_handling = [rifle_low_idle, rifle_run_in_place]
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var is_animation_locked: bool = false
 var is_climbing: bool = false
@@ -167,24 +167,28 @@ func _input(event) -> void:
 
 			# [punch-left] button _pressed_ (while on a floor, but not crouching)
 			if event.is_action_pressed("left_punch") and is_on_floor() and !is_crouching:
-				# Flag the animation player as locked
-				is_animation_locked = true
-				# Flag the player as "punching with their left arm"
-				is_punching_left = true
-				# Check if the player is crouching
-				if is_crouching:
-					# Check if the animation player is not already playing the appropriate animation
-					if animation_player.current_animation != punching_low_left:
-						# Play the left, low "punching" animation
-						animation_player.play(punching_low_left)
-				# The player should be standing
+				# Check if the player is "rifle handling"
+				if is_holding_rifle:
+					animation_player.play("Rifle_Aiming_Shoot")
 				else:
-					# Check if the animation player is not already playing the appropriate animation
-					if animation_player.current_animation != punching_high_left:
-						# Play the left "punching" animation
-						animation_player.play(punching_high_left)
-				# Check the punch hits something
-				check_punch_collision()
+					# Flag the animation player as locked
+					is_animation_locked = true
+					# Flag the player as "punching with their left arm"
+					is_punching_left = true
+					# Check if the player is crouching
+					if is_crouching:
+						# Check if the animation player is not already playing the appropriate animation
+						if animation_player.current_animation != punching_low_left:
+							# Play the left, low "punching" animation
+							animation_player.play(punching_low_left)
+					# The player should be standing
+					else:
+						# Check if the animation player is not already playing the appropriate animation
+						if animation_player.current_animation != punching_high_left:
+							# Play the left "punching" animation
+							animation_player.play(punching_high_left)
+					# Check the punch hits something
+					check_punch_collision()
 
 			# [punch-right] button _pressed_ (while on a floor, but not crouching)
 			if event.is_action_pressed("right_punch") and is_on_floor() and !is_crouching:
@@ -269,8 +273,12 @@ func _physics_process(delta) -> void:
 
 	# Check if no animation is playing
 	if !animation_player.is_playing():
-		# Play the standing_idle "Standing" animation
-		animation_player.play(standing_idle)
+		# Check if the player is "rifle handling"
+		if is_holding_rifle:
+			animation_player.play(rifle_low_idle)
+		else:
+			# Play the standing_idle "Standing" animation
+			animation_player.play(standing_idle)
 		# Flag the animation player no longer locked
 		is_animation_locked = false
 		# Reset player state
@@ -727,6 +735,10 @@ func move_held_item_mount():
 	var rot_x = bone_basis.x
 	var rot_y = bone_basis.y - 0.2
 	var rot_z = bone_basis.z + 0.33
+	# Hack: Handle idle animation postional data
+	if animation_player.current_animation == rifle_low_idle:
+		rot_y = rot_y + 0.2
+		rot_z = bone_basis.z - 0.75
 	held_item_mount.rotation = Vector3(rot_x, rot_y, rot_z)
 
 
@@ -780,7 +792,7 @@ func set_player_idle_animation() -> void:
 	# Check if the player is "jumping"
 	if is_jumping:
 		# Check if the player is "rifle handling" and the "jumping" animation is not already playing
-		if !is_holding_rifle and animation_player.current_animation != rifle_falling_idle:
+		if is_holding_rifle and animation_player.current_animation != rifle_falling_idle:
 			# Play the standing_idle "Falling" animation
 			animation_player.play(rifle_falling_idle)
 		# Check if the "jumping" animation is not already playing
@@ -849,6 +861,12 @@ func setup_controls():
 		joypad_button_event.button_index = JOY_BUTTON_DPAD_UP
 		InputMap.action_add_event("dpad_up", joypad_button_event)
 
+	# Remove [dpad, up] from the Built-In Action "ui_up"
+	var events = InputMap.action_get_events("ui_up")
+	for event in events:
+		if event is InputEventJoypadButton and event.button_index == JOY_BUTTON_DPAD_UP:
+			InputMap.action_erase_event("ui_up", event)
+
 	# Check if [dpad_left] action is not in the Input Map
 	if not InputMap.has_action("dpad_left"):
 
@@ -859,6 +877,12 @@ func setup_controls():
 		var joypad_button_event = InputEventJoypadButton.new()
 		joypad_button_event.button_index = JOY_BUTTON_DPAD_LEFT
 		InputMap.action_add_event("dpad_left", joypad_button_event)
+
+	# Remove [dpad, left] from the Built-In Action "ui_left"
+	events = InputMap.action_get_events("ui_left")
+	for event in events:
+		if event is InputEventJoypadButton and event.button_index == JOY_BUTTON_DPAD_LEFT:
+			InputMap.action_erase_event("ui_left", event)
 
 	# Check if [dpad_down] action is not in the Input Map
 	if not InputMap.has_action("dpad_down"):
@@ -871,6 +895,12 @@ func setup_controls():
 		joypad_button_event.button_index = JOY_BUTTON_DPAD_DOWN
 		InputMap.action_add_event("dpad_down", joypad_button_event)
 
+	# Remove [dpad, down] from the Built-In Action "ui_down"
+	events = InputMap.action_get_events("ui_down")
+	for event in events:
+		if event is InputEventJoypadButton and event.button_index == JOY_BUTTON_DPAD_DOWN:
+			InputMap.action_erase_event("ui_down", event)
+
 	# Check if [dpad_right] action is not in the Input Map
 	if not InputMap.has_action("dpad_right"):
 
@@ -881,6 +911,12 @@ func setup_controls():
 		var joypad_button_event = InputEventJoypadButton.new()
 		joypad_button_event.button_index = JOY_BUTTON_DPAD_RIGHT
 		InputMap.action_add_event("dpad_right", joypad_button_event)
+
+	# Remove [dpad, right] from the Built-In Action "ui_right"
+	events = InputMap.action_get_events("ui_right")
+	for event in events:
+		if event is InputEventJoypadButton and event.button_index == JOY_BUTTON_DPAD_RIGHT:
+			InputMap.action_erase_event("ui_right", event)
 
 	# Check if [move_up] action is not in the Input Map
 	if not InputMap.has_action("move_up"):
@@ -1296,7 +1332,7 @@ func update_velocity(delta: float) -> void:
 	# If no movement detected...
 	else:
 		# Stop any/all "move" animations
-		var animations = [crawling_in_place, rifle_run_in_place, rifle_walk_crouching, running_in_place, sprinting_in_place, walking_in_place]
+		var animations = [crawling_in_place, rifle_falling_idle, rifle_run_in_place, rifle_walk_crouching, running_in_place, sprinting_in_place, walking_in_place]
 		for animation in animations:
 			if animation_player.current_animation == animation:
 				animation_player.stop()
