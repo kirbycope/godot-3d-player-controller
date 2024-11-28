@@ -17,10 +17,13 @@ const punching_low_left = "Punching_Low_Left"
 const punching_low_right = "Punching_Low_Right"
 const rifle_aiming_idle = "Rifle_Aiming_Idle"
 const rifle_aiming_idle_crouching = "Rifle_Aiming_Idle_Crouching"
+const rifle_aiming_walking = "Rifle_Aiming_Run_In_Place"
 const rifle_falling_idle = "Rifle_Falling_Idle"
+const rifle_firing_standing = "Rifle_Firing"
+const rifle_firing_walking = "Rifle_Walking_Firing"
 const rifle_low_idle = "Rifle_Low_Idle"
-const rifle_walk_crouching = "Rilfe_Walk_Crouching"
-const rifle_run_in_place = "Rilfe_Low_Run_In_Place"
+const rifle_walk_crouching = "Rifle_Walk_Crouching"
+const rifle_run_in_place = "Rifle_Low_Run_In_Place"
 const running_in_place = "Running_In_Place"
 const sprinting_in_place = "Sprinting_In_Place"
 const walking_in_place = "Walking_In_Place"
@@ -165,33 +168,29 @@ func _input(event) -> void:
 				# Check the kick hits something
 				check_kick_collision()
 
-			# [punch-left] button _pressed_ (while on a floor, but not crouching)
-			if event.is_action_pressed("left_punch") and is_on_floor() and !is_crouching:
-				# Check if the player is "rifle handling"
-				if is_holding_rifle:
-					animation_player.play("Rifle_Aiming_Shoot")
+			# [punch-left] button _pressed_ (while on a floor, but not crouching or "rifle handling")
+			if event.is_action_pressed("left_punch") and is_on_floor() and !is_crouching and !is_holding_rifle:
+				# Flag the animation player as locked
+				is_animation_locked = true
+				# Flag the player as "punching with their left arm"
+				is_punching_left = true
+				# Check if the player is crouching
+				if is_crouching:
+					# Check if the animation player is not already playing the appropriate animation
+					if animation_player.current_animation != punching_low_left:
+						# Play the left, low "punching" animation
+						animation_player.play(punching_low_left)
+				# The player should be standing
 				else:
-					# Flag the animation player as locked
-					is_animation_locked = true
-					# Flag the player as "punching with their left arm"
-					is_punching_left = true
-					# Check if the player is crouching
-					if is_crouching:
-						# Check if the animation player is not already playing the appropriate animation
-						if animation_player.current_animation != punching_low_left:
-							# Play the left, low "punching" animation
-							animation_player.play(punching_low_left)
-					# The player should be standing
-					else:
-						# Check if the animation player is not already playing the appropriate animation
-						if animation_player.current_animation != punching_high_left:
-							# Play the left "punching" animation
-							animation_player.play(punching_high_left)
-					# Check the punch hits something
-					check_punch_collision()
+					# Check if the animation player is not already playing the appropriate animation
+					if animation_player.current_animation != punching_high_left:
+						# Play the left "punching" animation
+						animation_player.play(punching_high_left)
+				# Check the punch hits something
+				check_punch_collision()
 
-			# [punch-right] button _pressed_ (while on a floor, but not crouching)
-			if event.is_action_pressed("right_punch") and is_on_floor() and !is_crouching:
+			# [punch-right] button _pressed_ (while on a floor, but not "crouching" or "rifle handling")
+			if event.is_action_pressed("right_punch") and is_on_floor() and !is_crouching and !is_holding_rifle:
 				# Flag the animation player as locked
 				is_animation_locked = true
 				# Flag the player as "punching with their right arm"
@@ -322,6 +321,43 @@ func _physics_process(delta) -> void:
 
 		# Move the position of the held item to the player's hand
 		move_held_item_mount()
+
+		# <FIRE>[punch-left] button _pressed_ (while on a floor, but not crouching)
+		if Input.is_action_just_pressed("left_punch") and is_on_floor() and !is_crouching:
+			# Check if the player is standing still
+			if velocity == Vector3.ZERO:
+				# Check the animation is not already playing
+				if animation_player.current_animation != rifle_firing_standing:
+					# Play the "rifle firing" animation
+					animation_player.play(rifle_firing_standing)
+			# The player must be moving
+			else:
+				# Check the animation is not already playing
+				if animation_player.current_animation != rifle_firing_walking:
+					# Play the "rifle firing" animation
+					animation_player.play(rifle_firing_walking)
+
+		# <AIM>[punch-right] button _pressed_ (while on a floor, but not "crouching")
+		if Input.is_action_pressed("right_punch") and is_on_floor() and !is_crouching:
+			# Check if the player is standing still
+			if velocity == Vector3.ZERO:
+				# Check the animation is not already playing
+				if animation_player.current_animation not in [rifle_aiming_idle, rifle_firing_standing]:
+					# Play the "rifle aiming" animation
+					animation_player.play(rifle_aiming_idle)
+			# The player must be moving
+			else:
+				# Check the animation is not already playing
+				if animation_player.current_animation != rifle_aiming_walking:
+					# Play the "rifle firing" animation
+					animation_player.play(rifle_aiming_walking)
+		
+		# <AIM>[punch-right] button just _released_ (while on a floor, but not "crouching")
+		if Input.is_action_just_released("right_punch") and is_on_floor() and !is_crouching:
+			# Check the animation is still playing
+			if animation_player.current_animation in [rifle_aiming_idle, rifle_aiming_walking]:
+				# Play the "rifle aiming" animation
+				animation_player.stop()
 
 	# Check if the player is holding an object (hovering in front of them)
 	if is_holding:
@@ -1291,7 +1327,7 @@ func update_velocity(delta: float) -> void:
 						# Play the "crawling" animation
 						animation_player.play(crawling_in_place)
 				# Check if the player is sprinting
-				elif is_sprinting:
+				elif is_sprinting and !is_holding_rifle:
 					# Check if the player is "rifle handling" and the "sprinting" animation is not already playing
 					if is_holding_rifle and animation_player.current_animation != rifle_run_in_place:
 						# Play the "rifle handling", "sprinting" animation
@@ -1305,7 +1341,7 @@ func update_velocity(delta: float) -> void:
 					# Check if the player is "rifle handling"
 					if is_holding_rifle:
 						# Check if the "rifle handling", "running" animation is not already playing 
-						if animation_player.current_animation != rifle_run_in_place:
+						if animation_player.current_animation not in [rifle_aiming_walking, rifle_firing_walking, rifle_run_in_place]:
 							# Play the "rifle handling", "running" animation
 							animation_player.play(rifle_run_in_place, -1 , 0.8)
 					else:
