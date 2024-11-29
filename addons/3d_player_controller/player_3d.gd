@@ -1,7 +1,8 @@
 extends CharacterBody3D
 
 # Change the animation names to those in character's animation player
-const crouching_idle = "Crouching_Idle"
+const animation_crouching = "Crouching_Idle"
+const animation_crouching_rifle = "Rifle_Aiming_Idle_Crouching"
 const crawling_in_place = "Crawling_In_Place"
 const standing_idle = "Standing_Idle"
 const falling_idle = "Falling_Idle"
@@ -16,7 +17,6 @@ const punching_high_right = "Punching_High_Right"
 const punching_low_left = "Punching_Low_Left"
 const punching_low_right = "Punching_Low_Right"
 const rifle_aiming_idle = "Rifle_Aiming_Idle"
-const rifle_aiming_idle_crouching = "Rifle_Aiming_Idle_Crouching"
 const rifle_aiming_walking = "Rifle_Aiming_Run_In_Place"
 const rifle_falling_idle = "Rifle_Falling_Idle"
 const rifle_firing_standing = "Rifle_Firing"
@@ -29,7 +29,7 @@ const sprinting_in_place = "Sprinting_In_Place"
 const walking_in_place = "Walking_In_Place"
 
 # State machine variables
-var animations_crouching = [crawling_in_place, crouching_idle, rifle_aiming_idle_crouching, rifle_walk_crouching]
+var animations_crouching = [crawling_in_place, animation_crouching, animation_crouching_rifle, rifle_walk_crouching]
 var animations_flying = [flying, flying_fast]
 var animations_hanging = [hanging_idle]
 var animations_jumping = [falling_idle]
@@ -66,14 +66,15 @@ var timer_jump: float = 0.0
 @export var look_sensitivity_mouse: float = 0.2
 @export var look_sensitivity_virtual: float = 60.0
 @export var perspective: int = 0
-@export var player_crawling_speed: float = 0.75
-@export var player_current_speed: float = 3.0
 @export var player_jump_velocity: float = 4.5
-@export var player_fast_flying_speed: float = 10.0
-@export var player_flying_speed: float = 5.0
-@export var player_running_speed: float = 3.5
-@export var player_sprinting_speed: float = 5.0
-@export var player_walking_speed: float = 1.0
+@export var speed_crawling: float = 0.75
+@export var speed_current: float = 3.0
+@export var speed_flying: float = 5.0
+@export var speed_flying_fast: float = 10.0
+@export var speed_hanging: float = 0.5
+@export var speed_running: float = 3.5
+@export var speed_sprinting: float = 5.0
+@export var speed_walking: float = 1.0
 @export var zoom_max: float = 3.0
 @export var zoom_min: float = 1.0
 @export var zoom_speed: float = 0.2
@@ -82,10 +83,10 @@ var timer_jump: float = 0.0
 @onready var animation_player = $Visuals/AuxScene/AnimationPlayer
 @onready var camera_mount = $CameraMount
 @onready var camera = $CameraMount/Camera3D
+@onready var collision_height = $CollisionShape3D.shape.height
+@onready var collision_position = $CollisionShape3D.position
 @onready var held_item_mount = $Visuals/HeldItemMount
 @onready var item_mount = $ItemMount
-@onready var player_collision_height = $CollisionShape3D.shape.height
-@onready var player_collision_position = $CollisionShape3D.position
 @onready var player_skeleton = $Visuals/AuxScene/Node/Skeleton3D
 @onready var raycast_lookat = $CameraMount/Camera3D/RayCast3D
 @onready var raycast_jumptarget = $Visuals/RayCast3D_JumpTarget
@@ -141,74 +142,6 @@ func _input(event) -> void:
 
 		# Check if the animation player is not locked
 		if !is_animation_locked:
-
-			# [kick-left] button _pressed_ (while on a floor, but not crouching)
-			if event.is_action_pressed("left_kick") and is_on_floor() and !is_crouching:
-				# Flag the animation player as locked
-				is_animation_locked = true
-				# Flag the player as "kicking with their left leg"
-				is_kicking_left = true
-				# Check if the animation player is not already playing the appropriate animation
-				if animation_player.current_animation != kicking_low_left:
-					# Play the left "kicking" animation
-					animation_player.play(kicking_low_left)
-				# Check the kick hits something
-				check_kick_collision()
-
-			# [kick-right] button _pressed_ (while on a floor, but not crouching)
-			if event.is_action_pressed("right_kick") and is_on_floor() and !is_crouching:
-				# Flag the animation player as locked
-				is_animation_locked = true
-				# Flag the player as "kicking with their right leg"
-				is_kicking_right = true
-				# Check if the animation player is not already playing the appropriate animation
-				if animation_player.current_animation != kicking_low_right:
-					# Play the right "kicking" animation
-					animation_player.play(kicking_low_right)
-				# Check the kick hits something
-				check_kick_collision()
-
-			# [punch-left] button _pressed_ (while on a floor, but not crouching or "rifle handling")
-			if event.is_action_pressed("left_punch") and is_on_floor() and !is_crouching and !is_holding_rifle:
-				# Flag the animation player as locked
-				is_animation_locked = true
-				# Flag the player as "punching with their left arm"
-				is_punching_left = true
-				# Check if the player is crouching
-				if is_crouching:
-					# Check if the animation player is not already playing the appropriate animation
-					if animation_player.current_animation != punching_low_left:
-						# Play the left, low "punching" animation
-						animation_player.play(punching_low_left)
-				# The player should be standing
-				else:
-					# Check if the animation player is not already playing the appropriate animation
-					if animation_player.current_animation != punching_high_left:
-						# Play the left "punching" animation
-						animation_player.play(punching_high_left)
-				# Check the punch hits something
-				check_punch_collision()
-
-			# [punch-right] button _pressed_ (while on a floor, but not "crouching" or "rifle handling")
-			if event.is_action_pressed("right_punch") and is_on_floor() and !is_crouching and !is_holding_rifle:
-				# Flag the animation player as locked
-				is_animation_locked = true
-				# Flag the player as "punching with their right arm"
-				is_punching_right = true
-				# Check if the player is crouching
-				if is_crouching:
-					# Check if the animation player is not already playing the appropriate animation
-					if animation_player.current_animation != punching_low_right:
-						# Play the right, low "punching" animation
-						animation_player.play(punching_low_right)
-				# The player should be standing
-				else:
-					# Check if the animation player is not already playing the appropriate animation
-					if animation_player.current_animation != punching_high_right:
-						# Play the right "punching" animation
-						animation_player.play(punching_high_right)
-				# Check the punch hits something
-				check_punch_collision()
 
 			# [use] button _pressed_ (while holding something)
 			if event.is_action_pressed("use") and is_holding:
@@ -322,7 +255,7 @@ func _physics_process(delta) -> void:
 		# Move the position of the held item to the player's hand
 		move_held_item_mount()
 
-		# <FIRE>[punch-left] button _pressed_ (while on a floor, but not crouching)
+		# <FIRE>[punch-left] button _pressed_ (while on a floor, but not animation_crouching)
 		if Input.is_action_just_pressed("left_punch") and is_on_floor() and !is_crouching:
 			# Check if the player is standing still
 			if velocity == Vector3.ZERO:
@@ -337,7 +270,7 @@ func _physics_process(delta) -> void:
 					# Play the "rifle firing" animation
 					animation_player.play(rifle_firing_walking)
 
-		# <AIM>[punch-right] button _pressed_ (while on a floor, but not "crouching")
+		# <AIM>[punch-right] button _pressed_ (while on a floor, but not "animation_crouching")
 		if Input.is_action_pressed("right_punch") and is_on_floor() and !is_crouching:
 			# Check if the player is standing still
 			if velocity == Vector3.ZERO:
@@ -352,7 +285,7 @@ func _physics_process(delta) -> void:
 					# Play the "rifle firing" animation
 					animation_player.play(rifle_aiming_walking)
 		
-		# <AIM>[punch-right] button just _released_ (while on a floor, but not "crouching")
+		# <AIM>[punch-right] button just _released_ (while on a floor, but not "animation_crouching")
 		if Input.is_action_just_released("right_punch") and is_on_floor() and !is_crouching:
 			# Check the animation is still playing
 			if animation_player.current_animation in [rifle_aiming_idle, rifle_aiming_walking]:
@@ -659,24 +592,6 @@ func mangage_state() -> void:
 		is_jumping = false
 		is_double_jumping = false
 
-		# [crouch] button currently _pressed_ (and the animation played is unlocked)
-		if Input.is_action_pressed("crouch") and !is_animation_locked:
-			# Flag the player as "crouching"
-			is_crouching = true
-			# Reduce CollisionShape3D to half its original height
-			$CollisionShape3D.shape.height = player_collision_height / 2
-			# Lower CollisionShape3D to half its original position
-			$CollisionShape3D.position = player_collision_position / 2
-
-		# [crouch] button just _released_
-		if Input.is_action_just_released("crouch"):
-			# Flag player as no longer "crouching"
-			is_crouching = false
-			# Reset CollisionShape3D height
-			$CollisionShape3D.shape.height = player_collision_height
-			# Reset CollisionShape3D position
-			$CollisionShape3D.position = player_collision_position
-
 		# [jump] button just _pressed_ (and the animation player is unlocked)
 		if Input.is_action_just_pressed("jump") and !is_animation_locked:
 			# Set the player's vertical velocity
@@ -699,11 +614,6 @@ func mangage_state() -> void:
 
 		# Edge detection
 		check_top_edge_collision()
-		
-		# [crouch] button just _released_
-		if Input.is_action_just_released("crouch"):
-			# Flag player as no longer "crouching"
-			is_crouching = false
 
 		# [jump] button just _pressed_
 		if Input.is_action_just_pressed("jump"):
@@ -781,20 +691,20 @@ func move_held_item_mount():
 ## Sets the player's standing_idle animation based on status.
 func set_player_idle_animation() -> void:
 
-	# Check if the player is "crouching"
+	# Check if the player is "animation_crouching"
 	if is_crouching:
-		# Check if the current animation is not a "crouching" one
+		# Check if the current animation is not a "animation_crouching" one
 		if animation_player.current_animation not in animations_crouching:
 			# Check if the player is "rifle handling"
 			if is_holding_rifle:
-				# Play the rifle handling "crouching" animation
-				animation_player.play(rifle_aiming_idle_crouching)
+				# Play the rifle handling "animation_crouching" animation
+				animation_player.play(animation_crouching_rifle)
 			else:
-				# Play the standing idle "crouching" animation
-				animation_player.play(crouching_idle)
-	# The player should not be "crouching"
+				# Play the standing idle "animation_crouching" animation
+				animation_player.play(animation_crouching)
+	# The player should not be "animation_crouching"
 	else:
-		# Check if the current animation is still a "crouching" one
+		# Check if the current animation is still a "animation_crouching" one
 		if animation_player.current_animation in animations_crouching:
 			# Stop the animation
 			animation_player.stop()
@@ -851,25 +761,25 @@ func set_player_idle_animation() -> void:
 
 ## Sets the player's movement speed based on status.
 func set_player_speed(input_magnitude) -> void:
-	# Check if the player is crouching or hanging
+	# Check if the player is animation_crouching or hanging
 	if is_crouching or is_hanging:
 		# Set the player's movement speed to the "crawling" speed
-		player_current_speed = player_crawling_speed
+		speed_current = speed_crawling
 	# Check if the player is flying and sprinting
 	elif is_flying and is_sprinting:
 		# Set the player's movement speed to "fast flying"
-		player_current_speed = player_fast_flying_speed
+		speed_current = speed_flying_fast
 	# Check if the player if flying (but not sprinting)
 	elif is_flying:
 		# Set the player's movement speed to "flying"
-		player_current_speed = player_flying_speed
+		speed_current = speed_flying
 	# Check if the player is sprinting (but not flying)
 	elif is_sprinting:
-		player_current_speed = player_sprinting_speed
+		speed_current = speed_sprinting
 	# The player should be walking (or standing)
 	else:
 		# Determine player speed based on input magnitude (walking or running)
-		player_current_speed = lerp(player_walking_speed, player_running_speed, input_magnitude)
+		speed_current = lerp(speed_walking, speed_running, input_magnitude)
 
 
 ## Define the initial control configuration.
@@ -1316,7 +1226,7 @@ func update_velocity(delta: float) -> void:
 		if !is_animation_locked:
 			# Check if the player is on the ground
 			if is_on_floor():
-				# Check if the player is crouching
+				# Check if the player is animation_crouching
 				if is_crouching:
 					# Check if the player is "rifle handling" and the "crawling" animation is not already playing
 					if is_holding_rifle and animation_player.current_animation != rifle_walk_crouching:
@@ -1346,7 +1256,7 @@ func update_velocity(delta: float) -> void:
 							animation_player.play(rifle_run_in_place, -1 , 0.8)
 					else:
 						# Check if the player is running
-						if player_current_speed > (player_running_speed - (player_running_speed - player_walking_speed) * 0.25):
+						if speed_current > (speed_running - (speed_running - speed_walking) * 0.25):
 							# Check if the "running" animation is not already playing 
 							if animation_player.current_animation != running_in_place:
 								# Play the "walking" animation
@@ -1362,9 +1272,9 @@ func update_velocity(delta: float) -> void:
 				# Update the camera to look in the direction based on player input
 				visuals.look_at(position + direction)
 			# Update horizontal veolicty
-			velocity.x = direction.x * player_current_speed
+			velocity.x = direction.x * speed_current
 			# Update vertical veolocity
-			velocity.z = direction.z * player_current_speed
+			velocity.z = direction.z * speed_current
 	# If no movement detected...
 	else:
 		# Stop any/all "move" animations
@@ -1373,6 +1283,6 @@ func update_velocity(delta: float) -> void:
 			if animation_player.current_animation == animation:
 				animation_player.stop()
 		# Update horizontal veolicty
-		velocity.x = move_toward(velocity.x, 0, player_current_speed)
+		velocity.x = move_toward(velocity.x, 0, speed_current)
 		# Update vertical veolocity
-		velocity.z = move_toward(velocity.z, 0, player_current_speed)
+		velocity.z = move_toward(velocity.z, 0, speed_current)
