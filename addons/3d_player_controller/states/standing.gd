@@ -15,14 +15,15 @@ func _input(event: InputEvent) -> void:
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
 
-				# Check if the player is not "crouching" and is "on ground"
-				if !player.is_crouching and player.is_on_ground():
+				# Check if the player is not "crouching" and is "on floor"
+				if !player.is_crouching and player.is_on_floor():
 
 					# Check if the player is "holding a rifle"
 					if player.is_holding_rifle:
 
 						pass # ToDo: ?
 
+					# The player must be unarmed
 					else:
 
 						# Check if the animation player is not already playing the appropriate animation
@@ -30,6 +31,32 @@ func _input(event: InputEvent) -> void:
 
 							# Play the "kicking low, left" animation
 							player.animation_player.play(player.kicking_low_left)
+
+							# Check the kick hits something
+							player.check_kick_collision()
+
+		# [right-kick] button _pressed_
+		if Input.is_action_pressed("right_kick"):
+
+			# Check if the animation player is not locked
+			if !player.is_animation_locked:
+
+				# Check if the player is not "crouching" and is "on floor"
+				if !player.is_crouching and player.is_on_floor():
+
+					# Check if the player is "holding a rifle"
+					if player.is_holding_rifle:
+
+						pass # ToDo: ?
+
+					# The player must be unarmed
+					else:
+
+						# Check if the animation player is not already playing the appropriate animation
+						if player.animation_player.current_animation != player.kicking_low_right:
+
+							# Play the "kicking low, right" animation
+							player.animation_player.play(player.kicking_low_right)
 
 							# Check the kick hits something
 							player.check_kick_collision()
@@ -48,6 +75,7 @@ func _input(event: InputEvent) -> void:
 
 						pass # ToDo: Firing while standing
 
+					# The player must be unarmed
 					else:
 
 						# Check if the animation player is not already playing the appropriate animation
@@ -73,6 +101,7 @@ func _input(event: InputEvent) -> void:
 
 						pass # ToDo: Firing while standing
 
+					# The player must be unarmed
 					else:
 
 						# Check if the animation player is not already playing the appropriate animation

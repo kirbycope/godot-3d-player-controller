@@ -45,14 +45,15 @@ func _input(event: InputEvent) -> void:
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
 
-				# Check if the player is "crouching" and is "on ground"
-				if player.is_crouching and player.is_on_ground():
+				# Check if the player is "crouching" and is "on floor"
+				if player.is_crouching and player.is_on_floor():
 
 					# Check if the player is "holding a rifle"
 					if player.is_holding_rifle:
 
 						pass # ToDo: Firing while kneeling
 
+					# The player must be unarmed
 					else:
 
 						# Check if the animation player is not already playing the appropriate animation
@@ -78,6 +79,7 @@ func _input(event: InputEvent) -> void:
 
 						pass # ToDo: Firing while kneeling
 
+					# The player must be unarmed
 					else:
 
 						# Check if the animation player is not already playing the appropriate animation
@@ -100,13 +102,13 @@ func _process(delta: float) -> void:
 		player.speed_current = player.speed_crawling
 
 		# If no relevant animation is playing, play an "idle" animation
-		if player.animation_player.current_animation in player.animations_crouching:
+		if player.animation_player.current_animation not in player.animations_crouching:
 
 			# Check if the player is "holding a rifle"
 			if player.is_holding_rifle:
 
 				# Play the "crouching, holding a rifle" animation
-				player.animation_player.play(player.animation_crouching_rifle)
+				player.animation_player.play(player.animation_crouching_aiming_rifle)
 
 			# The player must be unarmed
 			else:
@@ -117,6 +119,8 @@ func _process(delta: float) -> void:
 	# The player must not be "crouching"
 	else:
 
-			# Stop any "crouching" animation
+			# Check if the current animation is still a "animation_crouching" one
 			if player.animation_player.current_animation in player.animations_crouching:
+
+				# Stop the animation
 				player.animation_player.stop()
