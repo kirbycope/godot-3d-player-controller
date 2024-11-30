@@ -9,7 +9,7 @@ func _input(event: InputEvent) -> void:
 	# Check if the game is not paused
 	if !Globals.game_paused:
 
-		# [crouch] button just _pressed_
+		# [crouch] button _pressed_
 		if Input.is_action_just_pressed("crouch"):
 
 			# Check if the animation player is not locked
@@ -95,6 +95,12 @@ func _input(event: InputEvent) -> void:
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 
+	# Check if the crouching button is held (after the player becomes airbourne)
+	if Input.is_action_pressed("crouch") and player.is_on_floor():
+
+		# Flag the player as "crouching"
+		player.is_crouching = true
+
 	# Check if the player is "crouching"
 	if player.is_crouching:
 
@@ -119,7 +125,7 @@ func _process(delta: float) -> void:
 	# The player must not be "crouching"
 	else:
 
-			# Check if the current animation is still a "animation_crouching" one
+			# Check if the current animation is still a "crouching" one
 			if player.animation_player.current_animation in player.animations_crouching:
 
 				# Stop the animation

@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://doolxniiq1bm2"
-path="res://.godot/imported/Kicking_High_Left.fbx-6d3693fe09e5421e6f7de98cecb42ef0.scn"
+path="res://.godot/imported/kicking_high_left.fbx-400b465174238986d19e01be4c7f1391.scn"
 
 [deps]
 
-source_file="res://assets/mixamo/animations/Kicking_High_Left.fbx"
-dest_files=["res://.godot/imported/Kicking_High_Left.fbx-6d3693fe09e5421e6f7de98cecb42ef0.scn"]
+source_file="res://assets/mixamo/animations/kicking_high_left.fbx"
+dest_files=["res://.godot/imported/kicking_high_left.fbx-400b465174238986d19e01be4c7f1391.scn"]
 
 [params]
 
