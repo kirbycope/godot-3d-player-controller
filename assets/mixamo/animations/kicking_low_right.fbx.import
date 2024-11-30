@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://d1iif1ksx7pjj"
-path="res://.godot/imported/kicking_low_right.fbx-7d40b98d586fd0487382d81bf86a2754.scn"
+uid="uid://bynipnov181yl"
+path="res://.godot/imported/Kicking_Low_Right.fbx-d8bc6680746a1855311b4fe14ad11054.scn"
 
 [deps]
 
-source_file="res://assets/mixamo/animations/kicking_low_right.fbx"
-dest_files=["res://.godot/imported/kicking_low_right.fbx-7d40b98d586fd0487382d81bf86a2754.scn"]
+source_file="res://assets/mixamo/animations/Kicking_Low_Right.fbx"
+dest_files=["res://.godot/imported/Kicking_Low_Right.fbx-d8bc6680746a1855311b4fe14ad11054.scn"]
 
 [params]
 

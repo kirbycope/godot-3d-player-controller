@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bgvpd7xr637rk"
-path="res://.godot/imported/crouching_idle.fbx-338ec2621a9b2940758127980e70968f.scn"
+uid="uid://q3xsbdhu01n4"
+path="res://.godot/imported/Crouching_Idle.fbx-79629305c6be568adb38a348e9144577.scn"
 
 [deps]
 
-source_file="res://assets/mixamo/animations/crouching_idle.fbx"
-dest_files=["res://.godot/imported/crouching_idle.fbx-338ec2621a9b2940758127980e70968f.scn"]
+source_file="res://assets/mixamo/animations/Crouching_Idle.fbx"
+dest_files=["res://.godot/imported/Crouching_Idle.fbx-79629305c6be568adb38a348e9144577.scn"]
 
 [params]
 

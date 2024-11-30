@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://7jx3ispa60e4"
-path="res://.godot/imported/flying_fast_in_place.fbx-71ba731b3fe1ec4a1316f3b768a0a2a9.scn"
+uid="uid://cvqeng08myt77"
+path="res://.godot/imported/Flying_Fast_In_Place.fbx-8ce16c3b852a1efefa46a740b2ab039d.scn"
 
 [deps]
 
-source_file="res://assets/mixamo/animations/flying_fast_in_place.fbx"
-dest_files=["res://.godot/imported/flying_fast_in_place.fbx-71ba731b3fe1ec4a1316f3b768a0a2a9.scn"]
+source_file="res://assets/mixamo/animations/Flying_Fast_In_Place.fbx"
+dest_files=["res://.godot/imported/Flying_Fast_In_Place.fbx-8ce16c3b852a1efefa46a740b2ab039d.scn"]
 
 [params]
 

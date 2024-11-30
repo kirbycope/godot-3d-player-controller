@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://ctmbxowue5i1h"
-path="res://.godot/imported/reaction_high_left.fbx-5ea73d824167124db7339b87fb12ed22.scn"
+uid="uid://kixycl1tye0q"
+path="res://.godot/imported/Reaction_High_Left.fbx-d1c79fddf7145697b71a42e4f4cfe0cf.scn"
 
 [deps]
 
-source_file="res://assets/mixamo/animations/reaction_high_left.fbx"
-dest_files=["res://.godot/imported/reaction_high_left.fbx-5ea73d824167124db7339b87fb12ed22.scn"]
+source_file="res://assets/mixamo/animations/Reaction_High_Left.fbx"
+dest_files=["res://.godot/imported/Reaction_High_Left.fbx-d1c79fddf7145697b71a42e4f4cfe0cf.scn"]
 
 [params]
 

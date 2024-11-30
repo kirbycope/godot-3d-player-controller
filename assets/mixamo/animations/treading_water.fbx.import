@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://btg2enp1gudq0"
-path="res://.godot/imported/treading_water.fbx-785e29a998dc75c19928e8158b3647f8.scn"
+uid="uid://4syy2atrs4rb"
+path="res://.godot/imported/Treading_Water.fbx-ec794235ae0d509d750c30b38be22241.scn"
 
 [deps]
 
-source_file="res://assets/mixamo/animations/treading_water.fbx"
-dest_files=["res://.godot/imported/treading_water.fbx-785e29a998dc75c19928e8158b3647f8.scn"]
+source_file="res://assets/mixamo/animations/Treading_Water.fbx"
+dest_files=["res://.godot/imported/Treading_Water.fbx-ec794235ae0d509d750c30b38be22241.scn"]
 
 [params]
 

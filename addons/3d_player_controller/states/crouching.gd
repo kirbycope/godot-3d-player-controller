@@ -120,7 +120,7 @@ func _process(delta: float) -> void:
 			else:
 
 				# Play the "crouching" animation
-				player.animation_player.play(player.animation_crouching)
+				player.animation_player.play(player.animation_crouching_idle)
 
 	# The player must not be "crouching"
 	else:

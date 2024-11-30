@@ -73,7 +73,11 @@ func _input(event: InputEvent) -> void:
 					# Check if the player is "holding a rifle"
 					if player.is_holding_rifle:
 
-						pass # ToDo: Firing while standing
+						# Check if the animation player is not already playing the appropriate animation
+						if player.animation_player.current_animation != player.animation_standing_firing_rifle:
+
+							# Play the "standing, firing rifle" animation
+							player.animation_player.play(player.animation_standing_firing_rifle)
 
 					# The player must be unarmed
 					else:
@@ -96,13 +100,8 @@ func _input(event: InputEvent) -> void:
 				# Check if the player is not "crouching" and is "on floor"
 				if !player.is_crouching and player.is_on_floor():
 
-					# Check if the player is "holding a rifle"
-					if player.is_holding_rifle:
-
-						pass # ToDo: Firing while standing
-
-					# The player must be unarmed
-					else:
+					# Check if the player is not "holding a rifle"
+					if !player.is_holding_rifle:
 
 						# Check if the animation player is not already playing the appropriate animation
 						if player.animation_player.current_animation != player.punching_high_right:
@@ -129,3 +128,21 @@ func _process(delta: float) -> void:
 
 		# Set the player's movement speed
 		player.speed_current = player.speed_walking
+
+	# [right-punch] button _pressed_
+	if Input.is_action_pressed("right_punch"):
+
+		# Check if the animation player is not locked
+			if !player.is_animation_locked:
+
+				# Check if the player is not "crouching" and is "on floor"
+				if !player.is_crouching and player.is_on_floor():
+
+					# Check if the player is "holding a rifle"
+					if player.is_holding_rifle:
+
+						# Check if the animation player is not already playing the appropriate animation
+						if player.animation_player.current_animation != player.animation_standing_aiming_rifle:
+
+							# Play the "standing idle, aiming rifle" animation
+							player.animation_player.play(player.animation_standing_aiming_rifle)

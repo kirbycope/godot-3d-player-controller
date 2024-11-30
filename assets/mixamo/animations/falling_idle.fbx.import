@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dioll4f18x7x8"
-path="res://.godot/imported/falling_idle.fbx-2c90b4dd620197c2c62a231a596ab1d7.scn"
+uid="uid://xy4vlpk2t3or"
+path="res://.godot/imported/Falling_Idle.fbx-f60dd0da75a06441773c79dd830c6251.scn"
 
 [deps]
 
-source_file="res://assets/mixamo/animations/falling_idle.fbx"
-dest_files=["res://.godot/imported/falling_idle.fbx-2c90b4dd620197c2c62a231a596ab1d7.scn"]
+source_file="res://assets/mixamo/animations/Falling_Idle.fbx"
+dest_files=["res://.godot/imported/Falling_Idle.fbx-f60dd0da75a06441773c79dd830c6251.scn"]
 
 [params]
 

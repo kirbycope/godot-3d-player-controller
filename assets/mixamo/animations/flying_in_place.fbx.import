@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dua2rs03y0aok"
-path="res://.godot/imported/flying_in_place.fbx-b4f7a881b2d99ef8e8888de3caa7d50b.scn"
+uid="uid://b7ocercnedlmw"
+path="res://.godot/imported/Flying_In_Place.fbx-e169253fc8d963c495dd92aa301975c6.scn"
 
 [deps]
 
-source_file="res://assets/mixamo/animations/flying_in_place.fbx"
-dest_files=["res://.godot/imported/flying_in_place.fbx-b4f7a881b2d99ef8e8888de3caa7d50b.scn"]
+source_file="res://assets/mixamo/animations/Flying_In_Place.fbx"
+dest_files=["res://.godot/imported/Flying_In_Place.fbx-e169253fc8d963c495dd92aa301975c6.scn"]
 
 [params]
 
