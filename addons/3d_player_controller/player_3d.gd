@@ -38,7 +38,7 @@ const animation_sprinting_holding_rifle = ""
 const animation_walking = "Walking_In_Place"
 const animation_walking_aiming_rifle = ""
 const animation_walking_firing_rifle = "Rifle_Walking_Firing"
-const animation_walking_holding_rifle = ""
+const animation_walking_holding_rifle = "Rifle_Low_Run_In_Place"
 
 const kicking_low_left = "Kicking_Low_Left"
 const kicking_low_right = "Kicking_Low_Right"
@@ -73,8 +73,10 @@ var is_kicking_left: bool = false
 var is_kicking_right: bool = false
 var is_punching_left: bool = false
 var is_punching_right: bool = false
+var is_running: bool = false
 var is_sprinting: bool = false
 var is_standing: bool = false
+var is_walking: bool = false
 var timer_jump: float = 0.0
 
 # Note: `@export` variables are available for editing in the property editor.
@@ -232,13 +234,13 @@ func _input(event) -> void:
 func _physics_process(delta) -> void:
 
 	# Set the player's animation_standing animation, as needed
-	set_player_idle_animation()
+	#set_player_idle_animation()
 
 	# If the game is not paused...
 	if !Globals.game_paused:
 
 		# set animation and velocity based on player action and position
-		mangage_state()
+		#mangage_state()
 
 		# Handle [look_*] using controller
 		var look_actions = ["look_down", "look_up", "look_left", "look_right"]
@@ -468,16 +470,6 @@ func flying_stop() -> void:
 
 ## Manage the player's state; setting flags and playing animations.
 func mangage_state() -> void:
-
-	# [sprint] button _pressed_ (and the animation player is not locked)
-	if Input.is_action_pressed("sprint") and !is_animation_locked:
-		# Flag the player as "sprinting"
-		is_sprinting = true
-	
-	# [sprint] button just _released_
-	if Input.is_action_just_released("sprint"):
-		# Flag the player as no longer "sprinting"
-		is_sprinting = false
 	
 	# Check if the player is animation_flying
 	if is_flying:
@@ -654,12 +646,6 @@ func set_player_idle_animation() -> void:
 		if animation_player.current_animation not in animations_flying:
 			# Play the animation_standing "animation_flying" animation
 			animation_player.play(animation_flying)
-	# The player should not be "animation_flying"
-	else:
-		# Check if the current animation is still a "animation_flying" one
-		if animation_player.current_animation in animations_flying:
-			# Stop the animation
-			animation_player.stop()
 
 	# Check if the player is "hanging"
 	if is_hanging:
@@ -667,17 +653,6 @@ func set_player_idle_animation() -> void:
 		if animation_player.current_animation not in animations_hanging:
 			# Play the animation_standing "Hanging" animation
 			animation_player.play(animation_hanging)
-	# The player should not be "hanging"
-	else:
-		# Check if the current animation is still a "hanging" one
-		if animation_player.current_animation in animations_hanging:
-			# Stop the animation
-			animation_player.stop()
-
-	# Check if the animation player is not playing anything
-	if !animation_player.active:
-		# Play the standing "animation_standing" animation
-		animation_player.play(animation_standing)
 
 
 ## Sets the player's movement speed based on status.
@@ -1155,14 +1130,9 @@ func update_velocity(delta: float) -> void:
 			velocity.x = direction.x * speed_current
 			# Update vertical veolocity
 			velocity.z = direction.z * speed_current
-	# If no movement detected...
+
+	# No movement detected
 	else:
-		# Stop any/all "move" animations
-		#var animations = [animation_crawling, animation_jumping_holding_rifle, rifle_run_in_place, rifle_walk_crouching, running_in_place, sprinting_in_place, walking_in_place]
-		var animations = []
-		for animation in animations:
-			if animation_player.current_animation == animation:
-				animation_player.stop()
 		# Update horizontal veolicty
 		velocity.x = move_toward(velocity.x, 0, speed_current)
 		# Update vertical veolocity

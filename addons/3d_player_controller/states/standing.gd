@@ -1,6 +1,6 @@
 extends Node
 
-@onready var player = Globals.get_player()
+@onready var player: CharacterBody3D = get_parent().get_parent()
 
 
 ## Called when there is an input event. The input event propagates up through the node tree until a node consumes it.
@@ -128,35 +128,41 @@ func _input(event: InputEvent) -> void:
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 
-	# Check if the player is "standing"
-	if player.velocity.y == 0.0 and player.is_on_floor():
+	# Flag the player as not "standing"
+	player.is_standing = false
+
+	# Check if the player is not moving (and not crouching)
+	if player.velocity == Vector3(0.0, 0.0, 0.0) and !player.is_crouching:
 
 		# Flag the player as "standing"
 		player.is_standing = true
 
 		# Set the player's movement speed
 		player.speed_current = player.speed_walking
-	
-	# Check if the player is moving
-	elif player.velocity != Vector3.ZERO:
 
-		# Flag the player as no longer "standing"
-		player.is_standing = false
-
-	# [right-punch] button _pressed_
-	if Input.is_action_pressed("right_punch"):
+	# <Animations> Check if the player is "standing"
+	if player.is_standing:
 
 		# Check if the animation player is not locked
-			if !player.is_animation_locked:
+		if !player.is_animation_locked:
 
-				# Check if the player is not "crouching" and is "on floor"
-				if !player.is_crouching and player.is_on_floor():
+			# Check if the player is not "crouching" and is "on floor"
+			if !player.is_crouching and player.is_on_floor():
 
-					# Check if the player is "holding a rifle"
-					if player.is_holding_rifle:
+				# Check if the player is "holding a rifle"
+				if player.is_holding_rifle:
 
-						# Check if the animation player is not already playing the appropriate animation
-						if player.animation_player.current_animation != player.animation_standing_aiming_rifle:
+					# Check if the animation player is not already playing the appropriate animation
+					if player.animation_player.current_animation != player.animation_standing_aiming_rifle:
 
-							# Play the "standing idle, aiming rifle" animation
-							player.animation_player.play(player.animation_standing_aiming_rifle)
+						# Play the "standing idle, aiming rifle" animation
+						player.animation_player.play(player.animation_standing_aiming_rifle)
+
+				# The player must be unarmed
+				else:
+
+					# Check if the animation player is not already playing the appropriate animation
+					if player.animation_player.current_animation != player.animation_standing:
+
+						# Play the "standing idle" animation
+						player.animation_player.play(player.animation_standing)

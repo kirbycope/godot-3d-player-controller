@@ -1,11 +1,79 @@
 extends Node
 
+@onready var player: CharacterBody3D = get_parent().get_parent()
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+
+## Called when there is an input event. The input event propagates up through the node tree until a node consumes it.
+func _input(event: InputEvent) -> void:
+
+	# Check if the game is not paused
+	if !Globals.game_paused:
+
+		# [sprint] button _pressed_
+		if Input.is_action_just_pressed("sprint"):
+
+			# Check if the animation player is not locked
+			if !player.is_animation_locked:
+
+				# Check if the player "is on floor"
+				if player.is_on_floor():
+
+					# Start "sprinting"
+					start_sprinting()
+
+		# [sprint] button just _released_
+		if Input.is_action_just_released("sprint"):
+
+			# Stop "sprinting"
+			stop_sprinting()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+
+	# [sprint] button _pressed_ (and not already "sprinting")
+	if Input.is_action_pressed("sprint") and !player.is_sprinting:
+
+		# Check if the animation player is not locked
+		if !player.is_animation_locked:
+
+			# Check if the player "is on floor"
+			if player.is_on_floor():
+
+				# Start "sprinting"
+				start_sprinting()
+
+	# <Animations> Check if the player is "sprinting"
+	if player.is_sprinting:
+
+		# Check if a relevant animation is not playing
+		if player.animation_player.current_animation != "" and player.animation_player.current_animation not in player.animations_walking:
+
+			# Check if the player is "holding a rifle"
+			if player.is_holding_rifle:
+
+				# Play the "sprinting, holding a rifle" animation
+				player.animation_player.play(player.animation_sprinting_holding_rifle)
+
+			# The player must be unarmed
+			else:
+
+				# Play the "sprinting" animation
+				player.animation_player.play(player.animation_sprinting)
+
+
+## Called when the player starts "sprinting".
+func start_sprinting() -> void:
+
+	# Flag the player as "sprinting"
+	player.is_sprinting = true
+
+	# Set the player's movement speed
+	player.speed_current = player.speed_sprinting
+
+
+## Called when the player stops "sprinting".
+func stop_sprinting() -> void:
+
+	# Flag player as not "sprinting"
+	player.is_sprinting = false

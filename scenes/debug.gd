@@ -118,6 +118,7 @@ func _process(_delta: float) -> void:
 		$Panel/EnableFlying.button_pressed = $"../../..".enable_flying
 		$Panel/EnableVibration.button_pressed = $"../../..".enable_vibration
 		$Panel/IsAnimationLocked.button_pressed = $"../../..".is_animation_locked
+		$Panel/IsClimbing.button_pressed = $"../../..".is_climbing
 		$Panel/IsCrouching.button_pressed = $"../../..".is_crouching
 		$Panel/IsDoubleJumping.button_pressed = $"../../..".is_double_jumping
 		$Panel/IsFlying.button_pressed = $"../../..".is_flying
@@ -125,13 +126,15 @@ func _process(_delta: float) -> void:
 		$Panel/IsHolding.button_pressed = $"../../..".is_holding
 		$Panel/IsHoldingRifle.button_pressed = $"../../..".is_holding_rifle
 		$Panel/IsHoldingTool.button_pressed = $"../../..".is_holding_tool
-		$Panel/IsHanging.button_pressed = $"../../..".is_hanging
 		$Panel/IsJumping.button_pressed = $"../../..".is_jumping
 		$Panel/IsKickingLeft.button_pressed = $"../../..".is_kicking_left
 		$Panel/IsKickingRight.button_pressed = $"../../..".is_kicking_right
 		$Panel/IsPunchingLeft.button_pressed = $"../../..".is_punching_left
 		$Panel/IsPunchingRight.button_pressed = $"../../..".is_punching_right
+		$Panel/IsRunning.button_pressed = $"../../..".is_running
 		$Panel/IsSprinting.button_pressed = $"../../..".is_sprinting
+		$Panel/IsStanding.button_pressed = $"../../..".is_standing
+		$Panel/IsWalking.button_pressed = $"../../..".is_walking
 		$Panel/GamePaused.button_pressed = Globals.game_paused
 
 		if last_input_device == "Controller":

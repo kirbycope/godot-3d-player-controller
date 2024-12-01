@@ -1,6 +1,6 @@
 extends Node
 
-@onready var player = Globals.get_player()
+@onready var player: CharacterBody3D = get_parent().get_parent()
 
 
 ## Called when there is an input event. The input event propagates up through the node tree until a node consumes it.
@@ -95,10 +95,10 @@ func _process(delta: float) -> void:
 				# Start "crouching"
 				start_crouching()
 
-	# Check if the player is "crouching"
+	# <Animations> Check if the player is "crouching"
 	if player.is_crouching:
 
-		# Check if a relevant animation is playing
+		# Check if a relevant animation is not playing
 		if player.animation_player.current_animation not in player.animations_crouching:
 
 			# Check if the player is "holding a rifle"

@@ -1,6 +1,6 @@
 extends Node
 
-@onready var player = Globals.get_player()
+@onready var player: CharacterBody3D = get_parent().get_parent()
 
 
 ## Called when there is an input event. The input event propagates up through the node tree until a node consumes it.
