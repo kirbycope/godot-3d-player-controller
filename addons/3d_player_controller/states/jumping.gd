@@ -34,26 +34,17 @@ func _process(delta: float) -> void:
 	# Check if the player is "jumping"
 	if player.is_jumping:
 
-		# If no relevant animation is playing, play an "idle" animation
+		# Check if a relevant animation is playing
 		if player.animation_player.current_animation not in player.animations_jumping:
 
 			# Check if the player is "holding a rifle"
 			if player.is_holding_rifle:
 
 				# Play the "jumping, holding a rifle" animation
-				player.animation_player.play(player.animation_jumping_idle_holding_rifle)
+				player.animation_player.play(player.animation_jumping_holding_rifle)
 
 			# The player must be unarmed
 			else:
 
 				# Play the "jumping animation
-				player.animation_player.play(player.animation_jumping_idle)
-
-	# The player must not be "jumping"
-	else:
-
-			# Check if the current animation is still a "jumping" one
-			if player.animation_player.current_animation in player.animations_jumping:
-
-				# Stop the animation
-				player.animation_player.stop()
+				player.animation_player.play(player.animation_jumping)

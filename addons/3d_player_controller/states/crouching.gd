@@ -18,26 +18,14 @@ func _input(event: InputEvent) -> void:
 				# Check if the player "is on floor"
 				if player.is_on_floor():
 
-					# Flag the player as "crouching"
-					player.is_crouching = true
-
-					# Set CollisionShape3D height
-					player.get_node("CollisionShape3D").shape.height = player.collision_height / 2
-
-					# Set CollisionShape3D position
-					player.get_node("CollisionShape3D").position = player.collision_position / 2
+					# Start "crouching"
+					start_crouching()
 
 		# [crouch] button just _released_
 		if Input.is_action_just_released("crouch"):
 
-			# Flag player as not "crouching"
-			player.is_crouching = false
-
-			# Reset CollisionShape3D height
-			player.get_node("CollisionShape3D").shape.height = player.collision_height
-
-			# Reset CollisionShape3D position
-			player.get_node("CollisionShape3D").position = player.collision_position
+			# Stop "crouching"
+			stop_crouching()
 
 		# [left-punch] button just _pressed_
 		if Input.is_action_just_pressed("left_punch"):
@@ -95,19 +83,22 @@ func _input(event: InputEvent) -> void:
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 
-	# Check if the crouching button is held (after the player becomes airbourne)
-	if Input.is_action_pressed("crouch") and player.is_on_floor():
+	# [crouch] button _pressed_ (and not already "crouching")
+	if Input.is_action_pressed("crouch") and !player.is_crouching:
 
-		# Flag the player as "crouching"
-		player.is_crouching = true
+		# Check if the animation player is not locked
+		if !player.is_animation_locked:
+
+			# Check if the player "is on floor"
+			if player.is_on_floor():
+
+				# Start "crouching"
+				start_crouching()
 
 	# Check if the player is "crouching"
 	if player.is_crouching:
 
-		# Set the player's movement speed
-		player.speed_current = player.speed_crawling
-
-		# If no relevant animation is playing, play an "idle" animation
+		# Check if a relevant animation is playing
 		if player.animation_player.current_animation not in player.animations_crouching:
 
 			# Check if the player is "holding a rifle"
@@ -120,13 +111,36 @@ func _process(delta: float) -> void:
 			else:
 
 				# Play the "crouching" animation
-				player.animation_player.play(player.animation_crouching_idle)
+				player.animation_player.play(player.animation_crouching)
 
-	# The player must not be "crouching"
-	else:
 
-			# Check if the current animation is still a "crouching" one
-			if player.animation_player.current_animation in player.animations_crouching:
+## Called when the player starts "crouching".
+func start_crouching():
 
-				# Stop the animation
-				player.animation_player.stop()
+	# Flag the player as "crouching"
+	player.is_crouching = true
+
+	# Set the player's movement speed
+	player.speed_current = player.speed_crawling
+
+	# Set CollisionShape3D height
+	player.get_node("CollisionShape3D").shape.height = player.collision_height / 2
+
+	# Set CollisionShape3D position
+	player.get_node("CollisionShape3D").position = player.collision_position / 2
+
+
+## Called when the player stops "crouching".
+func stop_crouching():
+
+	# Flag player as not "crouching"
+	player.is_crouching = false
+
+	# [Re]Set the player's movement speed
+	player.speed_current = player.speed_walking
+
+	# Reset CollisionShape3D height
+	player.get_node("CollisionShape3D").shape.height = player.collision_height
+
+	# Reset CollisionShape3D position
+	player.get_node("CollisionShape3D").position = player.collision_position

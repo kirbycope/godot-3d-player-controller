@@ -22,15 +22,15 @@ func _process(delta: float) -> void:
 		if player.is_holding_rifle:
 
 			# Check if the animation player is not already playing the appropriate animation
-			if player.animation_player.current_animation != player.animation_standing_idle_holding_rifle:
+			if player.animation_player.current_animation != player.animation_standing_holding_rifle:
 
 				# Play the "kicking low, left" animation
-				player.animation_player.play(player.animation_standing_idle_holding_rifle)
+				player.animation_player.play(player.animation_standing_holding_rifle)
 
 		# The player must be unarmed
 		else:
 			# Check if the animation player is not already playing the appropriate animation
-			if player.animation_player.current_animation != player.animation_standing_idle:
+			if player.animation_player.current_animation != player.animation_standing:
 
 				# Play the "kicking low, left" animation
-				player.animation_player.play(player.animation_standing_idle)
+				player.animation_player.play(player.animation_standing)

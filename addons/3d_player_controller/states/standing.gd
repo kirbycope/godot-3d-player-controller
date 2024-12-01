@@ -111,23 +111,37 @@ func _input(event: InputEvent) -> void:
 
 							# Check the punch hits something
 							player.check_punch_collision()
+		
+		# [right-punch] button just _released_
+		if Input.is_action_just_released("right_punch"):
+
+			# Check if the player is "holding a rifle"
+			if player.is_holding_rifle:
+
+				# Check if the current animation is still an "aiming" one
+				if player.animation_player.current_animation == player.animation_standing_aiming_rifle:
+
+					# Stop the animation
+					player.animation_player.stop()
 
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 
 	# Check if the player is "standing"
-	if (!player.is_climbing
-		and !player.is_crouching
-		and !player.is_flying
-		and !player.is_hanging
-		and !player.is_jumping
-		#and !player.is_running
-		and !player.is_sprinting
-	):
+	if player.velocity.y == 0.0 and player.is_on_floor():
+
+		# Flag the player as "standing"
+		player.is_standing = true
 
 		# Set the player's movement speed
 		player.speed_current = player.speed_walking
+	
+	# Check if the player is moving
+	elif player.velocity != Vector3.ZERO:
+
+		# Flag the player as no longer "standing"
+		player.is_standing = false
 
 	# [right-punch] button _pressed_
 	if Input.is_action_pressed("right_punch"):
