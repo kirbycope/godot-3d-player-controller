@@ -12,26 +12,45 @@ func _process(delta: float) -> void:
 	# Check if the player is moving on the ground (and not crouching)
 	if player.velocity != Vector3(0.0, 0.0, 0.0) and player.is_on_floor() and !player.is_crouching:
 
-		# Check if the player speed is "running"
-		if player.speed_current == player.speed_running:
+		# Check if the player speed is more than "walking" and less than or equal to "running"
+		if (player.speed_walking < player.speed_current) and (player.speed_current <= player.speed_running):
 
 			# Flag the player as "running"
 			player.is_running = true
 
-	# <Animations> Check if the player is "running"
-	if player.is_running:
+	# Check if the player is "running" (and the animation player is not locked)
+	if player.is_running and !player.is_animation_locked:
 
-		# Check if a relevant animation is not playing
-		if player.animation_player.current_animation != "" and player.animation_player.current_animation not in player.animations_walking:
+		# Play the animation
+		play_animation()
 
-			# Check if the player is "holding a rifle"
-			if player.is_holding_rifle:
 
-				# Play the "running, holding a rifle" animation
-				player.animation_player.play(player.animation_running_holding_rifle)
+## Plays the appropriate animation based on player state.
+func play_animation() -> void:
 
-			# The player must be unarmed
-			else:
+	# Check if the player is "holding a rifle"
+	if player.is_holding_rifle:
 
-				# Play the "running" animation
-				player.animation_player.play(player.animation_running)
+		# Check if the animation player is not already playing the appropriate animation
+		if player.animation_player.current_animation != player.animation_running_holding_rifle:
+
+			# Play the "running, holding rifle" animation
+			player.animation_player.play(player.animation_running_holding_rifle)
+
+	# Check if the player is "holding a tool"
+	if player.is_holding_tool:
+
+		# Check if the animation player is not already playing the appropriate animation
+		if player.animation_player.current_animation != player.animation_running_holding_tool:
+
+			# Play the "running, holding a tool" animation
+			player.animation_player.play(player.animation_running_holding_tool)
+
+	# The player must be unarmed
+	else:
+
+		# Check if the animation player is not already playing the appropriate animation
+		if player.animation_player.current_animation != player.animation_running:
+
+			# Play the "running" animation
+			player.animation_player.play(player.animation_running)

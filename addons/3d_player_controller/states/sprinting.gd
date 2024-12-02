@@ -28,7 +28,7 @@ func _input(event: InputEvent) -> void:
 			stop_sprinting()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 
 	# [sprint] button _pressed_ (and not already "sprinting")
@@ -46,20 +46,29 @@ func _process(delta: float) -> void:
 	# <Animations> Check if the player is "sprinting"
 	if player.is_sprinting:
 
-		# Check if a relevant animation is not playing
-		if player.animation_player.current_animation != "" and player.animation_player.current_animation not in player.animations_walking:
+		# Check if the animation player is not locked
+		if !player.is_animation_locked:
 
-			# Check if the player is "holding a rifle"
-			if player.is_holding_rifle:
+			# Check if the player is not "crouching" and is "on floor"
+			if !player.is_crouching and player.is_on_floor():
 
-				# Play the "sprinting, holding a rifle" animation
-				player.animation_player.play(player.animation_sprinting_holding_rifle)
+				# Check if the player is "holding a rifle"
+				if player.is_holding_rifle:
 
-			# The player must be unarmed
-			else:
+					# Check if the animation player is not already playing the appropriate animation
+					if player.animation_player.current_animation != player.animation_sprinting_holding_rifle:
 
-				# Play the "sprinting" animation
-				player.animation_player.play(player.animation_sprinting)
+						# Play the "sprinting, holding a rifle" animation
+						player.animation_player.play(player.animation_sprinting_holding_rifle)
+
+				# The player must be unarmed
+				else:
+
+					# Check if the animation player is not already playing the appropriate animation
+					if player.animation_player.current_animation != player.animation_sprinting:
+
+						# Play the "sprinting" animation
+						player.animation_player.play(player.animation_sprinting)
 
 
 ## Called when the player starts "sprinting".

@@ -4,11 +4,12 @@ extends CharacterBody3D
 const animation_crawling = "Crawling_In_Place"
 
 const animation_crouching = "Crouching_Idle"
-const animation_crouching_aiming_rifle = "Rifle_Aiming_Idle_Crouching"
-const animation_crouching_firing_rifle = ""
-const animation_crouching_holding_rifle = ""
-const animation_crouching_move = ""
+const animation_crouching_aiming_rifle = "Rifle_Aiming_Idle_Crouching" # IDLE CROUCHING AIMING ON Y BOT
+const animation_crouching_firing_rifle = "Rifle_Firing_Crouching"
+const animation_crouching_holding_rifle = "Rifle_Idle_Crouching"
+const animation_crouching_move = "Sneaking_In_Place"
 const animation_crouching_move_holding_rifle = "Rifle_Walk_Crouching"
+const animation_crouching_holding_tool = "Tool_Idle_Crouching"
 
 const animation_flying = "Flying_In_Place"
 const animation_flying_fast = "Flying_Fast"
@@ -16,29 +17,28 @@ const animation_flying_fast = "Flying_Fast"
 const animation_hanging = "Hanging_Idle"
 
 const animation_jumping = "Falling_Idle"
-const animation_jumping_aiming_rifle = ""
-const animation_jumping_firing_rifle = ""
 const animation_jumping_holding_rifle = "Rifle_Falling_Idle"
+const animation_jumping_holding_tool = "Tool_Falling_Idle"
 
 const animation_standing = "Standing_Idle"
 const animation_standing_aiming_rifle = "Rifle_Aiming_Idle"
 const animation_standing_firing_rifle = "Rifle_Firing"
 const animation_standing_holding_rifle = "Rifle_Low_Idle"
+const animation_standing_holding_tool = "Tool_Standing_Idle"
 
 const animation_running = "Running_In_Place"
 const animation_running_aiming_rifle = "Rifle_Aiming_Run_In_Place"
-const animation_running_firing_rifle = ""
 const animation_running_holding_rifle = "Rifle_Low_Run_In_Place"
 
 const animation_sprinting = "Sprinting_In_Place"
-const animation_sprinting_aiming_rifle = ""
-const animation_sprinting_firing_rifle = ""
-const animation_sprinting_holding_rifle = ""
+const animation_sprinting_holding_rifle = "Rifle_Sprinting_In_Place"
+const animation_sprinting_holding_tool = "Tool_Sprinting_In_Place"
 
 const animation_walking = "Walking_In_Place"
-const animation_walking_aiming_rifle = ""
+const animation_walking_aiming_rifle = "Rifle_Walking_Aiming"
 const animation_walking_firing_rifle = "Rifle_Walking_Firing"
 const animation_walking_holding_rifle = "Rifle_Low_Run_In_Place"
+const animation_walking_holding_tool = "Tool_Walking_In_Place"
 
 const kicking_low_left = "Kicking_Low_Left"
 const kicking_low_right = "Kicking_Low_Right"
@@ -52,15 +52,16 @@ var animations_crawling = [animation_crawling]
 var animations_crouching = [animation_crawling,  animation_crouching, animation_crouching_aiming_rifle, animation_crouching_firing_rifle, animation_crouching_holding_rifle, animation_crouching_move, animation_crouching_move_holding_rifle]
 var animations_flying = [animation_flying, animation_flying_fast]
 var animations_hanging = [animation_hanging]
-var animations_jumping = [animation_jumping, animation_jumping_aiming_rifle, animation_jumping_firing_rifle, animation_jumping_holding_rifle]
-var animations_running = [animation_running, animation_running_aiming_rifle, animation_running_firing_rifle, animation_running_holding_rifle]
+var animations_jumping = [animation_jumping, animation_jumping_holding_rifle]
+var animations_running = [animation_running, animation_running_aiming_rifle, animation_running_holding_rifle]
 var animations_standing = [animation_standing, animation_standing_aiming_rifle, animation_standing_firing_rifle, animation_standing_holding_rifle]
-var animations_sprinting = [animation_sprinting, animation_sprinting_aiming_rifle, animation_sprinting_firing_rifle, animation_sprinting_holding_rifle]
+var animations_sprinting = [animation_sprinting, animation_sprinting_holding_rifle]
 var animations_walking = [animation_walking, animation_walking_aiming_rifle, animation_walking_firing_rifle, animation_walking_holding_rifle]
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var is_aiming: bool = false
 var is_animation_locked: bool = false
 var is_climbing: bool = false
+var is_crawling: bool = false
 var is_crouching: bool = false
 var is_double_jumping: bool = false
 var is_flying: bool = false
@@ -378,7 +379,7 @@ func check_top_edge_collision() -> void:
 		# Flag the player as "hanging" (from a ledge)
 		is_hanging = true
 		# Flag the player as not jumping
-		#is_jumping = false
+		is_jumping = false
 		# Reset velocity to prevent any movement
 		velocity = Vector3.ZERO
 		# Delay execution
@@ -519,12 +520,6 @@ func mangage_state() -> void:
 			if animation_player.current_animation not in animations_flying:
 				# Play the animation_standing "animation_flying" animation
 				animation_player.play(animation_flying)
-
-	# Check if the player is jumping (and on the ground with no velocity)
-	if is_jumping and is_on_floor() and velocity.y == 0.0:
-
-		# Flag the player as no longer "jumping"
-		is_jumping = false
 
 	# Check if the player is hanging (from a ledge)
 	if is_hanging:

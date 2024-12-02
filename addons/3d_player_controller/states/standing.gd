@@ -131,38 +131,54 @@ func _process(delta: float) -> void:
 	# Flag the player as not "standing"
 	player.is_standing = false
 
-	# Check if the player is not moving (and not crouching)
-	if player.velocity == Vector3(0.0, 0.0, 0.0) and !player.is_crouching:
+	# Check if the player is not moving (and on the ground)
+	if player.velocity == Vector3(0.0, 0.0, 0.0) and player.is_on_floor():
 
-		# Flag the player as "standing"
-		player.is_standing = true
+		# Check if the player is not "crouching" or "jumping"
+		if !player.is_crouching and !player.is_jumping:
 
-		# Set the player's movement speed
-		player.speed_current = player.speed_walking
+			# Flag the player as "standing"
+			player.is_standing = true
+
+			# Set the player's movement speed
+			player.speed_current = player.speed_walking
+
+	# Check if the player is "walking" (and the animation player is not locked)
+	if player.is_standing and !player.is_animation_locked:
+
+		# Play the animation
+		play_animation()
+
+
+## Plays the appropriate animation based on player state.
+func play_animation() -> void:
 
 	# <Animations> Check if the player is "standing"
 	if player.is_standing:
 
-		# Check if the animation player is not locked
-		if !player.is_animation_locked:
+		# Check if the player is "holding a rifle"
+		if player.is_holding_rifle:
 
-			# Check if the player is not "crouching" and is "on floor"
-			if !player.is_crouching and player.is_on_floor():
+			# Check if the animation player is not already playing the appropriate animation
+			if player.animation_player.current_animation != player.animation_standing_holding_rifle:
 
-				# Check if the player is "holding a rifle"
-				if player.is_holding_rifle:
+				# Play the "standing idle, aiming rifle" animation
+				player.animation_player.play(player.animation_standing_holding_rifle)
 
-					# Check if the animation player is not already playing the appropriate animation
-					if player.animation_player.current_animation != player.animation_standing_aiming_rifle:
+		# Check if the player is "holding a tool"
+		if player.is_holding_tool:
 
-						# Play the "standing idle, aiming rifle" animation
-						player.animation_player.play(player.animation_standing_aiming_rifle)
+			# Check if the animation player is not already playing the appropriate animation
+			if player.animation_player.current_animation != player.animation_standing_holding_tool:
 
-				# The player must be unarmed
-				else:
+				# Play the "standing, holding tool" animation
+				player.animation_player.play(player.animation_standing_holding_tool)
 
-					# Check if the animation player is not already playing the appropriate animation
-					if player.animation_player.current_animation != player.animation_standing:
+		# The player must be unarmed
+		else:
 
-						# Play the "standing idle" animation
-						player.animation_player.play(player.animation_standing)
+			# Check if the animation player is not already playing the appropriate animation
+			if player.animation_player.current_animation != player.animation_standing:
+
+				# Play the "standing idle" animation
+				player.animation_player.play(player.animation_standing)
