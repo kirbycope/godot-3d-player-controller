@@ -38,7 +38,7 @@ func play_animation() -> void:
 			player.animation_player.play(player.animation_running_holding_rifle)
 
 	# Check if the player is "holding a tool"
-	if player.is_holding_tool:
+	elif player.is_holding_tool:
 
 		# Check if the animation player is not already playing the appropriate animation
 		if player.animation_player.current_animation != player.animation_running_holding_tool:

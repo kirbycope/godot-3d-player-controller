@@ -1,24 +1,23 @@
 extends Node
 
-@onready var player = Globals.get_player()
-
-
-## Called when there is an input event. The input event propagates up through the node tree until a node consumes it.
-func _input(event: InputEvent) -> void:
-
-	# Check if the game is not paused
-	if !Globals.game_paused:
-
-		# Check if the animation player is not locked
-		if player.is_animation_locked:
-			pass
+@onready var player: CharacterBody3D = get_parent().get_parent()
 
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 
-	# Check if the player is "hanging"
-	if player.is_hanging:
+	# Check if the player is "hanging" (and the animation player is not locked)
+	if player.is_hanging and !player.is_animation_locked:
 
-		# Set the player's movement speed
-		player.current_speed = player.speed_hanging
+		# Play the animation
+		play_animation()
+
+
+## Plays the appropriate animation based on player state.
+func play_animation() -> void:
+
+	# Check if the animation player is not already playing the appropriate animation
+	if player.animation_player.current_animation != player.animation_hanging:
+
+		# Play the "hanging" animation
+		player.animation_player.play(player.animation_hanging)

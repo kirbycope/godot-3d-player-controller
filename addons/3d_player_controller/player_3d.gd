@@ -12,7 +12,7 @@ const animation_crouching_move_holding_rifle = "Rifle_Walk_Crouching"
 const animation_crouching_holding_tool = "Tool_Idle_Crouching"
 
 const animation_flying = "Flying_In_Place"
-const animation_flying_fast = "Flying_Fast"
+const animation_flying_fast = "Flying_Fast_In_Place"
 
 const animation_hanging = "Hanging_Idle"
 
@@ -206,6 +206,8 @@ func _input(event) -> void:
 
 		# [select] button _pressed_
 		if event.is_action_pressed("select"):
+
+			# Check if in third-person
 			if perspective == 0:
 				# Flag the player as in "first" person
 				perspective = 1
@@ -234,14 +236,20 @@ func _input(event) -> void:
 ## Use _physics_process(delta) if the input needs to be checked continuously in sync with the physics engine, like for smooth movement or jump control.
 func _physics_process(delta) -> void:
 
-	# Set the player's animation_standing animation, as needed
-	#set_player_idle_animation()
-
 	# If the game is not paused...
 	if !Globals.game_paused:
 
-		# set animation and velocity based on player action and position
-		#mangage_state()
+		# Check if no animation is playing
+		if !animation_player.is_playing():
+
+			# Flag the animation player no longer locked
+			is_animation_locked = false
+
+			# Reset player state
+			is_kicking_left = false
+			is_kicking_right = false
+			is_punching_left = false
+			is_punching_right = false
 
 		# Handle [look_*] using controller
 		var look_actions = ["look_down", "look_up", "look_left", "look_right"]
@@ -249,7 +257,6 @@ func _physics_process(delta) -> void:
 		for action in look_actions:
 			# Check if the action is _pressesd_ and the camera is not locked
 			if Input.is_action_pressed(action) and !Globals.fixed_camera:
-
 				# Rotate camera based on controller movement
 				camera_rotate_by_controller(delta)
 
@@ -261,25 +268,25 @@ func _physics_process(delta) -> void:
 			# Move player
 			move_and_slide()
 
-	# Move the camera to player
-	move_camera()
+		# Move the camera to player
+		move_camera()
 
-	# Check if the player is holding a rifle or a tool
-	if is_holding_rifle or is_holding_tool:
+		# Check if the player is holding a rifle or a tool
+		if is_holding_rifle or is_holding_tool:
 
-		# Move the position of the held item to the player's hand
-		move_held_item_mount()
+			# Move the position of the held item to the player's hand
+			move_held_item_mount()
 
-	# Check if the player is holding an object (hovering in front of them)
-	if is_holding:
-		# Get the nodes in the "held" group
-		var held_nodes = get_tree().get_nodes_in_group("held")
-		# Check if nodes were found in the group
-		if not held_nodes.is_empty():
-			# Get the first node in the "held" group
-			var held_node = held_nodes[0]
-			# Move the first node to the holding position
-			held_node.global_transform = item_mount.global_transform
+		# Check if the player is holding an object (hovering in front of them)
+		if is_holding:
+			# Get the nodes in the "held" group
+			var held_nodes = get_tree().get_nodes_in_group("held")
+			# Check if nodes were found in the group
+			if not held_nodes.is_empty():
+				# Get the first node in the "held" group
+				var held_node = held_nodes[0]
+				# Move the first node to the holding position
+				held_node.global_transform = item_mount.global_transform
 
 
 ## Check if the kick hits anything.
@@ -451,75 +458,8 @@ func camera_rotate_by_mouse(event: InputEvent) -> void:
 		visuals.rotate_y(deg_to_rad(event.relative.x * look_sensitivity_mouse))
 
 
-## Start the player animation_flying.
-func flying_start() -> void:
-	gravity = 0.0
-	motion_mode = MOTION_MODE_FLOATING
-	position.y += 0.1
-	velocity.y = 0.0
-	is_flying = true
-
-
-## Stop the player animation_flying.
-func flying_stop() -> void:
-	gravity = 9.8
-	motion_mode = MOTION_MODE_GROUNDED
-	velocity.y -= gravity
-	visuals.rotation.x = 0
-	is_flying = false
-
-
 ## Manage the player's state; setting flags and playing animations.
 func mangage_state() -> void:
-	
-	# Check if the player is animation_flying
-	if is_flying:
-
-		# [crouch] button just _pressed_
-		if Input.is_action_just_pressed("crouch"):
-			# Pitch the player slightly downward
-			visuals.rotation.x = deg_to_rad(-6)
-		
-		# [crouch] button currently _pressed_
-		if Input.is_action_pressed("crouch"):
-			# Decrease the player's vertical position
-			position.y -= 0.1
-			# End animation_flying if collision detected below the player
-			if raycast_below.is_colliding():
-				# Stop animation_flying
-				flying_stop()
-		
-		# [crouch] button just _released_
-		if Input.is_action_just_released("crouch"):
-			# Reset the player's pitch
-			visuals.rotation.x = 0
-
-		# [jump] button just _pressed_
-		if Input.is_action_just_pressed("jump"):
-			# Pitch the player slightly downward
-			visuals.rotation.x = deg_to_rad(6)
-
-		# [jump] button currently _pressed_
-		if Input.is_action_pressed("jump"):
-			# Increase the player's vertical position
-			position.y += 0.1
-
-		# [jump] button just _released_
-		if Input.is_action_just_released("jump"):
-			# Reset the player's pitch
-			visuals.rotation.x = 0
-
-		# [sprint] button _pressed_
-		if Input.is_action_pressed("sprint"):
-			# Check if the current animation is not a animation_flying one
-			if animation_player.current_animation != animation_flying_fast:
-				# Play the animation_standing "animation_flying Fast" animation
-				animation_player.play(animation_flying_fast)
-		else:
-			# Check if the current animation is not a animation_flying one
-			if animation_player.current_animation not in animations_flying:
-				# Play the animation_standing "animation_flying" animation
-				animation_player.play(animation_flying)
 
 	# Check if the player is hanging (from a ledge)
 	if is_hanging:
@@ -558,36 +498,6 @@ func mangage_state() -> void:
 
 		# Edge detection
 		check_top_edge_collision()
-
-		# [jump] button just _pressed_
-		if Input.is_action_just_pressed("jump"):
-
-				# Check if "double jump" is enabled and the player is not currently double-jumping
-				if enable_double_jump and !is_double_jumping:
-					# Set the player's vertical velocity
-					velocity.y = jump_velocity
-					# Set the "double jumping" flag
-					is_double_jumping = true
-
-				# Check if "animation_flying" is enabled and the player is not already animation_flying
-				if enable_flying and !is_flying:
-					# Start animation_flying
-					flying_start()
-
-				# Check if "animation_flying" but the "jump timer" hasn't started
-				if is_flying and timer_jump == 0.0:
-					# Set the "jump timer" to the current game time
-					timer_jump = Time.get_ticks_msec()
-				# Check if "animation_flying" and the "jump timer" is already running
-				elif is_flying and timer_jump > 0.0:
-					# Get the current game time
-					var time_now = Time.get_ticks_msec()
-					# Check if _this_ button press is within 200 milliseconds
-					if time_now - timer_jump < 200:
-						# Stop animation_flying
-						flying_stop()
-					# Either way, reset the timer
-					timer_jump = Time.get_ticks_msec()
 
 
 ## Update the camera to follow the character head's position (while in "first person").
@@ -630,24 +540,6 @@ func move_held_item_mount():
 		rot_y = rot_y + 0.2
 		rot_z = bone_basis.z - 0.75
 		held_item_mount.rotation = Vector3(rot_x, rot_y, rot_z)
-
-
-## Sets the player's animation_standing animation based on status.
-func set_player_idle_animation() -> void:
-
-	# Check if the player is "animation_flying"
-	if is_flying:
-		# Check if the current animation is not a "animation_flying" one
-		if animation_player.current_animation not in animations_flying:
-			# Play the animation_standing "animation_flying" animation
-			animation_player.play(animation_flying)
-
-	# Check if the player is "hanging"
-	if is_hanging:
-		# Check if the current animation is not a "hanging" one
-		if animation_player.current_animation not in animations_hanging:
-			# Play the animation_standing "Hanging" animation
-			animation_player.play(animation_hanging)
 
 
 ## Sets the player's movement speed based on status.
@@ -1115,8 +1007,6 @@ func update_velocity(delta: float) -> void:
 	if direction:
 		# Check if the animation player is unlocked
 		if !is_animation_locked:
-			# Play the "rifle handling", "running" animation
-			#animation_player.play(rifle_run_in_place, -1 , 0.8)
 			# Check if the player is not in "third person" perspective
 			if perspective == 0:
 				# Update the camera to look in the direction based on player input

@@ -18,13 +18,14 @@ func _input(event: InputEvent) -> void:
 				# Check if the player is not "crouching" and is "on floor"
 				if !player.is_crouching and player.is_on_floor():
 
-					# Check if the player is "holding a rifle"
-					if player.is_holding_rifle:
+					# Check if the player is not "holding a rifle"
+					if !player.is_holding_rifle:
 
-						pass # ToDo: ?
+						# Flag the animation player as locked
+						player.is_animation_locked = true
 
-					# The player must be unarmed
-					else:
+						# Flag the player as "kicking with their left leg"
+						player.is_kicking_left = true
 
 						# Check if the animation player is not already playing the appropriate animation
 						if player.animation_player.current_animation != player.kicking_low_left:
@@ -44,13 +45,14 @@ func _input(event: InputEvent) -> void:
 				# Check if the player is not "crouching" and is "on floor"
 				if !player.is_crouching and player.is_on_floor():
 
-					# Check if the player is "holding a rifle"
-					if player.is_holding_rifle:
+					# Check if the player is not "holding a rifle"
+					if !player.is_holding_rifle:
 
-						pass # ToDo: ?
+						# Flag the animation player as locked
+						player.is_animation_locked = true
 
-					# The player must be unarmed
-					else:
+						# Flag the player as "kicking with their right leg"
+						player.is_kicking_right = true
 
 						# Check if the animation player is not already playing the appropriate animation
 						if player.animation_player.current_animation != player.kicking_low_right:
@@ -82,6 +84,12 @@ func _input(event: InputEvent) -> void:
 					# The player must be unarmed
 					else:
 
+						# Flag the animation player as locked
+						player.is_animation_locked = true
+
+						# Flag the player as "punching with their left arm"
+						player.is_punching_left = true
+
 						# Check if the animation player is not already playing the appropriate animation
 						if player.animation_player.current_animation != player.punching_high_left:
 
@@ -102,6 +110,12 @@ func _input(event: InputEvent) -> void:
 
 					# Check if the player is not "holding a rifle"
 					if !player.is_holding_rifle:
+
+						# Flag the animation player as locked
+						player.is_animation_locked = true
+
+						# Flag the player as "punching with their right arm"
+						player.is_punching_right = true
 
 						# Check if the animation player is not already playing the appropriate animation
 						if player.animation_player.current_animation != player.punching_high_right:
@@ -160,13 +174,13 @@ func play_animation() -> void:
 		if player.is_holding_rifle:
 
 			# Check if the animation player is not already playing the appropriate animation
-			if player.animation_player.current_animation != player.animation_standing_holding_rifle:
+			if player.animation_player.current_animation not in [player.animation_standing_holding_rifle, player.animation_standing_firing_rifle]:
 
 				# Play the "standing idle, aiming rifle" animation
 				player.animation_player.play(player.animation_standing_holding_rifle)
 
 		# Check if the player is "holding a tool"
-		if player.is_holding_tool:
+		elif player.is_holding_tool:
 
 			# Check if the animation player is not already playing the appropriate animation
 			if player.animation_player.current_animation != player.animation_standing_holding_tool:
