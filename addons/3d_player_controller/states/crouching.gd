@@ -39,10 +39,23 @@ func _input(event: InputEvent) -> void:
 					# Check if the player is "holding a rifle"
 					if player.is_holding_rifle:
 
-						pass # ToDo: Firing while kneeling
+						# Flag the player as is "firing"
+						player.is_firing = true
+
+						# Delay execution
+						await get_tree().create_timer(0.3).timeout
+
+						# Flag the player as is not "firing"
+						player.is_firing = false
 
 					# The player must be unarmed
 					else:
+
+						# Flag the animation player as locked
+						player.is_animation_locked = true
+
+						# Flag the player as "punching with their left arm"
+						player.is_punching_left = true
 
 						# Check if the animation player is not already playing the appropriate animation
 						if player.animation_player.current_animation != player.punching_low_left:
@@ -62,13 +75,14 @@ func _input(event: InputEvent) -> void:
 				# Check if the player is "crouching" and is "on floor"
 				if player.is_crouching and player.is_on_floor():
 
-					# Check if the player is "holding a rifle"
-					if player.is_holding_rifle:
+					# Check if the player is not "holding a rifle"
+					if !player.is_holding_rifle:
 
-						pass # ToDo: Firing while kneeling
+						# Flag the animation player as locked
+						player.is_animation_locked = true
 
-					# The player must be unarmed
-					else:
+						# Flag the player as "punching with their right arm"
+						player.is_punching_right = true
 
 						# Check if the animation player is not already playing the appropriate animation
 						if player.animation_player.current_animation != player.punching_low_right:
@@ -78,6 +92,30 @@ func _input(event: InputEvent) -> void:
 
 							# Check the punch hits something
 							player.check_punch_collision()
+
+		# [right-punch] button _pressed_
+		if Input.is_action_pressed("right_punch"):
+
+			# Check if the animation player is not locked
+			if !player.is_animation_locked:
+
+				# Check if the player is "crouching" and is "on floor"
+				if player.is_crouching and player.is_on_floor():
+
+					# Check if the player is "holding a rifle"
+					if player.is_holding_rifle:
+
+						# Flag the player as is "aiming"
+						player.is_aiming = true
+
+		# [right-punch] button just _released_
+		if Input.is_action_just_released("right_punch"):
+
+			# Check if the player is "holding a rifle"
+			if player.is_holding_rifle:
+
+				# Flag the player as not "aiming"
+				player.is_aiming = false
 
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -95,27 +133,73 @@ func _process(delta: float) -> void:
 				# Start "crouching"
 				start_crouching()
 
-	# <Animations> Check if the player is "crouching"
+	# Check if the player is "crouching"
 	if player.is_crouching:
 
-		# Check if a relevant animation is not playing
-		if player.animation_player.current_animation not in player.animations_crouching:
+		# Check if the player is not moving
+		if player.velocity == Vector3(0.0, 0.0, 0.0):
 
-			# Check if the player is "holding a rifle"
-			if player.is_holding_rifle:
+			# Play the animation
+			play_animation()
 
-				# Play the "crouching, holding a rifle" animation
-				player.animation_player.play(player.animation_crouching_aiming_rifle)
 
-			# The player must be unarmed
+## Plays the appropriate animation based on player state.
+func play_animation() -> void:
+
+	# Check if the animation player is not locked
+	if !player.is_animation_locked:
+
+		# Check if the player is "holding a rifle"
+		if player.is_holding_rifle:
+
+			# Check if the player is "firing"			
+			if player.is_firing:
+
+				# Check if the animation player is not already playing the appropriate animation
+				if player.animation_player.current_animation != player.animation_crouching_firing_rifle:
+
+					# Play the "crouching, firing rifle" animation
+					player.animation_player.play(player.animation_crouching_firing_rifle)
+
+			# Check if the player is "aiming"
+			elif player.is_aiming:
+
+				# Check if the animation player is not already playing the appropriate animation
+				if player.animation_player.current_animation != player.animation_crouching_aiming_rifle:
+
+					# Play the "crouching, aiming a rifle" animation
+					player.animation_player.play(player.animation_crouching_aiming_rifle)
+
+			# The player must be "idle"
 			else:
+
+				# Check if the animation player is not already playing the appropriate animation
+				if player.animation_player.current_animation != player.animation_crouching_holding_rifle:
+
+					# Play the "crouching idle, holding rifle" animation
+					player.animation_player.play(player.animation_crouching_holding_rifle)
+
+		# Check if the player is "holding a tool"
+		elif player.is_holding_tool:
+
+			# Check if the animation player is not already playing the appropriate animation
+			if player.animation_player.current_animation != player.animation_crouching_holding_tool:
+
+				# Play the "crouching, holding tool" animation
+				player.animation_player.play(player.animation_crouching_holding_tool)
+
+		# The player must be unarmed
+		else:
+
+			# Check if the animation player is not already playing the appropriate animation
+			if player.animation_player.current_animation != player.animation_crouching:
 
 				# Play the "crouching" animation
 				player.animation_player.play(player.animation_crouching)
 
 
 ## Called when the player starts "crouching".
-func start_crouching():
+func start_crouching() -> void:
 
 	# Flag the player as "crouching"
 	player.is_crouching = true
@@ -131,7 +215,7 @@ func start_crouching():
 
 
 ## Called when the player stops "crouching".
-func stop_crouching():
+func stop_crouching() -> void:
 
 	# Flag player as not "crouching"
 	player.is_crouching = false

@@ -1,0 +1,63 @@
+extends Node
+
+@onready var player: CharacterBody3D = get_parent().get_parent()
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+
+	# Check if the player is holding an object
+	if player.is_holding:
+
+		move_held_object()
+
+	# Check if the player is holding a rifle or a tool
+	if player.is_holding_rifle or player.is_holding_tool:
+
+		# Move the position of the held item to the player's hand
+		move_held_item_mount()
+
+
+## Move the item being held in the player's hand to the player's hand.
+func move_held_item_mount() -> void:
+
+	# Get the right hand bone
+	var bone_name = player.bone_name_right_hand
+	var bone_index = player.player_skeleton.find_bone(bone_name)
+
+	# Get the overall transform of the specified bone, with respect to the player's skeleton.
+	var bone_pose = player.player_skeleton.get_bone_global_pose(bone_index)
+
+	# Adjust the held item mount position to match the bone's relative position (adjusting for $Visuals/AuxScene scaling)
+	var bone_origin = bone_pose.origin
+	var pos_x = (-bone_origin.x * 0.01)
+	var pos_y = (bone_origin.y * 0.01)
+	var pos_z = (-bone_origin.z * 0.01)
+	player.held_item_mount.position = Vector3(pos_x, pos_y, pos_z)
+
+	# Set the rotation of the held item mount to match the bone's rotation
+	var bone_basis = bone_pose.basis.get_euler()
+	var rot_x = bone_basis.x
+	var rot_y = bone_basis.y - 0.2
+	var rot_z = bone_basis.z + 0.33
+	# Hack: Handle idle animation postional data
+	if player.animation_player.current_animation == player.animation_standing_holding_rifle:
+		rot_y = rot_y + 0.2
+		rot_z = bone_basis.z - 0.75
+	player.held_item_mount.rotation = Vector3(rot_x, rot_y, rot_z)
+
+
+## Moves the held object in front of the player.
+func move_held_object() -> void:
+
+	# Get the nodes in the "held" group
+	var held_nodes = get_tree().get_nodes_in_group("held")
+
+	# Check if nodes were found in the group
+	if not held_nodes.is_empty():
+
+		# Get the first node in the "held" group
+		var held_node = held_nodes[0]
+
+		# Move the first node to the holding position
+		held_node.global_transform = player.item_mount.global_transform

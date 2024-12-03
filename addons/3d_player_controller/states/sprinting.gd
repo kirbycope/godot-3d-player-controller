@@ -9,20 +9,11 @@ func _input(event: InputEvent) -> void:
 	# Check if the game is not paused
 	if !Globals.game_paused:
 
-		# [sprint] button _pressed_
-		if Input.is_action_just_pressed("sprint"):
-
-			# Check if the animation player is not locked
-			if !player.is_animation_locked:
-
-				# Start "sprinting"
-				start_sprinting()
-
 		# [sprint] button just _released_
 		if Input.is_action_just_released("sprint"):
 
-			# Stop "sprinting"
-			stop_sprinting()
+			# Flag the player as not "sprinting"
+			player.is_sprinting = false
 
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -34,12 +25,14 @@ func _process(delta: float) -> void:
 		# Check if the animation player is not locked
 		if !player.is_animation_locked:
 
-			# Start "sprinting"
-			start_sprinting()
+			# Flag the player as "sprinting"
+			player.is_sprinting = true
 
+			# Set the player's movement speed
+			player.speed_current = player.speed_sprinting
 
-	# Check if the player is "sprinting" (and the animation player is not locked)
-	if player.is_sprinting and !player.is_animation_locked:
+	# Check if the player is "sprinting"
+	if player.is_sprinting:
 
 		# Check if the player is not "crouching" and is "on floor"
 		if !player.is_crouching and player.is_on_floor():
@@ -51,37 +44,23 @@ func _process(delta: float) -> void:
 ## Plays the appropriate animation based on player state.
 func play_animation() -> void:
 
-	# Check if the player is "holding a rifle"
-	if player.is_holding_rifle:
+	# Check if the animation player is not locked
+	if !player.is_animation_locked:
 
-		# Check if the animation player is not already playing the appropriate animation
-		if player.animation_player.current_animation != player.animation_sprinting_holding_rifle:
+		# Check if the player is "holding a rifle"
+		if player.is_holding_rifle:
 
-			# Play the "sprinting, holding a rifle" animation
-			player.animation_player.play(player.animation_sprinting_holding_rifle)
+			# Check if the animation player is not already playing the appropriate animation
+			if player.animation_player.current_animation != player.animation_sprinting_holding_rifle:
 
-	# The player must be unarmed
-	else:
+				# Play the "sprinting, holding a rifle" animation
+				player.animation_player.play(player.animation_sprinting_holding_rifle)
 
-		# Check if the animation player is not already playing the appropriate animation
-		if player.animation_player.current_animation != player.animation_sprinting:
+		# The player must be unarmed
+		else:
 
-			# Play the "sprinting" animation
-			player.animation_player.play(player.animation_sprinting)
+			# Check if the animation player is not already playing the appropriate animation
+			if player.animation_player.current_animation != player.animation_sprinting:
 
-
-## Called when the player starts "sprinting".
-func start_sprinting() -> void:
-
-	# Flag the player as "sprinting"
-	player.is_sprinting = true
-
-	# Set the player's movement speed
-	player.speed_current = player.speed_sprinting
-
-
-## Called when the player stops "sprinting".
-func stop_sprinting() -> void:
-
-	# Flag player as not "sprinting"
-	player.is_sprinting = false
+				# Play the "sprinting" animation
+				player.animation_player.play(player.animation_sprinting)

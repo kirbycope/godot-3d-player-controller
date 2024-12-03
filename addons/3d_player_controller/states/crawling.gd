@@ -15,8 +15,8 @@ func _process(delta: float) -> void:
 		# Flag the player as "crawling"
 		player.is_crawling = true
 
-	# Check if the player is "crawling" (and the animation player is not locked)
-	if player.is_crawling and !player.is_animation_locked:
+	# Check if the player is "crawling"
+	if player.is_crawling:
 
 		# Play the animation
 		play_animation()
@@ -25,8 +25,23 @@ func _process(delta: float) -> void:
 ## Plays the appropriate animation based on player state.
 func play_animation() -> void:
 
-	# Check if the animation player is not already playing the appropriate animation
-	if player.animation_player.current_animation != player.animation_crawling:
+	# Check if the animation player is not locked
+	if !player.is_animation_locked:
 
-		# Play the "crawling" animation
-		player.animation_player.play(player.animation_crawling)
+		# Check if the player is "holding a rifle"
+		if player.is_holding_rifle:
+
+			# Check if the animation player is not already playing the appropriate animation
+			if player.animation_player.current_animation != player.animation_crouching_move_holding_rifle:
+
+				# Play the "crouching and moving, holding a rifle" animation
+				player.animation_player.play(player.animation_crouching_move_holding_rifle, -1, 0.75)
+
+		# The player must be unarmed
+		else:
+
+			# Check if the animation player is not already playing the appropriate animation
+			if player.animation_player.current_animation != player.animation_crawling:
+
+				# Play the "crawling" animation
+				player.animation_player.play(player.animation_crawling)

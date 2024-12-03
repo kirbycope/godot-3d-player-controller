@@ -75,11 +75,14 @@ func _input(event: InputEvent) -> void:
 					# Check if the player is "holding a rifle"
 					if player.is_holding_rifle:
 
-						# Check if the animation player is not already playing the appropriate animation
-						if player.animation_player.current_animation != player.animation_standing_firing_rifle:
+						# Flag the player as is "firing"
+						player.is_firing = true
 
-							# Play the "standing, firing rifle" animation
-							player.animation_player.play(player.animation_standing_firing_rifle)
+						# Delay execution
+						await get_tree().create_timer(0.3).timeout
+
+						# Flag the player as is not "firing"
+						player.is_firing = false
 
 					# The player must be unarmed
 					else:
@@ -125,18 +128,30 @@ func _input(event: InputEvent) -> void:
 
 							# Check the punch hits something
 							player.check_punch_collision()
-		
+
+		# [right-punch] button _pressed_
+		if Input.is_action_pressed("right_punch"):
+
+			# Check if the animation player is not locked
+			if !player.is_animation_locked:
+
+				# Check if the player is not "crouching" and is "on floor"
+				if !player.is_crouching and player.is_on_floor():
+
+					# Check if the player is "holding a rifle"
+					if player.is_holding_rifle:
+
+						# Flag the player as "aiming"
+						player.is_aiming = true
+
 		# [right-punch] button just _released_
 		if Input.is_action_just_released("right_punch"):
 
 			# Check if the player is "holding a rifle"
 			if player.is_holding_rifle:
 
-				# Check if the current animation is still an "aiming" one
-				if player.animation_player.current_animation == player.animation_standing_aiming_rifle:
-
-					# Stop the animation
-					player.animation_player.stop()
+				# Flag the player as not "aiming"
+				player.is_aiming = false
 
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -157,8 +172,8 @@ func _process(delta: float) -> void:
 			# Set the player's movement speed
 			player.speed_current = player.speed_walking
 
-	# Check if the player is "walking" (and the animation player is not locked)
-	if player.is_standing and !player.is_animation_locked:
+	# Check if the player is "walking"
+	if player.is_standing:
 
 		# Play the animation
 		play_animation()
@@ -167,17 +182,38 @@ func _process(delta: float) -> void:
 ## Plays the appropriate animation based on player state.
 func play_animation() -> void:
 
-	# <Animations> Check if the player is "standing"
-	if player.is_standing:
+	# Check if the animation player is not locked
+	if !player.is_animation_locked:
 
 		# Check if the player is "holding a rifle"
 		if player.is_holding_rifle:
 
-			# Check if the animation player is not already playing the appropriate animation
-			if player.animation_player.current_animation not in [player.animation_standing_holding_rifle, player.animation_standing_firing_rifle]:
+			# Check if the player is "firing"			
+			if player.is_firing:
 
-				# Play the "standing idle, aiming rifle" animation
-				player.animation_player.play(player.animation_standing_holding_rifle)
+				# Check if the animation player is not already playing the appropriate animation
+				if player.animation_player.current_animation != player.animation_standing_firing_rifle:
+
+					# Play the "standing, firing rifle" animation
+					player.animation_player.play(player.animation_standing_firing_rifle)
+
+			# Check if the player is "aiming"
+			elif player.is_aiming:
+
+				# Check if the animation player is not already playing the appropriate animation
+				if player.animation_player.current_animation != player.animation_standing_aiming_rifle:
+
+					# Play the "standing, aiming rifle" animation
+					player.animation_player.play(player.animation_standing_aiming_rifle)
+
+			# The player must be "idle"
+			else:
+
+				# Check if the animation player is not already playing the appropriate animation
+				if player.animation_player.current_animation != player.animation_standing_holding_rifle:
+
+					# Play the "standing idle, holding rifle" animation
+					player.animation_player.play(player.animation_standing_holding_rifle)
 
 		# Check if the player is "holding a tool"
 		elif player.is_holding_tool:

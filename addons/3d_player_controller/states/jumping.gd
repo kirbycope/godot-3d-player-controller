@@ -62,29 +62,32 @@ func _process(delta: float) -> void:
 ## Plays the appropriate animation based on player state.
 func play_animation() -> void:
 
-	# Check if the player is "holding a rifle"
-	if player.is_holding_rifle:
+	# Check if the animation player is not locked
+	if !player.is_animation_locked:
 
-		# Check if the animation player is not already playing the appropriate animation
-		if player.animation_player.current_animation != player.animation_jumping_holding_rifle:
+		# Check if the player is "holding a rifle"
+		if player.is_holding_rifle:
 
-			# Play the "jumping, holding a rifle" animation
-			player.animation_player.play(player.animation_jumping_holding_rifle)
+			# Check if the animation player is not already playing the appropriate animation
+			if player.animation_player.current_animation != player.animation_jumping_holding_rifle:
 
-	# Check if the player is "holding a tool"
-	elif player.is_holding_tool:
+				# Play the "jumping, holding a rifle" animation
+				player.animation_player.play(player.animation_jumping_holding_rifle)
 
-		# Check if the animation player is not already playing the appropriate animation
-		if player.animation_player.current_animation != player.animation_jumping_holding_tool:
+		# Check if the player is "holding a tool"
+		elif player.is_holding_tool:
 
-			# Play the "jumping, holding a tool" animation
-			player.animation_player.play(player.animation_jumping_holding_tool)
+			# Check if the animation player is not already playing the appropriate animation
+			if player.animation_player.current_animation != player.animation_jumping_holding_tool:
 
-	# The player must be unarmed
-	else:
+				# Play the "jumping, holding a tool" animation
+				player.animation_player.play(player.animation_jumping_holding_tool)
 
-		# Check if the animation player is not already playing the appropriate animation
-		if player.animation_player.current_animation != player.animation_jumping:
+		# The player must be unarmed
+		else:
 
-			# Play the "jumping" animation
-			player.animation_player.play(player.animation_jumping)
+			# Check if the animation player is not already playing the appropriate animation
+			if player.animation_player.current_animation != player.animation_jumping:
+
+				# Play the "jumping" animation
+				player.animation_player.play(player.animation_jumping)

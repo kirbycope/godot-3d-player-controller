@@ -90,8 +90,8 @@ func _process(delta: float) -> void:
 				# Reset the player's pitch
 				player.visuals.rotation.x = 0
 
-		# Check if the player is "flying" (and the animation player is not locked)
-		if player.is_flying and !player.is_animation_locked:
+		# Check if the player is "flying"
+		if player.is_flying:
 
 			# Play the animation
 			play_animation()
@@ -100,23 +100,26 @@ func _process(delta: float) -> void:
 ## Plays the appropriate animation based on player state.
 func play_animation() -> void:
 
-	# Check if the player is "sprinting"
-	if player.is_sprinting:
+	# Check if the animation player is not locked
+	if !player.is_animation_locked:
 
-		# Check if the current animation is not a animation_flying one
-		if player.animation_player.current_animation != player.animation_flying_fast:
+		# Check if the player is "sprinting"
+		if player.is_sprinting:
 
-			# Play the animation_standing "animation_flying Fast" animation
-			player.animation_player.play(player.animation_flying_fast)
+			# Check if the current animation is not a animation_flying one
+			if player.animation_player.current_animation != player.animation_flying_fast:
 
-	# The player must not be "sprinting"
-	else:
+				# Play the animation_standing "animation_flying Fast" animation
+				player.animation_player.play(player.animation_flying_fast)
 
-		# Check if the animation player is not already playing the appropriate animation
-		if player.animation_player.current_animation != player.animation_flying:
+		# The player must not be "sprinting"
+		else:
 
-			# Play the "flying" animation
-			player.animation_player.play(player.animation_flying)
+			# Check if the animation player is not already playing the appropriate animation
+			if player.animation_player.current_animation != player.animation_flying:
+
+				# Play the "flying" animation
+				player.animation_player.play(player.animation_flying)
 
 
 ## Called when the player starts "flying".

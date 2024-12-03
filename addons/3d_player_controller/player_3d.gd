@@ -4,7 +4,7 @@ extends CharacterBody3D
 const animation_crawling = "Crawling_In_Place"
 
 const animation_crouching = "Crouching_Idle"
-const animation_crouching_aiming_rifle = "Rifle_Aiming_Idle_Crouching" # IDLE CROUCHING AIMING ON Y BOT
+const animation_crouching_aiming_rifle = "Rifle_Aiming_Idle_Crouching"
 const animation_crouching_firing_rifle = "Rifle_Firing_Crouching"
 const animation_crouching_holding_rifle = "Rifle_Idle_Crouching"
 const animation_crouching_move = "Sneaking_In_Place"
@@ -40,6 +40,7 @@ const animation_walking_firing_rifle = "Rifle_Walking_Firing"
 const animation_walking_holding_rifle = "Rifle_Low_Run_In_Place"
 const animation_walking_holding_tool = "Tool_Walking_In_Place"
 
+const bone_name_right_hand = "mixamorigRightHandIndex1"
 const kicking_low_left = "Kicking_Low_Left"
 const kicking_low_right = "Kicking_Low_Right"
 const punching_high_left = "Punching_High_Left"
@@ -48,15 +49,6 @@ const punching_low_left = "Punching_Low_Left"
 const punching_low_right = "Punching_Low_Right"
 
 # State machine variables
-var animations_crawling = [animation_crawling]
-var animations_crouching = [animation_crawling,  animation_crouching, animation_crouching_aiming_rifle, animation_crouching_firing_rifle, animation_crouching_holding_rifle, animation_crouching_move, animation_crouching_move_holding_rifle]
-var animations_flying = [animation_flying, animation_flying_fast]
-var animations_hanging = [animation_hanging]
-var animations_jumping = [animation_jumping, animation_jumping_holding_rifle]
-var animations_running = [animation_running, animation_running_aiming_rifle, animation_running_holding_rifle]
-var animations_standing = [animation_standing, animation_standing_aiming_rifle, animation_standing_firing_rifle, animation_standing_holding_rifle]
-var animations_sprinting = [animation_sprinting, animation_sprinting_holding_rifle]
-var animations_walking = [animation_walking, animation_walking_aiming_rifle, animation_walking_firing_rifle, animation_walking_holding_rifle]
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var is_aiming: bool = false
 var is_animation_locked: bool = false
@@ -64,6 +56,7 @@ var is_climbing: bool = false
 var is_crawling: bool = false
 var is_crouching: bool = false
 var is_double_jumping: bool = false
+var is_firing: bool = false
 var is_flying: bool = false
 var is_hanging: bool = false
 var is_holding: bool = false
@@ -270,23 +263,6 @@ func _physics_process(delta) -> void:
 
 		# Move the camera to player
 		move_camera()
-
-		# Check if the player is holding a rifle or a tool
-		if is_holding_rifle or is_holding_tool:
-
-			# Move the position of the held item to the player's hand
-			move_held_item_mount()
-
-		# Check if the player is holding an object (hovering in front of them)
-		if is_holding:
-			# Get the nodes in the "held" group
-			var held_nodes = get_tree().get_nodes_in_group("held")
-			# Check if nodes were found in the group
-			if not held_nodes.is_empty():
-				# Get the first node in the "held" group
-				var held_node = held_nodes[0]
-				# Move the first node to the holding position
-				held_node.global_transform = item_mount.global_transform
 
 
 ## Check if the kick hits anything.
@@ -511,35 +487,6 @@ func move_camera():
 		var bone_pose = player_skeleton.get_bone_global_pose(bone_index)
 		# Adjust the camera mount position to match the bone's relative position (adjusting for $Visuals/AuxScene scaling)
 		camera_mount.position = Vector3(-bone_pose.origin.x * 0.01, bone_pose.origin.y * 0.01, (-bone_pose.origin.z * 0.01) - 0.165)
-
-
-## Move the item being held in the player's hand to the player's hand.
-func move_held_item_mount():
-
-	# Get the right hand bone
-	var bone_name = "mixamorigRightHandIndex1"
-	var bone_index = player_skeleton.find_bone(bone_name)
-
-	# Get the overall transform of the specified bone, with respect to the player's skeleton.
-	var bone_pose = player_skeleton.get_bone_global_pose(bone_index)
-
-	# Adjust the held item mount position to match the bone's relative position (adjusting for $Visuals/AuxScene scaling)
-	var bone_origin = bone_pose.origin
-	var pos_x = (-bone_origin.x * 0.01)
-	var pos_y = (bone_origin.y * 0.01)
-	var pos_z = (-bone_origin.z * 0.01)
-	held_item_mount.position = Vector3(pos_x, pos_y, pos_z)
-
-	# Set the rotation of the held item mount to match the bone's rotation
-	var bone_basis = bone_pose.basis.get_euler()
-	var rot_x = bone_basis.x
-	var rot_y = bone_basis.y - 0.2
-	var rot_z = bone_basis.z + 0.33
-	# Hack: Handle idle animation postional data
-	if animation_player.current_animation == animation_standing_holding_rifle:
-		rot_y = rot_y + 0.2
-		rot_z = bone_basis.z - 0.75
-		held_item_mount.rotation = Vector3(rot_x, rot_y, rot_z)
 
 
 ## Sets the player's movement speed based on status.
