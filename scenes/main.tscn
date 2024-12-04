@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=16 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="PackedScene" uid="uid://b80ulfowrgt55" path="res://scenes/player_3d.tscn" id="1_qnqwy"]
 [ext_resource type="Texture2D" uid="uid://e6rn4rs3cr0v" path="res://assets/kenney_nl/prototype_textures/PNG/Dark/texture_09.png" id="2_d2mly"]
 [ext_resource type="Texture2D" uid="uid://yjfepubkyyyr" path="res://assets/kenney_nl/prototype_textures/PNG/Light/texture_08.png" id="4_bf4q0"]
 [ext_resource type="PackedScene" uid="uid://cog5lww47pkyv" path="res://scenes/portal_gun.tscn" id="5_k8xrp"]
+[ext_resource type="Texture2D" uid="uid://ci020ecabgbvq" path="res://assets/kenney_nl/prototype_textures/PNG/Orange/texture_02.png" id="6_gk8xd"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yu8tv"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -36,6 +37,10 @@ size = Vector3(0.69, 0.69, 0.69)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hm17w"]
 size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qyptv"]
+albedo_texture = ExtResource("6_gk8xd")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_oaegt")
@@ -71,5 +76,11 @@ transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PortalGun/Area3D"]
 shape = SubResource("BoxShape3D_hm17w")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, -4)
+material_override = SubResource("StandardMaterial3D_qyptv")
+use_collision = true
+size = Vector3(2, 2, 2)
 
 [connection signal="body_entered" from="PortalGun/Area3D" to="." method="_on_area_3d_body_entered"]

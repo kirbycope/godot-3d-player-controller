@@ -164,39 +164,6 @@ func _input(event) -> void:
 			# Rotate camera based on mouse movement
 			camera_rotate_by_mouse(event)
 
-		# Check if the animation player is not locked
-		if !is_animation_locked:
-
-			# [use] button _pressed_ (while holding something)
-			if event.is_action_pressed("use") and is_holding:
-				# Get the nodes in the "held" group
-				var held_nodes = get_tree().get_nodes_in_group("held")
-				# Check if nodes were found in the group
-				if not held_nodes.is_empty():
-					# Get the first node in the "held" group
-					var held_node = held_nodes[0]
-					# Flag the node as no longer "held"
-					held_node.remove_from_group("held")
-					# Flag the player as "holding" something
-					is_holding = false
-					# Input handled, move on
-					return
-
-			# [use] button _pressed_ (while not holding something)
-			if event.is_action_pressed("use") and !is_holding:
-				# Check if the player is looking at something
-				if raycast_lookat.is_colliding():
-					# Get the object the RayCast is colliding with
-					var collider = raycast_lookat.get_collider()
-					# Check if the collider is a RigidBody3D
-					if collider is RigidBody3D:
-						# Flag the RigidBody3D as being "held"
-						collider.add_to_group("held")
-						# Flag the player as "holding" something
-						is_holding = true
-					# Input handled, move on
-						return
-
 		# [select] button _pressed_
 		if event.is_action_pressed("select"):
 

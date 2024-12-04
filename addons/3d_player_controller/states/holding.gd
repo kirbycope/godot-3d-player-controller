@@ -3,6 +3,49 @@ extends Node
 @onready var player: CharacterBody3D = get_parent().get_parent()
 
 
+## Called when there is an input event. The input event propagates up through the node tree until a node consumes it.
+func _input(event: InputEvent) -> void:
+
+	# Check if the game is not paused
+	if !Globals.game_paused:
+
+		# [use] button _pressed_ (and holding something)
+		if event.is_action_pressed("use") and player.is_holding:
+
+			# Get the nodes in the "held" group
+			var held_nodes = get_tree().get_nodes_in_group("held")
+
+			# Check if nodes were found in the group
+			if not held_nodes.is_empty():
+
+				# Get the first node in the "held" group
+				var held_node = held_nodes[0]
+
+				# Flag the node as no longer "held"
+				held_node.remove_from_group("held")
+
+				# Flag the player as "holding" something
+				player.is_holding = false
+
+		# [use] button _pressed_ (and not holding something)
+		if event.is_action_pressed("use") and !player.is_holding:
+
+			# Check if the player is looking at something
+			if player.raycast_lookat.is_colliding():
+
+				# Get the object the RayCast is colliding with
+				var collider = player.raycast_lookat.get_collider()
+
+				# Check if the collider is a RigidBody3D
+				if collider is RigidBody3D:
+
+					# Flag the RigidBody3D as being "held"
+					collider.add_to_group("held")
+
+					# Flag the player as "holding" something
+					player.is_holding = true
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 
