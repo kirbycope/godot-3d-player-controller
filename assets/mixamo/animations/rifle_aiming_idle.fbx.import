@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://08d6wxha5j1f"
-path="res://.godot/imported/rifle_aiming_idle.fbx-fa7c1b17c84524819a9b2c426defcdc0.scn"
+path="res://.godot/imported/Rifle_Aiming_Idle.fbx-f9a9244cb92f27c1fc6e01bb4c2cacfa.scn"
 
 [deps]
 
-source_file="res://assets/mixamo/animations/rifle_aiming_idle.fbx"
-dest_files=["res://.godot/imported/rifle_aiming_idle.fbx-fa7c1b17c84524819a9b2c426defcdc0.scn"]
+source_file="res://assets/mixamo/animations/Rifle_Aiming_Idle.fbx"
+dest_files=["res://.godot/imported/Rifle_Aiming_Idle.fbx-f9a9244cb92f27c1fc6e01bb4c2cacfa.scn"]
 
 [params]
 

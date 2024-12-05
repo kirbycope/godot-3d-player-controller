@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://b6a2wxnqj2hun"
-path="res://.godot/imported/crawling_in_place.fbx-14a130c3ca9b5a0f5f5d470c94675e1a.scn"
+path="res://.godot/imported/Crawling_In_Place.fbx-920633ff314e689c5f8d44f1e1dfcb02.scn"
 
 [deps]
 
-source_file="res://assets/mixamo/animations/crawling_in_place.fbx"
-dest_files=["res://.godot/imported/crawling_in_place.fbx-14a130c3ca9b5a0f5f5d470c94675e1a.scn"]
+source_file="res://assets/mixamo/animations/Crawling_In_Place.fbx"
+dest_files=["res://.godot/imported/Crawling_In_Place.fbx-920633ff314e689c5f8d44f1e1dfcb02.scn"]
 
 [params]
 

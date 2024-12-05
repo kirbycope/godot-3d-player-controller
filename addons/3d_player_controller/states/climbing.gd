@@ -9,4 +9,5 @@ func _process(delta: float) -> void:
 	# Check if the player is "climbing"
 	if player.is_climbing:
 
-		print("climbing")
+		#print("climbing")
+		pass

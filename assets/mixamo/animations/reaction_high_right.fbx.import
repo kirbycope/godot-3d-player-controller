@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://baoxo4611n5oo"
-path="res://.godot/imported/reaction_high_right.fbx-234dd81eef22eec251b1dd16f8c15e09.scn"
+path="res://.godot/imported/Reaction_High_Right.fbx-d9c9c88c29fac02028861bd440985cbb.scn"
 
 [deps]
 
-source_file="res://assets/mixamo/animations/reaction_high_right.fbx"
-dest_files=["res://.godot/imported/reaction_high_right.fbx-234dd81eef22eec251b1dd16f8c15e09.scn"]
+source_file="res://assets/mixamo/animations/Reaction_High_Right.fbx"
+dest_files=["res://.godot/imported/Reaction_High_Right.fbx-d9c9c88c29fac02028861bd440985cbb.scn"]
 
 [params]
 

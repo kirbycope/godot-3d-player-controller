@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bfx7r4hn3tkmj"
-path="res://.godot/imported/running_in_place_with_sword_left.fbx-01d29d5620af07464375d3b0b178f47f.scn"
+path="res://.godot/imported/Running_In_Place_With_Sword_Left.fbx-1bc1915eedb954ce26f0c4ecd36375c7.scn"
 
 [deps]
 
-source_file="res://assets/mixamo/animations/running_in_place_with_sword_left.fbx"
-dest_files=["res://.godot/imported/running_in_place_with_sword_left.fbx-01d29d5620af07464375d3b0b178f47f.scn"]
+source_file="res://assets/mixamo/animations/Running_In_Place_With_Sword_Left.fbx"
+dest_files=["res://.godot/imported/Running_In_Place_With_Sword_Left.fbx-1bc1915eedb954ce26f0c4ecd36375c7.scn"]
 
 [params]
 

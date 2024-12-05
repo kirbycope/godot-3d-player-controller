@@ -311,33 +311,6 @@ func check_punch_collision() -> void:
 			Input.start_joy_vibration(0, 1.0, 0.0, 0.1)
 
 
-## Check the eyeline for a ledge to grab.
-func check_top_edge_collision() -> void:
-	if !raycast_top.is_colliding() and raycast_high.is_colliding() and !is_climbing:
-		# Check if the current animation is not a "hanging" one
-		if animation_player.current_animation != animation_hanging:
-			# Play the animation_standing "Hanging" animation
-			animation_player.play(animation_hanging)
-		# Adjust for the animation's player position
-		var point = raycast_high.get_collision_point()
-		# Determine the direction away from the wall
-		var offset_direction = (position - point).normalized()
-		# Offset the player by half the width away from the wall
-		position = Vector3(point.x + offset_direction.x * 0.2, position.y - 0.45, point.z + offset_direction.z * 0.2)
-		# Flag the animation player as locked
-		is_animation_locked = true
-		# Flag the player as "hanging" (from a ledge)
-		is_hanging = true
-		# Flag the player as not jumping
-		is_jumping = false
-		# Reset velocity to prevent any movement
-		velocity = Vector3.ZERO
-		# Delay execution
-		await get_tree().create_timer(0.2).timeout
-		# Flag the animation player no longer locked
-		is_animation_locked = false
-
-
 ## Rotate camera using the right-analog stick.
 func camera_rotate_by_controller(delta: float) -> void:
 
@@ -399,48 +372,6 @@ func camera_rotate_by_mouse(event: InputEvent) -> void:
 	if perspective == 0:
 		# Rotate the visuals opposite the camera's horizontal rotation
 		visuals.rotate_y(deg_to_rad(event.relative.x * look_sensitivity_mouse))
-
-
-## Manage the player's state; setting flags and playing animations.
-func mangage_state() -> void:
-
-	# Check if the player is hanging (from a ledge)
-	if is_hanging:
-
-		# [crouch] button currently _pressed_ (and the animation played is unlocked)
-		if Input.is_action_pressed("crouch") and !is_animation_locked:
-			# Flag the player as no longer "hanging"
-			is_hanging = false
-			# Make the player start falling again
-			velocity.y = -gravity
-			# Play the animation_standing "falling" animation
-			animation_player.play(animation_jumping)
-
-		# [jump] button just _pressed_ (and the animation player is unlocked)
-		if Input.is_action_just_pressed("jump") and !is_animation_locked:
-			# Flag the player as no longer "hanging"
-			is_hanging = false
-			# Flag the player as "climbing" (from a ledge)
-			is_climbing = true
-			# Make the player start falling again
-			velocity.y = -gravity
-			# Play the animation_standing "Standing" animation
-			animation_player.play(animation_standing)
-			# Find the target position
-			var collision_point = raycast_jumptarget.get_collision_point()
-			# Move the player
-			var tween = get_tree().create_tween()
-			tween.tween_property(self, "position", collision_point, 0.2)
-			# Delay execution
-			await get_tree().create_timer(0.2).timeout
-			# Flag the player as no longer "climbing"
-			is_climbing = false
-
-	# The player should not be on a floor and not animation_flying
-	else:
-
-		# Edge detection
-		check_top_edge_collision()
 
 
 ## Update the camera to follow the character head's position (while in "first person").
