@@ -83,10 +83,13 @@ func move_held_item_mount() -> void:
 	var rot_x = bone_basis.x
 	var rot_y = bone_basis.y - 0.2
 	var rot_z = bone_basis.z + 0.33
+
 	# Hack: Handle idle animation postional data
 	if player.animation_player.current_animation == player.animation_standing_holding_rifle:
 		rot_y = rot_y + 0.2
 		rot_z = bone_basis.z - 0.75
+
+	# Apply the rotation
 	player.held_item_mount.rotation = Vector3(rot_x, rot_y, rot_z)
 
 
@@ -104,3 +107,8 @@ func move_held_object() -> void:
 
 		# Move the first node to the holding position
 		held_node.global_transform = player.item_mount.global_transform
+
+		# If the held node is a RigidBody, reset its velocities
+		if held_node is RigidBody3D:
+			held_node.linear_velocity = Vector3.ZERO
+			held_node.angular_velocity = Vector3.ZERO

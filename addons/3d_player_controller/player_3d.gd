@@ -15,6 +15,8 @@ const animation_flying = "Flying_In_Place"
 const animation_flying_fast = "Flying_Fast_In_Place"
 
 const animation_hanging = "Hanging_Idle"
+const animation_hanging_shimmy_left = "Braced_Hang_Shimmy_Left_In_Place"
+const animation_hanging_shimmy_right = "Braced_Hang_Shimmy_Right_In_Place"
 
 const animation_jumping = "Falling_Idle"
 const animation_jumping_holding_rifle = "Rifle_Falling_Idle"
@@ -117,6 +119,8 @@ var timer_jump: float = 0.0
 @onready var raycast_low = $Visuals/RayCast3D_InFrontPlayer_Low
 @onready var raycast_below = $Visuals/RayCast3D_BelowPlayer
 @onready var visuals = $Visuals
+@onready var visuals_aux_scene = $Visuals/AuxScene
+@onready var visuals_aux_scene_position = $Visuals/AuxScene.position
 
 
 ## Called when the node leaves the scene tree.
@@ -225,6 +229,7 @@ func _physics_process(delta) -> void:
 
 		# Check if the animation player is unlocked and the player's motion is unlocked
 		if !is_animation_locked and !Globals.movement_locked:
+
 			# Move player
 			move_and_slide()
 
@@ -835,35 +840,43 @@ func update_velocity(delta: float) -> void:
 
 	# Check if the player is not hanging
 	if !is_hanging:
+
 		# Add the gravity.
 		velocity.y -= gravity * delta
 
-	# Get the input direction and handle the movement/deceleration.
-	var input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+		# Get the input direction and handle the movement/deceleration.
+		var input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+		var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
-	# Calculate the input magnitude (intensity of the left-analog stick)
-	var input_magnitude = input_dir.length()
-	
-	# Set the player's movement speed
-	set_player_speed(input_magnitude)
-	
-	# Check for directional movement
-	if direction:
-		# Check if the animation player is unlocked
-		if !is_animation_locked:
-			# Check if the player is not in "third person" perspective
-			if perspective == 0:
-				# Update the camera to look in the direction based on player input
-				visuals.look_at(position + direction)
+		# Calculate the input magnitude (intensity of the left-analog stick)
+		var input_magnitude = input_dir.length()
+		
+		# Set the player's movement speed
+		set_player_speed(input_magnitude)
+		
+		# Check for directional movement
+		if direction:
+
+			# Check if the animation player is unlocked
+			if !is_animation_locked:
+
+				# Check if the player is not in "third person" perspective
+				if perspective == 0:
+
+					# Update the camera to look in the direction based on player input
+					visuals.look_at(position + direction)
+
+				# Update horizontal veolicty
+				velocity.x = direction.x * speed_current
+
+				# Update vertical veolocity
+				velocity.z = direction.z * speed_current
+
+		# No movement detected
+		else:
+
 			# Update horizontal veolicty
-			velocity.x = direction.x * speed_current
-			# Update vertical veolocity
-			velocity.z = direction.z * speed_current
+			velocity.x = move_toward(velocity.x, 0, speed_current)
 
-	# No movement detected
-	else:
-		# Update horizontal veolicty
-		velocity.x = move_toward(velocity.x, 0, speed_current)
-		# Update vertical veolocity
-		velocity.z = move_toward(velocity.z, 0, speed_current)
+			# Update vertical veolocity
+			velocity.z = move_toward(velocity.z, 0, speed_current)
