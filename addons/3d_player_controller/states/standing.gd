@@ -153,26 +153,45 @@ func _input(event: InputEvent) -> void:
 				# Flag the player as not "aiming"
 				player.is_aiming = false
 
+		# [crouch] button just _pressed_
+		if Input.is_action_just_pressed("crouch"):
+
+			# Transition to "crouching"
+			to_crouching()
+
+		# [jump] button just _pressed_
+		if Input.is_action_just_pressed("jump"):
+
+			# Transition to "jumping"
+			to_jumping()
+
+
+## Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+
+	# Check if the state is set but not yet started
+	if States.current_state == States.State.STANDING and !player.is_standing:
+
+		# Start "standing"
+		start()
+
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 
-	# Flag the player as not "standing"
-	player.is_standing = false
+	# [crouch] button _pressed_ (and not already "crouching")
+	if Input.is_action_pressed("crouch") and !player.is_crouching:
 
-	# Check if the player is not moving (and on the ground)
-	if player.velocity == Vector3(0.0, 0.0, 0.0) and player.is_on_floor():
+		# Check if the animation player is not locked
+		if !player.is_animation_locked:
 
-		# Check if the player is not "crouching" or "jumping"
-		if !player.is_crouching and !player.is_jumping:
+			# Check if the player "is on floor"
+			if player.is_on_floor():
 
-			# Flag the player as "standing"
-			player.is_standing = true
+				# Start "crouching"
+				to_crouching()
 
-			# Set the player's movement speed
-			player.speed_current = player.speed_walking
-
-	# Check if the player is "walking"
+	# Check if the player is "standing"
 	if player.is_standing:
 
 		# Play the animation
@@ -232,3 +251,46 @@ func play_animation() -> void:
 
 				# Play the "standing idle" animation
 				player.animation_player.play(player.animation_standing)
+
+
+## Start "standing".
+func start() -> void:
+
+	# Enable _this_ state node
+	process_mode = PROCESS_MODE_INHERIT
+
+	# Set the player's new state
+	States.current_state = States.State.STANDING
+
+	# Flag the player as "standing"
+	player.is_standing = true
+
+
+## Stop "standing"
+func stop() -> void:
+
+	# Disable _this_ state node
+	process_mode = PROCESS_MODE_DISABLED
+
+	# Flag the player as not "standing"
+	player.is_standing = false
+
+
+## State.IDLING -> State.CROUCHING
+func to_crouching():
+
+	# Stop "standing"
+	stop()
+
+	# Start "crouching"
+	$"../Crouching".start()
+
+
+## State.IDLING -> State.JUMPING
+func to_jumping():
+
+	# Stop "standing"
+	stop()
+
+	# Start "jumping"
+	$"../Jumping".start()

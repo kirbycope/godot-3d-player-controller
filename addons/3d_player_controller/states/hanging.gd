@@ -15,14 +15,14 @@ func _input(event: InputEvent) -> void:
 			# [crouch] button _pressed_
 			if event.is_action_pressed("crouch"):
 
-				# Stop the player "hanging"
-				stop_hanging()
+				# Stop "hanging"
+				stop()
 
 			# [jump] button _pressed_
 			if event.is_action_pressed("jump"):
 
-				# Stop the player "hanging"
-				stop_hanging()
+				# Stop "hanging"
+				stop()
 
 				# Flag the player as "climbing" (also called "mantling")
 				player.is_climbing = true
@@ -68,8 +68,8 @@ func _process(delta: float) -> void:
 			# Only proceed if the collision object is not in the "held" group
 			if !collision_object.is_in_group("held"):
 
-				# Start the player "hanging"
-				start_hanging()
+				# Start "hanging"
+				start()
 
 				# Get the player's height
 				var player_height = player.get_node("CollisionShape3D").shape.height
@@ -168,8 +168,14 @@ func move_character(direction: float) -> void:
 	player.move_and_slide()
 
 
-## Called when the player starts "hanging".
-func start_hanging() -> void:
+## Start "hanging".
+func start() -> void:
+
+	# Enable _this_ state node
+	process_mode = PROCESS_MODE_INHERIT
+
+	# Set the player's new state
+	States.current_state = States.State.HANGING
 
 	# Flag the player as "hanging"
 	player.is_hanging = true
@@ -184,8 +190,11 @@ func start_hanging() -> void:
 	player.get_node("CollisionShape3D").position = player.collision_position
 
 
-## Called when the player stops "hanging".
-func stop_hanging() -> void:
+## Stop "hanging".
+func stop() -> void:
+
+	# Disable _this_ state node
+	process_mode = PROCESS_MODE_DISABLED
 
 	# Flag player as not "hanging"
 	player.is_hanging = false

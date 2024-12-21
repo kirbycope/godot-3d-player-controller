@@ -45,3 +45,26 @@ func play_animation() -> void:
 
 				# Play the "crawling" animation
 				player.animation_player.play(player.animation_crawling)
+
+
+## Start "crawling".
+func start() -> void:
+
+	# Enable _this_ state node
+	process_mode = PROCESS_MODE_INHERIT
+
+	# Set the player's new state
+	States.current_state = States.State.CRAWLING
+
+	# Flag the player as "crawling"
+	player.is_crawling = true
+
+
+## Stop "crawling".
+func stop() -> void:
+
+	# Disable _this_ state node
+	process_mode = PROCESS_MODE_DISABLED
+
+	# Flag the player as not "crawling"
+	player.is_crawling = false

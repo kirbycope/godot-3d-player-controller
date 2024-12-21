@@ -15,20 +15,8 @@ func _input(event: InputEvent) -> void:
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
 
-				# Check if the player "is on floor"
-				if player.is_on_floor():
-
-					# Set the player's vertical velocity
-					player.velocity.y = player.jump_velocity
-
-					# Flag the player as not "double jumping"
-					player.is_double_jumping = false
-
-					# Flag the player as "jumping"
-					player.is_jumping = true
-
-				# The player must be in the air
-				else:
+				# Check if the player is not "on floor"
+				if !player.is_on_floor():
 
 					# Check if "double jump" is enabled and the player is not currently double-jumping
 					if player.enable_double_jump and !player.is_double_jumping:
@@ -46,11 +34,8 @@ func _process(delta: float) -> void:
 	# Check if the player is on the ground (and has no vertical velocity) or is "flying"
 	if (player.is_on_floor() and player.velocity.y ==  0.0) or player.is_flying:
 
-		# Flag the player as not "double jumping"
-		player.is_double_jumping = false
-
-		# Flag the player as not "jumping"
-		player.is_jumping = false
+		# Change to "standing" state
+		to_standing()
 
 	# Check if the player is "jumping" (and the animation player is not locked)
 	if player.is_jumping and !player.is_animation_locked:
@@ -91,3 +76,45 @@ func play_animation() -> void:
 
 				# Play the "jumping" animation
 				player.animation_player.play(player.animation_jumping)
+
+
+## Start "jumping".
+func start() -> void:
+
+	# Enable _this_ state node
+	process_mode = PROCESS_MODE_INHERIT
+
+	# Set the player's new state
+	States.current_state = States.State.JUMPING
+
+	# Flag the player as "jumping"
+	player.is_jumping = true
+
+	# Flag the player as not "double jumping"
+	player.is_double_jumping = false
+
+	# Set the player's vertical velocity
+	player.velocity.y = player.jump_velocity
+
+
+## Stop "jumping".
+func stop() -> void:
+
+	# Disable _this_ state node
+	process_mode = PROCESS_MODE_DISABLED
+
+	# Flag the player as not "jumping"
+	player.is_jumping = false
+
+	# Flag the player as not "double jumping"
+	player.is_double_jumping = false
+
+
+## State.JUMPING -> State.STANDING
+func to_standing():
+
+	# Stop "jumping"
+	stop()
+
+	# Start "standing"
+	$"../Standing".start()

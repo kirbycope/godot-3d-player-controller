@@ -223,9 +223,15 @@ func _physics_process(delta) -> void:
 			if Input.is_action_pressed(action) and !Globals.fixed_camera:
 				# Rotate camera based on controller movement
 				camera_rotate_by_controller(delta)
+	
+		# Check if the player is not hanging
+		if !is_hanging:
 
-		# Handle player movement
-		update_velocity(delta)
+			# Add the gravity.
+			velocity.y -= gravity * delta
+
+			# Handle player movement
+			#update_velocity(delta)
 
 		# Check if the animation player is unlocked and the player's motion is unlocked
 		if !is_animation_locked and !Globals.movement_locked:
@@ -838,45 +844,42 @@ func setup_controls():
 ## Update the player's velocity based on input and status.
 func update_velocity(delta: float) -> void:
 
-	# Check if the player is not hanging
-	if !is_hanging:
+	# Add the gravity.
+	velocity.y -= gravity * delta
 
-		# Add the gravity.
-		velocity.y -= gravity * delta
+	# Get the input direction and handle the movement/deceleration.
+	var input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
-		# Get the input direction and handle the movement/deceleration.
-		var input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-		var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	# Calculate the input magnitude (intensity of the left-analog stick)
+	var input_magnitude = input_dir.length()
+	
+	# Set the player's movement speed
+	set_player_speed(input_magnitude)
+	
+	# Check for directional movement
+	if direction:
 
-		# Calculate the input magnitude (intensity of the left-analog stick)
-		var input_magnitude = input_dir.length()
-		
-		# Set the player's movement speed
-		set_player_speed(input_magnitude)
-		
-		# Check for directional movement
-		if direction:
+		# Check if the animation player is unlocked
+		if !is_animation_locked:
 
-			# Check if the animation player is unlocked
-			if !is_animation_locked:
+			# Check if the player is not in "third person" perspective
+			if perspective == 0:
 
-				# Check if the player is not in "third person" perspective
-				if perspective == 0:
-
-					# Update the camera to look in the direction based on player input
-					visuals.look_at(position + direction)
-
-				# Update horizontal veolicty
-				velocity.x = direction.x * speed_current
-
-				# Update vertical veolocity
-				velocity.z = direction.z * speed_current
-
-		# No movement detected
-		else:
+				# Update the camera to look in the direction based on player input
+				visuals.look_at(position + direction)
 
 			# Update horizontal veolicty
-			velocity.x = move_toward(velocity.x, 0, speed_current)
+			velocity.x = direction.x * speed_current
 
 			# Update vertical veolocity
-			velocity.z = move_toward(velocity.z, 0, speed_current)
+			velocity.z = direction.z * speed_current
+
+	# No movement detected
+	else:
+
+		# Update horizontal veolicty
+		velocity.x = move_toward(velocity.x, 0, speed_current)
+
+		# Update vertical veolocity
+		velocity.z = move_toward(velocity.z, 0, speed_current)

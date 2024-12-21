@@ -3,7 +3,7 @@ extends Node
 @onready var player: CharacterBody3D = get_parent().get_parent()
 
 
-## Called when there is an input event. The input event propagates up through the node tree until a node consumes it.
+## Called when there is an input event.
 func _input(event: InputEvent) -> void:
 
 	# Check if the game is not paused
@@ -19,13 +19,19 @@ func _input(event: InputEvent) -> void:
 				if player.is_on_floor():
 
 					# Start "crouching"
-					start_crouching()
+					start()
 
 		# [crouch] button just _released_
 		if Input.is_action_just_released("crouch"):
 
 			# Stop "crouching"
-			stop_crouching()
+			to_standing()
+
+		# [jump] button just _pressed_
+		if Input.is_action_just_pressed("jump"):
+
+			# Transition to "jumping"
+			to_jumping()
 
 		# [left-punch] button just _pressed_
 		if Input.is_action_just_pressed("left_punch"):
@@ -121,18 +127,6 @@ func _input(event: InputEvent) -> void:
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 
-	# [crouch] button _pressed_ (and not already "crouching")
-	if Input.is_action_pressed("crouch") and !player.is_crouching:
-
-		# Check if the animation player is not locked
-		if !player.is_animation_locked:
-
-			# Check if the player "is on floor"
-			if player.is_on_floor():
-
-				# Start "crouching"
-				start_crouching()
-
 	# Check if the player is "crouching"
 	if player.is_crouching:
 
@@ -198,8 +192,14 @@ func play_animation() -> void:
 				player.animation_player.play(player.animation_crouching)
 
 
-## Called when the player starts "crouching".
-func start_crouching() -> void:
+## Start "crouching".
+func start() -> void:
+
+	# Enable _this_ state node
+	process_mode = PROCESS_MODE_INHERIT
+
+	# Set the player's new state
+	States.current_state = States.State.CROUCHING
 
 	# Flag the player as "crouching"
 	player.is_crouching = true
@@ -214,8 +214,11 @@ func start_crouching() -> void:
 	player.get_node("CollisionShape3D").position = player.collision_position / 2
 
 
-## Called when the player stops "crouching".
-func stop_crouching() -> void:
+## Stop "crouching".
+func stop() -> void:
+
+	# Disable _this_ state node
+	process_mode = PROCESS_MODE_DISABLED
 
 	# Flag player as not "crouching"
 	player.is_crouching = false
@@ -228,3 +231,23 @@ func stop_crouching() -> void:
 
 	# Reset CollisionShape3D position
 	player.get_node("CollisionShape3D").position = player.collision_position
+
+
+## State.CROUCHING -> State.JUMPING
+func to_jumping():
+
+	# Stop "crouching"
+	stop()
+
+	# Start "jumping"
+	$"../Jumping".start()
+
+
+## State.CROUCHING -> State.STANDING
+func to_standing():
+
+	# Stop "crouching"
+	stop()
+
+	# Start "standing"
+	$"../Standing".start()

@@ -64,3 +64,26 @@ func play_animation() -> void:
 
 				# Play the "sprinting" animation
 				player.animation_player.play(player.animation_sprinting)
+
+
+## Start "sprinting".
+func start() -> void:
+
+	# Enable _this_ state node
+	process_mode = PROCESS_MODE_INHERIT
+
+	# Set the player's new state
+	States.current_state = States.State.SPRINTING
+
+	# Flag the player as "sprinting"
+	player.is_sprinting = true
+
+
+## Stop "sprinting".
+func stop() -> void:
+
+	# Disable _this_ state node
+	process_mode = PROCESS_MODE_DISABLED
+
+	# Flag the player as not "sprinting"
+	player.is_sprinting = false

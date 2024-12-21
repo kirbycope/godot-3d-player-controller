@@ -57,3 +57,26 @@ func play_animation() -> void:
 
 				# Play the "walking" animation
 				player.animation_player.play(player.animation_walking)
+
+
+## Start "walking".
+func start() -> void:
+
+	# Enable _this_ state node
+	process_mode = PROCESS_MODE_INHERIT
+
+	# Set the player's new state
+	States.current_state = States.State.WALKING
+
+	# Flag the player as "walking"
+	player.is_walking = true
+
+
+## Stop "walking".
+func stop() -> void:
+
+	# Disable _this_ state node
+	process_mode = PROCESS_MODE_DISABLED
+
+	# Flag the player as not "walking"
+	player.is_walking = false
