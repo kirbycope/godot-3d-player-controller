@@ -6,17 +6,27 @@ extends Node
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 
-	# Flag the player as not "walking"
-	player.is_walking = false
+# Check if the player is not moving
+	if player.velocity == Vector3(0.0, 0.0, 0.0):
 
-	# Check if the player is moving on the ground (and not crouching)
-	if player.velocity != Vector3(0.0, 0.0, 0.0) and player.is_on_floor() and !player.is_crouching:
+		# Start "standing"		
+		to_standing()
 
-		# Check if the player speed is slower than or equal to "walking"
-		if player.speed_current <=player.speed_walking:
+	# The player must be moving
+	else:
 
-			# Flag the player as "walking"
-			player.is_walking = true
+		# Check if the player speed is faster than "walking" but slower than or equal to "running"
+		if player.speed_walking < player.speed_current and player.speed_current <= player.speed_running:
+
+			# Start "running"
+			to_running()
+
+		# Check if the player speed is faster than "running" but slower than or equal to "sprinting"
+		elif player.speed_running < player.speed_current and player.speed_current <= player.speed_sprinting:
+
+			# Start "sprinting"
+			to_sprinting()
+
 	
 	# Check if the player is "walking"
 	if player.is_walking:
@@ -80,3 +90,33 @@ func stop() -> void:
 
 	# Flag the player as not "walking"
 	player.is_walking = false
+
+
+## State.WALKING -> State.RUNNING
+func to_running() -> void:
+
+	# Stop "walking"
+	stop()
+
+	# Start "running"
+	$"../Running".start()
+
+
+## State.WALKING -> State.SPRINTING
+func to_sprinting() -> void:
+
+	# Stop "walking"
+	stop()
+
+	# Start "sprinting"
+	$"../Sprinting".start()
+
+
+## State.WALKING -> State.STANDING
+func to_standing() -> void:
+
+	# Stop "walking"
+	stop()
+
+	# Start "standing"
+	$"../Standing".start()

@@ -39,8 +39,8 @@ func _process(delta: float) -> void:
 						# Check if _this_ button press is within 200 milliseconds
 						if time_now - player.timer_jump < 200:
 
-							# Stop "flying"
-							stop()
+							# Start "jumping"
+							to_jumping()
 
 						# Either way, reset the timer
 						player.timer_jump = Time.get_ticks_msec()
@@ -63,8 +63,8 @@ func _process(delta: float) -> void:
 				# End animation_flying if collision detected below the player
 				if player.raycast_below.is_colliding():
 
-					# Stop "flying"
-					stop()
+					# Start "standing"
+					to_standing()
 			
 			# [crouch] button just _released_
 			if Input.is_action_just_released("crouch"):
@@ -152,6 +152,26 @@ func stop() -> void:
 
 	# [Re]Set player properties
 	player.gravity = 9.8
-	player.motion_mode = 0 # MOTION_MODE_GROUNDED
+	player.motion_mode = CharacterBody3D.MOTION_MODE_GROUNDED
 	player.velocity.y -= player.gravity
 	player.visuals.rotation.x = 0
+
+
+## State.FLYING -> State.JUMPING
+func to_jumping():
+
+	# Stop "flying"
+	stop()
+
+	# Start "jumping"
+	$"../Jumping".start()
+
+
+## State.FLYING -> State.STANDING
+func to_standing():
+
+	# Stop "flying"
+	stop()
+
+	# Start "standing"
+	$"../Standing".start()

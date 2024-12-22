@@ -26,6 +26,12 @@ func _input(event: InputEvent) -> void:
 
 						# Set the "double jumping" flag
 						player.is_double_jumping = true
+					
+					# Check if "flying" is enabled and the player is not currently flying
+					elif player.enable_flying and !player.is_flying:
+
+						# Start "flying"
+						to_flying()
 
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -37,8 +43,8 @@ func _process(delta: float) -> void:
 		# Change to "standing" state
 		to_standing()
 
-	# Check if the player is "jumping" (and the animation player is not locked)
-	if player.is_jumping and !player.is_animation_locked:
+	# Check if the player is "jumping"
+	if player.is_jumping:
 
 		# Play the animation
 		play_animation()
@@ -108,6 +114,16 @@ func stop() -> void:
 
 	# Flag the player as not "double jumping"
 	player.is_double_jumping = false
+
+
+## State.JUMPING -> State.FLYING
+func to_flying():
+
+	# Stop "jumping"
+	stop()
+
+	# Start "flying"
+	$"../Flying".start()
 
 
 ## State.JUMPING -> State.STANDING

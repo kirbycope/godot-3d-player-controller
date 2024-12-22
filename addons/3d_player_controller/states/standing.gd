@@ -191,6 +191,27 @@ func _process(delta: float) -> void:
 				# Start "crouching"
 				to_crouching()
 
+	# Check if the player is moving
+	if player.velocity != Vector3(0.0, 0.0, 0.0):
+
+		# Check if the player speed is slower than or equal to "walking"
+		if player.speed_current <= player.speed_walking:
+
+			# Start "walking"
+			to_walking()
+
+		# Check if the player speed is faster than "walking" but slower than or equal to "running"
+		elif player.speed_walking < player.speed_current and player.speed_current <= player.speed_running:
+
+			# Start "running"
+			to_running()
+
+		# Check if the player speed is faster than "running" but slower than or equal to "sprinting"
+		elif player.speed_running < player.speed_current and player.speed_current <= player.speed_sprinting:
+
+			# Start "sprinting"
+			to_sprinting()
+
 	# Check if the player is "standing"
 	if player.is_standing:
 
@@ -276,7 +297,7 @@ func stop() -> void:
 	player.is_standing = false
 
 
-## State.IDLING -> State.CROUCHING
+## State.STANDING -> State.CROUCHING
 func to_crouching():
 
 	# Stop "standing"
@@ -286,7 +307,7 @@ func to_crouching():
 	$"../Crouching".start()
 
 
-## State.IDLING -> State.JUMPING
+## State.STANDING -> State.JUMPING
 func to_jumping():
 
 	# Stop "standing"
@@ -294,3 +315,33 @@ func to_jumping():
 
 	# Start "jumping"
 	$"../Jumping".start()
+
+
+## State.STANDING -> State.RUNNING
+func to_running() -> void:
+
+	# Stop "standing"
+	stop()
+
+	# Start "running"
+	$"../Running".start()
+
+
+## State.STANDING -> State.SPRINTING
+func to_sprinting() -> void:
+
+	# Stop "standing"
+	stop()
+
+	# Start "sprinting"
+	$"../Sprinting".start()
+
+
+## State.STANDING -> State.WALKING
+func to_walking() -> void:
+
+	# Stop "standing"
+	stop()
+
+	# Start "walking"
+	$"../Walking".start()
