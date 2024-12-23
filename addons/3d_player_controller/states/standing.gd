@@ -3,11 +3,23 @@ extends Node
 @onready var player: CharacterBody3D = get_parent().get_parent()
 
 
-## Called when there is an input event. The input event propagates up through the node tree until a node consumes it.
+## Called when there is an input event.
 func _input(event: InputEvent) -> void:
 
 	# Check if the game is not paused
 	if !Globals.game_paused:
+
+		# [crouch] button just _pressed_
+		if Input.is_action_just_pressed("crouch"):
+
+			# Transition to "crouching"
+			to_crouching()
+
+		# [jump] button just _pressed_
+		if Input.is_action_just_pressed("jump"):
+
+			# Transition to "jumping"
+			to_jumping()
 
 		# [left-kick] button _pressed_
 		if Input.is_action_pressed("left_kick"):
@@ -75,14 +87,8 @@ func _input(event: InputEvent) -> void:
 					# Check if the player is "holding a rifle"
 					if player.is_holding_rifle:
 
-						# Flag the player as is "firing"
-						player.is_firing = true
-
-						# Delay execution
-						await get_tree().create_timer(0.3).timeout
-
-						# Flag the player as is not "firing"
-						player.is_firing = false
+						# Flag the player as "aiming"
+						player.is_aiming = true
 
 					# The player must be unarmed
 					else:
@@ -129,6 +135,15 @@ func _input(event: InputEvent) -> void:
 							# Check the punch hits something
 							player.check_punch_collision()
 
+		# [left-punch] button just _released_
+		if Input.is_action_just_released("left_punch"):
+
+			# Check if the player is "holding a rifle"
+			if player.is_holding_rifle:
+
+				# Flag the player as not "aiming"
+				player.is_aiming = false
+
 		# [right-punch] button _pressed_
 		if Input.is_action_pressed("right_punch"):
 
@@ -140,30 +155,15 @@ func _input(event: InputEvent) -> void:
 
 					# Check if the player is "holding a rifle"
 					if player.is_holding_rifle:
+						
+						# Flag the player as is "firing"
+						player.is_firing = true
 
-						# Flag the player as "aiming"
-						player.is_aiming = true
+						# Delay execution
+						await get_tree().create_timer(0.3).timeout
 
-		# [right-punch] button just _released_
-		if Input.is_action_just_released("right_punch"):
-
-			# Check if the player is "holding a rifle"
-			if player.is_holding_rifle:
-
-				# Flag the player as not "aiming"
-				player.is_aiming = false
-
-		# [crouch] button just _pressed_
-		if Input.is_action_just_pressed("crouch"):
-
-			# Transition to "crouching"
-			to_crouching()
-
-		# [jump] button just _pressed_
-		if Input.is_action_just_pressed("jump"):
-
-			# Transition to "jumping"
-			to_jumping()
+						# Flag the player as is not "firing"
+						player.is_firing = false
 
 
 ## Called when the node enters the scene tree for the first time.
@@ -185,17 +185,14 @@ func _process(delta: float) -> void:
 		# Check if the animation player is not locked
 		if !player.is_animation_locked:
 
-			# Check if the player "is on floor"
-			if player.is_on_floor():
-
-				# Start "crouching"
-				to_crouching()
+			# Start "crouching"
+			to_crouching()
 
 	# Check if the player is moving
 	if player.velocity != Vector3(0.0, 0.0, 0.0):
 
-		# Check if the player speed is slower than or equal to "walking"
-		if player.speed_current <= player.speed_walking:
+		# Check if the player is slower than or equal to "walking"
+		if 0.0 < player.speed_current and player.speed_current <= player.speed_walking:
 
 			# Start "walking"
 			to_walking()
@@ -285,6 +282,9 @@ func start() -> void:
 
 	# Flag the player as "standing"
 	player.is_standing = true
+
+	# Set the player's speed
+	player.speed_current = 0.0
 
 
 ## Stop "standing"

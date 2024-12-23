@@ -3,10 +3,23 @@ extends Node
 @onready var player: CharacterBody3D = get_parent().get_parent()
 
 
+## Called when there is an input event.
+func _input(event: InputEvent) -> void:
+
+	# Check if the game is not paused
+	if !Globals.game_paused:
+
+		# [sprint] button _pressed_
+		if Input.is_action_pressed("sprint"):
+
+			# Start "sprinting"
+			to_sprinting()
+
+
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 
-# Check if the player is not moving
+	# Check if the player is not moving
 	if player.velocity == Vector3(0.0, 0.0, 0.0):
 
 		# Start "standing"		
@@ -26,7 +39,6 @@ func _process(delta: float) -> void:
 
 			# Start "sprinting"
 			to_sprinting()
-
 	
 	# Check if the player is "walking"
 	if player.is_walking:
@@ -80,6 +92,9 @@ func start() -> void:
 
 	# Flag the player as "walking"
 	player.is_walking = true
+
+	# Set the player's speed
+	player.speed_current = player.speed_walking
 
 
 ## Stop "walking".

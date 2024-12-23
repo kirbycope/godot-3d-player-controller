@@ -68,7 +68,7 @@ func _draw() -> void:
 			draw_circle(draw_position_white, 48, Color(1.0, 1.0, 1.0, 0.5))
 
 
-## Called when there is an input event. The input event propagates up through the node tree until a node consumes it.
+## Called when there is an input event.
 func _input(event: InputEvent) -> void:
 
 	# Check if the input is a Touch event

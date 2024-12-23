@@ -123,6 +123,7 @@ func _process(_delta: float) -> void:
 		$Panel/IsCrawling.button_pressed = $"../../..".is_crawling
 		$Panel/IsCrouching.button_pressed = $"../../..".is_crouching
 		$Panel/IsDoubleJumping.button_pressed = $"../../..".is_double_jumping
+		$Panel/IsFalling.button_pressed = $"../../..".is_falling
 		$Panel/IsFiring.button_pressed = $"../../..".is_firing
 		$Panel/IsFlying.button_pressed = $"../../..".is_flying
 		$Panel/IsHanging.button_pressed = $"../../..".is_hanging

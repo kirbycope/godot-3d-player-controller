@@ -45,14 +45,8 @@ func _input(event: InputEvent) -> void:
 					# Check if the player is "holding a rifle"
 					if player.is_holding_rifle:
 
-						# Flag the player as is "firing"
-						player.is_firing = true
-
-						# Delay execution
-						await get_tree().create_timer(0.3).timeout
-
-						# Flag the player as is not "firing"
-						player.is_firing = false
+						# Flag the player as is "aiming"
+						player.is_aiming = true
 
 					# The player must be unarmed
 					else:
@@ -71,6 +65,15 @@ func _input(event: InputEvent) -> void:
 
 							# Check the punch hits something
 							player.check_punch_collision()
+
+		# [left-punch] button just _released_
+		if Input.is_action_just_released("left_punch"):
+
+			# Check if the player is "holding a rifle"
+			if player.is_holding_rifle:
+
+				# Flag the player as not "aiming"
+				player.is_aiming = false
 
 		# [right-punch] button just _pressed_
 		if Input.is_action_just_pressed("right_punch"):
@@ -111,30 +114,30 @@ func _input(event: InputEvent) -> void:
 					# Check if the player is "holding a rifle"
 					if player.is_holding_rifle:
 
-						# Flag the player as is "aiming"
-						player.is_aiming = true
+						# Flag the player as is "firing"
+						player.is_firing = true
 
-		# [right-punch] button just _released_
-		if Input.is_action_just_released("right_punch"):
+						# Delay execution
+						await get_tree().create_timer(0.3).timeout
 
-			# Check if the player is "holding a rifle"
-			if player.is_holding_rifle:
-
-				# Flag the player as not "aiming"
-				player.is_aiming = false
+						# Flag the player as is not "firing"
+						player.is_firing = false
 
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 
+	# Check if the player is moving
+	if player.velocity != Vector3(0.0, 0.0, 0.0):
+	
+		# Start "crwaling"
+		to_crawling()
+
 	# Check if the player is "crouching"
 	if player.is_crouching:
 
-		# Check if the player is not moving
-		if player.velocity == Vector3(0.0, 0.0, 0.0):
-
-			# Play the animation
-			play_animation()
+		# Play the animation
+		play_animation()
 
 
 ## Plays the appropriate animation based on player state.
@@ -205,7 +208,7 @@ func start() -> void:
 	player.is_crouching = true
 
 	# Set the player's movement speed
-	player.speed_current = player.speed_crawling
+	player.speed_current = 0.0
 
 	# Set CollisionShape3D height
 	player.get_node("CollisionShape3D").shape.height = player.collision_height / 2
@@ -223,14 +226,21 @@ func stop() -> void:
 	# Flag player as not "crouching"
 	player.is_crouching = false
 
-	# [Re]Set the player's movement speed
-	player.speed_current = player.speed_walking
-
 	# Reset CollisionShape3D height
 	player.get_node("CollisionShape3D").shape.height = player.collision_height
 
 	# Reset CollisionShape3D position
 	player.get_node("CollisionShape3D").position = player.collision_position
+
+
+## State.CROUCHING -> State.CRAWLING
+func to_crawling():
+
+	# Stop "crouching"
+	stop()
+
+	# Start "crawling"
+	$"../Crawling".start()
 
 
 ## State.CROUCHING -> State.JUMPING

@@ -58,6 +58,7 @@ var is_climbing: bool = false
 var is_crawling: bool = false
 var is_crouching: bool = false
 var is_double_jumping: bool = false
+var is_falling: bool = false
 var is_firing: bool = false
 var is_flying: bool = false
 var is_hanging: bool = false
@@ -137,8 +138,7 @@ func _ready() -> void:
 	if Globals.debug_mode: print(Globals.time_stamp, " [DEBUG] '", get_script().resource_path.get_file().get_basename(), "' scene loaded.")
 
 
-## Called once for every event before _unhandled_input(), allowing you to consume some events.
-## Use _input(event) if you only need to respond to discrete input events, such as detecting a single press or release of a key or button.
+## Called when there is an input event.
 func _input(event) -> void:
 
 	# If the game is not paused...
@@ -395,29 +395,6 @@ func move_camera():
 		camera_mount.position = Vector3(-bone_pose.origin.x * 0.01, bone_pose.origin.y * 0.01, (-bone_pose.origin.z * 0.01) - 0.165)
 
 
-## Sets the player's movement speed based on status.
-func set_player_speed(input_magnitude) -> void:
-	# Check if the player is animation_crouching or hanging
-	if is_crouching or is_hanging:
-		# Set the player's movement speed to the "crawling" speed
-		speed_current = speed_crawling
-	# Check if the player is animation_flying and sprinting
-	elif is_flying and is_sprinting:
-		# Set the player's movement speed to "fast animation_flying"
-		speed_current = speed_flying_fast
-	# Check if the player if animation_flying (but not sprinting)
-	elif is_flying:
-		# Set the player's movement speed to "animation_flying"
-		speed_current = speed_flying
-	# Check if the player is sprinting (but not animation_flying)
-	elif is_sprinting:
-		speed_current = speed_sprinting
-	# The player should be walking (or standing)
-	else:
-		# Determine player speed based on input magnitude (walking or running)
-		speed_current = lerp(speed_walking, speed_running, input_magnitude)
-
-
 ## Update the player's velocity based on input and status.
 func update_velocity() -> void:
 
@@ -428,8 +405,10 @@ func update_velocity() -> void:
 	# Calculate the input magnitude (intensity of the left-analog stick)
 	var input_magnitude = input_dir.length()
 
-	# Set the player's movement speed
-	set_player_speed(input_magnitude)
+	# Set the player's movement speed based on the input magnitude
+	if speed_current == 0.0 and input_magnitude != 0.0:
+		#speed_current = input_magnitude * speed_running 
+		speed_current = speed_running # ToDo: Fine tune walking with the left-analog stick
 
 	# Check for directional movement
 	if direction:

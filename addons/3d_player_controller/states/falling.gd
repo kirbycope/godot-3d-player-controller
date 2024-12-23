@@ -1,5 +1,6 @@
 extends Node
 
+
 @onready var player: CharacterBody3D = get_parent().get_parent()
 
 
@@ -34,14 +35,14 @@ func _input(event: InputEvent) -> void:
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 
-	# Check if the player is falling
-	if player.velocity.y < 0.0:
+	# Check if the player is on the ground (and has no vertical velocity)
+	if player.is_on_floor() and player.velocity.y ==  0.0:
 
-		# Start "falling"
-		to_falling()
+		# Change to "standing" state
+		to_standing()
 
-	# Check if the player is "jumping"
-	if player.is_jumping:
+	# Check if the player is "falling"
+	if player.is_falling:
 
 		# Play the animation
 		play_animation()
@@ -81,62 +82,43 @@ func play_animation() -> void:
 				player.animation_player.play(player.animation_jumping)
 
 
-## Start "jumping".
+## Start "falling".
 func start() -> void:
 
 	# Enable _this_ state node
 	process_mode = PROCESS_MODE_INHERIT
 
 	# Set the player's new state
-	States.current_state = States.State.JUMPING
+	States.current_state = States.State.FALLING
 
-	# Flag the player as "jumping"
-	player.is_jumping = true
-
-	# Flag the player as not "double jumping"
-	player.is_double_jumping = false
-
-	# Set the player's vertical velocity
-	player.velocity.y = player.jump_velocity
+	# Flag the player as "falling"
+	player.is_falling = true
 
 
-## Stop "jumping".
+## Stop "falling".
 func stop() -> void:
 
 	# Disable _this_ state node
 	process_mode = PROCESS_MODE_DISABLED
 
-	# Flag the player as not "jumping"
-	player.is_jumping = false
-
-	# Flag the player as not "double jumping"
-	player.is_double_jumping = false
+	# Flag the player as not "falling"
+	player.is_falling = false
 
 
-## State.JUMPING -> State.FALLING
-func to_falling():
-
-	# Stop "jumping"
-	stop()
-
-	# Start "falling"
-	$"../Falling".start()
-
-
-## State.JUMPING -> State.FLYING
+## State.FALLING -> State.FLYING
 func to_flying():
 
-	# Stop "jumping"
+	# Stop "falling"
 	stop()
 
 	# Start "flying"
 	$"../Flying".start()
 
 
-## State.JUMPING -> State.STANDING
+## State.FALLING -> State.STANDING
 func to_standing():
 
-	# Stop "jumping"
+	# Stop "falling"
 	stop()
 
 	# Start "standing"

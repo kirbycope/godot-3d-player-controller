@@ -3,6 +3,25 @@ extends Node
 @onready var player: CharacterBody3D = get_parent().get_parent()
 
 
+## Called when there is an input event.
+func _input(event: InputEvent) -> void:
+
+	# Check if the game is not paused
+	if !Globals.game_paused:
+
+		# [jump] button just _pressed_
+		if Input.is_action_just_pressed("jump"):
+
+			# ToDo: Mantle up
+			pass
+
+		# [sprint] button just _pressed_
+		if Input.is_action_just_pressed("sprint"):
+
+			# ToDo: Drop down
+			pass
+
+
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 
@@ -19,7 +38,8 @@ func play_animation() -> void:
 	# Check if the animation player is not locked
 	if !player.is_animation_locked:
 
-		pass # ToDo
+		# ToDo: Play the appropriate climbing animation
+		pass
 
 
 ## Start "climbing".

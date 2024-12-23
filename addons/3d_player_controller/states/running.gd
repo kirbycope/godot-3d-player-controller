@@ -3,6 +3,31 @@ extends Node
 @onready var player: CharacterBody3D = get_parent().get_parent()
 
 
+## Called when there is an input event.
+func _input(event: InputEvent) -> void:
+
+	# Check if the game is not paused
+	if !Globals.game_paused:
+
+		# [crouch] button just _pressed_
+		if Input.is_action_just_pressed("crouch"):
+
+			# Start "crouching"
+			to_crouching()
+
+		# [jump] button just _pressed_
+		if Input.is_action_just_pressed("jump"):
+
+			# Start "jumping"
+			to_jumping()
+
+		# [sprint] button _pressed_
+		if Input.is_action_pressed("sprint"):
+
+			# Start "sprinting"
+			to_sprinting()
+
+
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 
@@ -80,6 +105,9 @@ func start() -> void:
 	# Flag the player as "running"
 	player.is_running = true
 
+	# Set the player's speed
+	player.speed_current = player.speed_running
+
 
 ## Stop "running".
 func stop() -> void:
@@ -89,6 +117,26 @@ func stop() -> void:
 
 	# Flag the player as not "running"
 	player.is_running = false
+
+
+## State.RUNNING -> State.CROUCHING
+func to_crouching() -> void:
+
+	# Stop "running"
+	stop()
+
+	# Start "crouching"
+	$"../Crouching".start()
+
+
+## State.RUNNING -> State.JUMPING
+func to_jumping() -> void:
+
+	# Stop "running"
+	stop()
+
+	# Start "jumping"
+	$"../Jumping".start()
 
 
 ## State.RUNNING -> State.STANDING

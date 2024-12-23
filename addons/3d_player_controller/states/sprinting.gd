@@ -3,42 +3,39 @@ extends Node
 @onready var player: CharacterBody3D = get_parent().get_parent()
 
 
-## Called when there is an input event. The input event propagates up through the node tree until a node consumes it.
+## Called when there is an input event.
 func _input(event: InputEvent) -> void:
 
 	# Check if the game is not paused
 	if !Globals.game_paused:
 
+		# [jump] button just _pressed_
+		if Input.is_action_just_pressed("jump"):
+
+			# Start "jumping"
+			to_jumping()
+
 		# [sprint] button just _released_
 		if Input.is_action_just_released("sprint"):
 
-			# Flag the player as not "sprinting"
-			player.is_sprinting = false
+			# Start "standing"
+			to_standing()
 
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 
-	# [sprint] button _pressed_ (and not already "sprinting")
-	if Input.is_action_pressed("sprint") and !player.is_sprinting:
+	# Check if the player is not moving
+	if player.velocity == Vector3(0.0, 0.0, 0.0):
 
-		# Check if the animation player is not locked
-		if !player.is_animation_locked:
-
-			# Flag the player as "sprinting"
-			player.is_sprinting = true
-
-			# Set the player's movement speed
-			player.speed_current = player.speed_sprinting
+		# Start "standing"
+		to_standing()
 
 	# Check if the player is "sprinting"
 	if player.is_sprinting:
 
-		# Check if the player is not "crouching" and is "on floor"
-		if !player.is_crouching and player.is_on_floor():
-
-			# Play the animation
-			play_animation()
+		# Play the animation
+		play_animation()
 
 
 ## Plays the appropriate animation based on player state.
@@ -78,6 +75,9 @@ func start() -> void:
 	# Flag the player as "sprinting"
 	player.is_sprinting = true
 
+	# Set the player's speed
+	player.speed_current = player.speed_sprinting
+
 
 ## Stop "sprinting".
 func stop() -> void:
@@ -87,3 +87,33 @@ func stop() -> void:
 
 	# Flag the player as not "sprinting"
 	player.is_sprinting = false
+
+
+## State.SPRINTING -> State.JUMPING
+func to_jumping() -> void:
+
+	# Stop "sprinting"
+	stop()
+
+	# Start "jumping"
+	$"../Jumping".start()
+
+
+## State.SPRINTING -> State.RUNNING
+func to_running() -> void:
+
+	# Stop "sprinting"
+	stop()
+
+	# Start "running"
+	$"../Running".start()
+
+
+## State.SPRINTING -> State.STANDING
+func to_standing() -> void:
+
+	# Stop "sprinting"
+	stop()
+
+	# Start "standing"
+	$"../Standing".start()

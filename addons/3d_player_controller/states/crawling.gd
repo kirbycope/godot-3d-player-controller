@@ -3,17 +3,33 @@ extends Node
 @onready var player: CharacterBody3D = get_parent().get_parent()
 
 
+## Called when there is an input event.
+func _input(event: InputEvent) -> void:
+
+	# Check if the game is not paused
+	if !Globals.game_paused:
+
+		# [crouch] button just _released_
+		if Input.is_action_just_released("crouch"):
+
+			# Start "standing"
+			to_standing()
+
+		# [jump] button just _pressed_
+		if Input.is_action_just_pressed("jump"):
+
+			# Start "jumping"
+			to_jumping()
+
+
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 
-	# Flag the player as not "crawling"
-	player.is_crawling = false
+	# Check if the player is not moving
+	if player.velocity == Vector3(0.0, 0.0, 0.0):
 
-	# Check if the player is moving on the ground and is "crouching"
-	if player.velocity != Vector3(0.0, 0.0, 0.0) and player.is_on_floor() and player.is_crouching:
-
-		# Flag the player as "crawling"
-		player.is_crawling = true
+		# Start "crouching"		
+		to_crouching()
 
 	# Check if the player is "crawling"
 	if player.is_crawling:
@@ -59,6 +75,15 @@ func start() -> void:
 	# Flag the player as "crawling"
 	player.is_crawling = true
 
+	# Set the player's movement speed
+	player.speed_current = player.speed_crawling
+
+	# Set CollisionShape3D height
+	player.get_node("CollisionShape3D").shape.height = player.collision_height / 2
+
+	# Set CollisionShape3D position
+	player.get_node("CollisionShape3D").position = player.collision_position / 2
+
 
 ## Stop "crawling".
 func stop() -> void:
@@ -68,3 +93,39 @@ func stop() -> void:
 
 	# Flag the player as not "crawling"
 	player.is_crawling = false
+
+	# Reset CollisionShape3D height
+	player.get_node("CollisionShape3D").shape.height = player.collision_height
+
+	# Reset CollisionShape3D position
+	player.get_node("CollisionShape3D").position = player.collision_position
+
+
+## State.CRAWLING -> State.CROUCHING
+func to_crouching():
+
+	# Stop "crawling"
+	stop()
+
+	# Start "crouching"
+	$"../Crouching".start()
+
+
+## State.CRAWLING -> State.JUMPING
+func to_jumping():
+
+	# Stop "crawling"
+	stop()
+
+	# Start "jumping"
+	$"../Jumping".start()
+
+
+## State.CRAWLING -> State.STANDING
+func to_standing():
+
+	# Stop "crawling"
+	stop()
+
+	# Start "standing"
+	$"../Standing".start()

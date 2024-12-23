@@ -39,8 +39,8 @@ func _process(delta: float) -> void:
 						# Check if _this_ button press is within 200 milliseconds
 						if time_now - player.timer_jump < 200:
 
-							# Start "jumping"
-							to_jumping()
+							# Start "falling"
+							to_falling()
 
 						# Either way, reset the timer
 						player.timer_jump = Time.get_ticks_msec()
@@ -165,6 +165,16 @@ func to_jumping():
 
 	# Start "jumping"
 	$"../Jumping".start()
+
+
+## State.FLYING -> State.FALLING
+func to_falling():
+
+	# Stop "flying"
+	stop()
+
+	# Start "falling"
+	$"../Falling".start()
 
 
 ## State.FLYING -> State.STANDING
