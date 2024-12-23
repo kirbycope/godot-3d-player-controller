@@ -51,8 +51,21 @@ func start() -> void:
 	# Set the player's new state
 	States.current_state = States.State.CLIMBING
 
-	# Flag the player as "climbing"
+	# Flag the player as "climbing" (also called "mantling")
 	player.is_climbing = true
+
+	# Find the target position
+	var collision_point = player.raycast_jumptarget.get_collision_point()
+
+	# Move the player
+	var tween = player.get_tree().create_tween()
+	tween.tween_property(player, "position", collision_point, 0.2)
+
+	# Delay execution
+	await get_tree().create_timer(0.2).timeout
+
+	# Start "standing"
+	to_standing()
 
 
 ## Stop "climbing".
@@ -63,3 +76,13 @@ func stop() -> void:
 
 	# Flag the player as not "climbing"
 	player.is_climbing = false
+
+
+## State.CLIMBING -> State.STANDING
+func to_standing() -> void:
+
+	# Stop "climbing"
+	stop()
+
+	# Start "standing"
+	$"../Standing".start()

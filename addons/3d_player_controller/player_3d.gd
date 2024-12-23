@@ -425,7 +425,7 @@ func update_velocity() -> void:
 			# Update horizontal veolicty
 			velocity.x = direction.x * speed_current
 
-			# Update vertical veolocity
+			# Update vertical velocity
 			velocity.z = direction.z * speed_current
 
 	# No movement detected

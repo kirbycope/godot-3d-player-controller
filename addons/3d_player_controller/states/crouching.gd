@@ -9,24 +9,6 @@ func _input(event: InputEvent) -> void:
 	# Check if the game is not paused
 	if !Globals.game_paused:
 
-		# [crouch] button _pressed_
-		if Input.is_action_just_pressed("crouch"):
-
-			# Check if the animation player is not locked
-			if !player.is_animation_locked:
-
-				# Check if the player "is on floor"
-				if player.is_on_floor():
-
-					# Start "crouching"
-					start()
-
-		# [crouch] button just _released_
-		if Input.is_action_just_released("crouch"):
-
-			# Stop "crouching"
-			to_standing()
-
 		# [jump] button just _pressed_
 		if Input.is_action_just_pressed("jump"):
 
@@ -39,32 +21,29 @@ func _input(event: InputEvent) -> void:
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
 
-				# Check if the player is "crouching" and is "on floor"
-				if player.is_crouching and player.is_on_floor():
+				# Check if the player is "holding a rifle"
+				if player.is_holding_rifle:
 
-					# Check if the player is "holding a rifle"
-					if player.is_holding_rifle:
+					# Flag the player as is "aiming"
+					player.is_aiming = true
 
-						# Flag the player as is "aiming"
-						player.is_aiming = true
+				# The player must be unarmed
+				else:
 
-					# The player must be unarmed
-					else:
+					# Flag the animation player as locked
+					player.is_animation_locked = true
 
-						# Flag the animation player as locked
-						player.is_animation_locked = true
+					# Flag the player as "punching with their left arm"
+					player.is_punching_left = true
 
-						# Flag the player as "punching with their left arm"
-						player.is_punching_left = true
+					# Check if the animation player is not already playing the appropriate animation
+					if player.animation_player.current_animation != player.punching_low_left:
 
-						# Check if the animation player is not already playing the appropriate animation
-						if player.animation_player.current_animation != player.punching_low_left:
+						# Play the "punching low, left" animation
+						player.animation_player.play(player.punching_low_left)
 
-							# Play the "punching low, left" animation
-							player.animation_player.play(player.punching_low_left)
-
-							# Check the punch hits something
-							player.check_punch_collision()
+						# Check the punch hits something
+						player.check_punch_collision()
 
 		# [left-punch] button just _released_
 		if Input.is_action_just_released("left_punch"):
@@ -81,47 +60,41 @@ func _input(event: InputEvent) -> void:
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
 
-				# Check if the player is "crouching" and is "on floor"
-				if player.is_crouching and player.is_on_floor():
+				# Check if the player is not "holding a rifle"
+				if !player.is_holding_rifle:
 
-					# Check if the player is not "holding a rifle"
-					if !player.is_holding_rifle:
+					# Flag the animation player as locked
+					player.is_animation_locked = true
 
-						# Flag the animation player as locked
-						player.is_animation_locked = true
+					# Flag the player as "punching with their right arm"
+					player.is_punching_right = true
 
-						# Flag the player as "punching with their right arm"
-						player.is_punching_right = true
+					# Check if the animation player is not already playing the appropriate animation
+					if player.animation_player.current_animation != player.punching_low_right:
 
-						# Check if the animation player is not already playing the appropriate animation
-						if player.animation_player.current_animation != player.punching_low_right:
+						# Play the "punching low, right" animation
+						player.animation_player.play(player.punching_low_right)
 
-							# Play the "punching low, right" animation
-							player.animation_player.play(player.punching_low_right)
+						# Check the punch hits something
+						player.check_punch_collision()
 
-							# Check the punch hits something
-							player.check_punch_collision()
-
-		# [right-punch] button _pressed_
-		if Input.is_action_pressed("right_punch"):
+		# [right-punch] button just _pressed_
+		if Input.is_action_just_pressed("right_punch"):
 
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
 
-				# Check if the player is "crouching" and is "on floor"
-				if player.is_crouching and player.is_on_floor():
+				# Check if the player is "holding a rifle"
+				if player.is_holding_rifle:
 
-					# Check if the player is "holding a rifle"
-					if player.is_holding_rifle:
+					# Flag the player as is "firing"
+					player.is_firing = true
 
-						# Flag the player as is "firing"
-						player.is_firing = true
+					# Delay execution
+					await get_tree().create_timer(0.3).timeout
 
-						# Delay execution
-						await get_tree().create_timer(0.3).timeout
-
-						# Flag the player as is not "firing"
-						player.is_firing = false
+					# Flag the player as is not "firing"
+					player.is_firing = false
 
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -130,8 +103,17 @@ func _process(delta: float) -> void:
 	# Check if the player is moving
 	if player.velocity != Vector3(0.0, 0.0, 0.0):
 	
-		# Start "crwaling"
+		# Start "crawling"
 		to_crawling()
+
+	# [crouch] button not _pressed_
+	if !Input.is_action_pressed("crouch"):
+
+		# Check if the animation player is not locked
+		if !player.is_animation_locked:
+
+			# Stop "crouching"
+			to_standing() 
 
 	# Check if the player is "crouching"
 	if player.is_crouching:

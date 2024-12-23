@@ -46,12 +46,13 @@ func _input(event: InputEvent) -> void:
 					player.is_holding = true
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 
 	# Check if the player is holding an object
 	if player.is_holding:
 
+		# Move the held object in front of the player
 		move_held_object()
 
 	# Check if the player is holding a rifle or a tool

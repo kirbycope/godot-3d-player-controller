@@ -104,6 +104,9 @@ func stop() -> void:
 	# Flag the player as not "falling"
 	player.is_falling = false
 
+	# Flag the player as not "double jumping"
+	player.is_double_jumping = false
+
 
 ## State.FALLING -> State.FLYING
 func to_flying():

@@ -9,48 +9,29 @@ func _input(event: InputEvent) -> void:
 	# Check if the game is not paused
 	if !Globals.game_paused:
 
-		# Check if the player is "hanging"
-		if player.is_hanging:
+		# [crouch] button _pressed_
+		if event.is_action_pressed("crouch"):
 
-			# [crouch] button _pressed_
-			if event.is_action_pressed("crouch"):
+			# Start falling
+			to_falling()
 
-				# Stop "hanging"
-				stop()
+		# [jump] button _pressed_
+		if event.is_action_pressed("jump"):
 
-			# [jump] button _pressed_
-			if event.is_action_pressed("jump"):
+			# Start climbing
+			to_climbing()
 
-				# Stop "hanging"
-				stop()
+		# [move_left] button pressed
+		if event.is_action_pressed("move_left"):
 
-				# Flag the player as "climbing" (also called "mantling")
-				player.is_climbing = true
+			# Move the player left
+			move_character(-1)
 
-				# Find the target position
-				var collision_point = player.raycast_jumptarget.get_collision_point()
+		# [move_right] button pressed
+		if event.is_action_pressed("move_right"):
 
-				# Move the player
-				var tween = player.get_tree().create_tween()
-				tween.tween_property(player, "position", collision_point, 0.2)
-
-				# Delay execution
-				await get_tree().create_timer(0.2).timeout
-
-				# Flag the player as no longer "climbing"
-				player.is_climbing = false
-
-			# [move_left] button pressed
-			if event.is_action_pressed("move_left"):
-
-				# Move the player left
-				move_character(-1)
-
-			# [move_right] button pressed
-			if event.is_action_pressed("move_right"):
-
-				# Move the player right
-				move_character(1)
+			# Move the player right
+			move_character(1)
 
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -210,3 +191,23 @@ func stop() -> void:
 
 	# Reset CollisionShape3D position
 	player.get_node("CollisionShape3D").position = player.collision_position
+
+
+## State.HANGING -> State.CLIMBING
+func to_climbing() -> void:
+
+	# Stop "hanging"
+	stop()
+
+	# Start "climbing"
+	$"../Climbing".start()
+
+
+## State.HANGING -> State.FALLING
+func to_falling() -> void:
+
+	# Stop "hanging"
+	stop()
+
+	# Start "falling"
+	$"../Falling".start()

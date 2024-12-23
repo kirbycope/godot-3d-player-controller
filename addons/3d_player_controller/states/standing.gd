@@ -81,56 +81,26 @@ func _input(event: InputEvent) -> void:
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
 
-				# Check if the player is not "crouching" and is "on floor"
-				if !player.is_crouching and player.is_on_floor():
+				# Check if the player is "holding a rifle"
+				if player.is_holding_rifle:
 
-					# Check if the player is "holding a rifle"
-					if player.is_holding_rifle:
+					# Flag the player as "aiming"
+					player.is_aiming = true
 
-						# Flag the player as "aiming"
-						player.is_aiming = true
+				# The player must be unarmed
+				else:
 
-					# The player must be unarmed
-					else:
+					# Flag the animation player as locked
+					player.is_animation_locked = true
 
-						# Flag the animation player as locked
-						player.is_animation_locked = true
+					# Flag the player as "punching with their left arm"
+					player.is_punching_left = true
 
-						# Flag the player as "punching with their left arm"
-						player.is_punching_left = true
-
-						# Check if the animation player is not already playing the appropriate animation
-						if player.animation_player.current_animation != player.punching_high_left:
+					# Check if the animation player is not already playing the appropriate animation
+					if player.animation_player.current_animation != player.punching_high_left:
 
 							# Play the "punching high, left" animation
 							player.animation_player.play(player.punching_high_left)
-
-							# Check the punch hits something
-							player.check_punch_collision()
-
-		# [right-punch] button just _pressed_
-		if Input.is_action_just_pressed("right_punch"):
-
-			# Check if the animation player is not locked
-			if !player.is_animation_locked:
-
-				# Check if the player is not "crouching" and is "on floor"
-				if !player.is_crouching and player.is_on_floor():
-
-					# Check if the player is not "holding a rifle"
-					if !player.is_holding_rifle:
-
-						# Flag the animation player as locked
-						player.is_animation_locked = true
-
-						# Flag the player as "punching with their right arm"
-						player.is_punching_right = true
-
-						# Check if the animation player is not already playing the appropriate animation
-						if player.animation_player.current_animation != player.punching_high_right:
-
-							# Play the "punching high, right" animation
-							player.animation_player.play(player.punching_high_right)
 
 							# Check the punch hits something
 							player.check_punch_collision()
@@ -144,26 +114,47 @@ func _input(event: InputEvent) -> void:
 				# Flag the player as not "aiming"
 				player.is_aiming = false
 
-		# [right-punch] button _pressed_
-		if Input.is_action_pressed("right_punch"):
+		# [right-punch] button just _pressed_
+		if Input.is_action_just_pressed("right_punch"):
 
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
 
-				# Check if the player is not "crouching" and is "on floor"
-				if !player.is_crouching and player.is_on_floor():
+				# Check if the player is not "holding a rifle"
+				if !player.is_holding_rifle:
 
-					# Check if the player is "holding a rifle"
-					if player.is_holding_rifle:
-						
-						# Flag the player as is "firing"
-						player.is_firing = true
+					# Flag the animation player as locked
+					player.is_animation_locked = true
 
-						# Delay execution
-						await get_tree().create_timer(0.3).timeout
+					# Flag the player as "punching with their right arm"
+					player.is_punching_right = true
 
-						# Flag the player as is not "firing"
-						player.is_firing = false
+					# Check if the animation player is not already playing the appropriate animation
+					if player.animation_player.current_animation != player.punching_high_right:
+
+						# Play the "punching high, right" animation
+						player.animation_player.play(player.punching_high_right)
+
+						# Check the punch hits something
+						player.check_punch_collision()
+
+		# [right-punch] button just _pressed_
+		if Input.is_action_just_pressed("right_punch"):
+
+			# Check if the animation player is not locked
+			if !player.is_animation_locked:
+
+				# Check if the player is "holding a rifle"
+				if player.is_holding_rifle:
+
+					# Flag the player as is "firing"
+					player.is_firing = true
+
+					# Delay execution
+					await get_tree().create_timer(0.3).timeout
+
+					# Flag the player as is not "firing"
+					player.is_firing = false
 
 
 ## Called when the node enters the scene tree for the first time.

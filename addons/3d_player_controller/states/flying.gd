@@ -15,79 +15,67 @@ func _process(delta: float) -> void:
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
 
-				# Check if the player "is not on floor"
-				if !player.is_on_floor():
+				# Check if "jump timer" hasn't started
+				if player.timer_jump == 0.0:
 
-					# Check if "animation_flying" is enabled and the player is not already animation_flying
-					if player.enable_flying and !player.is_flying:
+					# Set the "jump timer" to the current game time
+					player.timer_jump = Time.get_ticks_msec()
 
-						# Start "flying"
-						start()
+				# Check if the "jump timer" is already running
+				elif player.timer_jump > 0.0:
 
-					# Check if "animation_flying" but the "jump timer" hasn't started
-					if player.is_flying and player.timer_jump == 0.0:
+					# Get the current game time
+					var time_now = Time.get_ticks_msec()
 
-						# Set the "jump timer" to the current game time
-						player.timer_jump = Time.get_ticks_msec()
+					# Check if _this_ button press is within 200 milliseconds
+					if time_now - player.timer_jump < 200:
 
-					# Check if "animation_flying" and the "jump timer" is already running
-					elif player.is_flying and player.timer_jump > 0.0:
+						# Start "falling"
+						to_falling()
 
-						# Get the current game time
-						var time_now = Time.get_ticks_msec()
+					# Either way, reset the timer
+					player.timer_jump = Time.get_ticks_msec()
 
-						# Check if _this_ button press is within 200 milliseconds
-						if time_now - player.timer_jump < 200:
+		# [crouch] button just _pressed_
+		if Input.is_action_just_pressed("crouch"):
 
-							# Start "falling"
-							to_falling()
-
-						# Either way, reset the timer
-						player.timer_jump = Time.get_ticks_msec()
-	
-		# Check if the player is "flying"
-		if player.is_flying:
-
-			# [crouch] button just _pressed_
-			if Input.is_action_just_pressed("crouch"):
-
-				# Pitch the player slightly downward
-				player.visuals.rotation.x = deg_to_rad(-6)
-			
-			# [crouch] button currently _pressed_
-			if Input.is_action_pressed("crouch"):
-
-				# Decrease the player's vertical position
-				player.position.y -= 0.1
-
-				# End animation_flying if collision detected below the player
-				if player.raycast_below.is_colliding():
-
-					# Start "standing"
-					to_standing()
-			
-			# [crouch] button just _released_
-			if Input.is_action_just_released("crouch"):
-
-				# Reset the player's pitch
-				player.visuals.rotation.x = 0
-
-			# [jump] button just _pressed_
-			if Input.is_action_just_pressed("jump"):
+			# Pitch the player slightly downward
+			player.visuals.rotation.x = deg_to_rad(-6)
 		
-				# Pitch the player slightly downward
-				player.visuals.rotation.x = deg_to_rad(6)
+		# [crouch] button currently _pressed_
+		if Input.is_action_pressed("crouch"):
 
-			# [jump] button currently _pressed_
-			if Input.is_action_pressed("jump"):
+			# Decrease the player's vertical position
+			player.position.y -= 0.01
 
-				# Increase the player's vertical position
-				player.position.y += 0.1
+			# End animation_flying if collision detected below the player
+			if player.raycast_below.is_colliding():
 
-			# [jump] button just _released_
-			if Input.is_action_just_released("jump"):
+				# Start "standing"
+				to_standing()
+		
+		# [crouch] button just _released_
+		if Input.is_action_just_released("crouch"):
 
-				# Reset the player's pitch
+			# Reset the player's pitch
+			player.visuals.rotation.x = 0
+
+		# [jump] button just _pressed_
+		if Input.is_action_just_pressed("jump"):
+	
+			# Pitch the player slightly downward
+			player.visuals.rotation.x = deg_to_rad(6)
+
+		# [jump] button currently _pressed_
+		if Input.is_action_pressed("jump"):
+
+			# Increase the player's vertical position
+			player.position.y += 0.01
+
+		# [jump] button just _released_
+		if Input.is_action_just_released("jump"):
+
+			# Reset the player's pitch
 				player.visuals.rotation.x = 0
 
 		# Check if the player is "flying"

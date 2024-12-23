@@ -15,20 +15,23 @@ func _input(event: InputEvent) -> void:
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
 
-				# Check if "double jump" is enabled and the player is not currently double-jumping
-				if player.enable_double_jump and !player.is_double_jumping:
+				# Check if the player is not on the ground
+				if !player.is_on_floor():
 
-					# Set the player's vertical velocity
-					player.velocity.y = player.jump_velocity
+					# Check if "double jump" is enabled and the player is not currently double-jumping
+					if player.enable_double_jump and !player.is_double_jumping:
 
-					# Set the "double jumping" flag
-					player.is_double_jumping = true
-				
-				# Check if "flying" is enabled and the player is not currently flying
-				elif player.enable_flying and !player.is_flying:
+						# Set the player's vertical velocity
+						player.velocity.y = player.jump_velocity
 
-					# Start "flying"
-					to_flying()
+						# Set the "double jumping" flag
+						player.is_double_jumping = true
+					
+					# Check if "flying" is enabled and the player is not currently flying
+					elif player.enable_flying and !player.is_flying:
+
+						# Start "flying"
+						to_flying()
 
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -108,9 +111,6 @@ func stop() -> void:
 
 	# Flag the player as not "jumping"
 	player.is_jumping = false
-
-	# Flag the player as not "double jumping"
-	player.is_double_jumping = false
 
 
 ## State.JUMPING -> State.FALLING
