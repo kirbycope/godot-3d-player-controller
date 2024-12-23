@@ -37,57 +37,6 @@ func _input(event: InputEvent) -> void:
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 
-	# Check if the player is not on the ground, is not flying, and is not already climbing
-	if !player.is_on_floor() and !player.is_flying and !player.is_climbing:
-
-		# Check the eyeline for a ledge to grab.
-		if !player.raycast_top.is_colliding() and player.raycast_high.is_colliding():
-
-			# Get the collision object
-			var collision_object = player.raycast_high.get_collider()
-
-			# Only proceed if the collision object is not in the "held" group
-			if !collision_object.is_in_group("held"):
-
-				# Start "hanging"
-				start()
-
-				# Get the player's height
-				var player_height = player.get_node("CollisionShape3D").shape.height
-
-				# Get the player's width
-				var player_width = player.get_node("CollisionShape3D").shape.radius * 4
-
-				# Get the collision point
-				var point = player.raycast_high.get_collision_point()
-
-				# Calculate the direction from the player to collision point
-				var direction = (point - player.position).normalized()
-
-				# Calculate new point by moving back from point along the direction by the given player radius
-				point = point - direction * player_width
-
-				# Adjust the point relative to the player's height
-				point.y -= player_height * 0.875
-
-				# Set the player's position to the new point
-				player.position = point
-
-				# Flag the animation player as locked
-				player.is_animation_locked = true
-
-				# Flag the player as not jumping
-				player.is_jumping = false
-
-				# Reset velocity to prevent any movement
-				player.velocity = Vector3.ZERO
-
-				# Delay execution
-				await get_tree().create_timer(0.2).timeout
-
-				# Flag the animation player no longer locked
-				player.is_animation_locked = false
-
 	# Check if the player is "hanging"
 	if player.is_hanging:
 
@@ -163,6 +112,43 @@ func start() -> void:
 
 	# Set the player's movement speed
 	player.speed_current = player.speed_crawling
+
+	## -- Begin move player into position -- ##
+	
+	# Get the player's height
+	var player_height = player.get_node("CollisionShape3D").shape.height
+
+	# Get the player's width
+	var player_width = player.get_node("CollisionShape3D").shape.radius * 4
+
+	# Get the collision point
+	var point = player.raycast_high.get_collision_point()
+
+	# Calculate the direction from the player to collision point
+	var direction = (point - player.position).normalized()
+
+	# Calculate new point by moving back from point along the direction by the given player radius
+	point = point - direction * player_width
+
+	# Adjust the point relative to the player's height
+	point.y -= player_height * 0.875
+
+	# Set the player's position to the new point
+	player.position = point
+
+	# Flag the animation player as locked
+	player.is_animation_locked = true
+
+	# Reset velocity to prevent any movement
+	player.velocity = Vector3.ZERO
+
+	# Delay execution
+	await get_tree().create_timer(0.2).timeout
+
+	# Flag the animation player no longer locked
+	player.is_animation_locked = false
+
+	## -- End move player into position -- ##
 
 	# Set CollisionShape3D height
 	player.get_node("CollisionShape3D").shape.height = player.collision_height / 2

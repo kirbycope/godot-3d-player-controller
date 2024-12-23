@@ -37,6 +37,18 @@ func _input(event: InputEvent) -> void:
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 
+	# Check the eyeline for a ledge to grab.
+	if !player.raycast_top.is_colliding() and player.raycast_high.is_colliding():
+
+		# Get the collision object
+		var collision_object = player.raycast_high.get_collider()
+
+		# Only proceed if the collision object is not in the "held" group
+		if !collision_object.is_in_group("held"):
+
+			# Start "hanging"
+			to_hanging()
+
 	# Check if the player is falling
 	if player.velocity.y < 0.0:
 
@@ -131,6 +143,16 @@ func to_flying():
 
 	# Start "flying"
 	$"../Flying".start()
+
+
+## State.JUMPING -> State.HANGING
+func to_hanging():
+
+	# Stop "jumping"
+	stop()
+
+	# Start "hanging"
+	$"../Hanging".start()
 
 
 ## State.JUMPING -> State.STANDING
