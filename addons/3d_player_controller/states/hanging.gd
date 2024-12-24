@@ -119,7 +119,7 @@ func start() -> void:
 	var player_height = player.get_node("CollisionShape3D").shape.height
 
 	# Get the player's width
-	var player_width = player.get_node("CollisionShape3D").shape.radius * 4
+	var player_width = player.get_node("CollisionShape3D").shape.radius * 2
 
 	# Get the collision point
 	var point = player.raycast_high.get_collision_point()
@@ -132,6 +132,20 @@ func start() -> void:
 
 	# Adjust the point relative to the player's height
 	point.y -= player_height * 0.875
+
+	# Get the collision normal
+	var normal = player.raycast_high.get_collision_normal()
+
+	# Calculate the rotation to align with the wall
+	# The player should face the wall
+	var target_basis = Basis()
+	target_basis.y = Vector3.UP  # Keep upright
+	target_basis.z = normal     # Face the wall
+	target_basis.x = target_basis.y.cross(target_basis.z)  # Calculate right vector
+	target_basis = target_basis.orthonormalized()  # Ensure basis is orthonormal
+
+	# Set the player's rotation
+	player.basis = target_basis
 
 	# Set the player's position to the new point
 	player.position = point
@@ -151,10 +165,10 @@ func start() -> void:
 	## -- End move player into position -- ##
 
 	# Set CollisionShape3D height
-	player.get_node("CollisionShape3D").shape.height = player.collision_height / 2
+	#player.get_node("CollisionShape3D").shape.height = player.collision_height / 2
 
 	# Set CollisionShape3D position
-	player.get_node("CollisionShape3D").position = player.collision_position
+	#player.get_node("CollisionShape3D").position = player.collision_position
 
 
 ## Stop "hanging".
