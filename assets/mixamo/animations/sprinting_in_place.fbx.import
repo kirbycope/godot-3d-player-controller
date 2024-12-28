@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://qcralcab5aag"
-path="res://.godot/imported/Sprinting_In_Place.fbx-65b3663749fc7a89a558b777bb4c7ac8.scn"
+path="res://.godot/imported/sprinting_in_place.fbx-57bd359beb9acbf740ad0cb8a25a7e7f.scn"
 
 [deps]
 
-source_file="res://assets/mixamo/animations/Sprinting_In_Place.fbx"
-dest_files=["res://.godot/imported/Sprinting_In_Place.fbx-65b3663749fc7a89a558b777bb4c7ac8.scn"]
+source_file="res://assets/mixamo/animations/sprinting_in_place.fbx"
+dest_files=["res://.godot/imported/sprinting_in_place.fbx-57bd359beb9acbf740ad0cb8a25a7e7f.scn"]
 
 [params]
 
