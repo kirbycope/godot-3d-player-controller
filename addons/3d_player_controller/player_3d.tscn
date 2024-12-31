@@ -1,0 +1,127 @@
+[gd_scene load_steps=18 format=3 uid="uid://ujh51l2wv1vk"]
+
+[ext_resource type="Script" path="res://addons/3d_player_controller/player_3d.gd" id="1_f3dlg"]
+[ext_resource type="Script" path="res://addons/3d_player_controller/virtual_controller_3d.gd" id="2_ifath"]
+[ext_resource type="PackedScene" uid="uid://dv80q7jwkx20r" path="res://scenes/debug.tscn" id="3_xex47"]
+[ext_resource type="PackedScene" uid="uid://bf6dhhwfpuau6" path="res://scenes/pause.tscn" id="4_t2fvs"]
+[ext_resource type="Script" path="res://addons/3d_player_controller/states/climbing.gd" id="5_xlvyu"]
+[ext_resource type="Script" path="res://addons/3d_player_controller/states/crawling.gd" id="6_72vy6"]
+[ext_resource type="Script" path="res://addons/3d_player_controller/states/crouching.gd" id="7_2pwpa"]
+[ext_resource type="Script" path="res://addons/3d_player_controller/states/falling.gd" id="8_50ucx"]
+[ext_resource type="Script" path="res://addons/3d_player_controller/states/flying.gd" id="9_2t1yj"]
+[ext_resource type="Script" path="res://addons/3d_player_controller/states/hanging.gd" id="10_eblo2"]
+[ext_resource type="Script" path="res://addons/3d_player_controller/states/holding.gd" id="11_ekkl0"]
+[ext_resource type="Script" path="res://addons/3d_player_controller/states/jumping.gd" id="12_bhakt"]
+[ext_resource type="Script" path="res://addons/3d_player_controller/states/running.gd" id="13_4dmkx"]
+[ext_resource type="Script" path="res://addons/3d_player_controller/states/sprinting.gd" id="14_f1f2u"]
+[ext_resource type="Script" path="res://addons/3d_player_controller/states/standing.gd" id="15_enyfd"]
+[ext_resource type="Script" path="res://addons/3d_player_controller/states/walking.gd" id="16_70kcl"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5e6s3"]
+radius = 0.3
+height = 1.8
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_f3dlg")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VirtualController3D" type="Node2D" parent="CanvasLayer"]
+script = ExtResource("2_ifath")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_5e6s3")
+
+[node name="Visuals" type="Node3D" parent="."]
+
+[node name="RayCast3D_JumpTarget" type="RayCast3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, -0.6)
+
+[node name="RayCast3D_InFrontPlayer_Top" type="RayCast3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+target_position = Vector3(0, 0, -1)
+
+[node name="RayCast3D_InFrontPlayer_High" type="RayCast3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
+target_position = Vector3(0, 0, -1)
+
+[node name="RayCast3D_InFrontPlayer_Middle" type="RayCast3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+target_position = Vector3(0, 0, -1)
+
+[node name="RayCast3D_InFrontPlayer_Low" type="RayCast3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+target_position = Vector3(0, 0, -1)
+
+[node name="RayCast3D_BelowPlayer" type="RayCast3D" parent="Visuals"]
+
+[node name="HeldItemMount" type="Node3D" parent="Visuals"]
+
+[node name="CameraMount" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraMount"]
+transform = Transform3D(1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, 0, 0.6, 2.5)
+
+[node name="Debug" parent="CameraMount/Camera3D" instance=ExtResource("3_xex47")]
+
+[node name="Pause" parent="CameraMount/Camera3D" instance=ExtResource("4_t2fvs")]
+visible = false
+
+[node name="RayCast3D" type="RayCast3D" parent="CameraMount/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
+target_position = Vector3(0, 0, -2)
+
+[node name="ItemMount" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+
+[node name="States" type="Node" parent="."]
+
+[node name="Climbing" type="Node" parent="States"]
+process_mode = 4
+script = ExtResource("5_xlvyu")
+
+[node name="Crawling" type="Node" parent="States"]
+process_mode = 4
+script = ExtResource("6_72vy6")
+
+[node name="Crouching" type="Node" parent="States"]
+process_mode = 4
+script = ExtResource("7_2pwpa")
+
+[node name="Falling" type="Node" parent="States"]
+process_mode = 4
+script = ExtResource("8_50ucx")
+
+[node name="Flying" type="Node" parent="States"]
+process_mode = 4
+script = ExtResource("9_2t1yj")
+
+[node name="Hanging" type="Node" parent="States"]
+process_mode = 4
+script = ExtResource("10_eblo2")
+
+[node name="Holding" type="Node" parent="States"]
+script = ExtResource("11_ekkl0")
+
+[node name="Jumping" type="Node" parent="States"]
+process_mode = 4
+script = ExtResource("12_bhakt")
+
+[node name="Running" type="Node" parent="States"]
+process_mode = 4
+script = ExtResource("13_4dmkx")
+
+[node name="Sprinting" type="Node" parent="States"]
+process_mode = 4
+script = ExtResource("14_f1f2u")
+
+[node name="Standing" type="Node" parent="States"]
+script = ExtResource("15_enyfd")
+
+[node name="Walking" type="Node" parent="States"]
+process_mode = 4
+script = ExtResource("16_70kcl")

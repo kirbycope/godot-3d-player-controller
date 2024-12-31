@@ -7,7 +7,11 @@ A 3D Player Controller for the Godot Game Engine.
 Include this addon with your project. No need to "activate" as the intended usage is to copy the controller files to the `/addons` folder and for you to then copy it to your scene/script folder and modify as need. This way if/when you pull down the latest, it will not overwrite your changes.
 
 ## Making Changes to this Repo
-1. Make changes to [pause.gd](/addons/3d_player_controller/pause.gd), [player_3d.gd](/addons/3d_player_controller/player_3d.gd), and/or [virtual_controller_3d.gd](/addons/3d_player_controller/virtual_controller_3d.gd)
+1. Make changes to [pause.gd](/addons/3d_player_controller/pause.gd), [player_3d.gd](/addons/3d_player_controller/player_3d.gd), [player_3d.tscn](/addons/3d_player_controller/player_3d.tscn), and/or [virtual_controller_3d.gd](/addons/3d_player_controller/virtual_controller_3d.gd)
+	- `/addons/3d_player_controller/player_3d.tscn` is the source
+	- `/scenes/player_3d.tscn` is a duplicate of the source and the Node `$Visuals/AuxScene` added
+		- `$Visuals/AuxScene` is the imported model `/assets/mixamo/characters/y_bot_combined.gltf`
+		- "AuxScene" is the name given to the model combined with its animations when using [Character Animation Combiner](https://nilooy.github.io/character-animation-combiner/)
 1. In Bash terminal and run, [/ci/export-pack.sh](/ci/export-pack.sh)
 	- This is used in the [Godot Game Client](https://github.com/kirbycope/godot-game-client)
 1. In Bash terminal and run, [/ci/export-web.sh](/ci/export-web.sh)
