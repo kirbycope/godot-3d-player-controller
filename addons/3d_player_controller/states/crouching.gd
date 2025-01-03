@@ -10,7 +10,7 @@ func _input(event: InputEvent) -> void:
 	if !Globals.game_paused:
 
 		# [jump] button just _pressed_
-		if Input.is_action_just_pressed("jump"):
+		if Input.is_action_just_pressed("jump") and player.enable_jumping:
 
 			# Transition to "jumping"
 			to_jumping()

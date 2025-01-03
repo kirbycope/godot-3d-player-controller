@@ -16,7 +16,7 @@ func _input(event: InputEvent) -> void:
 			to_crouching()
 
 		# [jump] button just _pressed_
-		if Input.is_action_just_pressed("jump"):
+		if Input.is_action_just_pressed("jump") and player.enable_jumping:
 
 			# Start "jumping"
 			to_jumping()

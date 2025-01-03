@@ -78,8 +78,9 @@ var timer_jump: float = 0.0
 
 # Note: `@export` variables are available for editing in the property editor.
 @export var enable_double_jump: bool = false
-@export var enable_vibration: bool = false
 @export var enable_flying: bool = false
+@export var enable_jumping: bool = true
+@export var enable_vibration: bool = false
 @export var force_kicking: float = 2.0
 @export var force_kicking_sprinting: float = 3.0
 @export var force_punching: float = 1.0
