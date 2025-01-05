@@ -113,34 +113,40 @@ func _process(_delta: float) -> void:
 	# Check is the Debug Panel is visible
 	if visible:
 
-		# Panel
-		$Panel/EnableDoubleJump.button_pressed = $"../../..".enable_double_jump
-		$Panel/EnableFlying.button_pressed = $"../../..".enable_flying
-		$Panel/EnableJumping.button_pressed = $"../../..".enable_jumping
-		$Panel/EnableVibration.button_pressed = $"../../..".enable_vibration
-		$Panel/IsAiming.button_pressed = $"../../..".is_aiming
-		$Panel/IsAnimationLocked.button_pressed = $"../../..".is_animation_locked
-		$Panel/IsClimbing.button_pressed = $"../../..".is_climbing
-		$Panel/IsCrawling.button_pressed = $"../../..".is_crawling
-		$Panel/IsCrouching.button_pressed = $"../../..".is_crouching
-		$Panel/IsDoubleJumping.button_pressed = $"../../..".is_double_jumping
-		$Panel/IsFalling.button_pressed = $"../../..".is_falling
-		$Panel/IsFiring.button_pressed = $"../../..".is_firing
-		$Panel/IsFlying.button_pressed = $"../../..".is_flying
-		$Panel/IsHanging.button_pressed = $"../../..".is_hanging
-		$Panel/IsHolding.button_pressed = $"../../..".is_holding
-		$Panel/IsHoldingRifle.button_pressed = $"../../..".is_holding_rifle
-		$Panel/IsHoldingTool.button_pressed = $"../../..".is_holding_tool
-		$Panel/IsJumping.button_pressed = $"../../..".is_jumping
-		$Panel/IsKickingLeft.button_pressed = $"../../..".is_kicking_left
-		$Panel/IsKickingRight.button_pressed = $"../../..".is_kicking_right
-		$Panel/IsPunchingLeft.button_pressed = $"../../..".is_punching_left
-		$Panel/IsPunchingRight.button_pressed = $"../../..".is_punching_right
-		$Panel/IsRunning.button_pressed = $"../../..".is_running
-		$Panel/IsSprinting.button_pressed = $"../../..".is_sprinting
-		$Panel/IsStanding.button_pressed = $"../../..".is_standing
-		$Panel/IsWalking.button_pressed = $"../../..".is_walking
-		$Panel/GamePaused.button_pressed = Globals.game_paused
+		# Panel 1
+		$Panel1/IsAiming.button_pressed = $"../../..".is_aiming
+		$Panel1/IsAnimationLocked.button_pressed = $"../../..".is_animation_locked
+		$Panel1/IsClimbing.button_pressed = $"../../..".is_climbing
+		$Panel1/IsCrawling.button_pressed = $"../../..".is_crawling
+		$Panel1/IsCrouching.button_pressed = $"../../..".is_crouching
+		$Panel1/IsDoubleJumping.button_pressed = $"../../..".is_double_jumping
+		$Panel1/IsFalling.button_pressed = $"../../..".is_falling
+		$Panel1/IsFiring.button_pressed = $"../../..".is_firing
+		$Panel1/IsFlying.button_pressed = $"../../..".is_flying
+		$Panel1/IsHanging.button_pressed = $"../../..".is_hanging
+		$Panel1/IsHolding.button_pressed = $"../../..".is_holding
+		$Panel1/IsHoldingRifle.button_pressed = $"../../..".is_holding_rifle
+		$Panel1/IsHoldingTool.button_pressed = $"../../..".is_holding_tool
+		$Panel1/IsJumping.button_pressed = $"../../..".is_jumping
+		$Panel1/IsKickingLeft.button_pressed = $"../../..".is_kicking_left
+		$Panel1/IsKickingRight.button_pressed = $"../../..".is_kicking_right
+		$Panel1/IsPunchingLeft.button_pressed = $"../../..".is_punching_left
+		$Panel1/IsPunchingRight.button_pressed = $"../../..".is_punching_right
+		$Panel1/IsRunning.button_pressed = $"../../..".is_running
+		$Panel1/IsSprinting.button_pressed = $"../../..".is_sprinting
+		$Panel1/IsStanding.button_pressed = $"../../..".is_standing
+		$Panel1/IsWalking.button_pressed = $"../../..".is_walking
+
+		# Panel 2
+		$Panel2/EnableCrouching.button_pressed = $"../../..".enable_crouching
+		$Panel2/EnableDoubleJump.button_pressed = $"../../..".enable_double_jump
+		$Panel2/EnableFlying.button_pressed = $"../../..".enable_flying
+		$Panel2/EnableJumping.button_pressed = $"../../..".enable_jumping
+		$Panel2/EnableVibration.button_pressed = $"../../..".enable_vibration
+		$Panel2/LockCamera.button_pressed = $"../../..".lock_camera
+		$Panel2/LockMovement.button_pressed = $"../../..".lock_movement
+		$Panel2/LockPerspective.button_pressed = $"../../..".lock_perspective
+		$Panel2/GamePaused.button_pressed = Globals.game_paused
 
 		if last_input_device == "Controller":
 

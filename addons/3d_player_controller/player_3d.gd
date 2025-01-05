@@ -77,6 +77,7 @@ var is_walking: bool = false
 var timer_jump: float = 0.0
 
 # Note: `@export` variables are available for editing in the property editor.
+@export var enable_crouching: bool = true
 @export var enable_double_jump: bool = false
 @export var enable_flying: bool = false
 @export var enable_jumping: bool = true
@@ -88,6 +89,9 @@ var timer_jump: float = 0.0
 @export var force_pushing: float = 1.0
 @export var force_pushing_sprinting: float = 2.0
 @export var jump_velocity: float = 4.5
+@export var lock_camera: bool = false
+@export var lock_movement: bool = false
+@export var lock_perspective: bool = false
 @export var look_sensitivity_controller: float = 120.0
 @export var look_sensitivity_mouse: float = 0.2
 @export var look_sensitivity_virtual: float = 60.0
@@ -145,23 +149,26 @@ func _input(event) -> void:
 	# If the game is not paused...
 	if !Globals.game_paused:
 
-		# Check if the camera is using a third-person perspective
-		if perspective == 0:
+		# Check if the perspective is not locked
+		if !lock_perspective:
 
-			# [zoom in] button _pressed_
-			if event.is_action_pressed("zoom_in"):
+			# Check if the camera is using a third-person perspective
+			if perspective == 0:
 
-				# Move the camera towards the player, slightly
-				camera.transform.origin.z = clamp(camera.transform.origin.z + zoom_speed, zoom_min, zoom_max)
+				# [zoom in] button _pressed_
+				if event.is_action_pressed("zoom_in"):
 
-			# [zoom out] button _pressed_
-			if event.is_action_pressed("zoom_out"):
+					# Move the camera towards the player, slightly
+					camera.transform.origin.z = clamp(camera.transform.origin.z + zoom_speed, zoom_min, zoom_max)
 
-				# Move the camera away from the player, slightly
-				camera.transform.origin.z = clamp(camera.transform.origin.z - zoom_speed, zoom_min, zoom_max)
+				# [zoom out] button _pressed_
+				if event.is_action_pressed("zoom_out"):
+
+					# Move the camera away from the player, slightly
+					camera.transform.origin.z = clamp(camera.transform.origin.z - zoom_speed, zoom_min, zoom_max)
 
 		# Check for mouse motion and the camera is not locked
-		if event is InputEventMouseMotion and !Globals.fixed_camera:
+		if event is InputEventMouseMotion and !lock_camera:
 
 			# Rotate camera based on mouse movement
 			camera_rotate_by_mouse(event)
@@ -232,7 +239,7 @@ func _physics_process(delta) -> void:
 			update_velocity()
 
 		# Check if the animation player is unlocked and the player's motion is unlocked
-		if !is_animation_locked and !Globals.movement_locked:
+		if !is_animation_locked and !lock_movement:
 
 			# Move player
 			move_and_slide()
