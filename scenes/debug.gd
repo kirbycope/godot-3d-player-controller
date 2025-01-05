@@ -142,6 +142,8 @@ func _process(_delta: float) -> void:
 		$Panel2/EnableDoubleJump.button_pressed = $"../../..".enable_double_jump
 		$Panel2/EnableFlying.button_pressed = $"../../..".enable_flying
 		$Panel2/EnableJumping.button_pressed = $"../../..".enable_jumping
+		$Panel2/EnableKicking.button_pressed = $"../../..".enable_kicking
+		$Panel2/EnablePunching.button_pressed = $"../../..".enable_punching
 		$Panel2/EnableVibration.button_pressed = $"../../..".enable_vibration
 		$Panel2/LockCamera.button_pressed = $"../../..".lock_camera
 		$Panel2/LockMovement.button_pressed = $"../../..".lock_movement

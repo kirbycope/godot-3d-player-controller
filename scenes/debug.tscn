@@ -380,7 +380,7 @@ text = "is_walking"
 layout_mode = 0
 offset_left = 1064.0
 offset_right = 1280.0
-offset_bottom = 268.0
+offset_bottom = 316.0
 
 [node name="Label4" type="Label" parent="Panel2"]
 layout_mode = 0
@@ -440,79 +440,109 @@ offset_top = 72.0
 offset_right = 216.0
 offset_bottom = 96.0
 
-[node name="Label3" type="Label" parent="Panel2"]
+[node name="Label29" type="Label" parent="Panel2"]
 layout_mode = 0
 offset_left = 9.0
 offset_top = 96.0
 offset_right = 179.0
 offset_bottom = 119.0
-text = "enable_vibration"
+text = "enable_kicking"
 
-[node name="EnableVibration" type="CheckBox" parent="Panel2"]
+[node name="EnableKicking" type="CheckBox" parent="Panel2"]
 layout_mode = 0
 offset_left = 192.0
 offset_top = 96.0
 offset_right = 216.0
 offset_bottom = 120.0
 
-[node name="Label15" type="Label" parent="Panel2"]
+[node name="Label30" type="Label" parent="Panel2"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 120.0
+offset_right = 179.0
+offset_bottom = 143.0
+text = "enable_punching"
+
+[node name="EnablePunching" type="CheckBox" parent="Panel2"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 120.0
+offset_right = 216.0
+offset_bottom = 144.0
+
+[node name="Label3" type="Label" parent="Panel2"]
 layout_mode = 0
 offset_left = 9.0
 offset_top = 144.0
 offset_right = 179.0
 offset_bottom = 167.0
-text = "lock_camera"
+text = "enable_vibration"
 
-[node name="LockCamera" type="CheckBox" parent="Panel2"]
+[node name="EnableVibration" type="CheckBox" parent="Panel2"]
 layout_mode = 0
 offset_left = 192.0
 offset_top = 144.0
 offset_right = 216.0
 offset_bottom = 168.0
 
-[node name="Label16" type="Label" parent="Panel2"]
-layout_mode = 0
-offset_left = 9.0
-offset_top = 168.0
-offset_right = 179.0
-offset_bottom = 191.0
-text = "lock_movement"
-
-[node name="LockMovement" type="CheckBox" parent="Panel2"]
-layout_mode = 0
-offset_left = 192.0
-offset_top = 168.0
-offset_right = 216.0
-offset_bottom = 192.0
-
-[node name="Label17" type="Label" parent="Panel2"]
+[node name="Label15" type="Label" parent="Panel2"]
 layout_mode = 0
 offset_left = 9.0
 offset_top = 192.0
 offset_right = 179.0
 offset_bottom = 215.0
-text = "lock_perspective"
+text = "lock_camera"
 
-[node name="LockPerspective" type="CheckBox" parent="Panel2"]
+[node name="LockCamera" type="CheckBox" parent="Panel2"]
 layout_mode = 0
 offset_left = 192.0
 offset_top = 192.0
 offset_right = 216.0
 offset_bottom = 216.0
 
+[node name="Label16" type="Label" parent="Panel2"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 216.0
+offset_right = 179.0
+offset_bottom = 239.0
+text = "lock_movement"
+
+[node name="LockMovement" type="CheckBox" parent="Panel2"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 216.0
+offset_right = 216.0
+offset_bottom = 240.0
+
+[node name="Label17" type="Label" parent="Panel2"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 240.0
+offset_right = 179.0
+offset_bottom = 263.0
+text = "lock_perspective"
+
+[node name="LockPerspective" type="CheckBox" parent="Panel2"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 240.0
+offset_right = 216.0
+offset_bottom = 264.0
+
 [node name="GamePaused" type="CheckBox" parent="Panel2"]
 layout_mode = 0
 offset_left = 192.0
-offset_top = 238.0
+offset_top = 288.0
 offset_right = 216.0
-offset_bottom = 262.0
+offset_bottom = 312.0
 
 [node name="Label28" type="Label" parent="Panel2"]
 layout_mode = 0
 offset_left = 9.0
-offset_top = 238.0
+offset_top = 288.0
 offset_right = 179.0
-offset_bottom = 261.0
+offset_bottom = 311.0
 text = "game_paused"
 
 [node name="XboxController" type="Control" parent="."]

@@ -30,20 +30,23 @@ func _input(event: InputEvent) -> void:
 				# The player must be unarmed
 				else:
 
-					# Flag the animation player as locked
-					player.is_animation_locked = true
+					# Check if punching is enabled
+					if player.enable_punching:
 
-					# Flag the player as "punching with their left arm"
-					player.is_punching_left = true
+						# Flag the animation player as locked
+						player.is_animation_locked = true
 
-					# Check if the animation player is not already playing the appropriate animation
-					if player.animation_player.current_animation != player.punching_low_left:
+						# Flag the player as "punching with their left arm"
+						player.is_punching_left = true
 
-						# Play the "punching low, left" animation
-						player.animation_player.play(player.punching_low_left)
+						# Check if the animation player is not already playing the appropriate animation
+						if player.animation_player.current_animation != player.punching_low_left:
 
-						# Check the punch hits something
-						player.check_punch_collision()
+							# Play the "punching low, left" animation
+							player.animation_player.play(player.punching_low_left)
+
+							# Check the punch hits something
+							player.check_punch_collision()
 
 		# [left-punch] button just _released_
 		if Input.is_action_just_released("left_punch"):
@@ -63,20 +66,23 @@ func _input(event: InputEvent) -> void:
 				# Check if the player is not "holding a rifle"
 				if !player.is_holding_rifle:
 
-					# Flag the animation player as locked
-					player.is_animation_locked = true
+					# Check if punching is enabled
+					if player.enable_punching:
 
-					# Flag the player as "punching with their right arm"
-					player.is_punching_right = true
+						# Flag the animation player as locked
+						player.is_animation_locked = true
 
-					# Check if the animation player is not already playing the appropriate animation
-					if player.animation_player.current_animation != player.punching_low_right:
+						# Flag the player as "punching with their right arm"
+						player.is_punching_right = true
 
-						# Play the "punching low, right" animation
-						player.animation_player.play(player.punching_low_right)
+						# Check if the animation player is not already playing the appropriate animation
+						if player.animation_player.current_animation != player.punching_low_right:
 
-						# Check the punch hits something
-						player.check_punch_collision()
+							# Play the "punching low, right" animation
+							player.animation_player.play(player.punching_low_right)
+
+							# Check the punch hits something
+							player.check_punch_collision()
 
 		# [right-punch] button just _pressed_
 		if Input.is_action_just_pressed("right_punch"):
