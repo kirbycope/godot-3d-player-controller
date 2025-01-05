@@ -173,8 +173,8 @@ func _input(event) -> void:
 			# Rotate camera based on mouse movement
 			camera_rotate_by_mouse(event)
 
-		# [select] button _pressed_
-		if event.is_action_pressed("select"):
+		# [select] button _pressed_ and the camera is not locked
+		if event.is_action_pressed("select") and !lock_camera:
 
 			# Check if in third-person
 			if perspective == 0:
@@ -225,7 +225,7 @@ func _physics_process(delta) -> void:
 		# Check each "look" action in the list
 		for action in look_actions:
 			# Check if the action is _pressesd_ and the camera is not locked
-			if Input.is_action_pressed(action) and !Globals.fixed_camera:
+			if Input.is_action_pressed(action) and !lock_camera:
 				# Rotate camera based on controller movement
 				camera_rotate_by_controller(delta)
 	
