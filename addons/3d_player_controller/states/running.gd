@@ -9,8 +9,8 @@ func _input(event: InputEvent) -> void:
 	# Check if the game is not paused
 	if !Globals.game_paused:
 
-		# [crouch] button just _pressed_
-		if Input.is_action_just_pressed("crouch"):
+		# [crouch] button just _pressed_ and crouching is enabled
+		if Input.is_action_just_pressed("crouch") and player.enable_crouching:
 
 			# Start "crouching"
 			to_crouching()

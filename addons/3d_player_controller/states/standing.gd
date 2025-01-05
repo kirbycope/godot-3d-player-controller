@@ -9,8 +9,8 @@ func _input(event: InputEvent) -> void:
 	# Check if the game is not paused
 	if !Globals.game_paused:
 
-		# [crouch] button just _pressed_
-		if Input.is_action_just_pressed("crouch"):
+		# [crouch] button just _pressed_ and crouching is enabled
+		if Input.is_action_just_pressed("crouch") and player.enable_crouching:
 
 			# Transition to "crouching"
 			to_crouching()
@@ -170,8 +170,8 @@ func _ready() -> void:
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 
-	# [crouch] button _pressed_ (and not already "crouching")
-	if Input.is_action_pressed("crouch") and !player.is_crouching:
+	# [crouch] button _pressed_, crouching is enabled, and not already "crouching"
+	if Input.is_action_pressed("crouch") and player.enable_crouching and !player.is_crouching:
 
 		# Check if the animation player is not locked
 		if !player.is_animation_locked:
