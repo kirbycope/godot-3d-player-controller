@@ -380,7 +380,7 @@ text = "is_walking"
 layout_mode = 0
 offset_left = 1064.0
 offset_right = 1280.0
-offset_bottom = 316.0
+offset_bottom = 340.0
 
 [node name="Label4" type="Label" parent="Panel2"]
 layout_mode = 0
@@ -506,43 +506,58 @@ offset_left = 9.0
 offset_top = 216.0
 offset_right = 179.0
 offset_bottom = 239.0
-text = "lock_movement"
+text = "lock_movement_x"
 
-[node name="LockMovement" type="CheckBox" parent="Panel2"]
+[node name="LockMovementX" type="CheckBox" parent="Panel2"]
 layout_mode = 0
 offset_left = 192.0
 offset_top = 216.0
 offset_right = 216.0
 offset_bottom = 240.0
 
+[node name="Label18" type="Label" parent="Panel2"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 239.0
+offset_right = 179.0
+offset_bottom = 262.0
+text = "lock_movement_y"
+
+[node name="LockMovementY" type="CheckBox" parent="Panel2"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 239.0
+offset_right = 216.0
+offset_bottom = 263.0
+
 [node name="Label17" type="Label" parent="Panel2"]
 layout_mode = 0
 offset_left = 9.0
-offset_top = 240.0
+offset_top = 263.0
 offset_right = 179.0
-offset_bottom = 263.0
+offset_bottom = 286.0
 text = "lock_perspective"
 
 [node name="LockPerspective" type="CheckBox" parent="Panel2"]
 layout_mode = 0
 offset_left = 192.0
-offset_top = 240.0
+offset_top = 263.0
 offset_right = 216.0
-offset_bottom = 264.0
+offset_bottom = 287.0
 
 [node name="GamePaused" type="CheckBox" parent="Panel2"]
 layout_mode = 0
 offset_left = 192.0
-offset_top = 288.0
+offset_top = 311.0
 offset_right = 216.0
-offset_bottom = 312.0
+offset_bottom = 335.0
 
 [node name="Label28" type="Label" parent="Panel2"]
 layout_mode = 0
 offset_left = 9.0
-offset_top = 288.0
+offset_top = 311.0
 offset_right = 179.0
-offset_bottom = 311.0
+offset_bottom = 334.0
 text = "game_paused"
 
 [node name="XboxController" type="Control" parent="."]
