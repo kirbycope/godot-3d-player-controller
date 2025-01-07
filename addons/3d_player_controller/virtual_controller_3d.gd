@@ -172,24 +172,34 @@ func _input(event: InputEvent) -> void:
 			left_swipe_delta = left_swipe_current_position - left_swipe_initial_position
 
 			# Trigger the [move_left] action _pressed_
-			if left_swipe_delta.x < - SWIPE_DEADZONE:
+			if left_swipe_delta.x < -SWIPE_DEADZONE:
 				Input.action_release("move_right")
 				Input.action_press("move_left")
 
 			# Trigger the [move_right] action _pressed_
-			if left_swipe_delta.x > SWIPE_DEADZONE:
+			elif left_swipe_delta.x > SWIPE_DEADZONE:
 				Input.action_release("move_left")
 				Input.action_press("move_right")
 
+			# Trigger the [move_left] and [move_right] actions _released_
+			else:
+				Input.action_release("move_left")
+				Input.action_release("move_right")
+
 			# Trigger the [move_up] action _pressed_
-			if left_swipe_delta.y < SWIPE_DEADZONE:
+			if left_swipe_delta.y < -SWIPE_DEADZONE:
 				Input.action_release("move_down")
 				Input.action_press("move_up")
 
 			# Trigger the [move_down] action _pressed_
-			if left_swipe_delta.y > SWIPE_DEADZONE:
+			elif left_swipe_delta.y > SWIPE_DEADZONE:
 				Input.action_release("move_up")
 				Input.action_press("move_down")
+
+			# Trigger the [move_up] and [move_down] actions _released_
+			else:
+				Input.action_release("move_up")
+				Input.action_release("move_down")
 
 		# Check if the event is related to the right-swipe event
 		if event.index == right_swipe_event_index:

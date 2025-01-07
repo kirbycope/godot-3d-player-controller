@@ -4,8 +4,8 @@
     "liveServer.settings.root": "/",
     "liveServer.settings.https": {
         "enable": true,
-        "cert": "/Users/timothycope/Documents/GitHub/localhost.pem",
-        "key": "/Users/timothycope/Documents/GitHub/localhost.key",
+        "cert": "C:\\GitHub\\localhost.pem",
+        "key": "C:\\GitHub\\localhost.key",
         "passphrase": "godot"
     }
 
