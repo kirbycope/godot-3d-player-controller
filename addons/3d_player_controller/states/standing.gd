@@ -186,7 +186,7 @@ func _process(delta: float) -> void:
 			to_crouching()
 
 	# Check if the player is moving
-	if player.velocity != Vector3(0.0, 0.0, 0.0):
+	if player.velocity != Vector3.ZERO or player.virtual_velocity != Vector3.ZERO:
 
 		# Check if the player is slower than or equal to "walking"
 		if 0.0 < player.speed_current and player.speed_current <= player.speed_walking:

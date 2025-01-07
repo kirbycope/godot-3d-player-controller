@@ -74,6 +74,7 @@ var is_running: bool = false
 var is_sprinting: bool = false
 var is_standing: bool = false
 var is_walking: bool = false
+var virtual_velocity: Vector3 = Vector3.ZERO
 var timer_jump: float = 0.0
 
 # Note: `@export` variables are available for editing in the property editor.
@@ -184,10 +185,10 @@ func _input(event) -> void:
 
 				# Set camera's position
 
-				camera.position = Vector3(0.0, 0.0, 0.0)
+				camera.position = Vector3.ZERO
 
 				# Set the camera's raycast position to match the camera's position
-				raycast_lookat.position = Vector3(0.0, 0.0, 0.0)
+				raycast_lookat.position = Vector3.ZERO
 
 				# Align visuals with the camera
 				visuals.rotation = Vector3(0.0, 0.0, camera_mount.rotation.z)
@@ -208,7 +209,7 @@ func _input(event) -> void:
 				raycast_lookat.position = Vector3(0.0, 0.0, -2.5)
 
 				# Set the visual's rotation
-				visuals.rotation = Vector3(0.0, 0.0, 0.0)
+				visuals.rotation = Vector3.ZERO
 
 
 ## Called each physics frame with the time since the last physics frame as argument (delta, in seconds).
@@ -443,14 +444,24 @@ func update_velocity() -> void:
 				# Update the camera to look in the direction based on player input
 				visuals.look_at(position + direction)
 
-			# Check if movement along the x-axis is not locked
-			if !lock_movement_x:
+			# Check if movement along the x-axis is locked
+			if lock_movement_x:
 
-				# Update horizontal veolicty
+				# Update [virtual] horizontal velocity
+				virtual_velocity.x = direction.x * speed_current
+
+			else:
+
+				# Update horizontal velocity
 				velocity.x = direction.x * speed_current
 
-			# Check if movement along the z-axis is not locked
-			if !lock_movement_y:
+			# Check if movement along the z-axis is locked
+			if lock_movement_y:
+
+				# Update vertical velocity
+				virtual_velocity.z = direction.z * speed_current
+
+			else:
 
 				# Update vertical velocity
 				velocity.z = direction.z * speed_current
@@ -458,8 +469,11 @@ func update_velocity() -> void:
 	# No movement detected
 	else:
 
-		# Update horizontal veolicty
+		# Update horizontal velocity
 		velocity.x = move_toward(velocity.x, 0, speed_current)
 
-		# Update vertical veolocity
+		# Update vertical velocity
 		velocity.z = move_toward(velocity.z, 0, speed_current)
+
+		# Update [virtual] velocity
+		virtual_velocity = Vector3.ZERO

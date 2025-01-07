@@ -107,7 +107,7 @@ func _input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 
 	# Check if the player is moving
-	if player.velocity != Vector3(0.0, 0.0, 0.0):
+	if player.velocity != Vector3.ZERO or player.virtual_velocity != Vector3.ZERO:
 	
 		# Start "crawling"
 		to_crawling()
