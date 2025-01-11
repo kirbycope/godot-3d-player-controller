@@ -1,0 +1,62 @@
+[gd_scene load_steps=10 format=3 uid="uid://c7x2c4rsai64q"]
+
+[ext_resource type="Script" path="res://addons/3d_player_controller/virtual_buttons.gd" id="1_fwh88"]
+[ext_resource type="Texture2D" uid="uid://t4f48p5v3b0t" path="res://addons/3d_player_controller/textures/white/2x/buttonA.png" id="2_3tq23"]
+[ext_resource type="Texture2D" uid="uid://jivv4wusaxx4" path="res://addons/3d_player_controller/textures/black/2x/buttonA.png" id="3_kpx6h"]
+[ext_resource type="Texture2D" uid="uid://cdtrk2u8smtrv" path="res://addons/3d_player_controller/textures/white/2x/buttonB.png" id="4_mnq2f"]
+[ext_resource type="Texture2D" uid="uid://cijog0giawnaw" path="res://addons/3d_player_controller/textures/black/2x/buttonB.png" id="5_412wy"]
+[ext_resource type="Texture2D" uid="uid://by1yn2i6ajq2n" path="res://addons/3d_player_controller/textures/white/2x/buttonX.png" id="6_8pfsj"]
+[ext_resource type="Texture2D" uid="uid://oqptsb3jur4n" path="res://addons/3d_player_controller/textures/black/2x/buttonX.png" id="7_t4klv"]
+[ext_resource type="Texture2D" uid="uid://de112ewa3ba66" path="res://addons/3d_player_controller/textures/white/2x/buttonY.png" id="8_n17tw"]
+[ext_resource type="Texture2D" uid="uid://coj201heepd5s" path="res://addons/3d_player_controller/textures/black/2x/buttonY.png" id="9_ximd3"]
+
+[node name="VirtualButtons" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1052.0
+offset_top = 428.0
+offset_right = 1052.0
+offset_bottom = 428.0
+script = ExtResource("1_fwh88")
+
+[node name="TextureButtonA" type="TextureButton" parent="."]
+layout_mode = 0
+offset_top = 128.0
+offset_right = 100.0
+offset_bottom = 228.0
+texture_normal = ExtResource("2_3tq23")
+texture_pressed = ExtResource("3_kpx6h")
+
+[node name="TextureButtonB" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 164.0
+offset_bottom = 164.0
+texture_normal = ExtResource("4_mnq2f")
+texture_pressed = ExtResource("5_412wy")
+
+[node name="TextureButtonX" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = -64.0
+offset_top = 64.0
+offset_right = 36.0
+offset_bottom = 164.0
+texture_normal = ExtResource("6_8pfsj")
+texture_pressed = ExtResource("7_t4klv")
+
+[node name="TextureButtonY" type="TextureButton" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("8_n17tw")
+texture_pressed = ExtResource("9_ximd3")
+
+[connection signal="button_down" from="TextureButtonA" to="." method="_on_texture_button_a_button_down"]
+[connection signal="button_up" from="TextureButtonA" to="." method="_on_texture_button_a_button_up"]
+[connection signal="button_down" from="TextureButtonB" to="." method="_on_texture_button_b_button_down"]
+[connection signal="button_up" from="TextureButtonB" to="." method="_on_texture_button_b_button_up"]
+[connection signal="button_down" from="TextureButtonX" to="." method="_on_texture_button_x_button_down"]
+[connection signal="button_up" from="TextureButtonX" to="." method="_on_texture_button_x_button_up"]
+[connection signal="button_down" from="TextureButtonY" to="." method="_on_texture_button_y_button_down"]
+[connection signal="button_up" from="TextureButtonY" to="." method="_on_texture_button_y_button_up"]

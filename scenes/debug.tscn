@@ -561,6 +561,7 @@ offset_bottom = 334.0
 text = "game_paused"
 
 [node name="XboxController" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0

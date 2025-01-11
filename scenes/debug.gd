@@ -1,6 +1,5 @@
 extends Control
 
-var last_input_device: String = ""
 @onready var stick_l_origin: Vector2 = $XboxController/White/StickL.position
 @onready var stick_r_origin: Vector2 = $XboxController/White/StickR.position
 
@@ -17,17 +16,11 @@ func _input(event) -> void:
 	# Check if the Debug UI is currently displayed
 	if visible:
 
-		# Check if the current Input Event was triggered by a keyboard
-		if event is InputEventKey or event is InputEventMouse or event is InputEventMouseMotion:
-
-			# Flag the last input device
-			last_input_device = "Keyboard"
-
 		# Check if the current Input Event was triggered by a joypad
-		if event is InputEventJoypadButton or event is InputEventJoypadMotion:
+		if Controls.current_input_type == Controls.InputType.CONTROLLER:
 
-			# Flag the last input device
-			last_input_device = "Controller"
+			# Show the controller
+			$XboxController.visible = true
 
 			# Get the joypad's name
 			var device_name = Input.get_joy_name(event.device)
@@ -106,6 +99,12 @@ func _input(event) -> void:
 				elif event.is_action_released("right_kick"):
 					$XboxController/White/ButtonR2.visible = true
 
+		# Input Event was not triggered by a joypad 
+		else:
+
+			# Hide the controller
+			$XboxController.visible = false
+
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -151,7 +150,8 @@ func _process(_delta: float) -> void:
 		$Panel2/LockPerspective.button_pressed = $"../../..".lock_perspective
 		$Panel2/GamePaused.button_pressed = Globals.game_paused
 
-		if last_input_device == "Controller":
+		# Check is the current Input Event was triggered by a controller
+		if Controls.current_input_type == Controls.InputType.CONTROLLER:
 
 			# Get Left-stick magnitude
 			var left_stick_input = Vector2(
