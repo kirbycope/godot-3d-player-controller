@@ -1,6 +1,10 @@
 extends Control
 
 
+func _ready() -> void:
+	top_level = true
+
+
 func _process(_delta: float) -> void:
 
 	if Controls.current_input_type == Controls.InputType.CONTROLLER:
