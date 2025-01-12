@@ -75,7 +75,6 @@ var is_sprinting: bool = false
 var is_standing: bool = false
 var is_walking: bool = false
 var virtual_velocity: Vector3 = Vector3.ZERO
-var timer_jump: float = 0.0
 
 # Note: `@export` variables are available for editing in the property editor.
 @export var enable_crouching: bool = true

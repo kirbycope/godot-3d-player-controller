@@ -10,53 +10,29 @@
 [ext_resource type="Texture2D" uid="uid://de112ewa3ba66" path="res://addons/3d_player_controller/textures/white/2x/buttonY.png" id="8_n17tw"]
 [ext_resource type="Texture2D" uid="uid://coj201heepd5s" path="res://addons/3d_player_controller/textures/black/2x/buttonY.png" id="9_ximd3"]
 
-[node name="VirtualButtons" type="Control"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 1052.0
-offset_top = 428.0
-offset_right = 1052.0
-offset_bottom = 428.0
+[node name="VirtualButtons" type="Node2D"]
 script = ExtResource("1_fwh88")
 
-[node name="TextureButtonA" type="TextureButton" parent="."]
-layout_mode = 0
-offset_top = 128.0
-offset_right = 100.0
-offset_bottom = 228.0
+[node name="TouchScreenButtonA" type="TouchScreenButton" parent="."]
+position = Vector2(1079, 599)
 texture_normal = ExtResource("2_3tq23")
 texture_pressed = ExtResource("3_kpx6h")
+action = "jump"
 
-[node name="TextureButtonB" type="TextureButton" parent="."]
-layout_mode = 0
-offset_left = 64.0
-offset_top = 64.0
-offset_right = 164.0
-offset_bottom = 164.0
+[node name="TouchScreenButtonB" type="TouchScreenButton" parent="."]
+position = Vector2(1159, 519)
 texture_normal = ExtResource("4_mnq2f")
 texture_pressed = ExtResource("5_412wy")
+action = "sprint"
 
-[node name="TextureButtonX" type="TextureButton" parent="."]
-layout_mode = 0
-offset_left = -64.0
-offset_top = 64.0
-offset_right = 36.0
-offset_bottom = 164.0
+[node name="TouchScreenButtonX" type="TouchScreenButton" parent="."]
+position = Vector2(999, 519)
 texture_normal = ExtResource("6_8pfsj")
 texture_pressed = ExtResource("7_t4klv")
+action = "use"
 
-[node name="TextureButtonY" type="TextureButton" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="TouchScreenButtonY" type="TouchScreenButton" parent="."]
+position = Vector2(1079, 439)
 texture_normal = ExtResource("8_n17tw")
 texture_pressed = ExtResource("9_ximd3")
-
-[connection signal="button_down" from="TextureButtonA" to="." method="_on_texture_button_a_button_down"]
-[connection signal="button_up" from="TextureButtonA" to="." method="_on_texture_button_a_button_up"]
-[connection signal="button_down" from="TextureButtonB" to="." method="_on_texture_button_b_button_down"]
-[connection signal="button_up" from="TextureButtonB" to="." method="_on_texture_button_b_button_up"]
-[connection signal="button_down" from="TextureButtonX" to="." method="_on_texture_button_x_button_down"]
-[connection signal="button_up" from="TextureButtonX" to="." method="_on_texture_button_x_button_up"]
-[connection signal="button_down" from="TextureButtonY" to="." method="_on_texture_button_y_button_down"]
-[connection signal="button_up" from="TextureButtonY" to="." method="_on_texture_button_y_button_up"]
+action = "crouch"
