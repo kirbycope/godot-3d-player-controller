@@ -15,6 +15,7 @@ var right_touch_initial_time = null
 var tap_event_index = null
 var tap_initial_position = null
 
+@onready var player = get_parent().get_parent()
 
 ## Called when CanvasItem has been requested to redraw (after queue_redraw is called, either manually or by the engine).
 func _draw() -> void:
@@ -87,7 +88,7 @@ func _input(event: InputEvent) -> void:
 				left_swipe_initial_position = event.position
 
 			# Check if the touch event took place on the right-half of the screen and the event has not been recorded
-			if event.position.x > get_viewport().get_visible_rect().size.x / 2 and !right_swipe_event_index:
+			if event.position.x > get_viewport().get_visible_rect().size.x / 2 and !right_swipe_event_index and !player.lock_camera:
 
 				# Record the touch event index
 				right_swipe_event_index = event.index
