@@ -6,8 +6,15 @@ enum InputType {
 	TOUCH
 }
 
-# Store the current input type
-var current_input_type: InputType
+signal input_type_changed(new_type)
+
+var current_input_type: InputType:
+	set(value):
+		if current_input_type != value:
+			current_input_type = value
+			input_type_changed.emit(value)
+	get:
+		return current_input_type
 
 
 ## Called when there is an input event.

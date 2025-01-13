@@ -17,6 +17,7 @@ var tap_initial_position = null
 
 @onready var player = get_parent().get_parent()
 
+
 ## Called when CanvasItem has been requested to redraw (after queue_redraw is called, either manually or by the engine).
 func _draw() -> void:
 
