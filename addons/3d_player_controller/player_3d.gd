@@ -183,7 +183,6 @@ func _input(event) -> void:
 				perspective = 1
 
 				# Set camera's position
-
 				camera.position = Vector3.ZERO
 
 				# Set the camera's raycast position to match the camera's position
