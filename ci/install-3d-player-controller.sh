@@ -1,15 +1,8 @@
 #!/bin/bash
 
-# 1. Open VS Code
-# 2. Open New Terminal
-# 3. Select 'git bash'
-# 4. Run `bash ci/install-3d-player-controller.sh`
-
-
-# Navigate to the addons folder in the current repository
-rm addons -rf -f
-mkdir -p addons
-cd addons
+# Create a temporary directory for cloning
+TEMP_DIR=$(mktemp -d)
+cd "$TEMP_DIR"
 
 # Define the repository URL and directory to clone
 REPO_URL="https://github.com/kirbycope/godot-3d-player-controller.git"
@@ -34,16 +27,12 @@ git sparse-checkout set "$DIRECTORY"
 # Pull the selected directory from the specified branch
 git pull origin "$BRANCH"
 
-# Move the directory to the correct location
-mv addons/3d_player_controller ./  # Moves the directory up one level
+# Create the target directory if it doesn't exist
+mkdir -p "../addons/3d_player_controller"
 
-# Remove the extra "addons" directory
-rm -rf addons
+# Copy only the controller files to your addons directory
+cp -r addons/3d_player_controller/* "../addons/3d_player_controller/"
 
-# Remove any file in the current `addons` folder that is not a subdirectory
-find . -maxdepth 1 -type f -exec rm -f {} +
-
-# Remove the .git directory in addons (if present)
-rm -rf .git
-
-echo "Cloned the $SOURCE_DIR directory from $REPO_URL into addons"
+# Clean up temporary directory
+cd ..
+rm -rf "$TEMP_DIR"
