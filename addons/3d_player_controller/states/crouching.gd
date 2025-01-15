@@ -1,6 +1,7 @@
-extends Node
+extends BaseState
 
 @onready var player: CharacterBody3D = get_parent().get_parent()
+var node_name = "Crouching"
 
 
 ## Called when there is an input event.
@@ -12,8 +13,8 @@ func _input(event: InputEvent) -> void:
 		# [jump] button just _pressed_
 		if Input.is_action_just_pressed("jump") and player.enable_jumping:
 
-			# Transition to "jumping"
-			to_jumping()
+			# Start "jumping"
+			transition(node_name, "Jumping")
 
 		# [left-punch] button just _pressed_
 		if Input.is_action_just_pressed("left_punch"):
@@ -110,7 +111,7 @@ func _process(delta: float) -> void:
 	if player.velocity != Vector3.ZERO or player.virtual_velocity != Vector3.ZERO:
 	
 		# Start "crawling"
-		to_crawling()
+		transition(node_name, "Crawling")
 
 	# [crouch] button not _pressed_
 	if !Input.is_action_pressed("crouch"):
@@ -119,7 +120,7 @@ func _process(delta: float) -> void:
 		if !player.is_animation_locked:
 
 			# Stop "crouching"
-			to_standing() 
+			transition(node_name, "Standing")
 
 	# Check if the player is "crouching"
 	if player.is_crouching:
@@ -219,33 +220,3 @@ func stop() -> void:
 
 	# Reset CollisionShape3D position
 	player.get_node("CollisionShape3D").position = player.collision_position
-
-
-## State.CROUCHING -> State.CRAWLING
-func to_crawling():
-
-	# Stop "crouching"
-	stop()
-
-	# Start "crawling"
-	$"../Crawling".start()
-
-
-## State.CROUCHING -> State.JUMPING
-func to_jumping():
-
-	# Stop "crouching"
-	stop()
-
-	# Start "jumping"
-	$"../Jumping".start()
-
-
-## State.CROUCHING -> State.STANDING
-func to_standing():
-
-	# Stop "crouching"
-	stop()
-
-	# Start "standing"
-	$"../Standing".start()

@@ -1,7 +1,7 @@
-extends Node
-
+extends BaseState
 
 @onready var player: CharacterBody3D = get_parent().get_parent()
+var node_name = "Falling"
 
 
 ## Called when there is an input event.
@@ -29,7 +29,7 @@ func _input(event: InputEvent) -> void:
 				elif player.enable_flying and !player.is_flying:
 
 					# Start "flying"
-					to_flying()
+					transition(node_name, "Flying")
 
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -45,13 +45,13 @@ func _process(delta: float) -> void:
 		if !collision_object.is_in_group("held"):
 
 			# Start "hanging"
-			to_hanging()
+			transition(node_name, "Hanging")
 
 	# Check if the player is on the ground (and has no vertical velocity)
 	if player.is_on_floor() and player.velocity.y ==  0.0:
 
-		# Change to "standing" state
-		to_standing()
+		# Start "standing"
+		transition(node_name, "Standing")
 
 	# Check if the player is "falling"
 	if player.is_falling:
@@ -118,33 +118,3 @@ func stop() -> void:
 
 	# Flag the player as not "double jumping"
 	player.is_double_jumping = false
-
-
-## State.FALLING -> State.FLYING
-func to_flying():
-
-	# Stop "falling"
-	stop()
-
-	# Start "flying"
-	$"../Flying".start()
-
-
-## State.FALLING -> State.HANGING
-func to_hanging():
-
-	# Stop "falling"
-	stop()
-
-	# Start "hanging"
-	$"../Hanging".start()
-
-
-## State.FALLING -> State.STANDING
-func to_standing():
-
-	# Stop "falling"
-	stop()
-
-	# Start "standing"
-	$"../Standing".start()

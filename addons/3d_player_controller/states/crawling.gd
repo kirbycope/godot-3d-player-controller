@@ -1,6 +1,7 @@
-extends Node
+extends BaseState
 
 @onready var player: CharacterBody3D = get_parent().get_parent()
+var node_name = "Crawling"
 
 
 ## Called when there is an input event.
@@ -13,13 +14,13 @@ func _input(event: InputEvent) -> void:
 		if Input.is_action_just_released("crouch"):
 
 			# Start "standing"
-			to_standing()
+			transition(node_name, "Standing")
 
 		# [jump] button just _pressed_
 		if Input.is_action_just_pressed("jump") and player.enable_jumping:
 
 			# Start "jumping"
-			to_jumping()
+			transition(node_name, "Jumping")
 
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -29,7 +30,7 @@ func _process(delta: float) -> void:
 	if player.velocity == Vector3.ZERO:
 
 		# Start "crouching"		
-		to_crouching()
+		transition(node_name, "Crouching")
 
 	# Check if the player is "crawling"
 	if player.is_crawling:
@@ -99,33 +100,3 @@ func stop() -> void:
 
 	# Reset CollisionShape3D position
 	player.get_node("CollisionShape3D").position = player.collision_position
-
-
-## State.CRAWLING -> State.CROUCHING
-func to_crouching():
-
-	# Stop "crawling"
-	stop()
-
-	# Start "crouching"
-	$"../Crouching".start()
-
-
-## State.CRAWLING -> State.JUMPING
-func to_jumping():
-
-	# Stop "crawling"
-	stop()
-
-	# Start "jumping"
-	$"../Jumping".start()
-
-
-## State.CRAWLING -> State.STANDING
-func to_standing():
-
-	# Stop "crawling"
-	stop()
-
-	# Start "standing"
-	$"../Standing".start()

@@ -1,6 +1,7 @@
-extends Node
+extends BaseState
 
 @onready var player: CharacterBody3D = get_parent().get_parent()
+var node_name = "Climbing"
 
 
 ## Called when there is an input event.
@@ -65,7 +66,7 @@ func start() -> void:
 	await get_tree().create_timer(0.2).timeout
 
 	# Start "standing"
-	to_standing()
+	transition(node_name, "Standing")
 
 
 ## Stop "climbing".
@@ -76,13 +77,3 @@ func stop() -> void:
 
 	# Flag the player as not "climbing"
 	player.is_climbing = false
-
-
-## State.CLIMBING -> State.STANDING
-func to_standing() -> void:
-
-	# Stop "climbing"
-	stop()
-
-	# Start "standing"
-	$"../Standing".start()

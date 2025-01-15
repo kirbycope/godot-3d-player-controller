@@ -1,6 +1,7 @@
-extends Node
+extends BaseState
 
 @onready var player: CharacterBody3D = get_parent().get_parent()
+var node_name = "Hanging"
 
 
 ## Called when there is an input event.
@@ -13,13 +14,13 @@ func _input(event: InputEvent) -> void:
 		if event.is_action_pressed("crouch"):
 
 			# Start falling
-			to_falling()
+			transition(node_name, "Falling")
 
 		# [jump] button _pressed_
 		if event.is_action_pressed("jump"):
 
 			# Start climbing
-			to_climbing()
+			transition(node_name, "Climbing")
 
 		# [move_left] button pressed
 		if event.is_action_pressed("move_left"):
@@ -191,23 +192,3 @@ func stop() -> void:
 
 	# Reset CollisionShape3D position
 	player.get_node("CollisionShape3D").position = player.collision_position
-
-
-## State.HANGING -> State.CLIMBING
-func to_climbing() -> void:
-
-	# Stop "hanging"
-	stop()
-
-	# Start "climbing"
-	$"../Climbing".start()
-
-
-## State.HANGING -> State.FALLING
-func to_falling() -> void:
-
-	# Stop "hanging"
-	stop()
-
-	# Start "falling"
-	$"../Falling".start()

@@ -1,6 +1,7 @@
-extends Node
+extends BaseState
 
 @onready var player: CharacterBody3D = get_parent().get_parent()
+var node_name = "Holding"
 
 
 ## Called when there is an input event.

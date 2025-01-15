@@ -1,6 +1,7 @@
-extends Node
+extends BaseState
 
 @onready var player: CharacterBody3D = get_parent().get_parent()
+var node_name = "Flying"
 
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -31,7 +32,7 @@ func _process(delta: float) -> void:
 					if time_now - player.timer_jump < 200:
 
 						# Start "falling"
-						to_falling()
+						transition(node_name, "Falling")
 
 					# Either way, reset the timer
 					player.timer_jump = Time.get_ticks_msec()
@@ -52,7 +53,7 @@ func _process(delta: float) -> void:
 			if player.raycast_below.is_colliding():
 
 				# Start "standing"
-				to_standing()
+				transition(node_name, "Standing")
 		
 		# [crouch] button just _released_
 		if Input.is_action_just_released("crouch"):
@@ -143,33 +144,3 @@ func stop() -> void:
 	player.motion_mode = CharacterBody3D.MOTION_MODE_GROUNDED
 	player.velocity.y -= player.gravity
 	player.visuals.rotation.x = 0
-
-
-## State.FLYING -> State.JUMPING
-func to_jumping():
-
-	# Stop "flying"
-	stop()
-
-	# Start "jumping"
-	$"../Jumping".start()
-
-
-## State.FLYING -> State.FALLING
-func to_falling():
-
-	# Stop "flying"
-	stop()
-
-	# Start "falling"
-	$"../Falling".start()
-
-
-## State.FLYING -> State.STANDING
-func to_standing():
-
-	# Stop "flying"
-	stop()
-
-	# Start "standing"
-	$"../Standing".start()

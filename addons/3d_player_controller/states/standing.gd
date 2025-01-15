@@ -1,6 +1,7 @@
-extends Node
+extends BaseState
 
 @onready var player: CharacterBody3D = get_parent().get_parent()
+var node_name = "Standing"
 
 
 ## Called when there is an input event.
@@ -12,14 +13,14 @@ func _input(event: InputEvent) -> void:
 		# [crouch] button just _pressed_ and crouching is enabled
 		if Input.is_action_just_pressed("crouch") and player.enable_crouching:
 
-			# Transition to "crouching"
-			to_crouching()
+			# Start "crouching"
+			transition(node_name, "Crouching")
 
 		# [jump] button just _pressed_
 		if Input.is_action_just_pressed("jump") and player.enable_jumping:
 
-			# Transition to "jumping"
-			to_jumping()
+			# Start "jumping"
+			transition(node_name, "Jumping")
 
 		# [left-kick] button _pressed_
 		if Input.is_action_pressed("left_kick"):
@@ -183,7 +184,7 @@ func _process(delta: float) -> void:
 		if !player.is_animation_locked:
 
 			# Start "crouching"
-			to_crouching()
+			transition(node_name, "Crouching")
 
 	# Check if the player is moving
 	if player.velocity != Vector3.ZERO or player.virtual_velocity != Vector3.ZERO:
@@ -192,19 +193,19 @@ func _process(delta: float) -> void:
 		if 0.0 < player.speed_current and player.speed_current <= player.speed_walking:
 
 			# Start "walking"
-			to_walking()
+			transition(node_name, "Walking")
 
 		# Check if the player speed is faster than "walking" but slower than or equal to "running"
 		elif player.speed_walking < player.speed_current and player.speed_current <= player.speed_running:
 
 			# Start "running"
-			to_running()
+			transition(node_name, "Running")
 
 		# Check if the player speed is faster than "running" but slower than or equal to "sprinting"
 		elif player.speed_running < player.speed_current and player.speed_current <= player.speed_sprinting:
 
 			# Start "sprinting"
-			to_sprinting()
+			transition(node_name, "Sprinting")
 
 	# Check if the player is "standing"
 	if player.is_standing:
@@ -284,7 +285,7 @@ func start() -> void:
 	player.speed_current = 0.0
 
 
-## Stop "standing"
+## Stop "standing".
 func stop() -> void:
 
 	# Disable _this_ state node
@@ -292,53 +293,3 @@ func stop() -> void:
 
 	# Flag the player as not "standing"
 	player.is_standing = false
-
-
-## State.STANDING -> State.CROUCHING
-func to_crouching():
-
-	# Stop "standing"
-	stop()
-
-	# Start "crouching"
-	$"../Crouching".start()
-
-
-## State.STANDING -> State.JUMPING
-func to_jumping():
-
-	# Stop "standing"
-	stop()
-
-	# Start "jumping"
-	$"../Jumping".start()
-
-
-## State.STANDING -> State.RUNNING
-func to_running() -> void:
-
-	# Stop "standing"
-	stop()
-
-	# Start "running"
-	$"../Running".start()
-
-
-## State.STANDING -> State.SPRINTING
-func to_sprinting() -> void:
-
-	# Stop "standing"
-	stop()
-
-	# Start "sprinting"
-	$"../Sprinting".start()
-
-
-## State.STANDING -> State.WALKING
-func to_walking() -> void:
-
-	# Stop "standing"
-	stop()
-
-	# Start "walking"
-	$"../Walking".start()

@@ -1,6 +1,7 @@
-extends Node
+extends BaseState
 
 @onready var player: CharacterBody3D = get_parent().get_parent()
+var node_name = "Running"
 
 
 ## Called when there is an input event.
@@ -13,19 +14,19 @@ func _input(event: InputEvent) -> void:
 		if Input.is_action_just_pressed("crouch") and player.enable_crouching:
 
 			# Start "crouching"
-			to_crouching()
+			transition(node_name, "Crouching")
 
 		# [jump] button just _pressed_
 		if Input.is_action_just_pressed("jump") and player.enable_jumping:
 
 			# Start "jumping"
-			to_jumping()
+			transition(node_name, "Jumping")
 
 		# [sprint] button _pressed_
 		if Input.is_action_pressed("sprint"):
 
 			# Start "sprinting"
-			to_sprinting()
+			transition(node_name, "Sprinting")
 
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -35,7 +36,7 @@ func _process(delta: float) -> void:
 	if player.velocity == Vector3.ZERO and player.virtual_velocity == Vector3.ZERO:
 
 		# Start "standing"		
-		to_standing()
+		transition(node_name, "Standing")
 
 	# The player must be moving
 	else:
@@ -44,13 +45,13 @@ func _process(delta: float) -> void:
 		if player.speed_current <= player.speed_walking:
 
 			# Start "walking"
-			to_walking()
+			transition(node_name, "Walking")
 
 		# Check if the player speed is faster than "running" but slower than or equal to "sprinting"
 		elif player.speed_running < player.speed_current and player.speed_current <= player.speed_sprinting:
 
 			# Start "sprinting"
-			to_sprinting()
+			transition(node_name, "Sprinting")
 
 	# Check if the player is "running"
 	if player.is_running:
@@ -117,53 +118,3 @@ func stop() -> void:
 
 	# Flag the player as not "running"
 	player.is_running = false
-
-
-## State.RUNNING -> State.CROUCHING
-func to_crouching() -> void:
-
-	# Stop "running"
-	stop()
-
-	# Start "crouching"
-	$"../Crouching".start()
-
-
-## State.RUNNING -> State.JUMPING
-func to_jumping() -> void:
-
-	# Stop "running"
-	stop()
-
-	# Start "jumping"
-	$"../Jumping".start()
-
-
-## State.RUNNING -> State.STANDING
-func to_standing() -> void:
-
-	# Stop "running"
-	stop()
-
-	# Start "standing"
-	$"../Standing".start()
-
-
-## State.RUNNING -> State.SPRINTING
-func to_sprinting() -> void:
-
-	# Stop "running"
-	stop()
-
-	# Start "sprinting"
-	$"../Sprinting".start()
-
-
-## State.RUNNING -> State.WALKING
-func to_walking() -> void:
-
-	# Stop "running"
-	stop()
-
-	# Start "walking"
-	$"../Walking".start()

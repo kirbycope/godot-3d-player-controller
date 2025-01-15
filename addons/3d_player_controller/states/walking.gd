@@ -1,6 +1,7 @@
-extends Node
+extends BaseState
 
 @onready var player: CharacterBody3D = get_parent().get_parent()
+var node_name = "Walking"
 
 
 ## Called when there is an input event.
@@ -13,7 +14,7 @@ func _input(event: InputEvent) -> void:
 		if Input.is_action_pressed("sprint"):
 
 			# Start "sprinting"
-			to_sprinting()
+			transition(node_name, "Sprinting")
 
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -23,7 +24,7 @@ func _process(delta: float) -> void:
 	if player.velocity == Vector3.ZERO and player.virtual_velocity == Vector3.ZERO:
 
 		# Start "standing"		
-		to_standing()
+		transition(node_name, "Standing")
 
 	# The player must be moving
 	else:
@@ -32,13 +33,13 @@ func _process(delta: float) -> void:
 		if player.speed_walking < player.speed_current and player.speed_current <= player.speed_running:
 
 			# Start "running"
-			to_running()
+			transition(node_name, "Running")
 
 		# Check if the player speed is faster than "running" but slower than or equal to "sprinting"
 		elif player.speed_running < player.speed_current and player.speed_current <= player.speed_sprinting:
 
 			# Start "sprinting"
-			to_sprinting()
+			transition(node_name, "Sprinting")
 	
 	# Check if the player is "walking"
 	if player.is_walking:
@@ -105,33 +106,3 @@ func stop() -> void:
 
 	# Flag the player as not "walking"
 	player.is_walking = false
-
-
-## State.WALKING -> State.RUNNING
-func to_running() -> void:
-
-	# Stop "walking"
-	stop()
-
-	# Start "running"
-	$"../Running".start()
-
-
-## State.WALKING -> State.SPRINTING
-func to_sprinting() -> void:
-
-	# Stop "walking"
-	stop()
-
-	# Start "sprinting"
-	$"../Sprinting".start()
-
-
-## State.WALKING -> State.STANDING
-func to_standing() -> void:
-
-	# Stop "walking"
-	stop()
-
-	# Start "standing"
-	$"../Standing".start()
