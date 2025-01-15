@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://ujh51l2wv1vk"]
+[gd_scene load_steps=19 format=3 uid="uid://ujh51l2wv1vk"]
 
 [ext_resource type="Script" path="res://addons/3d_player_controller/player_3d.gd" id="1_f3dlg"]
 [ext_resource type="Script" path="res://addons/3d_player_controller/virtual_controller_3d.gd" id="2_ifath"]
+[ext_resource type="PackedScene" uid="uid://c7x2c4rsai64q" path="res://addons/3d_player_controller/virtual_buttons.tscn" id="2_vtolg"]
 [ext_resource type="PackedScene" uid="uid://dv80q7jwkx20r" path="res://scenes/debug.tscn" id="3_xex47"]
 [ext_resource type="PackedScene" uid="uid://bf6dhhwfpuau6" path="res://scenes/pause.tscn" id="4_t2fvs"]
 [ext_resource type="Script" path="res://addons/3d_player_controller/states/climbing.gd" id="5_xlvyu"]
@@ -25,6 +26,8 @@ height = 1.8
 script = ExtResource("1_f3dlg")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VirtualButtons" parent="CanvasLayer" instance=ExtResource("2_vtolg")]
 
 [node name="VirtualController3D" type="Node2D" parent="CanvasLayer"]
 script = ExtResource("2_ifath")

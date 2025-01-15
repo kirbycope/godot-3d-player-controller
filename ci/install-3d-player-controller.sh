@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Get the absolute path of the project directory
+PROJECT_DIR=$(pwd -W)
+
 # Create a temporary directory for cloning
 TEMP_DIR=$(mktemp -d)
 cd "$TEMP_DIR"
@@ -28,11 +31,12 @@ git sparse-checkout set "$DIRECTORY"
 git pull origin "$BRANCH"
 
 # Create the target directory if it doesn't exist
-mkdir -p "../addons/3d_player_controller"
+TARGET_DIR="$PROJECT_DIR/addons/3d_player_controller"
+mkdir -p "$TARGET_DIR"
 
-# Copy only the controller files to your addons directory
-cp -r addons/3d_player_controller/* "../addons/3d_player_controller/"
+# Force copy with verbose output
+cp -rfv addons/3d_player_controller/* "$TARGET_DIR/"
 
 # Clean up temporary directory
-cd ..
+cd "$PROJECT_DIR"
 rm -rf "$TEMP_DIR"
