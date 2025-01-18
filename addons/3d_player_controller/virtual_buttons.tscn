@@ -10,29 +10,37 @@
 [ext_resource type="Texture2D" uid="uid://de112ewa3ba66" path="res://addons/3d_player_controller/textures/white/2x/buttonY.png" id="8_n17tw"]
 [ext_resource type="Texture2D" uid="uid://coj201heepd5s" path="res://addons/3d_player_controller/textures/black/2x/buttonY.png" id="9_ximd3"]
 
-[node name="VirtualButtons" type="Node2D"]
+[node name="VirtualButtons" type="Control"]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
 script = ExtResource("1_fwh88")
 
 [node name="TouchScreenButtonA" type="TouchScreenButton" parent="."]
-position = Vector2(1079, 599)
+position = Vector2(-185, -105)
 texture_normal = ExtResource("2_3tq23")
 texture_pressed = ExtResource("3_kpx6h")
 action = "jump"
 
 [node name="TouchScreenButtonB" type="TouchScreenButton" parent="."]
-position = Vector2(1159, 519)
+position = Vector2(-105, -185)
 texture_normal = ExtResource("4_mnq2f")
 texture_pressed = ExtResource("5_412wy")
 action = "sprint"
 
 [node name="TouchScreenButtonX" type="TouchScreenButton" parent="."]
-position = Vector2(999, 519)
+position = Vector2(-265, -185)
 texture_normal = ExtResource("6_8pfsj")
 texture_pressed = ExtResource("7_t4klv")
 action = "use"
 
 [node name="TouchScreenButtonY" type="TouchScreenButton" parent="."]
-position = Vector2(1079, 439)
+position = Vector2(-185, -265)
 texture_normal = ExtResource("8_n17tw")
 texture_pressed = ExtResource("9_ximd3")
 action = "crouch"
