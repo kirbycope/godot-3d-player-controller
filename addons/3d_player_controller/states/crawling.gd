@@ -8,7 +8,7 @@ var node_name = "Crawling"
 func _input(event: InputEvent) -> void:
 
 	# Check if the game is not paused
-	if !Globals.game_paused:
+	if !player.game_paused:
 
 		# [crouch] button just _released_
 		if Input.is_action_just_released("crouch"):

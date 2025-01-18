@@ -1,5 +1,6 @@
 extends Control
 
+@onready var player: CharacterBody3D = get_parent().get_parent().get_parent()
 @onready var stick_l_origin: Vector2 = $XboxController/White/StickL.position
 @onready var stick_r_origin: Vector2 = $XboxController/White/StickR.position
 
@@ -148,7 +149,7 @@ func _process(_delta: float) -> void:
 		$Panel2/LockMovementX.button_pressed = $"../../..".lock_movement_x
 		$Panel2/LockMovementY.button_pressed = $"../../..".lock_movement_y
 		$Panel2/LockPerspective.button_pressed = $"../../..".lock_perspective
-		$Panel2/GamePaused.button_pressed = Globals.game_paused
+		$Panel2/GamePaused.button_pressed = player.game_paused
 
 		# Check is the current Input Event was triggered by a controller
 		if Controls.current_input_type == Controls.InputType.CONTROLLER:

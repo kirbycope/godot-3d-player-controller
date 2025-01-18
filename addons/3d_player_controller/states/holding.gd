@@ -8,7 +8,7 @@ var node_name = "Holding"
 func _input(event: InputEvent) -> void:
 
 	# Check if the game is not paused
-	if !Globals.game_paused:
+	if !player.game_paused:
 
 		# [use] button _pressed_ (and holding something)
 		if event.is_action_pressed("use") and player.is_holding:

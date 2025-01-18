@@ -1,5 +1,6 @@
 extends Node3D
 
+@onready var player: CharacterBody3D = $Player
 
 ## Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -8,7 +9,7 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 	# Make sure the game is unpaused
-	Globals.game_paused = false
+	player.game_paused = false
 	
 	$"PortalGun/AnimationPlayer".play("rotate")
 

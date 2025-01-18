@@ -90,6 +90,7 @@ var virtual_velocity: Vector3 = Vector3.ZERO
 @export var force_punching_sprinting: float = 1.5
 @export var force_pushing: float = 1.0
 @export var force_pushing_sprinting: float = 2.0
+@export var game_paused: int = 0
 @export var jump_velocity: float = 4.5
 @export var lock_camera: bool = false
 @export var lock_movement_x: bool = false
@@ -132,25 +133,11 @@ var virtual_velocity: Vector3 = Vector3.ZERO
 @onready var visuals_aux_scene_position = $Visuals/AuxScene.position
 
 
-## Called when the node leaves the scene tree.
-func _exit_tree() -> void:
-
-	# [DEBUG] Message
-	if Globals.debug_mode: print(Globals.time_stamp, " [DEBUG] '", get_script().resource_path.get_file().get_basename(), "' scene unloaded.")
-
-
-## Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-
-	# [DEBUG] Message
-	if Globals.debug_mode: print(Globals.time_stamp, " [DEBUG] '", get_script().resource_path.get_file().get_basename(), "' scene loaded.")
-
-
 ## Called when there is an input event.
 func _input(event) -> void:
 
 	# Check if the game is not paused
-	if !Globals.game_paused:
+	if !game_paused:
 
 		# Check if the camera is using a third-person perspective and the perspective is not locked
 		if perspective == 0 and !lock_perspective:
@@ -215,7 +202,7 @@ func _input(event) -> void:
 func _physics_process(delta) -> void:
 
 	# If the game is not paused...
-	if !Globals.game_paused:
+	if !game_paused:
 
 		# Check if no animation is playing
 		if !animation_player.is_playing():

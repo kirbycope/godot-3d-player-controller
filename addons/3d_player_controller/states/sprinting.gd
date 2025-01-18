@@ -8,7 +8,7 @@ var node_name = "Sprinting"
 func _input(event: InputEvent) -> void:
 
 	# Check if the game is not paused
-	if !Globals.game_paused:
+	if !player.game_paused:
 
 		# [jump] button just _pressed_
 		if Input.is_action_just_pressed("jump") and player.enable_jumping:
