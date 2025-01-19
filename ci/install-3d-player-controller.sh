@@ -30,8 +30,11 @@ git sparse-checkout set "$DIRECTORY"
 # Pull the selected directory from the specified branch
 git pull origin "$BRANCH"
 
-# Create the target directory if it doesn't exist
+# Define and clear the target directory
 TARGET_DIR="$PROJECT_DIR/addons/3d_player_controller"
+if [ -d "$TARGET_DIR" ]; then
+    rm -rf "$TARGET_DIR"
+fi
 mkdir -p "$TARGET_DIR"
 
 # Force copy with verbose output
