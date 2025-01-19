@@ -109,6 +109,9 @@ func start() -> void:
 	# Flag the player as "jumping"
 	player.is_jumping = true
 
+	# Flag the player as not "grounded"
+	player.is_grounded = false
+
 	# Flag the player as not "double jumping"
 	player.is_double_jumping = false
 

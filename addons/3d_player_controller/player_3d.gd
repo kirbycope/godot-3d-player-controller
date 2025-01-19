@@ -59,6 +59,7 @@ var is_crawling: bool = false
 var is_crouching: bool = false
 var is_double_jumping: bool = false
 var is_falling: bool = false
+var is_grounded: bool = true
 var is_firing: bool = false
 var is_flying: bool = false
 var is_hanging: bool = false
@@ -128,6 +129,7 @@ var virtual_velocity: Vector3 = Vector3.ZERO
 @onready var raycast_middle = $Visuals/RayCast3D_InFrontPlayer_Middle
 @onready var raycast_low = $Visuals/RayCast3D_InFrontPlayer_Low
 @onready var raycast_below = $Visuals/RayCast3D_BelowPlayer
+@onready var shapecast = $ShapeCast3D
 @onready var visuals = $Visuals
 @onready var visuals_aux_scene = $Visuals/AuxScene
 @onready var visuals_aux_scene_position = $Visuals/AuxScene.position
@@ -241,10 +243,17 @@ func _physics_process(delta) -> void:
 		if !is_animation_locked:
 
 			# Move player
-			move_and_slide()
+			move_player(delta)
 
 		# Move the camera to player
 		move_camera()
+
+
+## Returns if the player is "grounded".
+func check_grounded() -> bool:
+
+	# Return is_grounded unless it is null, if so then return the result of is_on_floor()
+	return is_grounded || is_on_floor()
 
 
 ## Check if the kick hits anything.
@@ -400,6 +409,50 @@ func move_camera():
 		var bone_pose = player_skeleton.get_bone_global_pose(bone_index)
 		# Adjust the camera mount position to match the bone's relative position (adjusting for $Visuals/AuxScene scaling)
 		camera_mount.position = Vector3(-bone_pose.origin.x * 0.01, bone_pose.origin.y * 0.01, (-bone_pose.origin.z * 0.01) - 0.165)
+
+
+## Moves the player based on velocity and shapecast collision.
+func move_player(delta: float) -> void:
+
+	# Set the shapecast position to the player's potential new position
+	shapecast.global_position.x = global_position.x + velocity.x * delta
+	shapecast.global_position.z = global_position.z + velocity.z * delta
+
+	# Check if the player is grounded
+	if check_grounded():
+		shapecast.target_position.y = -0.5
+	else:
+		shapecast.target_position.y = 0.55
+
+	# Create a new physics query object used for checking collisions in 3D space
+	var query = PhysicsShapeQueryParameters3D.new()
+	# Tell the physics query to ignore the current object (self) when checking for collisions
+	query.exclude = [self]
+	# Set the collision shape to match a "shapecast" object's shape
+	query.shape = shapecast.shape
+	# Set the position and rotation (transform) to match where the shapecast is in global space
+	query.transform = shapecast.global_transform
+	# Get the current 3D world, give direct access to the physics engine, and check if the shape intersects with anything (limited to 1 result)
+	var result = get_world_3d().direct_space_state.intersect_shape(query, 1)
+	# Check if no collisions were detected
+	if !result:
+		# Force the shapecast to update its state
+		shapecast.force_shapecast_update()
+	# Check if the shapecast is colliding, the player is moving down (or not at all), no direct collision was found, and the angle of the slope isn't too great
+	if shapecast.is_colliding() and velocity.y <= 0.0 and !result and shapecast.get_collision_normal(0).angle_to(Vector3.UP) < floor_max_angle:
+		# Set the character's Y position to match the collision point (likely the ground)
+		global_position.y = shapecast.get_collision_point(0).y
+		# Stop vertical movement by zeroing the Y velocity
+		velocity.y = 0.0
+		# Flag the character as "grounded"
+		is_grounded = true
+	# The player must be airborne
+	#else:
+		# Flag the character as not "grounded"
+		#is_grounded = false
+
+	# Moves the body based on velocity.
+	move_and_slide()
 
 
 ## Update the player's velocity based on input and status.

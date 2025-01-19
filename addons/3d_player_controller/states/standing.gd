@@ -281,6 +281,9 @@ func start() -> void:
 	# Flag the player as "standing"
 	player.is_standing = true
 
+	# Flag the player as "grounded"
+	player.is_grounded = true
+
 	# Set the player's speed
 	player.speed_current = 0.0
 
