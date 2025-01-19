@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=20 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="PackedScene" uid="uid://b80ulfowrgt55" path="res://scenes/player_3d.tscn" id="1_qnqwy"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://yjfepubkyyyr" path="res://assets/kenney_nl/prototype_textures/PNG/Light/texture_08.png" id="4_bf4q0"]
 [ext_resource type="PackedScene" uid="uid://cog5lww47pkyv" path="res://scenes/portal_gun.tscn" id="5_k8xrp"]
 [ext_resource type="Texture2D" uid="uid://b0v08nrfse8c5" path="res://assets/kenney_nl/prototype_textures/PNG/Purple/texture_02.png" id="6_moi5b"]
+[ext_resource type="Texture2D" uid="uid://ci020ecabgbvq" path="res://assets/kenney_nl/prototype_textures/PNG/Orange/texture_02.png" id="7_uwbdk"]
+[ext_resource type="Texture2D" uid="uid://ba2orr1vybqao" path="res://assets/kenney_nl/prototype_textures/PNG/Red/texture_02.png" id="8_px2wr"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yu8tv"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -41,6 +43,12 @@ size = Vector3(0.5, 0.5, 0.5)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o5lsk"]
 albedo_texture = ExtResource("6_moi5b")
 uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qkbxv"]
+albedo_texture = ExtResource("7_uwbdk")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1jjce"]
+albedo_texture = ExtResource("8_px2wr")
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_oaegt")
@@ -82,5 +90,127 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, -4)
 use_collision = true
 size = Vector3(2, 2, 2)
 material = SubResource("StandardMaterial3D_o5lsk")
+
+[node name="Stairs" type="Node3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Stairs"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.788086, 0.111139, -3.99806)
+use_collision = true
+size = Vector3(1, 0.197, 0.254)
+material = SubResource("StandardMaterial3D_qkbxv")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Stairs/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107719, 0.0199409)
+use_collision = true
+size = Vector3(1, 0.019, 0.254)
+material = SubResource("StandardMaterial3D_1jjce")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Stairs"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.02184, 0.307715, -3.99806)
+use_collision = true
+size = Vector3(1, 0.197, 0.254)
+material = SubResource("StandardMaterial3D_qkbxv")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Stairs/CSGBox3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107719, 0.0199409)
+use_collision = true
+size = Vector3(1, 0.019, 0.254)
+material = SubResource("StandardMaterial3D_1jjce")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Stairs"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.25616, 0.504908, -3.99806)
+use_collision = true
+size = Vector3(1, 0.197, 0.254)
+material = SubResource("StandardMaterial3D_qkbxv")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Stairs/CSGBox3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107719, 0.0199409)
+use_collision = true
+size = Vector3(1, 0.019, 0.254)
+material = SubResource("StandardMaterial3D_1jjce")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Stairs"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.48991, 0.701484, -3.99806)
+use_collision = true
+size = Vector3(1, 0.197, 0.254)
+material = SubResource("StandardMaterial3D_qkbxv")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Stairs/CSGBox3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107719, 0.0199409)
+use_collision = true
+size = Vector3(1, 0.019, 0.254)
+material = SubResource("StandardMaterial3D_1jjce")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Stairs"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.72415, 0.898131, -3.99806)
+use_collision = true
+size = Vector3(1, 0.197, 0.254)
+material = SubResource("StandardMaterial3D_qkbxv")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Stairs/CSGBox3D5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107719, 0.0199409)
+use_collision = true
+size = Vector3(1, 0.019, 0.254)
+material = SubResource("StandardMaterial3D_1jjce")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Stairs"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.9579, 1.09471, -3.99806)
+use_collision = true
+size = Vector3(1, 0.197, 0.254)
+material = SubResource("StandardMaterial3D_qkbxv")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Stairs/CSGBox3D6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107719, 0.0199409)
+use_collision = true
+size = Vector3(1, 0.019, 0.254)
+material = SubResource("StandardMaterial3D_1jjce")
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Stairs"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.19223, 1.2919, -3.99806)
+use_collision = true
+size = Vector3(1, 0.197, 0.254)
+material = SubResource("StandardMaterial3D_qkbxv")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Stairs/CSGBox3D7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107719, 0.0199409)
+use_collision = true
+size = Vector3(1, 0.019, 0.254)
+material = SubResource("StandardMaterial3D_1jjce")
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Stairs"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.42598, 1.48848, -3.99806)
+use_collision = true
+size = Vector3(1, 0.197, 0.254)
+material = SubResource("StandardMaterial3D_qkbxv")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Stairs/CSGBox3D8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107719, 0.0199409)
+use_collision = true
+size = Vector3(1, 0.019, 0.254)
+material = SubResource("StandardMaterial3D_1jjce")
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="Stairs"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.66025, 1.68586, -3.99806)
+use_collision = true
+size = Vector3(1, 0.197, 0.254)
+material = SubResource("StandardMaterial3D_qkbxv")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Stairs/CSGBox3D9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107719, 0.0199409)
+use_collision = true
+size = Vector3(1, 0.019, 0.254)
+material = SubResource("StandardMaterial3D_1jjce")
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="Stairs"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.894, 1.88244, -3.99806)
+use_collision = true
+size = Vector3(1, 0.197, 0.254)
+material = SubResource("StandardMaterial3D_qkbxv")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Stairs/CSGBox3D10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107719, 0.0199409)
+use_collision = true
+size = Vector3(1, 0.019, 0.254)
+material = SubResource("StandardMaterial3D_1jjce")
 
 [connection signal="body_entered" from="PortalGun/Area3D" to="." method="_on_area_3d_body_entered"]
