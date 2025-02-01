@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://dw2w4uik4bfcu"
+path.s3tc="res://.godot/imported/portal_gun_w_portalgun_normal.png-409038710286e58ca1c51212adb677f2.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "8223a4563c182496ee04cd6876c65fe2"
+}
+
+[deps]
+
+source_file="res://assets/valve/portal_gun_w_portalgun_normal.png"
+dest_files=["res://.godot/imported/portal_gun_w_portalgun_normal.png-409038710286e58ca1c51212adb677f2.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=1
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=1
+roughness/src_normal="res://assets/portal_gun_w_portalgun_normal.png"
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

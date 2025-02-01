@@ -1,0 +1,46 @@
+[gd_scene load_steps=10 format=3 uid="uid://c7x2c4rsai64q"]
+
+[ext_resource type="Script" path="res://addons/3d_player_controller/virtual_buttons.gd" id="1_fwh88"]
+[ext_resource type="Texture2D" uid="uid://bj7uitcvuqoj2" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/2x/buttonA.png" id="2_3tq23"]
+[ext_resource type="Texture2D" uid="uid://q6jtj44oubc7" path="res://addons/3d_player_controller/textures/game_icons/PNG/Black/2x/buttonA.png" id="3_kpx6h"]
+[ext_resource type="Texture2D" uid="uid://vl0yrruyt7mg" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/2x/buttonB.png" id="4_mnq2f"]
+[ext_resource type="Texture2D" uid="uid://br2deugypebsf" path="res://addons/3d_player_controller/textures/game_icons/PNG/Black/2x/buttonB.png" id="5_412wy"]
+[ext_resource type="Texture2D" uid="uid://bunnq8pux1mto" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/2x/buttonX.png" id="6_8pfsj"]
+[ext_resource type="Texture2D" uid="uid://bxr6eq3d630hb" path="res://addons/3d_player_controller/textures/game_icons/PNG/Black/2x/buttonX.png" id="7_t4klv"]
+[ext_resource type="Texture2D" uid="uid://4ocyt3lph7nn" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/2x/buttonY.png" id="8_n17tw"]
+[ext_resource type="Texture2D" uid="uid://wa8fdt0bd4ls" path="res://addons/3d_player_controller/textures/game_icons/PNG/Black/2x/buttonY.png" id="9_ximd3"]
+
+[node name="VirtualButtons" type="Control"]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("1_fwh88")
+
+[node name="TouchScreenButtonA" type="TouchScreenButton" parent="."]
+position = Vector2(-185, -105)
+texture_normal = ExtResource("2_3tq23")
+texture_pressed = ExtResource("3_kpx6h")
+action = "jump"
+
+[node name="TouchScreenButtonB" type="TouchScreenButton" parent="."]
+position = Vector2(-105, -185)
+texture_normal = ExtResource("4_mnq2f")
+texture_pressed = ExtResource("5_412wy")
+action = "sprint"
+
+[node name="TouchScreenButtonX" type="TouchScreenButton" parent="."]
+position = Vector2(-265, -185)
+texture_normal = ExtResource("6_8pfsj")
+texture_pressed = ExtResource("7_t4klv")
+action = "use"
+
+[node name="TouchScreenButtonY" type="TouchScreenButton" parent="."]
+position = Vector2(-185, -265)
+texture_normal = ExtResource("8_n17tw")
+texture_pressed = ExtResource("9_ximd3")
+action = "crouch"

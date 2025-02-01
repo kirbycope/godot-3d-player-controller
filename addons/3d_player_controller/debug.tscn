@@ -1,0 +1,922 @@
+[gd_scene load_steps=26 format=3 uid="uid://dv80q7jwkx20r"]
+
+[ext_resource type="Script" path="res://addons/3d_player_controller/debug.gd" id="1_nyx4n"]
+[ext_resource type="Texture2D" uid="uid://bsy2lsoc2x7du" path="res://addons/3d_player_controller/textures/game_icons/PNG/Black/1x/buttonA.png" id="2_fbawl"]
+[ext_resource type="Texture2D" uid="uid://dwptb8dk65176" path="res://addons/3d_player_controller/textures/game_icons/PNG/Black/1x/buttonB.png" id="3_bf0qu"]
+[ext_resource type="Texture2D" uid="uid://be40mbpq3lmcc" path="res://addons/3d_player_controller/textures/game_icons/PNG/Black/1x/buttonX.png" id="4_oh1iv"]
+[ext_resource type="Texture2D" uid="uid://b88u6i3uapu15" path="res://addons/3d_player_controller/textures/game_icons/PNG/Black/1x/buttonY.png" id="5_tp2mo"]
+[ext_resource type="Texture2D" uid="uid://b5pctwlxh161v" path="res://addons/3d_player_controller/textures/game_icons/PNG/Black/1x/buttonL1.png" id="6_ufh1b"]
+[ext_resource type="Texture2D" uid="uid://clsxgn3u4ubv6" path="res://addons/3d_player_controller/textures/game_icons/PNG/Black/1x/buttonL2.png" id="7_g1jgn"]
+[ext_resource type="Texture2D" uid="uid://30m18dcq4kpn" path="res://addons/3d_player_controller/textures/game_icons/PNG/Black/1x/buttonR1.png" id="8_o606g"]
+[ext_resource type="Texture2D" uid="uid://xt5f61f6hwst" path="res://addons/3d_player_controller/textures/game_icons/PNG/Black/1x/buttonR2.png" id="9_w8w7o"]
+[ext_resource type="Texture2D" uid="uid://d036yvcsk57jm" path="res://addons/3d_player_controller/textures/game_icons/PNG/Black/1x/buttonSelect.png" id="10_hi5tw"]
+[ext_resource type="Texture2D" uid="uid://hck8uc6fm1ao" path="res://addons/3d_player_controller/textures/game_icons/PNG/Black/1x/buttonStart.png" id="11_ngph4"]
+[ext_resource type="Texture2D" uid="uid://bqhx2e67ytr2m" path="res://addons/3d_player_controller/textures/game_icons/PNG/Black/2x/target.png" id="12_edgb2"]
+[ext_resource type="Texture2D" uid="uid://cd2axbcct7dpm" path="res://addons/3d_player_controller/textures/game_icons/PNG/Black/2x/plus.png" id="13_77uqr"]
+[ext_resource type="Texture2D" uid="uid://dsdfjpsfpnp5d" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/1x/buttonA.png" id="14_c0yct"]
+[ext_resource type="Texture2D" uid="uid://cfwa0s4mda7qp" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/1x/buttonB.png" id="15_4ghtc"]
+[ext_resource type="Texture2D" uid="uid://u030yeaxicsm" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/1x/buttonX.png" id="16_gdap7"]
+[ext_resource type="Texture2D" uid="uid://b2rccdn7v8nw6" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/1x/buttonY.png" id="17_nyfs6"]
+[ext_resource type="Texture2D" uid="uid://bdg5tlbkrgnf0" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/1x/buttonL1.png" id="18_qcc84"]
+[ext_resource type="Texture2D" uid="uid://0ruy01sjdxda" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/1x/buttonL2.png" id="19_op37c"]
+[ext_resource type="Texture2D" uid="uid://caqm2w7lruk06" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/1x/buttonR1.png" id="20_b634t"]
+[ext_resource type="Texture2D" uid="uid://dghhjs8jg6jwo" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/1x/buttonR2.png" id="21_n5awx"]
+[ext_resource type="Texture2D" uid="uid://gnqg5x0o6gms" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/1x/buttonSelect.png" id="22_o6b7t"]
+[ext_resource type="Texture2D" uid="uid://wtlticuwv5tq" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/1x/buttonStart.png" id="23_vwva8"]
+[ext_resource type="Texture2D" uid="uid://vwmrlhriswdc" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/2x/target.png" id="24_rel5q"]
+[ext_resource type="Texture2D" uid="uid://dtunt7cfmiu0r" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/1x/plus-1.png" id="25_js775"]
+
+[node name="Debug" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -360.0
+offset_right = -640.0
+offset_bottom = -360.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nyx4n")
+
+[node name="Panel1" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 216.0
+offset_bottom = 672.0
+
+[node name="Label22" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_right = 179.0
+offset_bottom = 23.0
+text = "is_aiming"
+
+[node name="IsAiming" type="CheckBox" parent="Panel1"]
+layout_mode = 0
+offset_left = 192.0
+offset_right = 216.0
+offset_bottom = 24.0
+
+[node name="Label4" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 24.0
+offset_right = 179.0
+offset_bottom = 47.0
+text = "is_animation_locked"
+
+[node name="IsAnimationLocked" type="CheckBox" parent="Panel1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 24.0
+offset_right = 216.0
+offset_bottom = 48.0
+
+[node name="Label29" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 48.0
+offset_right = 179.0
+offset_bottom = 71.0
+text = "is_casting"
+
+[node name="IsCasting" type="CheckBox" parent="Panel1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 48.0
+offset_right = 216.0
+offset_bottom = 72.0
+
+[node name="Label19" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 72.0
+offset_right = 179.0
+offset_bottom = 95.0
+text = "is_climbing"
+
+[node name="IsClimbing" type="CheckBox" parent="Panel1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 72.0
+offset_right = 216.0
+offset_bottom = 96.0
+
+[node name="Label24" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 96.0
+offset_right = 179.0
+offset_bottom = 119.0
+text = "is_crawling"
+
+[node name="IsCrawling" type="CheckBox" parent="Panel1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 96.0
+offset_right = 216.0
+offset_bottom = 120.0
+
+[node name="Label5" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 120.0
+offset_right = 179.0
+offset_bottom = 143.0
+text = "is_crouching"
+
+[node name="IsCrouching" type="CheckBox" parent="Panel1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 120.0
+offset_right = 216.0
+offset_bottom = 144.0
+
+[node name="Label6" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 144.0
+offset_right = 179.0
+offset_bottom = 167.0
+text = "is_double_jumping"
+
+[node name="IsDoubleJumping" type="CheckBox" parent="Panel1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 144.0
+offset_right = 216.0
+offset_bottom = 168.0
+
+[node name="Label26" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 168.0
+offset_right = 179.0
+offset_bottom = 191.0
+text = "is_falling"
+
+[node name="IsFalling" type="CheckBox" parent="Panel1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 168.0
+offset_right = 216.0
+offset_bottom = 192.0
+
+[node name="Label25" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 192.0
+offset_right = 179.0
+offset_bottom = 215.0
+text = "is_firing"
+
+[node name="IsFiring" type="CheckBox" parent="Panel1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 192.0
+offset_right = 216.0
+offset_bottom = 216.0
+
+[node name="Label7" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 216.0
+offset_right = 169.0
+offset_bottom = 239.0
+text = "is_flying"
+
+[node name="IsFlying" type="CheckBox" parent="Panel1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 216.0
+offset_right = 216.0
+offset_bottom = 240.0
+
+[node name="Label15" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 240.0
+offset_right = 169.0
+offset_bottom = 263.0
+text = "is_grounded"
+
+[node name="IsGrounded" type="CheckBox" parent="Panel1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 240.0
+offset_right = 216.0
+offset_bottom = 264.0
+
+[node name="Label18" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 288.0
+offset_right = 169.0
+offset_bottom = 311.0
+text = "is_holding"
+
+[node name="IsHolding" type="CheckBox" parent="Panel1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 288.0
+offset_right = 216.0
+offset_bottom = 312.0
+
+[node name="Label28" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 312.0
+offset_right = 179.0
+offset_bottom = 335.0
+text = "is_holding_fishing_rod"
+
+[node name="IsHoldingFishingRod" type="CheckBox" parent="Panel1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 312.0
+offset_right = 216.0
+offset_bottom = 336.0
+
+[node name="Label8" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 264.0
+offset_right = 179.0
+offset_bottom = 287.0
+text = "is_hanging"
+
+[node name="IsHanging" type="CheckBox" parent="Panel1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 264.0
+offset_right = 216.0
+offset_bottom = 288.0
+
+[node name="Label16" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 336.0
+offset_right = 179.0
+offset_bottom = 359.0
+text = "is_holding_rifle"
+
+[node name="IsHoldingRifle" type="CheckBox" parent="Panel1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 336.0
+offset_right = 216.0
+offset_bottom = 360.0
+
+[node name="Label17" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 360.0
+offset_right = 179.0
+offset_bottom = 383.0
+text = "is_holding_tool"
+
+[node name="IsHoldingTool" type="CheckBox" parent="Panel1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 360.0
+offset_right = 216.0
+offset_bottom = 384.0
+
+[node name="Label9" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 384.0
+offset_right = 179.0
+offset_bottom = 407.0
+text = "is_jumping"
+
+[node name="IsJumping" type="CheckBox" parent="Panel1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 384.0
+offset_right = 216.0
+offset_bottom = 408.0
+
+[node name="Label10" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 408.0
+offset_right = 169.0
+offset_bottom = 431.0
+text = "is_kicking_left"
+
+[node name="IsKickingLeft" type="CheckBox" parent="Panel1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 408.0
+offset_right = 216.0
+offset_bottom = 432.0
+
+[node name="Label11" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 432.0
+offset_right = 169.0
+offset_bottom = 455.0
+text = "is_kicking_right"
+
+[node name="IsKickingRight" type="CheckBox" parent="Panel1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 432.0
+offset_right = 216.0
+offset_bottom = 456.0
+
+[node name="Label12" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 456.0
+offset_right = 179.0
+offset_bottom = 479.0
+text = "is_punching_left"
+
+[node name="IsPunchingLeft" type="CheckBox" parent="Panel1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 456.0
+offset_right = 216.0
+offset_bottom = 480.0
+
+[node name="Label13" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 480.0
+offset_right = 179.0
+offset_bottom = 503.0
+text = "is_punching_right"
+
+[node name="IsPunchingRight" type="CheckBox" parent="Panel1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 480.0
+offset_right = 216.0
+offset_bottom = 504.0
+
+[node name="Label30" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 504.0
+offset_right = 179.0
+offset_bottom = 527.0
+text = "is_reeling"
+
+[node name="IsReeling" type="CheckBox" parent="Panel1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 504.0
+offset_right = 216.0
+offset_bottom = 528.0
+
+[node name="Label20" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 528.0
+offset_right = 179.0
+offset_bottom = 551.0
+text = "is_running"
+
+[node name="IsRunning" type="CheckBox" parent="Panel1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 528.0
+offset_right = 216.0
+offset_bottom = 552.0
+
+[node name="Label31" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 552.0
+offset_right = 179.0
+offset_bottom = 575.0
+text = "is_skateboarding"
+
+[node name="IsSkateboarding" type="CheckBox" parent="Panel1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 552.0
+offset_right = 216.0
+offset_bottom = 576.0
+
+[node name="Label14" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 576.0
+offset_right = 179.0
+offset_bottom = 599.0
+text = "is_sprinting"
+
+[node name="IsSprinting" type="CheckBox" parent="Panel1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 576.0
+offset_right = 216.0
+offset_bottom = 600.0
+
+[node name="Label21" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 600.0
+offset_right = 179.0
+offset_bottom = 623.0
+text = "is_standing"
+
+[node name="IsStanding" type="CheckBox" parent="Panel1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 600.0
+offset_right = 216.0
+offset_bottom = 624.0
+
+[node name="Label23" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 624.0
+offset_right = 179.0
+offset_bottom = 647.0
+text = "is_swimming"
+
+[node name="IsSwimming" type="CheckBox" parent="Panel1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 624.0
+offset_right = 216.0
+offset_bottom = 648.0
+
+[node name="IsWalking" type="CheckBox" parent="Panel1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 648.0
+offset_right = 216.0
+offset_bottom = 672.0
+
+[node name="Label27" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 648.0
+offset_right = 179.0
+offset_bottom = 671.0
+text = "is_walking"
+
+[node name="Panel2" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 1064.0
+offset_right = 1280.0
+offset_bottom = 364.0
+
+[node name="Label5" type="Label" parent="Panel2"]
+layout_mode = 0
+offset_left = 9.0
+offset_right = 169.0
+offset_bottom = 23.0
+text = "enable_chat"
+
+[node name="EnableChat" type="CheckBox" parent="Panel2"]
+layout_mode = 0
+offset_left = 192.0
+offset_right = 216.0
+offset_bottom = 24.0
+
+[node name="Label4" type="Label" parent="Panel2"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 24.0
+offset_right = 169.0
+offset_bottom = 47.0
+text = "enable_crouching"
+
+[node name="EnableCrouching" type="CheckBox" parent="Panel2"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 24.0
+offset_right = 216.0
+offset_bottom = 48.0
+
+[node name="Label1" type="Label" parent="Panel2"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 48.0
+offset_right = 169.0
+offset_bottom = 71.0
+text = "enable_double_jump"
+
+[node name="EnableDoubleJump" type="CheckBox" parent="Panel2"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 48.0
+offset_right = 216.0
+offset_bottom = 72.0
+
+[node name="Label2" type="Label" parent="Panel2"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 72.0
+offset_right = 179.0
+offset_bottom = 95.0
+text = "enable_flying"
+
+[node name="EnableFlying" type="CheckBox" parent="Panel2"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 72.0
+offset_right = 216.0
+offset_bottom = 96.0
+
+[node name="Label27" type="Label" parent="Panel2"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 96.0
+offset_right = 179.0
+offset_bottom = 119.0
+text = "enable_jumping"
+
+[node name="EnableJumping" type="CheckBox" parent="Panel2"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 96.0
+offset_right = 216.0
+offset_bottom = 120.0
+
+[node name="Label29" type="Label" parent="Panel2"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 120.0
+offset_right = 179.0
+offset_bottom = 143.0
+text = "enable_kicking"
+
+[node name="EnableKicking" type="CheckBox" parent="Panel2"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 120.0
+offset_right = 216.0
+offset_bottom = 144.0
+
+[node name="Label30" type="Label" parent="Panel2"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 144.0
+offset_right = 179.0
+offset_bottom = 167.0
+text = "enable_punching"
+
+[node name="EnablePunching" type="CheckBox" parent="Panel2"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 144.0
+offset_right = 216.0
+offset_bottom = 168.0
+
+[node name="Label3" type="Label" parent="Panel2"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 168.0
+offset_right = 179.0
+offset_bottom = 191.0
+text = "enable_vibration"
+
+[node name="EnableVibration" type="CheckBox" parent="Panel2"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 168.0
+offset_right = 216.0
+offset_bottom = 192.0
+
+[node name="Label15" type="Label" parent="Panel2"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 216.0
+offset_right = 179.0
+offset_bottom = 239.0
+text = "lock_camera"
+
+[node name="LockCamera" type="CheckBox" parent="Panel2"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 216.0
+offset_right = 216.0
+offset_bottom = 240.0
+
+[node name="Label16" type="Label" parent="Panel2"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 240.0
+offset_right = 179.0
+offset_bottom = 263.0
+text = "lock_movement_x"
+
+[node name="LockMovementX" type="CheckBox" parent="Panel2"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 240.0
+offset_right = 216.0
+offset_bottom = 264.0
+
+[node name="Label18" type="Label" parent="Panel2"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 263.0
+offset_right = 179.0
+offset_bottom = 286.0
+text = "lock_movement_y"
+
+[node name="LockMovementY" type="CheckBox" parent="Panel2"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 263.0
+offset_right = 216.0
+offset_bottom = 287.0
+
+[node name="Label17" type="Label" parent="Panel2"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 287.0
+offset_right = 179.0
+offset_bottom = 310.0
+text = "lock_perspective"
+
+[node name="LockPerspective" type="CheckBox" parent="Panel2"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 287.0
+offset_right = 216.0
+offset_bottom = 311.0
+
+[node name="GamePaused" type="CheckBox" parent="Panel2"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 335.0
+offset_right = 216.0
+offset_bottom = 359.0
+
+[node name="Label28" type="Label" parent="Panel2"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 335.0
+offset_right = 179.0
+offset_bottom = 358.0
+text = "game_paused"
+
+[node name="XboxController" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Black" type="Control" parent="XboxController"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ButtonA" type="TextureRect" parent="XboxController/Black"]
+layout_mode = 0
+offset_left = 1179.0
+offset_top = 620.0
+offset_right = 1229.0
+offset_bottom = 670.0
+texture = ExtResource("2_fbawl")
+
+[node name="ButtonB" type="TextureRect" parent="XboxController/Black"]
+layout_mode = 0
+offset_left = 1211.0
+offset_top = 588.0
+offset_right = 1261.0
+offset_bottom = 638.0
+texture = ExtResource("3_bf0qu")
+
+[node name="ButtonX" type="TextureRect" parent="XboxController/Black"]
+layout_mode = 0
+offset_left = 1147.0
+offset_top = 588.0
+offset_right = 1197.0
+offset_bottom = 638.0
+texture = ExtResource("4_oh1iv")
+
+[node name="ButtonY" type="TextureRect" parent="XboxController/Black"]
+layout_mode = 0
+offset_left = 1179.0
+offset_top = 556.0
+offset_right = 1229.0
+offset_bottom = 606.0
+texture = ExtResource("5_tp2mo")
+
+[node name="ButtonL1" type="TextureRect" parent="XboxController/Black"]
+layout_mode = 0
+offset_left = 925.0
+offset_top = 548.0
+offset_right = 975.0
+offset_bottom = 598.0
+texture = ExtResource("6_ufh1b")
+
+[node name="ButtonL2" type="TextureRect" parent="XboxController/Black"]
+layout_mode = 0
+offset_left = 925.0
+offset_top = 516.0
+offset_right = 975.0
+offset_bottom = 566.0
+texture = ExtResource("7_g1jgn")
+
+[node name="ButtonR1" type="TextureRect" parent="XboxController/Black"]
+layout_mode = 0
+offset_left = 1230.0
+offset_top = 548.0
+offset_right = 1280.0
+offset_bottom = 598.0
+texture = ExtResource("8_o606g")
+
+[node name="ButtonR2" type="TextureRect" parent="XboxController/Black"]
+layout_mode = 0
+offset_left = 1230.0
+offset_top = 516.0
+offset_right = 1280.0
+offset_bottom = 566.0
+texture = ExtResource("9_w8w7o")
+
+[node name="ButtonSelect" type="TextureRect" parent="XboxController/Black"]
+layout_mode = 0
+offset_left = 1059.0
+offset_top = 588.0
+offset_right = 1109.0
+offset_bottom = 638.0
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("10_hi5tw")
+
+[node name="ButtonStart" type="TextureRect" parent="XboxController/Black"]
+layout_mode = 0
+offset_left = 1107.0
+offset_top = 588.0
+offset_right = 1157.0
+offset_bottom = 638.0
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("11_ngph4")
+
+[node name="StickR" type="TextureRect" parent="XboxController/Black"]
+layout_mode = 0
+offset_left = 1107.0
+offset_top = 628.0
+offset_right = 1207.0
+offset_bottom = 728.0
+texture = ExtResource("12_edgb2")
+
+[node name="StickL" type="TextureRect" parent="XboxController/Black"]
+layout_mode = 0
+offset_left = 955.0
+offset_top = 564.0
+offset_right = 1055.0
+offset_bottom = 664.0
+texture = ExtResource("12_edgb2")
+
+[node name="DPad" type="TextureRect" parent="XboxController/Black"]
+layout_mode = 0
+offset_left = 1001.0
+offset_top = 626.0
+offset_right = 1101.0
+offset_bottom = 726.0
+texture = ExtResource("13_77uqr")
+
+[node name="White" type="Control" parent="XboxController"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ButtonA" type="TextureRect" parent="XboxController/White"]
+layout_mode = 0
+offset_left = 1179.0
+offset_top = 620.0
+offset_right = 1229.0
+offset_bottom = 670.0
+texture = ExtResource("14_c0yct")
+
+[node name="ButtonB" type="TextureRect" parent="XboxController/White"]
+layout_mode = 0
+offset_left = 1211.0
+offset_top = 588.0
+offset_right = 1261.0
+offset_bottom = 638.0
+texture = ExtResource("15_4ghtc")
+
+[node name="ButtonX" type="TextureRect" parent="XboxController/White"]
+layout_mode = 0
+offset_left = 1147.0
+offset_top = 588.0
+offset_right = 1197.0
+offset_bottom = 638.0
+texture = ExtResource("16_gdap7")
+
+[node name="ButtonY" type="TextureRect" parent="XboxController/White"]
+layout_mode = 0
+offset_left = 1179.0
+offset_top = 556.0
+offset_right = 1229.0
+offset_bottom = 606.0
+texture = ExtResource("17_nyfs6")
+
+[node name="ButtonL1" type="TextureRect" parent="XboxController/White"]
+layout_mode = 0
+offset_left = 925.0
+offset_top = 548.0
+offset_right = 975.0
+offset_bottom = 598.0
+texture = ExtResource("18_qcc84")
+
+[node name="ButtonL2" type="TextureRect" parent="XboxController/White"]
+layout_mode = 0
+offset_left = 925.0
+offset_top = 516.0
+offset_right = 975.0
+offset_bottom = 566.0
+texture = ExtResource("19_op37c")
+
+[node name="ButtonR1" type="TextureRect" parent="XboxController/White"]
+layout_mode = 0
+offset_left = 1230.0
+offset_top = 548.0
+offset_right = 1280.0
+offset_bottom = 598.0
+texture = ExtResource("20_b634t")
+
+[node name="ButtonR2" type="TextureRect" parent="XboxController/White"]
+layout_mode = 0
+offset_left = 1230.0
+offset_top = 516.0
+offset_right = 1280.0
+offset_bottom = 566.0
+texture = ExtResource("21_n5awx")
+
+[node name="ButtonSelect" type="TextureRect" parent="XboxController/White"]
+layout_mode = 0
+offset_left = 1059.0
+offset_top = 588.0
+offset_right = 1109.0
+offset_bottom = 638.0
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("22_o6b7t")
+
+[node name="ButtonStart" type="TextureRect" parent="XboxController/White"]
+layout_mode = 0
+offset_left = 1107.0
+offset_top = 588.0
+offset_right = 1157.0
+offset_bottom = 638.0
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("23_vwva8")
+
+[node name="StickR" type="TextureRect" parent="XboxController/White"]
+layout_mode = 0
+offset_left = 1107.0
+offset_top = 628.0
+offset_right = 1207.0
+offset_bottom = 728.0
+texture = ExtResource("24_rel5q")
+
+[node name="StickL" type="TextureRect" parent="XboxController/White"]
+layout_mode = 0
+offset_left = 955.0
+offset_top = 564.0
+offset_right = 1055.0
+offset_bottom = 664.0
+texture = ExtResource("24_rel5q")
+
+[node name="DPadUp" type="TextureRect" parent="XboxController/White"]
+layout_mode = 0
+offset_left = 1003.0
+offset_top = 628.0
+offset_right = 1103.0
+offset_bottom = 728.0
+texture = ExtResource("25_js775")
+
+[node name="DPadDown" type="TextureRect" parent="XboxController/White"]
+layout_mode = 0
+offset_left = 1003.0
+offset_top = 628.0
+offset_right = 1103.0
+offset_bottom = 728.0
+texture = ExtResource("25_js775")
+flip_v = true
+
+[node name="DPadLeft" type="TextureRect" parent="XboxController/White"]
+layout_mode = 0
+offset_left = 1103.0
+offset_top = 628.0
+offset_right = 1203.0
+offset_bottom = 728.0
+rotation = 1.57079
+texture = ExtResource("25_js775")
+flip_h = true
+flip_v = true
+
+[node name="DPadRight" type="TextureRect" parent="XboxController/White"]
+layout_mode = 0
+offset_left = 1103.0
+offset_top = 628.0
+offset_right = 1203.0
+offset_bottom = 728.0
+rotation = 1.57079
+texture = ExtResource("25_js775")

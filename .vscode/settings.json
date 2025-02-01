@@ -1,0 +1,12 @@
+{
+    "godotTools.editorPath.godot4": "/Applications/Godot.app",
+
+    "liveServer.settings.root": "/",
+    "liveServer.settings.https": {
+        "enable": true,
+        "cert": "C:\\GitHub\\localhost.pem",
+        "key": "C:\\GitHub\\localhost.key",
+        "passphrase": "godot"
+    }
+
+}
