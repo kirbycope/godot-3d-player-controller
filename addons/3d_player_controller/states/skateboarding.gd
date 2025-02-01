@@ -2,6 +2,7 @@ extends BaseState
 
 var node_name = "Skateboarding"
 
+@onready var ollie_sound = preload("res://addons/3d_player_controller/sounds/105076__mbezzola__skateboard_ollie_pop_shove-it.wav") as AudioStream
 @onready var skateboarding_sound = preload("res://addons/3d_player_controller/sounds/688733__lanterr__skaterolling.wav") as AudioStream
 
 
@@ -19,6 +20,12 @@ func _input(event: InputEvent) -> void:
 
 				# Set the player's vertical velocity
 				player.velocity.y = player.jump_velocity
+				
+				# Set the audio player's stream to the "ollie" sound effect
+				player.audio_player.stream = ollie_sound
+
+				# Play the "ollie" sound effect
+				player.audio_player.play()
 
 		# [sprint] button _pressed_
 		if event.is_action_pressed("sprint"):
@@ -72,7 +79,7 @@ func play_animation() -> void:
 
 				# Set the sound effect speed
 				player.audio_player.pitch_scale = .75
-			
+
 			# Check if the player speed is faster than "walking" but slower than or equal to "running"
 			elif player.speed_walking < player.speed_current and player.speed_current <= player.speed_running:
 
@@ -84,7 +91,7 @@ func play_animation() -> void:
 
 				# Set the sound effect speed
 				player.audio_player.pitch_scale = 1.0
-			
+
 			# Check if the player speed is faster than "running"
 			elif player.speed_running < player.speed_current:
 
@@ -97,26 +104,32 @@ func play_animation() -> void:
 				# Set the sound effect speed
 				player.audio_player.pitch_scale = 1.25
 
-			# Check if the audio player is not playing or if the stream is not the "skateboarding" sound effect
-			if not player.audio_player.playing or player.audio_player.stream != skateboarding_sound:
+			# Check if the audio player is not playing or if the stream is not an "oolie" or "skateboarding" sound effect
+			if not player.audio_player.playing or player.audio_player.stream not in [ollie_sound, skateboarding_sound]:
 
-				# Set the audio player's stream to the "skateboarding" sound effect
-				player.audio_player.stream = skateboarding_sound
+				# Check if the player is on the ground
+				if player.is_on_floor():
 
-				# Play the "skateboarding" sound effect
-				player.audio_player.play()
+					# Set the audio player's stream to the "skateboarding" sound effect
+					player.audio_player.stream = skateboarding_sound
+
+					# Play the "skateboarding" sound effect
+					player.audio_player.play()
 
 		# The player must not be moving
 		else:
 
 			# Check if the audio player is streaming the "skateboarding" sound effect
-			if player.audio_player.stream == skateboarding_sound:
+			if player.audio_player.stream in [ollie_sound, skateboarding_sound]:
 
 				# Stop the "skateboarding" sound effect
 				player.audio_player.stop()
 
 				# Clear the audio player's stream
 				player.audio_player.stream = null
+
+				# Reset the sound effect speed
+				player.audio_player.pitch_scale = 1.0
 
 
 ## Start "skateboarding".
