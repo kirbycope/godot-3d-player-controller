@@ -37,7 +37,6 @@ func _process(_delta: float) -> void:
 	# Uncomment the next line if using GodotSteam
 	#if !is_multiplayer_authority(): return
 
-
 	# Check the eyeline for a ledge to grab.
 	if !player.raycast_top.is_colliding() and player.raycast_high.is_colliding():
 

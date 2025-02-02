@@ -12,15 +12,11 @@ func _input(event) -> void:
 		# Toggle game paused
 		player.game_paused = !player.game_paused
 
+		# Toggle mouse capture
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE if player.game_paused else Input.MOUSE_MODE_CAPTURED)
+
 		# Show the pause menu, if paused
 		visible = player.game_paused
-
-
-## Called every frame. '_delta' is the elapsed time since the previous frame.
-func _process(_delta) -> void:
-
-	# Toggle mouse capture
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE if player.game_paused else Input.MOUSE_MODE_CAPTURED)
 
 
 ## Close the pause menu

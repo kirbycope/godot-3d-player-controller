@@ -97,6 +97,7 @@ var virtual_velocity: Vector3 = Vector3.ZERO
 # Note: `@export` variables are available for editing in the property editor.
 @export var current_state: States.State = States.State.STANDING
 @export var enable_chat: bool = false
+@export var enable_emotes: bool = true
 @export var enable_crouching: bool = true
 @export var enable_double_jump: bool = false
 @export var enable_flying: bool = false
@@ -182,8 +183,11 @@ func _input(event) -> void:
 		# Check for mouse motion and the camera is not locked
 		if event is InputEventMouseMotion and !lock_camera:
 
-			# Rotate camera based on mouse movement
-			camera_rotate_by_mouse(event)
+			# Check if the mouse is captured
+			if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+
+				# Rotate camera based on mouse movement
+				camera_rotate_by_mouse(event)
 
 		# [select] button _pressed_ and the camera is not locked
 		if event.is_action_pressed("select") and !lock_camera:

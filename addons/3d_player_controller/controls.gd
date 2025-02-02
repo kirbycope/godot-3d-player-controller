@@ -81,6 +81,11 @@ func _ready() -> void:
 		joypad_button_event.button_index = JOY_BUTTON_DPAD_LEFT
 		InputMap.action_add_event("dpad_left", joypad_button_event)
 
+		# Keyboard [B]
+		var key_event = InputEventKey.new()
+		key_event.physical_keycode = KEY_B
+		InputMap.action_add_event("dpad_left", key_event)
+
 	# Remove [dpad, left] from the Built-In Action "ui_left"
 	events = InputMap.action_get_events("ui_left")
 	for event in events:
