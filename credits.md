@@ -3,5 +3,4 @@
 * Water Caustic - https://godotshaders.com/shader/water-caustic/
 * water swimming 1 - https://freesound.org/people/swordofkings128/sounds/398037/
 * Skateboard - https://sketchfab.com/3d-models/skateboard-0f7b8ea366654674b217a743959798e7
-* SkateRolling.wav - https://freesound.org/people/Lanterr/sounds/688733/
-* Skateboarding Tricks - https://freesound.org/people/SoundBiterSFX/sounds/746602/
+* Skateboarding Sounds - https://www.sounds-resource.com/gamecube/tonyhawksproskater3/sound/29828/

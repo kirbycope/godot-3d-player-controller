@@ -1,124 +1,81 @@
 [gd_scene load_steps=6 format=3 uid="uid://u2wxuwpmjwha"]
 
-[ext_resource type="Texture2D" uid="uid://capgf6dopllq8" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/1x/arrowUp.png" id="1_05lnc"]
 [ext_resource type="Script" path="res://addons/3d_player_controller/emotes.gd" id="1_j0l6j"]
-[ext_resource type="Texture2D" uid="uid://dt41l3lictwba" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/1x/arrowLeft.png" id="2_hph0w"]
-[ext_resource type="Texture2D" uid="uid://blcbisgq71woh" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/1x/arrowDown.png" id="3_inim3"]
-[ext_resource type="Texture2D" uid="uid://bgtrui3d37v86" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/1x/arrowRight.png" id="4_s2rcl"]
+[ext_resource type="Texture2D" uid="uid://pwpbxv8luc5c" path="res://addons/3d_player_controller/textures/emotes/wave.png" id="2_k7sx4"]
+[ext_resource type="Texture2D" uid="uid://vctdg3xl5w3s" path="res://addons/3d_player_controller/textures/emotes/clap.png" id="3_35oc8"]
+[ext_resource type="Texture2D" uid="uid://i1ynt2f1nnye" path="res://addons/3d_player_controller/textures/emotes/cry.png" id="4_unv4w"]
+[ext_resource type="Texture2D" uid="uid://66o7m32dt2p2" path="res://addons/3d_player_controller/textures/emotes/bow.png" id="5_albwf"]
 
 [node name="Emotes" type="Control"]
 layout_mode = 3
-anchors_preset = 7
+anchors_preset = 8
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
+anchor_bottom = 0.5
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
 script = ExtResource("1_j0l6j")
 
 [node name="Emote1" type="Panel" parent="."]
 layout_mode = 0
-offset_left = -20.0
-offset_top = -170.0
-offset_right = 20.0
-offset_bottom = -130.0
+offset_left = -32.0
+offset_top = -64.0
+offset_right = 32.0
 
-[node name="Wave" type="RichTextLabel" parent="Emote1"]
+[node name="Emote1Button" type="TextureButton" parent="Emote1"]
 layout_mode = 0
-offset_top = -44.0
-offset_right = 40.0
-offset_bottom = 41.0
-theme_override_font_sizes/normal_font_size = 36
-bbcode_enabled = true
-text = "
-[center]👋[/center]"
-fit_content = true
-scroll_active = false
-
-[node name="TextureRect" type="TextureRect" parent="Emote1"]
-layout_mode = 0
-offset_left = -5.0
-offset_top = -50.0
-offset_right = 45.0
-texture = ExtResource("1_05lnc")
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 262.0
+offset_bottom = 262.0
+scale = Vector2(0.2, 0.2)
+texture_normal = ExtResource("2_k7sx4")
 
 [node name="Emote2" type="Panel" parent="."]
 layout_mode = 0
-offset_left = -60.0
-offset_top = -130.0
-offset_right = -20.0
-offset_bottom = -90.0
+offset_left = -96.0
+offset_right = -32.0
+offset_bottom = 64.0
 
-[node name="Clap" type="RichTextLabel" parent="Emote2"]
-layout_mode = 0
-offset_top = -44.0
-offset_right = 40.0
-offset_bottom = 41.0
-theme_override_font_sizes/normal_font_size = 36
-bbcode_enabled = true
-text = "
-[center]👏[/center]"
-fit_content = true
-scroll_active = false
-
-[node name="TextureRect" type="TextureRect" parent="Emote2"]
-layout_mode = 0
-offset_left = -50.0
-offset_top = -5.0
-offset_bottom = 45.0
-texture = ExtResource("2_hph0w")
+[node name="Emote2Button" type="TextureButton" parent="Emote2"]
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 262.0
+offset_bottom = 262.0
+scale = Vector2(0.2, 0.2)
+texture_normal = ExtResource("3_35oc8")
 
 [node name="Emote3" type="Panel" parent="."]
 layout_mode = 0
-offset_left = -20.0
-offset_top = -90.0
-offset_right = 20.0
-offset_bottom = -50.0
+offset_left = 32.0
+offset_right = 96.0
+offset_bottom = 64.0
 
-[node name="Bow" type="RichTextLabel" parent="Emote3"]
-layout_mode = 0
-offset_top = -44.0
-offset_right = 40.0
-offset_bottom = 41.0
-theme_override_font_sizes/normal_font_size = 36
-bbcode_enabled = true
-text = "
-[center]🙇[/center]"
-fit_content = true
-scroll_active = false
-
-[node name="TextureRect" type="TextureRect" parent="Emote3"]
-layout_mode = 0
-offset_left = -5.0
-offset_top = 40.0
-offset_right = 45.0
-offset_bottom = 90.0
-texture = ExtResource("3_inim3")
+[node name="Emote3Button" type="TextureButton" parent="Emote3"]
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 262.0
+offset_bottom = 262.0
+scale = Vector2(0.2, 0.2)
+texture_normal = ExtResource("4_unv4w")
 
 [node name="Emote4" type="Panel" parent="."]
 layout_mode = 0
-offset_left = 20.0
-offset_top = -130.0
-offset_right = 60.0
-offset_bottom = -90.0
+offset_left = -32.0
+offset_top = 64.0
+offset_right = 32.0
+offset_bottom = 128.0
 
-[node name="Cry" type="RichTextLabel" parent="Emote4"]
-layout_mode = 0
-offset_top = -44.0
-offset_right = 40.0
-offset_bottom = 41.0
-theme_override_font_sizes/normal_font_size = 36
-bbcode_enabled = true
-text = "
-[center]😢[/center]"
-fit_content = true
-scroll_active = false
+[node name="Emote4Button" type="TextureButton" parent="Emote4"]
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 262.0
+offset_bottom = 262.0
+scale = Vector2(0.2, 0.2)
+texture_normal = ExtResource("5_albwf")
 
-[node name="TextureRect" type="TextureRect" parent="Emote4"]
-layout_mode = 0
-offset_left = 40.0
-offset_top = -5.0
-offset_right = 90.0
-offset_bottom = 45.0
-texture = ExtResource("4_s2rcl")
+[connection signal="button_down" from="Emote1/Emote1Button" to="." method="_on_emote_1_button_button_down"]
+[connection signal="button_down" from="Emote2/Emote2Button" to="." method="_on_emote_2_button_button_down"]
+[connection signal="button_down" from="Emote3/Emote3Button" to="." method="_on_emote_3_button_button_down"]
+[connection signal="button_down" from="Emote4/Emote4Button" to="." method="_on_emote_4_button_button_down"]

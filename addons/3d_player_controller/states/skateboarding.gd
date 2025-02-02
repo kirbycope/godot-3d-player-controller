@@ -2,9 +2,9 @@ extends BaseState
 
 var node_name = "Skateboarding"
 
-@onready var ollie_start_sound = preload("res://addons/3d_player_controller/sounds/746602__soundbitersfx__skateboarding-tricks_01.wav") as AudioStream
-@onready var ollie_land_sound = preload("res://addons/3d_player_controller/sounds/746602__soundbitersfx__skateboarding-tricks_02.wav") as AudioStream
-@onready var skateboarding_sound = preload("res://addons/3d_player_controller/sounds/688733__lanterr__skaterolling.wav") as AudioStream
+@onready var ollie_land_sound = preload("res://addons/3d_player_controller/sounds/LandConc.wav") as AudioStream
+@onready var ollie_start_sound = preload("res://addons/3d_player_controller/sounds/OllieConc.wav") as AudioStream
+@onready var skateboarding_sound = preload("res://addons/3d_player_controller/sounds/RollConcSmooth.wav") as AudioStream
 
 
 ## Called when there is an input event.
@@ -70,16 +70,16 @@ func play_animation() -> void:
 	if !player.is_animation_locked:
 
 		# Check if the player is on the ground and flagged as "jumping"
-		#if player.is_on_floor() and player.is_jumping:
+		if player.velocity.y == 0 and player.is_jumping:
 
 			# Flag the player as not "jumping"
-			#player.is_jumping = false
+			player.is_jumping = false
 
 			# Set the audio player's stream to the "ollie land" sound effect
-			#player.audio_player.stream = ollie_land_sound
+			player.audio_player.stream = ollie_land_sound
 
 			# Play the sound effect
-			#player.audio_player.play()
+			player.audio_player.play()
 
 		# Check if the player is moving
 		if player.velocity != Vector3.ZERO:
@@ -136,7 +136,7 @@ func play_animation() -> void:
 		else:
 
 			# Check if the audio player is streaming a "skateboarding" sound effect
-			if player.audio_player.stream in [ollie_start_sound, ollie_land_sound, skateboarding_sound]:
+			if player.audio_player.stream in [ollie_start_sound, skateboarding_sound]:
 
 				# Stop the "skateboarding" sound effect
 				player.audio_player.stop()
