@@ -1,5 +1,9 @@
 extends BaseState
 
+const animation_running = "Running_In_Place"
+const animation_running_aiming_rifle = "Rifle_Aiming_Run_In_Place"
+const animation_running_holding_rifle = "Rifle_Low_Run_In_Place"
+const animation_running_holding_tool = "Running_In_Place_With_Sword_Right"
 var node_name = "Running"
 
 
@@ -72,28 +76,28 @@ func play_animation() -> void:
 		if player.is_holding_rifle:
 
 			# Check if the animation player is not already playing the appropriate animation
-			if player.animation_player.current_animation != player.animation_running_holding_rifle:
+			if player.animation_player.current_animation != animation_running_holding_rifle:
 
 				# Play the "running, holding rifle" animation
-				player.animation_player.play(player.animation_running_holding_rifle)
+				player.animation_player.play(animation_running_holding_rifle)
 
 		# Check if the player is "holding a tool"
 		elif player.is_holding_tool:
 
 			# Check if the animation player is not already playing the appropriate animation
-			if player.animation_player.current_animation != player.animation_running_holding_tool:
+			if player.animation_player.current_animation != animation_running_holding_tool:
 
 				# Play the "running, holding a tool" animation
-				player.animation_player.play(player.animation_running_holding_tool)
+				player.animation_player.play(animation_running_holding_tool)
 
 		# The player must be unarmed
 		else:
 
 			# Check if the animation player is not already playing the appropriate animation
-			if player.animation_player.current_animation != player.animation_running:
+			if player.animation_player.current_animation != animation_running:
 
 				# Play the "running" animation
-				player.animation_player.play(player.animation_running)
+				player.animation_player.play(animation_running)
 
 
 ## Start "running".

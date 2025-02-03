@@ -1,5 +1,6 @@
 extends BaseState
 
+const animation_standing_holding_rifle = "Rifle_Low_Idle"
 var node_name = "Holding"
 
 
@@ -117,7 +118,7 @@ func move_held_item_mount() -> void:
 		var rot_z = bone_basis.z + 0.33
 
 		# Hack: Handle idle animation postional data
-		if player.animation_player.current_animation == player.animation_standing_holding_rifle:
+		if player.animation_player.current_animation == animation_standing_holding_rifle:
 			rot_y = rot_y + 0.2
 			rot_z = bone_basis.z - 0.75
 

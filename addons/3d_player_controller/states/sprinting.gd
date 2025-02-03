@@ -1,5 +1,8 @@
 extends BaseState
 
+const animation_sprinting = "Sprinting_In_Place"
+const animation_sprinting_holding_rifle = "Rifle_Sprinting_In_Place"
+const animation_sprinting_holding_tool = "Tool_Sprinting_In_Place"
 var node_name = "Sprinting"
 
 
@@ -51,19 +54,19 @@ func play_animation() -> void:
 		if player.is_holding_rifle:
 
 			# Check if the animation player is not already playing the appropriate animation
-			if player.animation_player.current_animation != player.animation_sprinting_holding_rifle:
+			if player.animation_player.current_animation != animation_sprinting_holding_rifle:
 
 				# Play the "sprinting, holding a rifle" animation
-				player.animation_player.play(player.animation_sprinting_holding_rifle)
+				player.animation_player.play(animation_sprinting_holding_rifle)
 
 		# The player must be unarmed
 		else:
 
 			# Check if the animation player is not already playing the appropriate animation
-			if player.animation_player.current_animation != player.animation_sprinting:
+			if player.animation_player.current_animation != animation_sprinting:
 
 				# Play the "sprinting" animation
-				player.animation_player.play(player.animation_sprinting)
+				player.animation_player.play(animation_sprinting)
 
 
 ## Start "sprinting".

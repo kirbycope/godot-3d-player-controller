@@ -1,7 +1,9 @@
 extends BaseState
 
+const animation_flying = "Flying_In_Place"
+const animation_flying_fast = "Flying_Fast_In_Place"
 var node_name = "Flying"
-
+var timer_jump = 0.0
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -19,25 +21,25 @@ func _process(_delta: float) -> void:
 			if !player.is_animation_locked:
 
 				# Check if "jump timer" hasn't started
-				if player.timer_jump == 0.0:
+				if timer_jump == 0.0:
 
 					# Set the "jump timer" to the current game time
-					player.timer_jump = Time.get_ticks_msec()
+					timer_jump = Time.get_ticks_msec()
 
 				# Check if the "jump timer" is already running
-				elif player.timer_jump > 0.0:
+				elif timer_jump > 0.0:
 
 					# Get the current game time
 					var time_now = Time.get_ticks_msec()
 
 					# Check if _this_ button press is within 200 milliseconds
-					if time_now - player.timer_jump < 200:
+					if time_now - timer_jump < 200:
 
 						# Start "falling"
 						transition(node_name, "Falling")
 
 					# Either way, reset the timer
-					player.timer_jump = Time.get_ticks_msec()
+					timer_jump = Time.get_ticks_msec()
 
 		# [crouch] button just _pressed_
 		if Input.is_action_just_pressed("crouch"):
@@ -98,19 +100,19 @@ func play_animation() -> void:
 		if player.is_sprinting:
 
 			# Check if the current animation is not a animation_flying one
-			if player.animation_player.current_animation != player.animation_flying_fast:
+			if player.animation_player.current_animation != animation_flying_fast:
 
-				# Play the animation_standing "animation_flying Fast" animation
-				player.animation_player.play(player.animation_flying_fast)
+				# Play the animation "animation_flying Fast" animation
+				player.animation_player.play(animation_flying_fast)
 
 		# The player must not be "sprinting"
 		else:
 
 			# Check if the animation player is not already playing the appropriate animation
-			if player.animation_player.current_animation != player.animation_flying:
+			if player.animation_player.current_animation != animation_flying:
 
 				# Play the "flying" animation
-				player.animation_player.play(player.animation_flying)
+				player.animation_player.play(animation_flying)
 
 
 ## Start "flying".

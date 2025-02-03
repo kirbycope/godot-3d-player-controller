@@ -1,5 +1,6 @@
 extends BaseState
 
+const animation_crawling = "Crawling_In_Place"
 var node_name = "Crawling"
 
 
@@ -60,10 +61,10 @@ func play_animation() -> void:
 		else:
 
 			# Check if the animation player is not already playing the appropriate animation
-			if player.animation_player.current_animation != player.animation_crawling:
+			if player.animation_player.current_animation != animation_crawling:
 
 				# Play the "crawling" animation
-				player.animation_player.play(player.animation_crawling)
+				player.animation_player.play(animation_crawling)
 
 
 ## Start "crawling".

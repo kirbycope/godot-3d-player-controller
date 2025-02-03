@@ -1,5 +1,8 @@
 extends BaseState
 
+const animation_jumping = "Falling_Idle"
+const animation_jumping_holding_rifle = "Rifle_Falling_Idle"
+const animation_jumping_holding_tool = "Tool_Falling_Idle"
 var node_name = "Falling"
 
 
@@ -72,28 +75,28 @@ func play_animation() -> void:
 		if player.is_holding_rifle:
 
 			# Check if the animation player is not already playing the appropriate animation
-			if player.animation_player.current_animation != player.animation_jumping_holding_rifle:
+			if player.animation_player.current_animation != animation_jumping_holding_rifle:
 
 				# Play the "jumping, holding a rifle" animation
-				player.animation_player.play(player.animation_jumping_holding_rifle)
+				player.animation_player.play(animation_jumping_holding_rifle)
 
 		# Check if the player is "holding a tool"
 		elif player.is_holding_tool:
 
 			# Check if the animation player is not already playing the appropriate animation
-			if player.animation_player.current_animation != player.animation_jumping_holding_tool:
+			if player.animation_player.current_animation != animation_jumping_holding_tool:
 
 				# Play the "jumping, holding a tool" animation
-				player.animation_player.play(player.animation_jumping_holding_tool)
+				player.animation_player.play(animation_jumping_holding_tool)
 
 		# The player must be unarmed
 		else:
 
 			# Check if the animation player is not already playing the appropriate animation
-			if player.animation_player.current_animation != player.animation_jumping:
+			if player.animation_player.current_animation != animation_jumping:
 
 				# Play the "jumping" animation
-				player.animation_player.play(player.animation_jumping)
+				player.animation_player.play(animation_jumping)
 
 
 ## Start "falling".

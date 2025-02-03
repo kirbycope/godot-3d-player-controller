@@ -1,5 +1,8 @@
 extends BaseState
 
+const animation_skateboarding_fast = "Skateboarding_Fast_In_Place"
+const animation_skateboarding_normal = "Skateboarding_In_Place"
+const animation_skateboarding_slow = "Skateboarding_Slow_In_Place"
 var node_name = "Skateboarding"
 
 @onready var ollie_land_sound = preload("res://addons/3d_player_controller/sounds/LandConc.wav") as AudioStream
@@ -88,10 +91,10 @@ func play_animation() -> void:
 			if 0.0 < player.speed_current and player.speed_current <= player.speed_walking:
 
 				# Check if the animation player is not already playing the appropriate animation
-				if player.animation_player.current_animation != player.animation_skateboarding_slow:
+				if player.animation_player.current_animation != animation_skateboarding_slow:
 
 					# Play the "slow skateboarding" animation
-					player.animation_player.play(player.animation_skateboarding_slow)
+					player.animation_player.play(animation_skateboarding_slow)
 
 				# Set the sound effect speed
 				player.audio_player.pitch_scale = .75
@@ -100,10 +103,10 @@ func play_animation() -> void:
 			elif player.speed_walking < player.speed_current and player.speed_current <= player.speed_running:
 
 				# Check if the animation player is not already playing the appropriate animation
-				if player.animation_player.current_animation != player.animation_skateboarding_normal:
+				if player.animation_player.current_animation != animation_skateboarding_normal:
 
 					# Play the "normal skateboarding" animation
-					player.animation_player.play(player.animation_skateboarding_normal)
+					player.animation_player.play(animation_skateboarding_normal)
 
 				# Set the sound effect speed
 				player.audio_player.pitch_scale = 1.0
@@ -112,10 +115,10 @@ func play_animation() -> void:
 			elif player.speed_running < player.speed_current:
 
 				# Check if the animation player is not already playing the appropriate animation
-				if player.animation_player.current_animation != player.animation_skateboarding_fast:
+				if player.animation_player.current_animation != animation_skateboarding_fast:
 
 					# Play the "slow skateboarding" animation
-					player.animation_player.play(player.animation_skateboarding_fast)
+					player.animation_player.play(animation_skateboarding_fast)
 
 				# Set the sound effect speed
 				player.audio_player.pitch_scale = 1.25

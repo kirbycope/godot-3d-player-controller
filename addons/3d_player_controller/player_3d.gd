@@ -1,65 +1,7 @@
 extends CharacterBody3D
 
-# Change the animation names to those in character's animation player
-const animation_crawling = "Crawling_In_Place"
-
-const animation_crouching = "Crouching_Idle"
-const animation_crouching_aiming_rifle = "Rifle_Aiming_Idle_Crouching"
-const animation_crouching_firing_rifle = "Rifle_Firing_Crouching"
-const animation_crouching_holding_rifle = "Rifle_Idle_Crouching"
-const animation_crouching_move = "Sneaking_In_Place"
-const animation_crouching_move_holding_rifle = "Rifle_Walk_Crouching"
-const animation_crouching_holding_tool = "Tool_Idle_Crouching"
-
-const animation_flying = "Flying_In_Place"
-const animation_flying_fast = "Flying_Fast_In_Place"
-
-const animation_hanging = "Hanging_Idle"
-const animation_hanging_shimmy_left = "Braced_Hang_Shimmy_Left_In_Place"
-const animation_hanging_shimmy_right = "Braced_Hang_Shimmy_Right_In_Place"
-
-const animation_jumping = "Falling_Idle"
-const animation_jumping_holding_rifle = "Rifle_Falling_Idle"
-const animation_jumping_holding_tool = "Tool_Falling_Idle"
-
-const animation_standing = "Standing_Idle"
-const animation_standing_aiming_rifle = "Rifle_Aiming_Idle"
-const animation_standing_firing_rifle = "Rifle_Firing"
-const animation_standing_casting_fishing_rod = "Fishing_Cast"
-const animation_standing_holding_fishing_rod = "Fishing_Idle"
-const animation_standing_reeling_fishing_rod = "Fishing_Reel"
-const animation_standing_holding_rifle = "Rifle_Low_Idle"
-const animation_standing_holding_tool = "Tool_Standing_Idle"
-
-const animation_running = "Running_In_Place"
-const animation_running_aiming_rifle = "Rifle_Aiming_Run_In_Place"
-const animation_running_holding_rifle = "Rifle_Low_Run_In_Place"
-
-const animation_skateboarding_fast = "Skateboarding_Fast_In_Place"
-const animation_skateboarding_normal = "Skateboarding_In_Place"
-const animation_skateboarding_slow = "Skateboarding_Slow_In_Place"
-
-const animation_sprinting = "Sprinting_In_Place"
-const animation_sprinting_holding_rifle = "Rifle_Sprinting_In_Place"
-const animation_sprinting_holding_tool = "Tool_Sprinting_In_Place"
-
-const animation_swimming = "Swimming_In_Place"
-const animation_treading_water = "Treading_Water"
-
-const animation_walking = "Walking_In_Place"
-const animation_walking_aiming_rifle = "Rifle_Walking_Aiming"
-const animation_walking_firing_rifle = "Rifle_Walking_Firing"
-const animation_walking_holding_rifle = "Rifle_Low_Run_In_Place"
-const animation_walking_holding_tool = "Tool_Walking_In_Place"
-
 const bone_name_left_hand = "mixamorigLeftHandIndex1"
 const bone_name_right_hand = "mixamorigRightHandIndex1"
-const kicking_low_left = "Kicking_Low_Left"
-const kicking_low_right = "Kicking_Low_Right"
-const punching_high_left = "Punching_High_Left"
-const punching_high_right = "Punching_High_Right"
-const punching_low_left = "Punching_Low_Left"
-const punching_low_right = "Punching_Low_Right"
 
 # State machine variables
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")

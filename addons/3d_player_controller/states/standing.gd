@@ -1,5 +1,19 @@
 extends BaseState
 
+const animation_standing = "Standing_Idle"
+const animation_standing_aiming_rifle = "Rifle_Aiming_Idle"
+const animation_standing_firing_rifle = "Rifle_Firing"
+const animation_standing_casting_fishing_rod = "Fishing_Cast"
+const animation_standing_holding_fishing_rod = "Fishing_Idle"
+const animation_standing_reeling_fishing_rod = "Fishing_Reel"
+const animation_standing_holding_rifle = "Rifle_Low_Idle"
+const animation_standing_holding_tool = "Tool_Standing_Idle"
+const kicking_low_left = "Kicking_Low_Left"
+const kicking_low_right = "Kicking_Low_Right"
+const punching_high_left = "Punching_High_Left"
+const punching_high_right = "Punching_High_Right"
+const punching_low_left = "Punching_Low_Left"
+const punching_low_right = "Punching_Low_Right"
 var node_name = "Standing"
 
 
@@ -40,10 +54,10 @@ func _input(event: InputEvent) -> void:
 						player.is_kicking_left = true
 
 						# Check if the animation player is not already playing the appropriate animation
-						if player.animation_player.current_animation != player.kicking_low_left:
+						if player.animation_player.current_animation != kicking_low_left:
 
 							# Play the "kicking low, left" animation
-							player.animation_player.play(player.kicking_low_left)
+							player.animation_player.play(kicking_low_left)
 
 							# Check the kick hits something
 							player.check_kick_collision()
@@ -67,10 +81,10 @@ func _input(event: InputEvent) -> void:
 						player.is_kicking_right = true
 
 						# Check if the animation player is not already playing the appropriate animation
-						if player.animation_player.current_animation != player.kicking_low_right:
+						if player.animation_player.current_animation != kicking_low_right:
 
 							# Play the "kicking low, right" animation
-							player.animation_player.play(player.kicking_low_right)
+							player.animation_player.play(kicking_low_right)
 
 							# Check the kick hits something
 							player.check_kick_collision()
@@ -106,10 +120,10 @@ func _input(event: InputEvent) -> void:
 						player.is_punching_left = true
 
 						# Check if the animation player is not already playing the appropriate animation
-						if player.animation_player.current_animation != player.punching_high_left:
+						if player.animation_player.current_animation != punching_high_left:
 
 								# Play the "punching high, left" animation
-								player.animation_player.play(player.punching_high_left)
+								player.animation_player.play(punching_high_left)
 
 								# Check the punch hits something
 								player.check_punch_collision()
@@ -166,10 +180,10 @@ func _input(event: InputEvent) -> void:
 						player.is_punching_right = true
 
 						# Check if the animation player is not already playing the appropriate animation
-						if player.animation_player.current_animation != player.punching_high_right:
+						if player.animation_player.current_animation != punching_high_right:
 
 							# Play the "punching high, right" animation
-							player.animation_player.play(player.punching_high_right)
+							player.animation_player.play(punching_high_right)
 
 							# Check the punch hits something
 							player.check_punch_collision()
@@ -240,19 +254,19 @@ func play_animation() -> void:
 			if player.is_casting:
 
 				# Check if the animation player is not already playing the appropriate animation
-				if player.animation_player.current_animation != player.animation_standing_casting_fishing_rod:
+				if player.animation_player.current_animation != animation_standing_casting_fishing_rod:
 
 					# Play the "standing, casting fishing rod" animation
-					player.animation_player.play(player.animation_standing_casting_fishing_rod)
+					player.animation_player.play(animation_standing_casting_fishing_rod)
 
 			# Check if the player is "reeling"
 			elif player.is_reeling:
 
 				# Check if the animation player is not already playing the appropriate animation
-				if player.animation_player.current_animation != player.animation_standing_reeling_fishing_rod:
+				if player.animation_player.current_animation != animation_standing_reeling_fishing_rod:
 
 					# Play the "standing, holding reeling rod" animation
-					player.animation_player.play(player.animation_standing_reeling_fishing_rod)
+					player.animation_player.play(animation_standing_reeling_fishing_rod)
 
 				# Get the held fishing rod's animation player
 				var fishing_rod_animation_player = player.held_item_mount.get_node("FishingRod/AnimationPlayer")
@@ -267,10 +281,10 @@ func play_animation() -> void:
 			else:
 
 				# Check if the animation player is not already playing the appropriate animation
-				if player.animation_player.current_animation != player.animation_standing_holding_fishing_rod:
+				if player.animation_player.current_animation != animation_standing_holding_fishing_rod:
 
 					# Play the "standing, holding fishing rod" animation
-					player.animation_player.play(player.animation_standing_holding_fishing_rod)
+					player.animation_player.play(animation_standing_holding_fishing_rod)
 
 		# Check if the player is "holding a rifle"
 		elif player.is_holding_rifle:
@@ -279,46 +293,46 @@ func play_animation() -> void:
 			if player.is_firing:
 
 				# Check if the animation player is not already playing the appropriate animation
-				if player.animation_player.current_animation != player.animation_standing_firing_rifle:
+				if player.animation_player.current_animation != animation_standing_firing_rifle:
 
 					# Play the "standing, firing rifle" animation
-					player.animation_player.play(player.animation_standing_firing_rifle)
+					player.animation_player.play(animation_standing_firing_rifle)
 
 			# Check if the player is "aiming"
 			elif player.is_aiming:
 
 				# Check if the animation player is not already playing the appropriate animation
-				if player.animation_player.current_animation != player.animation_standing_aiming_rifle:
+				if player.animation_player.current_animation != animation_standing_aiming_rifle:
 
 					# Play the "standing, aiming rifle" animation
-					player.animation_player.play(player.animation_standing_aiming_rifle)
+					player.animation_player.play(animation_standing_aiming_rifle)
 
 			# The player must be "idle"
 			else:
 
 				# Check if the animation player is not already playing the appropriate animation
-				if player.animation_player.current_animation != player.animation_standing_holding_rifle:
+				if player.animation_player.current_animation != animation_standing_holding_rifle:
 
 					# Play the "standing idle, holding rifle" animation
-					player.animation_player.play(player.animation_standing_holding_rifle)
+					player.animation_player.play(animation_standing_holding_rifle)
 
 		# Check if the player is "holding a tool"
 		elif player.is_holding_tool:
 
 			# Check if the animation player is not already playing the appropriate animation
-			if player.animation_player.current_animation != player.animation_standing_holding_tool:
+			if player.animation_player.current_animation != animation_standing_holding_tool:
 
 				# Play the "standing, holding tool" animation
-				player.animation_player.play(player.animation_standing_holding_tool)
+				player.animation_player.play(animation_standing_holding_tool)
 
 		# The player must be unarmed
 		else:
 
 			# Check if the animation player is not already playing the appropriate animation
-			if player.animation_player.current_animation != player.animation_standing:
+			if player.animation_player.current_animation != animation_standing:
 
 				# Play the "standing idle" animation
-				player.animation_player.play(player.animation_standing)
+				player.animation_player.play(animation_standing)
 
 
 ## Start "standing".
