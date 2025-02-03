@@ -39,6 +39,7 @@ offset_right = -32.0
 offset_bottom = 64.0
 
 [node name="Emote2Button" type="TextureButton" parent="Emote2"]
+layout_mode = 0
 offset_left = 6.0
 offset_top = 6.0
 offset_right = 262.0
@@ -53,6 +54,7 @@ offset_right = 96.0
 offset_bottom = 64.0
 
 [node name="Emote3Button" type="TextureButton" parent="Emote3"]
+layout_mode = 0
 offset_left = 6.0
 offset_top = 6.0
 offset_right = 262.0
@@ -68,6 +70,7 @@ offset_right = 32.0
 offset_bottom = 128.0
 
 [node name="Emote4Button" type="TextureButton" parent="Emote4"]
+layout_mode = 0
 offset_left = 6.0
 offset_top = 6.0
 offset_right = 262.0

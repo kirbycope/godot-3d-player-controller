@@ -6,11 +6,36 @@ extends Control
 ## Called once for every event before _unhandled_input(), allowing you to consume some events.
 func _input(event) -> void:
 
-	# # Check if the [chat] action _pressed_ (and emotes are enabled)
-	if event.is_action_pressed("dpad_left") and player.enable_emotes:
+	# Check if emotes are enabled
+	if player.enable_emotes:
 
-		# Toggle visibility
-		toggle_visibility()
+		# Check if the control is visible
+		if visible:
+
+			# Check if the [dpad_down] action _pressed_
+			if event.is_action_pressed("dpad_down"):
+				emote4()
+
+			# Check if the [dpad_left] action _pressed_
+			if event.is_action_pressed("dpad_left"):
+				emote2()
+
+			# Check if the [dpad_right] action _pressed_
+			if event.is_action_pressed("dpad_right"):
+				emote3()
+
+			# Check if the [dpad_up] action _pressed_
+			if event.is_action_pressed("dpad_up"):
+				emote1()
+
+		# The control must not be visible
+		else:
+
+			# Check if the [dpad_left] action _pressed_
+			if event.is_action_pressed("dpad_left"):
+
+				# Toggle visibility
+				toggle_visibility()
 
 
 ## Called when the node enters the scene tree for the first time.
@@ -20,24 +45,40 @@ func _ready() -> void:
 
 
 func _on_emote_1_button_button_down() -> void:
+	emote1()
+
+
+func _on_emote_2_button_button_down() -> void:
+	emote2()
+
+
+func _on_emote_3_button_button_down() -> void:
+	emote3()
+
+
+func _on_emote_4_button_button_down() -> void:
+	emote4()
+
+
+func emote1() -> void:
 	player.animation_player.play("Waving")
 	player.is_animation_locked = true
 	toggle_visibility()
 
 
-func _on_emote_2_button_button_down() -> void:
+func emote2() -> void:
 	player.animation_player.play("Clapping")
 	player.is_animation_locked = true
 	toggle_visibility()
 
 
-func _on_emote_3_button_button_down() -> void:
+func emote3() -> void:
 	player.animation_player.play("Crying")
 	player.is_animation_locked = true
 	toggle_visibility()
 
 
-func _on_emote_4_button_button_down() -> void:
+func emote4() -> void:
 	player.animation_player.play("Quick_Informal_Bow")
 	player.is_animation_locked = true
 	toggle_visibility()
