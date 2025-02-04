@@ -47,6 +47,7 @@ var virtual_velocity: Vector3 = Vector3.ZERO
 @export var enable_kicking: bool = true
 @export var enable_punching: bool = true
 @export var enable_vibration: bool = false
+@export var friction_skateboarding: float = 0.01
 @export var force_kicking: float = 2.0
 @export var force_kicking_sprinting: float = 3.0
 @export var force_punching: float = 1.0
@@ -477,6 +478,7 @@ func update_velocity() -> void:
 				# Update [virtual] horizontal velocity
 				virtual_velocity.x = direction.x * speed_current
 
+			# The x-axis movement not locked
 			else:
 
 				# Update horizontal velocity
@@ -488,6 +490,7 @@ func update_velocity() -> void:
 				# Update vertical velocity
 				virtual_velocity.z = direction.z * speed_current
 
+			# The y-axis movement not locked
 			else:
 
 				# Update vertical velocity
@@ -496,11 +499,30 @@ func update_velocity() -> void:
 	# No movement detected
 	else:
 
-		# Update horizontal velocity
-		velocity.x = move_toward(velocity.x, 0, speed_current)
+		# Check if the player is skateboarding and grounded
+		if is_skateboarding and is_grounded:
 
-		# Update vertical velocity
-		velocity.z = move_toward(velocity.z, 0, speed_current)
+			# Set the friction to the skateboarding friction
+			var friction_current = friction_skateboarding
 
-		# Update [virtual] velocity
-		virtual_velocity = Vector3.ZERO
+			# [crouch] action _pressed_
+			if is_crouching:
+
+				# Slow down the player, more than usual
+				friction_current = friction_current * 10
+
+			# Apply gradual deceleration when skating
+			velocity.x = move_toward(velocity.x, 0, speed_current * friction_current)
+			velocity.z = move_toward(velocity.z, 0, speed_current * friction_current)
+
+		# The player is not skateboarding (on the ground)
+		else:
+
+			# Update horizontal velocity
+			velocity.x = move_toward(velocity.x, 0, speed_current)
+
+			# Update vertical velocity
+			velocity.z = move_toward(velocity.z, 0, speed_current)
+
+			# Update [virtual] velocity
+			virtual_velocity = Vector3.ZERO

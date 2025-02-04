@@ -16,6 +16,27 @@ func _input(event: InputEvent) -> void:
 	# Check if the game is not paused
 	if !player.game_paused:
 
+		# [crouch] button _pressed_
+		if event.is_action_pressed("crouch"):
+
+			# Check if the player is on the ground
+			if player.is_on_floor():
+
+				# Flag the player as "crouching"
+				player.is_crouching = true
+
+				# Set the player's speed
+				player.speed_current = player.speed_crawling
+
+		# [crouch] button _release_
+		if event.is_action_released("crouch"):
+
+			# Flag the player as not "crouching"
+			player.is_crouching = false
+
+			# Set the player's speed
+			player.speed_current = player.speed_running
+
 		# [jump] button just _pressed_
 		if event.is_action_pressed("jump"):
 
@@ -71,6 +92,9 @@ func play_animation() -> void:
 
 	# Check if the animation player is not locked
 	if !player.is_animation_locked:
+
+		# Set the animation player to the default speed
+		player.animation_player.speed_scale = 1.0
 
 		# Check if the player is on the ground and flagged as "jumping"
 		if player.velocity.y == 0 and player.is_jumping:
@@ -141,11 +165,11 @@ func play_animation() -> void:
 			# Check if the audio player is streaming a "skateboarding" sound effect
 			if player.audio_player.stream in [ollie_start_sound, skateboarding_sound]:
 
-				# Stop the "skateboarding" sound effect
-				player.audio_player.stop()
+				# Play the "slow skateboarding" animation
+				player.animation_player.play(animation_skateboarding_slow)
 
-				# Clear the audio player's stream
-				player.audio_player.stream = null
+				# Slow down the animation player
+				player.animation_player.speed_scale = 0.5
 
 				# Reset the sound effect speed
 				player.audio_player.pitch_scale = 1.0
