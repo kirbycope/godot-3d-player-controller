@@ -23,6 +23,9 @@ func _input(event: InputEvent) -> void:
 	# Check if the game is not paused
 	if !player.game_paused:
 
+		# Web fix - Input is required before the mouse can be captured so onready wont work
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
 		# [crouch] button just _pressed_ and crouching is enabled
 		if event.is_action_pressed("crouch") and player.enable_crouching:
 

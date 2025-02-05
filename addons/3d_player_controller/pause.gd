@@ -10,23 +10,14 @@ func _input(event) -> void:
 	if event.is_action_pressed("start"):
 
 		# Toggle game paused
-		player.game_paused = !player.game_paused
-
-		# Toggle mouse capture
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE if player.game_paused else Input.MOUSE_MODE_CAPTURED)
-
-		# Show the pause menu, if paused
-		visible = player.game_paused
+		toggle_pause()
 
 
 ## Close the pause menu
 func _on_back_to_game_button_pressed() -> void:
 
-	# Hide the pause menu
-	visible = false
-
-	# Unpause the game
-	player.game_paused = false
+	# Toggle game paused
+	toggle_pause()
 
 
 func _on_return_home_button_pressed() -> void:
@@ -43,3 +34,16 @@ func _on_leave_game_button_pressed() -> void:
 
 	# Close the application
 	get_tree().quit()
+
+
+## Toggles the pause menu.
+func toggle_pause() -> void:
+
+	# Toggle game paused
+	player.game_paused = !player.game_paused
+
+	# Toggle mouse capture
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE if player.game_paused else Input.MOUSE_MODE_CAPTURED)
+
+	# Show the pause menu, if paused
+	visible = player.game_paused
