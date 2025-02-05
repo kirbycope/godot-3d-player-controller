@@ -1,7 +1,0 @@
-﻿Set-Location -Path "C:\GitHub\godot-3d-player-controller\assets\mixamo\animations"
-$extension = .import
-Get-ChildItem -File | ForEach-Object {
-    $extension = $_.fbx
-    $newName = (Get-Culture).TextInfo.ToTitleCase($_.BaseName.ToLower()).Replace(' ', '_') + '.fbx'
-    Rename-Item -Path $_.FullName -NewName $newName
-}

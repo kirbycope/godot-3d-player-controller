@@ -38,7 +38,7 @@ func _input(event: InputEvent) -> void:
 				var collider = player.raycast_lookat.get_collider()
 
 				# Check if the collider is a RigidBody3D
-				if collider is RigidBody3D:
+				if collider is RigidBody3D and collider is not VehicleBody3D:
 
 					# Flag the RigidBody3D as being "held"
 					collider.add_to_group("held")
