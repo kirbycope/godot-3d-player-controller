@@ -319,7 +319,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
 shape = SubResource("BoxShape3D_y1kxv")
 
 [node name="Honda_CRV_2023" parent="." instance=ExtResource("15_5l67w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 8, 0, 0)
 
 [connection signal="body_entered" from="PortalGun/Area3D" to="." method="_on_area_3d_portal_gun_body_entered"]
 [connection signal="body_entered" from="FishingRod/Area3D" to="." method="_on_area_3d_fishing_rod_body_entered"]
