@@ -111,53 +111,71 @@ func play_animation() -> void:
 		# Check if the player is moving
 		if player.velocity != Vector3.ZERO:
 
-			# Check if the player is slower than or equal to "walking"
-			if 0.0 < player.speed_current and player.speed_current <= player.speed_walking:
+			# Check if the player is grounded
+			if player.velocity.y == 0:
 
-				# Check if the animation player is not already playing the appropriate animation
-				if player.animation_player.current_animation != animation_skateboarding_slow:
+				# Check if the player is slower than or equal to "walking"
+				if 0.0 < player.speed_current and player.speed_current <= player.speed_walking:
 
-					# Play the "slow skateboarding" animation
-					player.animation_player.play(animation_skateboarding_slow)
+					# Check if the animation player is not already playing the appropriate animation
+					if player.animation_player.current_animation != animation_skateboarding_slow:
 
-				# Set the sound effect speed
-				player.audio_player.pitch_scale = .75
+						# Play the "slow skateboarding" animation
+						player.animation_player.play(animation_skateboarding_slow)
 
-			# Check if the player speed is faster than "walking" but slower than or equal to "running"
-			elif player.speed_walking < player.speed_current and player.speed_current <= player.speed_running:
+					# Set the sound effect speed
+					player.audio_player.pitch_scale = .75
 
-				# Check if the animation player is not already playing the appropriate animation
-				if player.animation_player.current_animation != animation_skateboarding_normal:
+				# Check if the player speed is faster than "walking" but slower than or equal to "running"
+				elif player.speed_walking < player.speed_current and player.speed_current <= player.speed_running:
 
-					# Play the "normal skateboarding" animation
-					player.animation_player.play(animation_skateboarding_normal)
+					# Check if the animation player is not already playing the appropriate animation
+					if player.animation_player.current_animation != animation_skateboarding_normal:
 
-				# Set the sound effect speed
-				player.audio_player.pitch_scale = 1.0
+						# Play the "normal skateboarding" animation
+						player.animation_player.play(animation_skateboarding_normal)
 
-			# Check if the player speed is faster than "running"
-			elif player.speed_running < player.speed_current:
+					# Set the sound effect speed
+					player.audio_player.pitch_scale = 1.0
 
-				# Check if the animation player is not already playing the appropriate animation
-				if player.animation_player.current_animation != animation_skateboarding_fast:
+				# Check if the player speed is faster than "running"
+				elif player.speed_running < player.speed_current:
 
-					# Play the "slow skateboarding" animation
-					player.animation_player.play(animation_skateboarding_fast)
+					# Check if the animation player is not already playing the appropriate animation
+					if player.animation_player.current_animation != animation_skateboarding_fast:
 
-				# Set the sound effect speed
-				player.audio_player.pitch_scale = 1.25
+						# Play the "slow skateboarding" animation
+						player.animation_player.play(animation_skateboarding_fast)
 
-			# Check if the audio player is not playing or if the stream is not a "skateboarding" sound effect
-			if not player.audio_player.playing or player.audio_player.stream not in [ollie_start_sound, ollie_land_sound, skateboarding_sound]:
+					# Set the sound effect speed
+					player.audio_player.pitch_scale = 1.25
 
-				# Check if the player is on the ground
-				if player.is_on_floor():
+				# Check if the audio player is not playing or if the stream is not a "skateboarding" sound effect
+				if not player.audio_player.playing or player.audio_player.stream not in [ollie_start_sound, ollie_land_sound, skateboarding_sound]:
 
-					# Set the audio player's stream to the "skateboarding" sound effect
-					player.audio_player.stream = skateboarding_sound
+					# Check if the player is on the ground
+					if player.is_on_floor():
 
-					# Play the "skateboarding" sound effect
-					player.audio_player.play()
+						# Set the audio player's stream to the "skateboarding" sound effect
+						player.audio_player.stream = skateboarding_sound
+
+						# Play the "skateboarding" sound effect
+						player.audio_player.play()
+
+			# The player must be not grounded
+			else:
+
+				# Check if the audio player is not streaming the "ollie start" sound effect
+				if player.audio_player.stream != ollie_start_sound:
+
+					# Stop the "skateboarding" sound effect
+					player.audio_player.stop()
+
+					# Clear the audio player's stream
+					player.audio_player.stream = null
+
+					# Flag the player as "jumping"
+					player.is_jumping = true
 
 		# The player must not be moving
 		else:
@@ -174,6 +192,18 @@ func play_animation() -> void:
 				# Reset the sound effect speed
 				player.audio_player.pitch_scale = 1.0
 
+		# Check if the player is moving really slow (between -0.1 and 0.1)
+		if abs(player.velocity.x) < 0.1 and abs(player.velocity.z) < 0.1:
+
+			# Stop the player
+			player.velocity.x = 0.0
+			player.velocity.z = 0.0
+
+			# Check if the audio player is streaming a "skateboarding" sound effect
+			if player.audio_player.stream == skateboarding_sound:
+
+				# Stop the "skateboarding" sound effect
+				player.audio_player.stop()
 
 ## Start "skateboarding".
 func start() -> void:
