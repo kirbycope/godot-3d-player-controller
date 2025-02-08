@@ -217,8 +217,8 @@ func _physics_process(delta) -> void:
 				# Rotate camera based on controller movement
 				camera_rotate_by_controller(delta)
 	
-		# Check if the player is not "hanging"
-		if !is_hanging:
+		# Check if the player is not "driving" and not "hanging"
+		if !is_driving and !is_hanging:
 
 			# Check if the player is "swimming"
 			if is_swimming:

@@ -59,7 +59,7 @@ func start() -> void:
 	await get_tree().create_timer(1.5).timeout
 	player.driving_in.get_node("AnimationPlayer").play_backwards("door_front_driver_open")
 	await get_tree().create_timer(1.0).timeout
-	player.global_position = player.driving_in.get_node("DriverSeatPosition").global_position - Vector3(0.0, 0.5 , 0.15)
+	player.global_position = player.driving_in.get_node("DriverSeatPosition").global_position
 	player.global_rotation = player.driving_in.get_node("DriverSeatPosition").global_rotation
 	player.animation_player.stop()
 	player.animation_player.play("Driving")
