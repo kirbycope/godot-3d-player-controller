@@ -6,8 +6,9 @@ extends Control
 ## Called once for every event before _unhandled_input(), allowing you to consume some events.
 func _input(event) -> void:
 
+	var emotes = get_parent().get_node("Emotes")
 	# Check if the [pause] action _pressed_
-	if event.is_action_pressed("start"):
+	if event.is_action_pressed("start") and !emotes.visible:
 
 		# Toggle game paused
 		toggle_pause()

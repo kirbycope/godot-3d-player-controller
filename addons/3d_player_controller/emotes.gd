@@ -6,36 +6,43 @@ extends Control
 ## Called once for every event before _unhandled_input(), allowing you to consume some events.
 func _input(event) -> void:
 
-	# Check if emotes are enabled
-	if player.enable_emotes:
+	# Check if the game is not paused
+	if !player.game_paused:
 
-		# Check if the control is visible
-		if visible:
+		# Check if emotes are enabled
+		if player.enable_emotes:
 
-			# Check if the [dpad_down] action _pressed_
-			if event.is_action_pressed("dpad_down"):
-				emote4()
+			# Check if the control is visible
+			if visible:
 
-			# Check if the [dpad_left] action _pressed_
-			if event.is_action_pressed("dpad_left"):
-				emote2()
+				# Check if the [start] action _pressed_
+				if event.is_action_pressed("start"):
+					visible = false
 
-			# Check if the [dpad_right] action _pressed_
-			if event.is_action_pressed("dpad_right"):
-				emote3()
+				# Check if the [dpad_down] action _pressed_
+				if event.is_action_pressed("dpad_down"):
+					emote4()
 
-			# Check if the [dpad_up] action _pressed_
-			if event.is_action_pressed("dpad_up"):
-				emote1()
+				# Check if the [dpad_left] action _pressed_
+				if event.is_action_pressed("dpad_left"):
+					emote2()
 
-		# The control must not be visible
-		else:
+				# Check if the [dpad_right] action _pressed_
+				if event.is_action_pressed("dpad_right"):
+					emote3()
 
-			# Check if the [dpad_left] action _pressed_
-			if event.is_action_pressed("dpad_left"):
+				# Check if the [dpad_up] action _pressed_
+				if event.is_action_pressed("dpad_up"):
+					emote1()
 
-				# Toggle visibility
-				toggle_visibility()
+			# The control must not be visible
+			else:
+
+				# Check if the [dpad_left] action _pressed_
+				if event.is_action_pressed("dpad_left"):
+
+					# Toggle visibility
+					toggle_visibility()
 
 
 ## Called when the node enters the scene tree for the first time.
