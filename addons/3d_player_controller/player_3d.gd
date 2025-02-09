@@ -85,6 +85,7 @@ var virtual_velocity: Vector3 = Vector3.ZERO
 @onready var base_state: BaseState = $States/Base
 @onready var camera_mount = $CameraMount
 @onready var camera = $CameraMount/Camera3D
+@onready var collision_shape = $CollisionShape3D
 @onready var collision_height = $CollisionShape3D.shape.height
 @onready var collision_position = $CollisionShape3D.position
 @onready var held_item_mount = $Visuals/HeldItemMount
@@ -385,7 +386,7 @@ func camera_rotate_by_mouse(event: InputEvent) -> void:
 	new_rotation_x = clamp(new_rotation_x, -80, 90)
 	# Rotate camera up/forward and down/backward
 	camera_mount.rotation_degrees.x = new_rotation_x
-	
+
 	# Update the player (visuals+camera) opposite the horizontal mouse motion
 	rotate_y(deg_to_rad(-event.relative.x * look_sensitivity_mouse))
 	# Check if the player is in "third person" perspective
