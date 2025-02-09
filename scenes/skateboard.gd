@@ -4,9 +4,9 @@ var player: CharacterBody3D
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var audio_player: AudioStreamPlayer3D = $AudioStreamPlayer3D
-@onready var ollie_land_sound = preload("res://addons/3d_player_controller/sounds/LandConc.wav") as AudioStream
-@onready var ollie_start_sound = preload("res://addons/3d_player_controller/sounds/OllieConc.wav") as AudioStream
-@onready var skateboarding_sound = preload("res://addons/3d_player_controller/sounds/RollConcSmooth.wav") as AudioStream
+@onready var ollie_land_sound = preload("res://assets/sounds/LandConc.wav") as AudioStream
+@onready var ollie_start_sound = preload("res://assets/sounds/OllieConc.wav") as AudioStream
+@onready var skateboarding_sound = preload("res://assets/sounds/RollConcSmooth.wav") as AudioStream
 
 var skateboarding = preload("res://addons/3d_player_controller/states/skateboarding.gd")
 

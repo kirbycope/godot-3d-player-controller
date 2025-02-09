@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://c2c4uctj0pr7w"
-path="res://.godot/imported/RollConcSmooth.wav-677bfffc9245fee8869c40a5ec2fe0bb.sample"
+path="res://.godot/imported/RollConcSmooth.wav-26a7777d39cd675bf1cef8234df09062.sample"
 
 [deps]
 
-source_file="res://addons/3d_player_controller/sounds/RollConcSmooth.wav"
-dest_files=["res://.godot/imported/RollConcSmooth.wav-677bfffc9245fee8869c40a5ec2fe0bb.sample"]
+source_file="res://assets/sounds/RollConcSmooth.wav"
+dest_files=["res://.godot/imported/RollConcSmooth.wav-26a7777d39cd675bf1cef8234df09062.sample"]
 
 [params]
 
