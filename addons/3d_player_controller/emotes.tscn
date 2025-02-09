@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://u2wxuwpmjwha"]
+[gd_scene load_steps=7 format=3 uid="uid://u2wxuwpmjwha"]
 
 [ext_resource type="Script" path="res://addons/3d_player_controller/emotes.gd" id="1_j0l6j"]
+[ext_resource type="Texture2D" uid="uid://dtunt7cfmiu0r" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/1x/plus-1.png" id="2_6ja4e"]
 [ext_resource type="Texture2D" uid="uid://pwpbxv8luc5c" path="res://addons/3d_player_controller/textures/emotes/wave.png" id="2_k7sx4"]
 [ext_resource type="Texture2D" uid="uid://vctdg3xl5w3s" path="res://addons/3d_player_controller/textures/emotes/clap.png" id="3_35oc8"]
 [ext_resource type="Texture2D" uid="uid://i1ynt2f1nnye" path="res://addons/3d_player_controller/textures/emotes/cry.png" id="4_unv4w"]
@@ -16,6 +17,115 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_j0l6j")
+
+[node name="DPad" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="DPadUp" type="TextureRect" parent="DPad"]
+layout_mode = 0
+offset_left = -50.0
+offset_top = -17.0
+offset_right = 50.0
+offset_bottom = 83.0
+texture = ExtResource("2_6ja4e")
+
+[node name="DPadDown" type="TextureRect" parent="DPad"]
+layout_mode = 0
+offset_left = -50.0
+offset_top = -17.0
+offset_right = 50.0
+offset_bottom = 83.0
+texture = ExtResource("2_6ja4e")
+flip_v = true
+
+[node name="DPadLeft" type="TextureRect" parent="DPad"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = -17.0
+offset_right = 150.0
+offset_bottom = 83.0
+rotation = 1.57079
+texture = ExtResource("2_6ja4e")
+flip_h = true
+flip_v = true
+
+[node name="DPadRight" type="TextureRect" parent="DPad"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = -17.0
+offset_right = 150.0
+offset_bottom = 83.0
+rotation = 1.57079
+texture = ExtResource("2_6ja4e")
+
+[node name="Keyboard" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Tab" type="Label" parent="Keyboard"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -35.5
+offset_top = -45.0
+offset_right = -4.5
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(0.180392, 0.180392, 0.180392, 1)
+theme_override_constants/outline_size = 8
+text = "TAB"
+
+[node name="B" type="Label" parent="Keyboard"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -72.0
+offset_top = 0.5
+offset_right = -61.0
+offset_bottom = 23.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0.180392, 0.180392, 0.180392, 1)
+theme_override_constants/outline_size = 8
+text = "B"
+
+[node name="T" type="Label" parent="Keyboard"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 22.0
+offset_top = 0.5
+offset_right = 33.0
+offset_bottom = 23.5
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0.180392, 0.180392, 0.180392, 1)
+theme_override_constants/outline_size = 8
+text = "T"
+
+[node name="Q" type="Label" parent="Keyboard"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -26.5
+offset_top = 42.0
+offset_right = -13.5
+offset_bottom = 65.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0.180392, 0.180392, 0.180392, 1)
+theme_override_constants/outline_size = 8
+text = "Q"
 
 [node name="Emote1" type="Panel" parent="."]
 layout_mode = 0
@@ -47,22 +157,6 @@ offset_bottom = 262.0
 scale = Vector2(0.2, 0.2)
 texture_normal = ExtResource("3_35oc8")
 
-[node name="Label" type="Label" parent="Emote2"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -11.5
-offset_right = 11.0
-offset_bottom = 11.5
-grow_horizontal = 0
-grow_vertical = 2
-theme_override_colors/font_outline_color = Color(0.180392, 0.180392, 0.180392, 1)
-theme_override_constants/outline_size = 8
-text = "B"
-
 [node name="Emote3" type="Panel" parent="."]
 layout_mode = 0
 offset_left = 32.0
@@ -77,19 +171,6 @@ offset_right = 262.0
 offset_bottom = 262.0
 scale = Vector2(0.2, 0.2)
 texture_normal = ExtResource("4_unv4w")
-
-[node name="Label" type="Label" parent="Emote3"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = -11.0
-offset_top = -11.5
-offset_bottom = 11.5
-grow_vertical = 2
-theme_override_colors/font_outline_color = Color(0.180392, 0.180392, 0.180392, 1)
-theme_override_constants/outline_size = 8
-text = "T"
 
 [node name="Emote4" type="Panel" parent="."]
 layout_mode = 0

@@ -7,6 +7,8 @@ class_name BaseState
 
 ## Returns the string name of a state.
 func get_state_name(state: States.State) -> String:
+
+	# Return the state name with the first letter capitalized
 	return States.State.keys()[state].capitalize()
 
 

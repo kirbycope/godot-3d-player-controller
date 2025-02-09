@@ -14,7 +14,7 @@
 [ext_resource type="Script" path="res://scenes/pool.gd" id="12_71twb"]
 [ext_resource type="Shader" path="res://scenes/water.gdshader" id="12_wmmbb"]
 [ext_resource type="PackedScene" uid="uid://cqwgvb8l36ahu" path="res://scenes/skateboard.tscn" id="14_5m2ip"]
-[ext_resource type="PackedScene" uid="uid://drj7qejya7pr0" path="res://scenes/car/honda_crv.tscn" id="15_5l67w"]
+[ext_resource type="PackedScene" uid="uid://drj7qejya7pr0" path="res://scenes/honda_crv.tscn" id="15_5l67w"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yu8tv"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)

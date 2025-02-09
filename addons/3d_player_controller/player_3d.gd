@@ -4,7 +4,7 @@ const bone_name_left_hand = "mixamorigLeftHandIndex1"
 const bone_name_right_hand = "mixamorigRightHandIndex1"
 
 # State machine variables
-var driving_in
+
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var is_aiming: bool = false
 var is_animation_locked: bool = false
@@ -14,6 +14,7 @@ var is_crawling: bool = false
 var is_crouching: bool = false
 var is_double_jumping: bool = false
 var is_driving: bool = false
+var is_driving_in
 var is_falling: bool = false
 var is_grounded: bool = true
 var is_firing: bool = false
@@ -31,11 +32,12 @@ var is_punching_right: bool = false
 var is_reeling: bool = false
 var is_running: bool = false
 var is_skateboarding: bool = false
+var is_skateboarding_on
 var is_sprinting: bool = false
 var is_standing: bool = false
+var is_swimming_in
 var is_swimming: bool = false
 var is_walking: bool = false
-var swimming_in
 var virtual_velocity: Vector3 = Vector3.ZERO
 
 # Note: `@export` variables are available for editing in the property editor.

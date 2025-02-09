@@ -20,7 +20,7 @@ func _on_area_3d_body_entered(body: Node3D, area_node: Node3D) -> void:
 	if body is CharacterBody3D:
 
 		# Store which body the player is swimming in
-		body.swimming_in = area_node
+		body.is_swimming_in = area_node
 
 		# Get the string name of the player's current state
 		var current_state = body.base_state.get_state_name(body.current_state)

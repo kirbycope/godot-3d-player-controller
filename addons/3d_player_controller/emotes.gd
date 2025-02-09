@@ -15,6 +15,15 @@ func _input(event) -> void:
 			# Check if the control is visible
 			if visible:
 
+				# Check if the menu was opened using controller based input
+				if Input.is_joy_button_pressed(0, JOY_BUTTON_DPAD_LEFT):
+					$DPad.visible = true
+					$Keyboard.visible = false
+				# Check if the menu was opened using keyboard based input
+				elif Input.is_key_pressed(KEY_B):
+					$DPad.visible = false
+					$Keyboard.visible = true
+
 				# Check if the [start] action _pressed_
 				if event.is_action_pressed("start"):
 					visible = false
@@ -47,9 +56,9 @@ func _input(event) -> void:
 
 ## Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-
 	visible = false
-
+	$DPad.visible = false
+	$Keyboard.visible = false
 
 func _on_emote_1_button_button_down() -> void:
 	emote1()

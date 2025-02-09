@@ -64,6 +64,11 @@ func _ready() -> void:
 		joypad_button_event.button_index = JOY_BUTTON_DPAD_UP
 		InputMap.action_add_event("dpad_up", joypad_button_event)
 
+		# Keyboard [TAB]
+		var key_event = InputEventKey.new()
+		key_event.physical_keycode = KEY_TAB
+		InputMap.action_add_event("dpad_up", key_event)
+
 	# Remove [dpad, up] from the Built-In Action "ui_up"
 	var events = InputMap.action_get_events("ui_up")
 	for event in events:
@@ -102,6 +107,11 @@ func _ready() -> void:
 		var joypad_button_event = InputEventJoypadButton.new()
 		joypad_button_event.button_index = JOY_BUTTON_DPAD_DOWN
 		InputMap.action_add_event("dpad_down", joypad_button_event)
+
+		# Keyboard [Q]
+		var key_event = InputEventKey.new()
+		key_event.physical_keycode = KEY_Q
+		InputMap.action_add_event("dpad_down", key_event)
 
 	# Remove [dpad, down] from the Built-In Action "ui_down"
 	events = InputMap.action_get_events("ui_down")

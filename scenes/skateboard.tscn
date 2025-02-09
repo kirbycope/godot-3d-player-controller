@@ -1,9 +1,13 @@
-[gd_scene load_steps=16 format=4 uid="uid://cqwgvb8l36ahu"]
+[gd_scene load_steps=18 format=4 uid="uid://cqwgvb8l36ahu"]
 
+[ext_resource type="Script" path="res://scenes/skateboard.gd" id="1_11jlf"]
 [ext_resource type="Texture2D" uid="uid://ckd5agnscrycb" path="res://assets/skateboard/skateboard_low_DefaultMaterial_BaseColor.png" id="1_xcu25"]
 [ext_resource type="Texture2D" uid="uid://dibrk5rtolpqo" path="res://assets/skateboard/skateboard_low_DefaultMaterial_Metallic.png" id="2_ri40l"]
 [ext_resource type="Texture2D" uid="uid://dh0ip6mifqc22" path="res://assets/skateboard/skateboard_low_DefaultMaterial_Normal.png" id="3_5hjwa"]
 [ext_resource type="Texture2D" uid="uid://brq63gmonswkt" path="res://assets/skateboard/skateboard_low_DefaultMaterial_Roughness.png" id="4_xyf5x"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t3te6"]
+size = Vector3(1.2, 0.3, 0.4)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fxeug"]
 
@@ -119,6 +123,18 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_kgdfk")
 
 [node name="Skateboard" type="Node3D"]
+script = ExtResource("1_11jlf")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, -1.49012e-08)
+shape = SubResource("BoxShape3D_t3te6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+volume_db = -30.0
 
 [node name="skateboard_low" type="Node3D" parent="."]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, -0.05, 0)
@@ -140,3 +156,6 @@ transform = Transform3D(100, 0, 0, 0, -1.19209e-05, 100, 0, -100, -1.19209e-05, 
 mesh = SubResource("ArrayMesh_m6yei")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_w7q1w")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

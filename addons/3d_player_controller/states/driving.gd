@@ -5,6 +5,7 @@ const animation_entering_car = "Entering_Car"
 const animation_exiting_car = "Exiting_Car"
 var node_name = "Driving"
 
+
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 
@@ -60,10 +61,10 @@ func stop() -> void:
 	player.is_driving = false
 
 	# Remove the player from the vehicle
-	player.driving_in.player = null
+	player.is_driving_in.player = null
 
 	# Remove the vehicle with the player
-	player.driving_in = null
+	player.is_driving_in = null
 
 	# Enable CollisionShape3D
 	player.collision_shape.disabled = false
