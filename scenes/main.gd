@@ -26,9 +26,9 @@ func _on_area_3d_portal_gun_body_entered(body: Node3D) -> void:
 		pick_up_portal_gun()
 
 
-func _on_area_3d_skateboard_entered(body: Node3D) -> void:
-	if body is CharacterBody3D:
-		pick_up_skateboard()
+func _on_area_3d_2_body_entered(body: Node3D) -> void:
+		if body is CharacterBody3D:
+			pick_up_skateboard()
 
 
 func pick_up_fishing_rod() -> void:

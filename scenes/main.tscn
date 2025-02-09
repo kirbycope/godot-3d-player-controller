@@ -89,8 +89,8 @@ size = Vector3(5, 2, 0.1)
 [sub_resource type="BoxMesh" id="BoxMesh_ws3r6"]
 size = Vector3(10.2, 2, 0.1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_y1kxv"]
-size = Vector3(1, 0.7, 0.4)
+[sub_resource type="BoxShape3D" id="BoxShape3D_3eb0q"]
+size = Vector3(1.4, 1, 0.6)
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_oaegt")
@@ -313,15 +313,15 @@ mesh = SubResource("BoxMesh_ws3r6")
 [node name="Skateboard" parent="." instance=ExtResource("14_5m2ip")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 1)
 
-[node name="Area3D" type="Area3D" parent="Skateboard"]
+[node name="Area3D2" type="Area3D" parent="Skateboard"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Skateboard/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
-shape = SubResource("BoxShape3D_y1kxv")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Skateboard/Area3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.96046e-08)
+shape = SubResource("BoxShape3D_3eb0q")
 
 [node name="Honda_CRV_2023" parent="." instance=ExtResource("15_5l67w")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 8, 0, 0)
 
 [connection signal="body_entered" from="PortalGun/Area3D" to="." method="_on_area_3d_portal_gun_body_entered"]
 [connection signal="body_entered" from="FishingRod/Area3D" to="." method="_on_area_3d_fishing_rod_body_entered"]
-[connection signal="body_entered" from="Skateboard/Area3D" to="." method="_on_area_3d_skateboard_entered"]
+[connection signal="body_entered" from="Skateboard/Area3D2" to="." method="_on_area_3d_2_body_entered"]
