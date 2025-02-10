@@ -25,7 +25,7 @@ func _process(_delta: float) -> void:
 		# [jump] button just _pressed_
 		if Input.is_action_pressed("jump"):
 			if player.is_swimming_in:
-				var water_top = player.is_swimming_in.get_parent().position.y + (player.swimming_in.get_child(0).shape.size.y / 2)
+				var water_top = player.is_swimming_in.get_parent().position.y + (player.is_swimming_in.get_child(0).shape.size.y / 2)
 				var new_position = player.position.y + 0.01
 				var player_top = new_position + player.collision_height/2
 				if player_top <= water_top:
@@ -112,10 +112,10 @@ func start() -> void:
 	player.velocity.y = player.velocity.y * 0.0
 
 	# Get positional information
-	if player.swimming_in:
-		var parent_position = player.swimming_in.get_parent().position
-		var child_size = player.swimming_in.get_child(0).shape.size
-		var water_top = player.swimming_in.get_parent().position.y + (child_size.y / 2)
+	if player.is_swimming_in:
+		var parent_position = player.is_swimming_in.get_parent().position
+		var child_size = player.is_swimming_in.get_child(0).shape.size
+		var water_top = player.is_swimming_in.get_parent().position.y + (child_size.y / 2)
 		var player_half_height = player.collision_height / 2
 		
 		# Check if the player is below water level

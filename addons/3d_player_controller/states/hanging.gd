@@ -62,6 +62,9 @@ func play_animation() -> void:
 			# Check if the animation player is not already playing the appropriate animation
 			if player.animation_player.current_animation != animation_hanging_shimmy_left:
 
+				# Stop the current animation so no blending occurs
+				player.animation_player.stop()
+
 				# Play the "hanging, shimmy-ing left" animation
 				player.animation_player.play(animation_hanging_shimmy_left)
 
@@ -71,9 +74,13 @@ func play_animation() -> void:
 			# Check if the animation player is not already playing the appropriate animation
 			if player.animation_player.current_animation != animation_hanging_shimmy_right:
 
+				# Stop the current animation so no blending occurs
+				player.animation_player.stop()
+
 				# Play the "hanging, shimmy-ing left" animation
 				player.animation_player.play(animation_hanging_shimmy_right)
 
+		# The player must not be moving
 		else:
 
 			# Stop player movement
@@ -84,6 +91,9 @@ func play_animation() -> void:
 
 			# Check if the animation player is not already playing the appropriate animation
 			if player.animation_player.current_animation != animation_hanging:
+
+				# Stop the current animation so no blending occurs
+				player.animation_player.stop()
 
 				# Play the "hanging" animation
 				player.animation_player.play(animation_hanging)
