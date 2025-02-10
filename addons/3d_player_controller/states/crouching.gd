@@ -7,6 +7,8 @@ const animation_crouching_holding_rifle = "Rifle_Idle_Crouching"
 const animation_crouching_move = "Sneaking_In_Place"
 const animation_crouching_move_holding_rifle = "Rifle_Walk_Crouching"
 const animation_crouching_holding_tool = "Tool_Idle_Crouching"
+const animation_punching_low_left = "Punching_Low_Left"
+const animation_punching_low_right = "Punching_Low_Right"
 var node_name = "Crouching"
 
 
@@ -47,10 +49,10 @@ func _input(event: InputEvent) -> void:
 						player.is_punching_left = true
 
 						# Check if the animation player is not already playing the appropriate animation
-						if player.animation_player.current_animation != player.punching_low_left:
+						if player.animation_player.current_animation != animation_punching_low_left:
 
 							# Play the "punching low, left" animation
-							player.animation_player.play(player.punching_low_left)
+							player.animation_player.play(animation_punching_low_left)
 
 							# Check the punch hits something
 							player.check_punch_collision()
@@ -83,10 +85,10 @@ func _input(event: InputEvent) -> void:
 						player.is_punching_right = true
 
 						# Check if the animation player is not already playing the appropriate animation
-						if player.animation_player.current_animation != player.punching_low_right:
+						if player.animation_player.current_animation != animation_punching_low_right:
 
 							# Play the "punching low, right" animation
-							player.animation_player.play(player.punching_low_right)
+							player.animation_player.play(animation_punching_low_right)
 
 							# Check the punch hits something
 							player.check_punch_collision()
