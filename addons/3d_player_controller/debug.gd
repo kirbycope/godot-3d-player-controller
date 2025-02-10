@@ -10,7 +10,7 @@ func _input(event) -> void:
 
 	# [debug] button _pressed_
 	if event.is_action_pressed("debug"):
-		
+
 		# Toggle "debug" visibility
 		visible = !visible
 

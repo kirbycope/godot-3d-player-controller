@@ -69,7 +69,7 @@ func _process(_delta: float) -> void:
 ## Move the item being held in the player's hand to the player's hand.
 func move_held_item_mount() -> void:
 
-
+	# Check if the player is holding a fishing rod
 	if player.is_holding_fishing_rod:
 
 		# Get the left hand bone
@@ -95,6 +95,7 @@ func move_held_item_mount() -> void:
 		# Apply the rotation
 		player.held_item_mount.rotation = Vector3(rot_x, rot_y, rot_z)
 
+	# Check if the player is holding a rifle
 	elif player.is_holding_rifle:
 
 		# Get the right hand bone

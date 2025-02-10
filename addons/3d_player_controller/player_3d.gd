@@ -1,5 +1,6 @@
 extends CharacterBody3D
 
+const bone_name_head = "mixamorigHead"
 const bone_name_left_hand = "mixamorigLeftHandIndex1"
 const bone_name_right_hand = "mixamorigRightHandIndex1"
 
@@ -257,40 +258,63 @@ func check_grounded() -> bool:
 
 ## Check if the kick hits anything.
 func check_kick_collision() -> void:
-	# Check if the RayCast3D is collining with something
+
+	# Check if the RayCast3D is colliding with something
 	if raycast_low.is_colliding():
+
 		# Get the object the RayCast is colliding with
 		var collider = raycast_low.get_collider()
+
 		# Get the position of the current collision
 		var collision_position = raycast_low.get_collision_point()
+
 		# Delay execution
 		await get_tree().create_timer(0.5).timeout
+
 		# Flag the animation player no longer locked
 		is_animation_locked = false
+
 		# Reset action flag(s)
 		is_kicking_left = false
 		is_kicking_right = false
+
 		# Apply force to RigidBody3D objects
 		if collider is RigidBody3D:
+
 			# Define the force to apply to the collided object
 			var force = force_kicking_sprinting if is_sprinting else force_kicking
+
 			# Define the impulse to apply
 			var impulse = collision_position - collider.global_position
+
 			# Apply the force to the object
 			collider.apply_central_impulse(-impulse * force)
-		# Call character functions
+
+		# Check if the collider is a CharacterBody3D
 		if collider is CharacterBody3D:
-			# Check side
+
+			# Check if kicking left
 			if is_kicking_left:
-				# Play the appropriate hit animation
+
+				# Check if the collider has the appropriate function
 				if collider.has_method("animate_hit_low_left"):
+
+					# Play the appropriate hit animation
 					collider.call("animate_hit_low_left")
+
+			# Must be kicking right
 			else:
-				# Play the appropriate hit animation
+
+				# Check if the collider has the appropriate function
 				if collider.has_method("animate_hit_low_right"):
+
+					# Play the appropriate hit animation
 					collider.call("animate_hit_low_right")
-		# Controller vibration
+
+		# Check if controller vibration is enabled
 		if enable_vibration:
+
+			# Vibrate the controller
 			Input.start_joy_vibration(0, 0.0, 1.0, 0.1)
 
 
@@ -299,38 +323,60 @@ func check_punch_collision() -> void:
 
 	# Check if the RayCast3D is collining with something
 	if raycast_middle.is_colliding():
+
 		# Get the object the RayCast is colliding with
 		var collider = raycast_middle.get_collider()
+
 		# Get the position of the current collision
 		var collision_position = raycast_middle.get_collision_point()
+
 		# Delay execution
 		await get_tree().create_timer(0.3).timeout
+
 		# Flag the animation player no longer locked
 		is_animation_locked = false
+
 		# Reset action flag(s)
 		is_punching_left = false
 		is_punching_right = false
+
 		# Apply force to RigidBody3D objects
 		if collider is RigidBody3D:
+
 			# Define the force to apply to the collided force_punching
 			var force = force_punching_sprinting if is_sprinting else force_punching
+
 			# Define the impulse to apply
 			var impulse = collision_position - collider.global_position
+
 			# Apply the force to the object
 			collider.apply_central_impulse(-impulse * force)
-		# Call character functions
+
+		# Check if the collider is a CharacterBody3D
 		if collider is CharacterBody3D:
-			# Check side
+
+			# Check if punching left
 			if is_punching_left:
-				# Play the appropriate hit animation
+
+				# Check if the collider has the appropriate function
 				if collider.has_method("animate_hit_high_left"):
+
+					# Play the appropriate hit animation
 					collider.call("animate_hit_high_left")
+
+			# Must be punching right
 			else:
-				# Play the appropriate hit animation
+
+				# Check if the collider has the appropriate function
 				if collider.has_method("animate_hit_high_right"):
+
+					# Play the appropriate hit animation
 					collider.call("animate_hit_high_right")
-		# Controller vibration
+
+		# Check if controller vibration is enabled
 		if enable_vibration:
+
+			# Vibrate the controller
 			Input.start_joy_vibration(0, 1.0, 0.0, 0.1)
 
 
@@ -347,6 +393,7 @@ func camera_rotate_by_controller(delta: float) -> void:
 	var vertical_input = look_up - look_down
 	var horizontal_input = look_right - look_left
 
+	# Calculate the rotation speed based on the input strength
 	var vertical_rotation_speed = abs(vertical_input)
 	var horizontal_rotation_speed = abs(horizontal_input)
 
@@ -366,15 +413,19 @@ func camera_rotate_by_controller(delta: float) -> void:
 
 	# Calculate the desired vertical rotation based on controller motion
 	var new_rotation_x = camera_mount.rotation_degrees.x + (vertical_input * vertical_rotation_speed * delta)
+
 	# Limit how far up/down the camera can rotate
 	new_rotation_x = clamp(new_rotation_x, -80, 90)
+
 	# Rotate camera up/forward and down/backward
 	camera_mount.rotation_degrees.x = new_rotation_x
 
 	# Update the player (visuals+camera) opposite the horizontal controller motion
 	rotation_degrees.y = rotation_degrees.y - (horizontal_input * horizontal_rotation_speed * delta)
+
 	# Check if the player is in "third person" perspective
 	if perspective == 0:
+
 		# Rotate the visuals opposite the camera's horizontal rotation
 		visuals.rotation_degrees.y = visuals.rotation_degrees.y + (horizontal_input * horizontal_rotation_speed * delta)
 
@@ -384,15 +435,19 @@ func camera_rotate_by_mouse(event: InputEvent) -> void:
 
 	# Calculate the desired vertical rotation based on mouse motion
 	var new_rotation_x = camera_mount.rotation_degrees.x - event.relative.y * look_sensitivity_mouse
+
 	# Limit how far up/down the camera can rotate
 	new_rotation_x = clamp(new_rotation_x, -80, 90)
+
 	# Rotate camera up/forward and down/backward
 	camera_mount.rotation_degrees.x = new_rotation_x
 
 	# Update the player (visuals+camera) opposite the horizontal mouse motion
 	rotate_y(deg_to_rad(-event.relative.x * look_sensitivity_mouse))
+
 	# Check if the player is in "third person" perspective
 	if perspective == 0:
+
 		# Rotate the visuals opposite the camera's horizontal rotation
 		visuals.rotate_y(deg_to_rad(event.relative.x * look_sensitivity_mouse))
 
@@ -402,10 +457,13 @@ func move_camera():
 
 	# Check if in "first person" perspective
 	if perspective == 1:
-		var bone_name = "mixamorigHead"
-		var bone_index = player_skeleton.find_bone(bone_name)
+
+		# Get the index of the bone in the player's skeleton
+		var bone_index = player_skeleton.find_bone(bone_name_head)
+
 		# Get the overall transform of the specified bone, with respect to the player's skeleton.
 		var bone_pose = player_skeleton.get_bone_global_pose(bone_index)
+
 		# Adjust the camera mount position to match the bone's relative position (adjusting for $Visuals/AuxScene scaling)
 		camera_mount.position = Vector3(-bone_pose.origin.x * 0.01, bone_pose.origin.y * 0.01, (-bone_pose.origin.z * 0.01) - 0.165)
 
@@ -425,24 +483,34 @@ func move_player(delta: float) -> void:
 
 	# Create a new physics query object used for checking collisions in 3D space
 	var query = PhysicsShapeQueryParameters3D.new()
+
 	# Tell the physics query to ignore the current object (self) when checking for collisions
 	query.exclude = [self]
+
 	# Set the collision shape to match a "shapecast" object's shape
 	query.shape = shapecast.shape
+
 	# Set the position and rotation (transform) to match where the shapecast is in global space
 	query.transform = shapecast.global_transform
+
 	# Get the current 3D world, give direct access to the physics engine, and check if the shape intersects with anything (limited to 1 result)
 	var result = get_world_3d().direct_space_state.intersect_shape(query, 1)
+
 	# Check if no collisions were detected
 	if !result:
+
 		# Force the shapecast to update its state
 		shapecast.force_shapecast_update()
+
 	# Check if the shapecast is colliding, the player is moving down (or not at all), no direct collision was found, and the angle of the slope isn't too great
 	if shapecast.is_colliding() and velocity.y <= 0.0 and !result and shapecast.get_collision_normal(0).angle_to(Vector3.UP) < floor_max_angle:
+
 		# Set the character's Y position to match the collision point (likely the ground)
 		global_position.y = shapecast.get_collision_point(0).y
+
 		# Stop vertical movement by zeroing the Y velocity
 		velocity.y = 0.0
+
 		# Flag the character as "grounded"
 		is_grounded = true
 

@@ -19,7 +19,7 @@ var last_mouse_move_time: float = 0.0
 @onready var exit_driver_door: Node3D = $ExitDriverDoorEnd
 @onready var open_driver_door: Node3D = $OpenDriverDoorStart
 @onready var sound_accelerate = preload("res://assets/sounds/PATHACC.WAV")
-@onready var sound_cruze = preload("res://assets/sounds/PATHCRUZE.WAV")
+@onready var sound_cruise = preload("res://assets/sounds/PATHCRUZE.WAV")
 @onready var sound_door_close = preload("res://assets/sounds/CTruck.WAV")
 @onready var sound_door_open = preload("res://assets/sounds/OTruck.WAV")
 @onready var sound_idle = preload("res://assets/sounds/PATHIDLE.WAV")
@@ -45,41 +45,48 @@ func _input(event: InputEvent) -> void:
 
 			# [crouch] action _pressed_
 			if event.is_action_pressed("crouch"):
-				if player:
-					if player.is_driving:
 
-						# Transistion animation
-						player.is_driving = false
-						player.is_animation_locked = true
-						player.global_position.y = player.global_position.y - 0.1
-						player.animation_player.play("Exiting_Car")
-						await get_tree().create_timer(1.0).timeout
-						animation_player.play("door_front_driver_open")
-						audio_player2.stream = player.is_driving_in.sound_door_open
-						audio_player2.play()
-						await get_tree().create_timer(2.3).timeout
-						animation_player.play_backwards("door_front_driver_open")
-						await get_tree().create_timer(1.0).timeout
-						audio_player2.stream = player.is_driving_in.sound_door_close
-						audio_player2.play()
-						await get_tree().create_timer(0.2).timeout
-						player.animation_player.stop()
-						player.animation_player.play("Standing_Idle")
-						player.global_position = exit_driver_door.global_position
-						player.global_position.y = exit_driver_door.global_position.y - 0.1
-						player.global_rotation = exit_driver_door.global_rotation
-						player.camera_mount.rotation.y = 0
-						player.is_animation_locked = false
-						await get_tree().create_timer(0.1).timeout
-						# Start "standing"
-						player.base_state.transition("Driving", "Standing")
+				# Check if the player is driving
+				if player.is_driving:
+
+					# Transition animation
+					player.is_driving = false
+					player.is_animation_locked = true
+					player.global_position.y = player.global_position.y - 0.1
+					player.animation_player.play("Exiting_Car")
+					await get_tree().create_timer(1.0).timeout
+					animation_player.play("door_front_driver_open")
+					audio_player2.stream = player.is_driving_in.sound_door_open
+					audio_player2.play()
+					await get_tree().create_timer(2.3).timeout
+					animation_player.play_backwards("door_front_driver_open")
+					await get_tree().create_timer(1.0).timeout
+					audio_player2.stream = player.is_driving_in.sound_door_close
+					audio_player2.play()
+					await get_tree().create_timer(0.2).timeout
+					player.animation_player.stop()
+					player.animation_player.play("Standing_Idle")
+					player.global_position = exit_driver_door.global_position
+					player.global_position.y = exit_driver_door.global_position.y - 0.1
+					player.global_rotation = exit_driver_door.global_rotation
+					player.camera_mount.rotation.y = 0
+					player.is_animation_locked = false
+					await get_tree().create_timer(0.1).timeout
+
+					# Start "standing"
+					player.base_state.transition("Driving", "Standing")
 
 			# [jump] action _pressed_
 			if event.is_action_pressed("jump"):
-				if player:
-					if player.is_driving:
-						audio_player2.stream = sound_horn
-						audio_player2.play()
+
+				# Check if the player is driving
+				if player.is_driving:
+
+					# Set the secondary audio stream to the horn sound
+					audio_player2.stream = sound_horn
+
+					# Play the horn sound
+					audio_player2.play()
 
 			# [use] action _pressed_ (and no player is driving)
 			if event.is_action_pressed("use"):
@@ -90,7 +97,7 @@ func _input(event: InputEvent) -> void:
 					# Store the vehicle with the player
 					player.is_driving_in = self
 
-					# Transistion animation
+					# Transition animation
 					player.collision_shape.disabled = true
 					player.is_animation_locked = true
 					player.global_position = open_driver_door.global_position
@@ -109,8 +116,10 @@ func _input(event: InputEvent) -> void:
 					player.global_rotation = drivers_seat.global_rotation
 					player.animation_player.stop()
 					player.animation_player.play(driving.animation_driving)
+
 					# Get the string name of the player's current state
 					var current_state = player.base_state.get_state_name(player.current_state)
+
 					# Start "driving"
 					player.base_state.transition(current_state, "Driving")
 
@@ -127,11 +136,23 @@ func _physics_process(delta: float) -> void:
 
 	# Check if the player is not null
 	if player:
+
+		# Check if the player is driving
 		if player.is_driving:
+
+			# Check if the current animation is the driving animation
 			if player.animation_player.current_animation == driving.animation_driving:
+
+				# Turns the wheels based on the steering value
 				steering = move_toward(steering, Input.get_axis("move_right", "move_left") * max_steer, delta * 10)
+
+				# Accelerate the car based on the engine force
 				engine_force = Input.get_axis("move_down", "move_up") * engine_power
+
+				# Set the player's rotation to match the driver's seat postion
 				player.global_position = drivers_seat.global_position
+
+				# Set the player's rotation to match the driver's seat postion
 				player.visuals.global_rotation = drivers_seat.global_rotation
 
 				# Rotate camera only if 2 seconds have passed since the last mouse movement
@@ -140,35 +161,55 @@ func _physics_process(delta: float) -> void:
 					player.camera_mount.global_rotation.y = lerp_angle(player.camera_mount.global_rotation.y, drivers_seat.global_rotation.y, delta * 5.0)
 					player.camera_mount.global_rotation.z = lerp_angle(player.camera_mount.global_rotation.z, drivers_seat.global_rotation.z, delta * 5.0)
 
-				# === Audio Handling ===
-				var target_stream: AudioStream = null
-				var speed = linear_velocity.length()  # Check the car's current speed
+				# Default to the "cruise" sound
+				var target_stream: AudioStream = sound_cruise
 
-				if engine_force == 0.0 and speed > 0.1:  # Car is rolling, but no acceleration
-					target_stream = sound_cruze  # Play cruise sound if moving
-				elif engine_force == 0.0:
-					target_stream = sound_idle  # Car is still
+				# Check the car's current speed
+				var speed = linear_velocity.length()
+
+				# Check if the car is not accelerating
+				if engine_force == 0.0 and speed < 1.0:
+
+					# Play the "idle" sound
+					target_stream = sound_idle
+
+				# Check if the car is accelerating and has atleast a little speed
 				elif engine_force > 0.0 and Input.is_action_pressed("move_up") and speed > 5.0:
-					target_stream = sound_accelerate  # Accelerating
-				else:
-					target_stream = sound_cruze  # Default to cruise sound if none of the above
 
-				# Only change the stream if it's different from the current one
+					# Play the "accelerate" sound
+					target_stream = sound_accelerate
+
+				# Check if the audio player is not playing the target sound
 				if audio_player.stream != target_stream:
+
+					# Set the audio player's stream to the target sound
 					audio_player.stream = target_stream
-					audio_player.play()  # Start playing the new sound
-				elif not audio_player.playing:
-					audio_player.play()  # Ensure it plays if it somehow stopped
+
+				# Check if the audio player is not playing
+				if not audio_player.playing:
+
+					# Play the sound
+					audio_player.play()
 
 
 ## Called when a Node3D enters the Area3D.
 func _on_area_3d_body_entered(body: Node3D) -> void:
+
+	# Check if the body is a CharacterBody3D
 	if body is CharacterBody3D:
+
+		# Store the player
 		player = body
+
+		# Flag the player as near the driver's door
 		near_driver_door = true
 
 
 ## Called when a Node3D exits the Area3D.
 func _on_area_3d_body_exited(body: Node3D) -> void:
+
+	# Check if the body is a CharacterBody3D
 	if body is CharacterBody3D:
+
+		# Flag the player as not near the driver's door
 		near_driver_door = false

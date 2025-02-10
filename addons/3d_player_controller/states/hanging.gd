@@ -89,6 +89,7 @@ func play_animation() -> void:
 				player.animation_player.play(animation_hanging)
 
 
+## Moves the player in the given direction.
 func move_character(direction: float) -> void:
 
 	# Adjust player visuals for animation

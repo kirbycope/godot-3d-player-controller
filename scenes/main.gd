@@ -12,6 +12,9 @@ func _ready() -> void:
 	# Make sure the game is unpaused
 	player.game_paused = false
 
+	# Show the debug control
+	player.get_node("CameraMount/Camera3D/Debug").visible = true
+
 	# Rotate the Portal gun
 	$"PortalGun/AnimationPlayer".play("rotate")
 
