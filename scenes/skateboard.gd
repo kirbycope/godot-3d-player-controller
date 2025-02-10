@@ -126,11 +126,15 @@ func _process(_delta: float) -> void:
 
 ## Called when a Node3D enters the Area3D.
 func _on_area_3d_body_entered(body: Node3D) -> void:
+
+	# Check if the collision body is a character
 	if body is CharacterBody3D:
 		player = body
 
 
 ## Called when a Node3D exits the Area3D.
 func _on_area_3d_body_exited(body: Node3D) -> void:
+
+	# Check if the collision body is a character
 	if body is CharacterBody3D:
 		player = null

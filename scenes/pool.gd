@@ -14,6 +14,7 @@ func _ready() -> void:
 	area_node.body_exited.connect(_on_area_3d_body_exited)
 
 
+## Called when a Node3D enters the Area3D.
 func _on_area_3d_body_entered(body: Node3D, area_node: Node3D) -> void:
 
 	# Check if the collision body is a character
@@ -29,6 +30,7 @@ func _on_area_3d_body_entered(body: Node3D, area_node: Node3D) -> void:
 		body.base_state.transition(current_state, "Swimming")
 
 
+## Called when a Node3D exits the Area3D.
 func _on_area_3d_body_exited(body: Node3D) -> void:
 
 	# Check if the collision body is a character
