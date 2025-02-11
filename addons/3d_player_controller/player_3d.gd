@@ -5,7 +5,6 @@ const bone_name_left_hand = "mixamorigLeftHandIndex1"
 const bone_name_right_hand = "mixamorigRightHandIndex1"
 
 # State machine variables
-
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var is_aiming: bool = false
 var is_animation_locked: bool = false
@@ -174,17 +173,18 @@ func _input(event) -> void:
 				# Set the visual's rotation
 				visuals.rotation = Vector3.ZERO
 
-	# [chat] button _released_
-	if event.is_action_released("dpad_right") and enable_chat:
 
-		# Check if the game is not paused
-		if !game_paused:
+## Called when the node enters the scene tree for the first time.
+func _ready() -> void:
 
-			# Show the mouse
-			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	# Uncomment the next line if using GodotSteam
+	#camera.current = is_multiplayer_authority()
 
-			# Set the "paused" flag
-			game_paused = true
+	# Make sure the game is unpaused
+	game_paused = false
+
+	# Captures the mouse input
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
 ## Called each physics frame with the time since the last physics frame as argument (delta, in seconds).
