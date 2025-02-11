@@ -3,6 +3,9 @@ extends CharacterBody3D
 var player: CharacterBody3D
 var follow_distance: float = 1.0
 var follow_speed: float = 2.25
+var gravity: float = ProjectSettings.get("physics/3d/default_gravity")
+
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
@@ -15,7 +18,8 @@ func _on_area_3d_body_exited(body: Node3D) -> void:
 	# Check if the body is a Player
 	if body.is_in_group("Player"):
 		player = null
-		velocity = Vector3.ZERO
+		velocity.x = 0
+		velocity.z = 0
 
 
 func _process(delta: float) -> void:
@@ -32,12 +36,29 @@ func _process(delta: float) -> void:
 
 		# Only move if we're further than follow_distance
 		if distance > follow_distance:
+
 			# Normalize direction and adjust speed
 			direction = direction.normalized()
 			velocity = direction * follow_speed
+
 		else:
 			# Stop moving when at correct distance
-			velocity = Vector3.ZERO
+			velocity.x = 0
+			velocity.z = 0
 
-		# Apply movement
-		move_and_slide()
+	# Apply gravity
+	if not is_on_floor():
+		velocity.y -= gravity * delta
+
+	# Apply movement
+	move_and_slide()
+	
+	play_animation()
+
+
+func play_animation() -> void:
+	if velocity.x != 0.0 or velocity.z != 0.0:
+		if animation_player.current_animation != "Walk":
+			animation_player.play("Walk")
+	else:
+		animation_player.play("Armature|White Duck_TempMotion|White Duck_TempMotion")
