@@ -195,8 +195,8 @@ func _physics_process(delta: float) -> void:
 ## Called when a Node3D enters the Area3D.
 func _on_area_3d_body_entered(body: Node3D) -> void:
 
-	# Check if the body is a CharacterBody3D
-	if body is CharacterBody3D:
+	# Check if the body is a Player
+	if body.is_in_group("Player"):
 
 		# Store the player
 		player = body
@@ -208,8 +208,8 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 ## Called when a Node3D exits the Area3D.
 func _on_area_3d_body_exited(body: Node3D) -> void:
 
-	# Check if the body is a CharacterBody3D
-	if body is CharacterBody3D:
+	# Check if the body is a Player
+	if body.is_in_group("Player"):
 
 		# Flag the player as not near the driver's door
 		near_driver_door = false

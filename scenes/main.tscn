@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=37 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="Texture2D" uid="uid://e6rn4rs3cr0v" path="res://assets/kenney_nl/prototype_textures/PNG/Dark/texture_09.png" id="2_d2mly"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://b0v08nrfse8c5" path="res://assets/kenney_nl/prototype_textures/PNG/Purple/texture_02.png" id="6_moi5b"]
 [ext_resource type="Texture2D" uid="uid://ci020ecabgbvq" path="res://assets/kenney_nl/prototype_textures/PNG/Orange/texture_02.png" id="7_uwbdk"]
 [ext_resource type="Texture2D" uid="uid://ba2orr1vybqao" path="res://assets/kenney_nl/prototype_textures/PNG/Red/texture_02.png" id="8_px2wr"]
+[ext_resource type="PackedScene" uid="uid://c367hft1v0u2w" path="res://scenes/duck.tscn" id="11_11ve4"]
 [ext_resource type="Texture2D" uid="uid://rp4815bjrm1x" path="res://assets/kenney_nl/prototype_textures/PNG/Green/texture_10.png" id="11_h4p86"]
 [ext_resource type="Script" path="res://scenes/pool.gd" id="12_71twb"]
 [ext_resource type="Shader" path="res://scenes/water.gdshader" id="12_wmmbb"]
@@ -267,6 +268,9 @@ material = SubResource("StandardMaterial3D_1jjce")
 
 [node name="Cat" parent="." instance=ExtResource("4_7pvfh")]
 transform = Transform3D(0.883883, 0, -0.883883, 0, 1.25, 0, 0.883883, 0, 0.883883, 4, 1.101, -2)
+
+[node name="Duck" parent="." instance=ExtResource("11_11ve4")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 2.65253, 3.26335e-05, -2.07463)
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.55, -2)
