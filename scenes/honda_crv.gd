@@ -5,11 +5,13 @@ var player: CharacterBody3D
 var near_driver_door: int = false
 var last_mouse_move_time: float = 0.0
 
+@export var final_drive_ratio: float = 3.9
+@export var gear_ratio: float = 3.5
 @export var horse_power: float = 190
 @export var max_rpm: float = 5000
 @export var max_steer: float = 0.9
-@export var gear_ratio: float = 3.5
-@export var final_drive_ratio: float = 3.9
+@export var steering_speed: float = 5.0
+@export var traction_factor: float = 0.7
 @export var wheel_radius: float = 0.4
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -18,12 +20,11 @@ var last_mouse_move_time: float = 0.0
 @onready var drivers_seat: Node3D = $DriverSeatPosition
 @onready var exit_driver_door: Node3D = $ExitDriverDoorEnd
 @onready var open_driver_door: Node3D = $OpenDriverDoorStart
-@onready var sound_accelerate = preload("res://assets/sounds/PATHACC.WAV")
-@onready var sound_cruise = preload("res://assets/sounds/PATHCRUZE.WAV")
-@onready var sound_door_close = preload("res://assets/sounds/CTruck.WAV")
-@onready var sound_door_open = preload("res://assets/sounds/OTruck.WAV")
-@onready var sound_idle = preload("res://assets/sounds/PATHIDLE.WAV")
-@onready var sound_horn = preload("res://assets/sounds/HORNBMW328.WAV")
+@onready var sound_accelerate = preload("res://assets/honda_crv/Speed Up Inside Car_1.wav")
+@onready var sound_door_close = preload("res://assets/honda_crv/Door Close_1.wav")
+@onready var sound_door_open = preload("res://assets/honda_crv/Door Open_1.wav")
+@onready var sound_idle = preload("res://assets/honda_crv/Engine Running Inside Car_1.wav")
+@onready var sound_horn = preload("res://assets/honda_crv/Honk_1.wav")
 
 var driving = preload("res://addons/3d_player_controller/states/driving.gd")
 
@@ -130,51 +131,72 @@ func _ready() -> void:
 	# Convert HP to force in Newtons
 	engine_power = (horse_power * 5252 * gear_ratio * final_drive_ratio) / (max_rpm * wheel_radius)
 
+	# Set up physics material if needed
+	if not physics_material_override:
+		var physics_material = PhysicsMaterial.new()
+		physics_material.friction = 1.0
+		physics_material.rough = true
+		physics_material_override = physics_material
+
 
 ## Called during the physics processing step of the main loop.
 func _physics_process(delta: float) -> void:
 
-	# Check if the player is not null
+	# Check if the player if not null
 	if player:
 
 		# Check if the player is driving
 		if player.is_driving:
 
-			# Check if the current animation is the driving animation
+			# Cehck if the current animation is "driving" (not getting in or getting out)
 			if player.animation_player.current_animation == driving.animation_driving:
 
-				# Turns the wheels based on the steering value
-				steering = move_toward(steering, Input.get_axis("move_right", "move_left") * max_steer, delta * 10)
+				# Get the forward direction of the car
+				var forward_dir = -global_transform.basis.z
 
-				# Accelerate the car based on the engine force
-				engine_force = Input.get_axis("move_down", "move_up") * engine_power
+				# Calculate current speed
+				var current_speed = linear_velocity.length()
 
-				# Set the player's rotation to match the driver's seat postion
+				# Calculate steering with speed-sensitive adjustment
+				var raw_steer = Input.get_axis("move_right", "move_left")
+				var speed_factor = clamp(1.0 - (current_speed / 50.0), 0.3, 1.0)  # Reduce steering at high speeds
+				var target_steer = raw_steer * max_steer * speed_factor
+
+				# Smooth steering transition
+				steering = move_toward(steering, target_steer, delta * steering_speed)
+
+				# Calculate engine force with traction consideration
+				var acceleration = Input.get_axis("move_down", "move_up")
+				var speed_normalized = clamp(current_speed / 30.0, 0.0, 1.0)  # Normalize speed for traction calculation
+				var traction_multiplier = 1.0 - (1.0 - traction_factor) * speed_normalized
+
+				# Apply engine force with traction and steering compensation
+				engine_force = acceleration * engine_power * traction_multiplier
+
+				# Compensate for velocity loss during steering
+				if abs(steering) > 0.1:
+					# If you need the car to maintain even more speed during turns, you can increase the steering compensation multiplier (currently set to 0.2)
+					var steering_compensation = engine_power * 0.2 * abs(steering)
+					engine_force += steering_compensation * sign(engine_force)
+
+				# Update player position and rotation
 				player.global_position = drivers_seat.global_position
-
-				# Set the player's rotation to match the driver's seat postion
 				player.visuals.global_rotation = drivers_seat.global_rotation
 
-				# Rotate camera only if 2 seconds have passed since the last mouse movement
+				# Camera handling
 				if Time.get_ticks_msec() / 1000.0 - last_mouse_move_time > 2.0:
 					player.camera_mount.global_rotation.x = lerp_angle(player.camera_mount.global_rotation.x, drivers_seat.global_rotation.x, delta * 5.0)
 					player.camera_mount.global_rotation.y = lerp_angle(player.camera_mount.global_rotation.y, drivers_seat.global_rotation.y, delta * 5.0)
 					player.camera_mount.global_rotation.z = lerp_angle(player.camera_mount.global_rotation.z, drivers_seat.global_rotation.z, delta * 5.0)
 
-				# Default to the "cruise" sound
-				var target_stream: AudioStream = sound_cruise
+				# Default to the "idle" sound
+				var target_stream: AudioStream = sound_idle
 
 				# Check the car's current speed
 				var speed = linear_velocity.length()
 
-				# Check if the car is not accelerating
-				if engine_force == 0.0 and speed < 1.0:
-
-					# Play the "idle" sound
-					target_stream = sound_idle
-
-				# Check if the car is accelerating and has atleast a little speed
-				elif engine_force > 0.0 and Input.is_action_pressed("move_up") and speed > 5.0:
+				# Check if the car is  accelerating
+				if Input.is_action_pressed("move_up"):
 
 					# Play the "accelerate" sound
 					target_stream = sound_accelerate

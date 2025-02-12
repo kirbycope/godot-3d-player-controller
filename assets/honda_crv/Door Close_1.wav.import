@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bcsjer4oie0up"
+path="res://.godot/imported/Door Close_1.wav-643f40eb37f6168b8f65fdcdd6bc5db0.sample"
+
+[deps]
+
+source_file="res://assets/honda_crv/Door Close_1.wav"
+dest_files=["res://.godot/imported/Door Close_1.wav-643f40eb37f6168b8f65fdcdd6bc5db0.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

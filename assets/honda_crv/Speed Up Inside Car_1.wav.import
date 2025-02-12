@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dldoul21oyfsl"
+path="res://.godot/imported/Speed Up Inside Car_1.wav-c00a43a70faafca47e2c5bd5b9233ce6.sample"
+
+[deps]
+
+source_file="res://assets/honda_crv/Speed Up Inside Car_1.wav"
+dest_files=["res://.godot/imported/Speed Up Inside Car_1.wav-c00a43a70faafca47e2c5bd5b9233ce6.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
