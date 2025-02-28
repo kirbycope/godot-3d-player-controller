@@ -1,7 +1,7 @@
 ![Thumbnail](/ci/thumbnail.png)
 
 # godot-3d-player-controller
-A 3D Player Controller for the Godot Game Engine.
+A 3D Player Controller for the Godot game engine.
 
 ## Getting Started
 Include this addon with your project. No need to "activate" as the intended usage is to copy the controller files to the `/addons` folder and for you to then copy it to your scene/script folder and modify as need. This way if/when you pull down the latest, it will not overwrite your changes.
