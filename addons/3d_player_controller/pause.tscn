@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bf6dhhwfpuau6"]
+[gd_scene load_steps=6 format=3 uid="uid://bf6dhhwfpuau6"]
 
-[ext_resource type="Script" path="res://addons/3d_player_controller/pause.gd" id="1_ef46y"]
+[ext_resource type="Script" uid="uid://br0qym2354jy2" path="res://addons/3d_player_controller/pause.gd" id="1_ef46y"]
 [ext_resource type="Texture2D" uid="uid://62prm5gy7ehu" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/1x/cross.png" id="2_1s3bm"]
 [ext_resource type="Texture2D" uid="uid://cmqsc78wj18cx" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/2x/home.png" id="3_hblcw"]
 [ext_resource type="Texture2D" uid="uid://p7vujqgkgo3v" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/1x/exitLeft.png" id="3_ymsbp"]
+[ext_resource type="Texture2D" uid="uid://b2gt6xlau67im" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/2x/gear.png" id="4_7k071"]
 
 [node name="Pause" type="Control"]
 layout_mode = 3
@@ -103,6 +104,35 @@ scroll_active = false
 scroll_following = true
 autowrap_mode = 0
 
+[node name="SettingsButton" type="TextureButton" parent="Panel"]
+layout_mode = 0
+offset_top = 122.0
+offset_right = 200.0
+offset_bottom = 162.0
+
+[node name="TextureRect" type="TextureRect" parent="Panel/SettingsButton"]
+layout_mode = 0
+offset_left = 165.0
+offset_top = 4.0
+offset_right = 197.0
+offset_bottom = 36.0
+texture = ExtResource("4_7k071")
+expand_mode = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/SettingsButton"]
+layout_mode = 0
+offset_top = 3.0
+offset_right = 170.0
+offset_bottom = 37.0
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[center]Settings[/center]"
+fit_content = true
+scroll_active = false
+scroll_following = true
+autowrap_mode = 0
+
 [node name="LeaveGameButton" type="TextureButton" parent="Panel"]
 layout_mode = 0
 offset_top = 260.0
@@ -134,4 +164,5 @@ autowrap_mode = 0
 
 [connection signal="pressed" from="Panel/BackToGameButton" to="." method="_on_back_to_game_button_pressed"]
 [connection signal="pressed" from="Panel/ReturnHomeButton" to="." method="_on_return_home_button_pressed"]
+[connection signal="pressed" from="Panel/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="Panel/LeaveGameButton" to="." method="_on_leave_game_button_pressed"]

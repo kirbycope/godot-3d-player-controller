@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=4 uid="uid://c367hft1v0u2w"]
 
-[ext_resource type="Script" path="res://scenes/duck.gd" id="1_dnkoi"]
+[ext_resource type="Script" uid="uid://cinb7vdppns24" path="res://scenes/duck.gd" id="1_dnkoi"]
 [ext_resource type="Texture2D" uid="uid://c58yvrgwey4tk" path="res://assets/duck/textures/goose_Diffuse.jpg" id="1_fx7f7"]
 [ext_resource type="Texture2D" uid="uid://csvnnki5jyi6" path="res://assets/duck/textures/goose_Opacity.jpg" id="2_tqs1f"]
 
@@ -1302,8 +1302,8 @@ tracks/91/keys = PackedFloat32Array()
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pvpem"]
 _data = {
-"Armature|White Duck_TempMotion|White Duck_TempMotion": SubResource("Animation_n0w3i"),
-"Walk": SubResource("Animation_mlffa")
+&"Armature|White Duck_TempMotion|White Duck_TempMotion": SubResource("Animation_n0w3i"),
+&"Walk": SubResource("Animation_mlffa")
 }
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a07dy"]
@@ -1493,7 +1493,7 @@ script = ExtResource("1_dnkoi")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_pvpem")
+&"": SubResource("AnimationLibrary_pvpem")
 }
 autoplay = "Armature|White Duck_TempMotion|White Duck_TempMotion"
 

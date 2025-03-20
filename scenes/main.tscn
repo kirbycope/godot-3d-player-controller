@@ -1,6 +1,6 @@
 [gd_scene load_steps=37 format=3 uid="uid://b702fehqxslqf"]
 
-[ext_resource type="Script" path="res://scenes/main.gd" id="1_oaegt"]
+[ext_resource type="Script" uid="uid://c7agev1ouwnuu" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="Texture2D" uid="uid://e6rn4rs3cr0v" path="res://assets/kenney_nl/prototype_textures/PNG/Dark/texture_09.png" id="2_d2mly"]
 [ext_resource type="PackedScene" uid="uid://ujh51l2wv1vk" path="res://addons/3d_player_controller/player_3d.tscn" id="3_wj83s"]
 [ext_resource type="PackedScene" uid="uid://b23jvnkvbvg1b" path="res://scenes/cat.tscn" id="4_7pvfh"]
@@ -12,8 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://ba2orr1vybqao" path="res://assets/kenney_nl/prototype_textures/PNG/Red/texture_02.png" id="8_px2wr"]
 [ext_resource type="PackedScene" uid="uid://c367hft1v0u2w" path="res://scenes/duck.tscn" id="11_11ve4"]
 [ext_resource type="Texture2D" uid="uid://rp4815bjrm1x" path="res://assets/kenney_nl/prototype_textures/PNG/Green/texture_10.png" id="11_h4p86"]
-[ext_resource type="Script" path="res://scenes/pool.gd" id="12_71twb"]
-[ext_resource type="Shader" path="res://scenes/water.gdshader" id="12_wmmbb"]
+[ext_resource type="Script" uid="uid://d1r8wjghxyidm" path="res://scenes/pool.gd" id="12_71twb"]
+[ext_resource type="Shader" uid="uid://dtltd1rk71y13" path="res://scenes/water.gdshader" id="12_wmmbb"]
 [ext_resource type="PackedScene" uid="uid://cqwgvb8l36ahu" path="res://scenes/skateboard.tscn" id="14_5m2ip"]
 [ext_resource type="PackedScene" uid="uid://drj7qejya7pr0" path="res://scenes/honda_crv.tscn" id="15_5l67w"]
 
@@ -106,7 +106,7 @@ environment = SubResource("Environment_lhrw0")
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00439405, 4.76837e-07, 0.00953203)
 use_collision = true
-size = Vector3(128, 0, 128)
+size = Vector3(128, 0.01, 128)
 material = SubResource("StandardMaterial3D_j64gc")
 
 [node name="Player" parent="." instance=ExtResource("3_wj83s")]

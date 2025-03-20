@@ -16,20 +16,28 @@ func _input(event) -> void:
 		toggle_pause()
 
 
-## Close the pause menu
+## Close the pause menu.
 func _on_back_to_game_button_pressed() -> void:
 
 	# Toggle game paused
 	toggle_pause()
 
 
+## Send player to their inital position.
 func _on_return_home_button_pressed() -> void:
 
 	# Return the player to the initial position
 	player.position = player.initial_position
 
-	# Return to the game
-	_on_back_to_game_button_pressed()
+	# Toggle game paused
+	toggle_pause()
+
+
+## Open the settings screen.
+func _on_settings_button_pressed() -> void:
+
+	# Toggle settings screen
+	toggle_settings()
 
 
 ## Handle "Leave Game" button _pressed_.
@@ -50,3 +58,13 @@ func toggle_pause() -> void:
 
 	# Show the pause menu, if paused
 	visible = player.game_paused
+
+
+## Toggles the settings menu.
+func toggle_settings() -> void:
+
+	# Hide pause menu
+	visible = false
+
+	# Show the settings menu
+	player.menu_settings.visible = true

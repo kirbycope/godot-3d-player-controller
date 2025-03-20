@@ -17,24 +17,24 @@ void fragment() {
     METALLIC = metallic;
     ROUGHNESS = roughness;
     SPECULAR = specular;
-    
+
     // Calculate view direction in world space
     vec3 view_dir = normalize(VIEW);
     vec3 normal = normalize(NORMAL);
-    
+
     // Calculate fresnel effect
     float fresnel = pow(1.0 - dot(normal, view_dir), fresnel_power);
-    
+
     // Sample reflection map with scaled UVs
     vec2 reflected_uv = UV * uv_scale;
     vec4 reflection = texture(reflection_map, reflected_uv);
-    
+
     // Combine base color with reflection and fresnel
     vec4 final_color = mix(base_color, reflection, fresnel * fresnel_intensity);
-    
+
     // Apply final color
     ALBEDO = final_color.rgb;
-    
+
     // Add some rim lighting
     RIM = 0.2;
     RIM_TINT = 0.5;
@@ -44,7 +44,7 @@ void light() {
     // Enhanced specular reflection
     float spec = pow(max(dot(reflect(-LIGHT, NORMAL), VIEW), 0.0), 32.0);
     SPECULAR_LIGHT += spec * LIGHT_COLOR * specular;
-    
+
     // Calculate diffuse lighting
     float ndotl = dot(NORMAL, LIGHT);
     DIFFUSE_LIGHT += max(ndotl, 0.0) * LIGHT_COLOR * ALBEDO;

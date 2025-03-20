@@ -1,7 +1,7 @@
 [gd_scene load_steps=42 format=4 uid="uid://b23jvnkvbvg1b"]
 
 [ext_resource type="Texture2D" uid="uid://bvtq8vfnxvoil" path="res://assets/cat/Cat_Color_black.png" id="1_8utu4"]
-[ext_resource type="Script" path="res://scenes/cat.gd" id="1_woned"]
+[ext_resource type="Script" uid="uid://byo0kvge12in" path="res://scenes/cat.gd" id="1_woned"]
 [ext_resource type="Texture2D" uid="uid://dt8e0yj144ifs" path="res://assets/cat/Cat_Metall.png" id="2_y2dgp"]
 [ext_resource type="Texture2D" uid="uid://6ucvwsejgca" path="res://assets/cat/Cat_Normal.png" id="3_u2h1t"]
 [ext_resource type="AudioStream" uid="uid://eyb66sg3bl8m" path="res://assets/cat/131595__loafdv__cat-purr-meow.wav" id="5_bdcqd"]
@@ -15291,37 +15291,37 @@ tracks/68/keys = PackedFloat32Array(0, 1, 0.0948636, -0.986832, -0.128587, 0.025
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_j4bdt"]
 _data = {
-"Arm_Cat|Agression": SubResource("Animation_pkvy7"),
-"Arm_Cat|Attack_1": SubResource("Animation_66un6"),
-"Arm_Cat|Attack_2": SubResource("Animation_suvhe"),
-"Arm_Cat|Attack_3": SubResource("Animation_m7bis"),
-"Arm_Cat|Caress_idle": SubResource("Animation_o3ueo"),
-"Arm_Cat|Caress_lie": SubResource("Animation_5bvol"),
-"Arm_Cat|Caress_sit": SubResource("Animation_jbyml"),
-"Arm_Cat|Death_1": SubResource("Animation_a4tcq"),
-"Arm_Cat|Death_2": SubResource("Animation_rx2v8"),
-"Arm_Cat|Death_3": SubResource("Animation_6swln"),
-"Arm_Cat|Fear_IP": SubResource("Animation_va03g"),
-"Arm_Cat|Hit_agression": SubResource("Animation_t24pn"),
-"Arm_Cat|Idle_1": SubResource("Animation_78u8f"),
-"Arm_Cat|Idle_2": SubResource("Animation_2n0g1"),
-"Arm_Cat|Idle_3": SubResource("Animation_kfup8"),
-"Arm_Cat|Jump": SubResource("Animation_83ig6"),
-"Arm_Cat|Lie": SubResource("Animation_1tnwo"),
-"Arm_Cat|Run_forward_IP": SubResource("Animation_6ssc6"),
-"Arm_Cat|Sit_idle_1": SubResource("Animation_l3ece"),
-"Arm_Cat|Sit_idle_2": SubResource("Animation_tcum0"),
-"Arm_Cat|Sit_lie": SubResource("Animation_4plk5"),
-"Arm_Cat|Sit_wash": SubResource("Animation_u7e0o"),
-"Arm_Cat|Sleep": SubResource("Animation_qxkes"),
-"Arm_Cat|Trot_forward_IP": SubResource("Animation_3636h"),
-"Arm_Cat|Walk_back_IP": SubResource("Animation_lm7sc"),
-"Arm_Cat|Walk_forward_IP": SubResource("Animation_sp6mo"),
-"Arm_Cat|drink": SubResource("Animation_e6pgw"),
-"Arm_Cat|eat_1": SubResource("Animation_30bih"),
-"Arm_Cat|hit_back": SubResource("Animation_8o8jo"),
-"Arm_Cat|hit_front": SubResource("Animation_k4k1d"),
-"Arm_Cat|hit_middle": SubResource("Animation_ihiru")
+&"Arm_Cat|Agression": SubResource("Animation_pkvy7"),
+&"Arm_Cat|Attack_1": SubResource("Animation_66un6"),
+&"Arm_Cat|Attack_2": SubResource("Animation_suvhe"),
+&"Arm_Cat|Attack_3": SubResource("Animation_m7bis"),
+&"Arm_Cat|Caress_idle": SubResource("Animation_o3ueo"),
+&"Arm_Cat|Caress_lie": SubResource("Animation_5bvol"),
+&"Arm_Cat|Caress_sit": SubResource("Animation_jbyml"),
+&"Arm_Cat|Death_1": SubResource("Animation_a4tcq"),
+&"Arm_Cat|Death_2": SubResource("Animation_rx2v8"),
+&"Arm_Cat|Death_3": SubResource("Animation_6swln"),
+&"Arm_Cat|Fear_IP": SubResource("Animation_va03g"),
+&"Arm_Cat|Hit_agression": SubResource("Animation_t24pn"),
+&"Arm_Cat|Idle_1": SubResource("Animation_78u8f"),
+&"Arm_Cat|Idle_2": SubResource("Animation_2n0g1"),
+&"Arm_Cat|Idle_3": SubResource("Animation_kfup8"),
+&"Arm_Cat|Jump": SubResource("Animation_83ig6"),
+&"Arm_Cat|Lie": SubResource("Animation_1tnwo"),
+&"Arm_Cat|Run_forward_IP": SubResource("Animation_6ssc6"),
+&"Arm_Cat|Sit_idle_1": SubResource("Animation_l3ece"),
+&"Arm_Cat|Sit_idle_2": SubResource("Animation_tcum0"),
+&"Arm_Cat|Sit_lie": SubResource("Animation_4plk5"),
+&"Arm_Cat|Sit_wash": SubResource("Animation_u7e0o"),
+&"Arm_Cat|Sleep": SubResource("Animation_qxkes"),
+&"Arm_Cat|Trot_forward_IP": SubResource("Animation_3636h"),
+&"Arm_Cat|Walk_back_IP": SubResource("Animation_lm7sc"),
+&"Arm_Cat|Walk_forward_IP": SubResource("Animation_sp6mo"),
+&"Arm_Cat|drink": SubResource("Animation_e6pgw"),
+&"Arm_Cat|eat_1": SubResource("Animation_30bih"),
+&"Arm_Cat|hit_back": SubResource("Animation_8o8jo"),
+&"Arm_Cat|hit_front": SubResource("Animation_k4k1d"),
+&"Arm_Cat|hit_middle": SubResource("Animation_ihiru")
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ncavw"]
@@ -15692,7 +15692,7 @@ skin = SubResource("Skin_ay88r")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_j4bdt")
+&"": SubResource("AnimationLibrary_j4bdt")
 }
 autoplay = "Arm_Cat|Idle_1"
 

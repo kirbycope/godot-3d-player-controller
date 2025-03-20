@@ -1,0 +1,185 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4e68syey7fke"]
+
+[ext_resource type="Script" uid="uid://jbgi85ivvf27" path="res://addons/3d_player_controller/settings.gd" id="1_famuw"]
+[ext_resource type="Texture2D" uid="uid://dhbfxkfnc4auv" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/2x/cross.png" id="2_iuyi1"]
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_famuw")
+
+[node name="Container" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -150.0
+offset_right = 100.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Panel" parent="Container"]
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 34.0
+
+[node name="Label" type="Label" parent="Container/Title"]
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 34.0
+theme_override_font_sizes/font_size = 24
+text = "SETTINGS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MSAA" type="OptionButton" parent="Container"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 40.0
+offset_right = 196.0
+offset_bottom = 71.0
+item_count = 4
+popup/item_0/text = "Disabled"
+popup/item_0/id = 0
+popup/item_1/text = "2× MSAA"
+popup/item_1/id = 1
+popup/item_2/text = "4× MSAA"
+popup/item_2/id = 2
+popup/item_3/text = "8× MSAA"
+popup/item_3/id = 3
+
+[node name="Label" type="Label" parent="Container/MSAA"]
+layout_mode = 0
+offset_left = -88.0
+offset_right = -21.0
+offset_bottom = 34.0
+theme_override_font_sizes/font_size = 24
+text = "MSAA"
+
+[node name="SSAA" type="OptionButton" parent="Container"]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 72.0
+offset_right = 196.0
+offset_bottom = 103.0
+item_count = 3
+popup/item_0/text = "Off"
+popup/item_0/id = 0
+popup/item_1/text = "2.25× SSAA"
+popup/item_1/id = 1
+popup/item_2/text = "4× SSAA"
+popup/item_2/id = 2
+
+[node name="Label" type="Label" parent="Container/SSAA"]
+layout_mode = 0
+offset_left = -72.0
+offset_right = -14.0
+offset_bottom = 34.0
+theme_override_font_sizes/font_size = 24
+text = "SSAA"
+
+[node name="FXAA" type="CheckButton" parent="Container"]
+layout_mode = 0
+offset_left = 152.0
+offset_top = 104.0
+offset_right = 196.0
+offset_bottom = 135.0
+
+[node name="Label" type="Label" parent="Container/FXAA"]
+layout_mode = 0
+offset_left = -144.0
+offset_right = -85.0
+offset_bottom = 34.0
+theme_override_font_sizes/font_size = 24
+text = "FXAA"
+
+[node name="SSRL" type="CheckButton" parent="Container"]
+layout_mode = 0
+offset_left = 152.0
+offset_top = 136.0
+offset_right = 196.0
+offset_bottom = 167.0
+
+[node name="Label" type="Label" parent="Container/SSRL"]
+layout_mode = 0
+offset_left = -144.0
+offset_right = -85.0
+offset_bottom = 34.0
+theme_override_font_sizes/font_size = 24
+text = "SSRL"
+
+[node name="TAA" type="CheckButton" parent="Container"]
+layout_mode = 0
+offset_left = 152.0
+offset_top = 168.0
+offset_right = 196.0
+offset_bottom = 199.0
+
+[node name="Label" type="Label" parent="Container/TAA"]
+layout_mode = 0
+offset_left = -144.0
+offset_right = -85.0
+offset_bottom = 34.0
+theme_override_font_sizes/font_size = 24
+text = "TAA"
+
+[node name="FSR" type="OptionButton" parent="Container"]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 200.0
+offset_right = 196.0
+offset_bottom = 231.0
+item_count = 3
+popup/item_0/text = "Off"
+popup/item_0/id = 0
+popup/item_1/text = "1.0"
+popup/item_1/id = 1
+popup/item_2/text = "2.2"
+popup/item_2/id = 2
+
+[node name="Label" type="Label" parent="Container/FSR"]
+layout_mode = 0
+offset_left = -72.0
+offset_right = -14.0
+offset_bottom = 34.0
+theme_override_font_sizes/font_size = 24
+text = "FSR"
+
+[node name="BackButton" type="TextureButton" parent="Container"]
+layout_mode = 0
+offset_top = 260.0
+offset_right = 200.0
+offset_bottom = 300.0
+
+[node name="TextureRect" type="TextureRect" parent="Container/BackButton"]
+layout_mode = 0
+offset_left = 160.0
+offset_right = 200.0
+offset_bottom = 40.0
+texture = ExtResource("2_iuyi1")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="Container/BackButton"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 3.0
+offset_right = 70.0
+offset_bottom = 37.0
+theme_override_font_sizes/font_size = 24
+text = "BACK"
+
+[connection signal="item_selected" from="Container/MSAA" to="." method="_on_msaa_item_selected"]
+[connection signal="item_selected" from="Container/SSAA" to="." method="_on_ssaa_item_selected"]
+[connection signal="toggled" from="Container/FXAA" to="." method="_on_fxaa_toggled"]
+[connection signal="toggled" from="Container/SSRL" to="." method="_on_ssrl_toggled"]
+[connection signal="toggled" from="Container/TAA" to="." method="_on_taa_toggled"]
+[connection signal="item_selected" from="Container/FSR" to="." method="_on_fsr_item_selected"]
+[connection signal="pressed" from="Container/BackButton" to="." method="_on_back_button_pressed"]

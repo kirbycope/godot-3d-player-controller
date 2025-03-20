@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://c7x2c4rsai64q"]
 
-[ext_resource type="Script" path="res://addons/3d_player_controller/virtual_buttons.gd" id="1_fwh88"]
+[ext_resource type="Script" uid="uid://bnb57vsjjy6iq" path="res://addons/3d_player_controller/virtual_buttons.gd" id="1_fwh88"]
 [ext_resource type="Texture2D" uid="uid://bj7uitcvuqoj2" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/2x/buttonA.png" id="2_3tq23"]
 [ext_resource type="Texture2D" uid="uid://q6jtj44oubc7" path="res://addons/3d_player_controller/textures/game_icons/PNG/Black/2x/buttonA.png" id="3_kpx6h"]
 [ext_resource type="Texture2D" uid="uid://vl0yrruyt7mg" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/2x/buttonB.png" id="4_mnq2f"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=4 uid="uid://cqwgvb8l36ahu"]
 
-[ext_resource type="Script" path="res://scenes/skateboard.gd" id="1_11jlf"]
+[ext_resource type="Script" uid="uid://ondvtjxskw25" path="res://scenes/skateboard.gd" id="1_11jlf"]
 [ext_resource type="Texture2D" uid="uid://ckd5agnscrycb" path="res://assets/skateboard/skateboard_low_DefaultMaterial_BaseColor.png" id="1_xcu25"]
 [ext_resource type="Texture2D" uid="uid://dibrk5rtolpqo" path="res://assets/skateboard/skateboard_low_DefaultMaterial_Metallic.png" id="2_ri40l"]
 [ext_resource type="Texture2D" uid="uid://dh0ip6mifqc22" path="res://assets/skateboard/skateboard_low_DefaultMaterial_Normal.png" id="3_5hjwa"]

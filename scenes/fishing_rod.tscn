@@ -334,7 +334,7 @@ tracks/9/keys = PackedFloat32Array(0, 1, 0, 0, -1.22461e-16, -1, 0.1, 1, 0, 0, 0
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kg017"]
 _data = {
-"Take 001": SubResource("Animation_vh21w")
+&"Take 001": SubResource("Animation_vh21w")
 }
 
 [node name="FishingRod" type="Node3D"]

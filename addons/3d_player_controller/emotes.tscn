@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://u2wxuwpmjwha"]
 
-[ext_resource type="Script" path="res://addons/3d_player_controller/emotes.gd" id="1_j0l6j"]
+[ext_resource type="Script" uid="uid://c515phty4vvr1" path="res://addons/3d_player_controller/emotes.gd" id="1_j0l6j"]
 [ext_resource type="Texture2D" uid="uid://dtunt7cfmiu0r" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/1x/plus-1.png" id="2_6ja4e"]
 [ext_resource type="Texture2D" uid="uid://pwpbxv8luc5c" path="res://addons/3d_player_controller/textures/emotes/wave.png" id="2_k7sx4"]
 [ext_resource type="Texture2D" uid="uid://vctdg3xl5w3s" path="res://addons/3d_player_controller/textures/emotes/clap.png" id="3_35oc8"]

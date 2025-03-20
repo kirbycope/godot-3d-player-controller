@@ -159,6 +159,9 @@ func _process(_delta: float) -> void:
 		$Panel2/LockPerspective.button_pressed = $"../../..".lock_perspective
 		$Panel2/GamePaused.button_pressed = player.game_paused
 
+		# Panel 3
+		$FPS/Label.text = "FPS: " + str(int(Engine.get_frames_per_second()))
+
 		# Check is the current Input Event was triggered by a controller
 		if Controls.current_input_type == Controls.InputType.CONTROLLER:
 
