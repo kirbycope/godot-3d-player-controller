@@ -6,14 +6,17 @@ extends Control
 @onready var option_ssaa = $Container/SSAA
 @onready var option_ssrl = $Container/SSRL
 @onready var option_taa = $Container/TAA
+@onready var option_vsync = $Container/VSYNC
 @onready var project_fsr = ProjectSettings.get_setting("rendering/scaling_3d/mode")
 @onready var project_fxaa = ProjectSettings.get_setting("rendering/anti_aliasing/quality/screen_space_aa")
 @onready var project_msaa = ProjectSettings.get_setting("rendering/anti_aliasing/quality/msaa_3d")
 @onready var project_ssaa = ProjectSettings.get_setting("rendering/scaling_3d/scale")
 @onready var project_ssrl = ProjectSettings.get_setting("rendering/anti_aliasing/screen_space_roughness_limiter/enabled")
 @onready var project_taa = ProjectSettings.get_setting("rendering/anti_aliasing/quality/use_taa")
+@onready var project_vsync = ProjectSettings.get_setting("display/window/vsync/vsync_mode")
 @onready var project_rendering_method = ProjectSettings.get_setting("rendering/renderer/rendering_method")
 @onready var player: CharacterBody3D = get_parent().get_parent().get_parent()
+
 
 ## Called once for every event before _unhandled_input(), allowing you to consume some events.
 func _input(event) -> void:
@@ -33,6 +36,9 @@ func _ready() -> void:
 	option_ssrl.visible = false
 	option_taa.visible = false
 	option_fsr.visible = false
+	
+	# Vsync - This is available in all renderers.
+	option_vsync.button_pressed = project_vsync
 
 	# Multisample antialiasing (MSAA) - This is available in all renderers.
 	option_msaa.selected = project_msaa
@@ -66,6 +72,22 @@ func _ready() -> void:
 		# AMD FidelityFX Super Resolution 2.2 (FSR2) - This is only available in the Forward+ renderer, not the Mobile or Compatibility renderers.
 		option_fsr.visible = true
 		option_fsr.selected = project_fsr
+
+
+## Change the VSYNC value.
+func _on_vsync_toggled(toggled_on: bool) -> void:
+
+	# Check if the VSYNC option is toggled on
+	if toggled_on:
+
+		# Enable VYSNC
+		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
+
+	# The VSYNC option is toggled off
+	else:
+
+		# Disable VYSNC
+		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 
 
 ## Change the MSAA value.
@@ -112,7 +134,7 @@ func _on_fxaa_toggled(toggled_on: bool) -> void:
 	# Check if the FXAA option is toggled on
 	if toggled_on:
 
-		# Toggle FXAA
+		# Enable FXAA
 		viewport.screen_space_aa = Viewport.SCREEN_SPACE_AA_FXAA
 
 	# The FXAA option is toggled off
