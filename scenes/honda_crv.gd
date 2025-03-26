@@ -148,7 +148,7 @@ func _physics_process(delta: float) -> void:
 		# Check if the player is driving
 		if player.is_driving:
 
-			# Cehck if the current animation is "driving" (not getting in or getting out)
+			# Check if the current animation is "driving" (not getting in or getting out)
 			if player.animation_player.current_animation == driving.animation_driving:
 
 				# Get the forward direction of the car
