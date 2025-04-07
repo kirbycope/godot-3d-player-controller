@@ -192,3 +192,51 @@ func _process(_delta: float) -> void:
 			else:
 				# Return StickR to its original position when stick is released
 				$XboxController/White/StickR.position = stick_r_origin
+
+
+func _on_enable_chat_toggled(toggled_on: bool) -> void:
+	$"../../..".enable_chat = toggled_on
+
+
+func _on_enable_crouching_toggled(toggled_on: bool) -> void:
+	$"../../..".enable_crouching = toggled_on
+
+
+func _on_enable_double_jump_toggled(toggled_on: bool) -> void:
+	$"../../..".enable_double_jump = toggled_on
+
+
+func _on_enable_flying_toggled(toggled_on: bool) -> void:
+	$"../../..".enable_flying = toggled_on
+
+
+func _on_enable_jumping_toggled(toggled_on: bool) -> void:
+	$"../../..".enable_jumping = toggled_on
+
+
+func _on_enable_kicking_toggled(toggled_on: bool) -> void:
+	$"../../..".enable_kicking = toggled_on
+
+
+func _on_enable_punching_toggled(toggled_on: bool) -> void:
+	$"../../..".enable_punching = toggled_on
+
+
+func _on_enable_vibration_toggled(toggled_on: bool) -> void:
+	$"../../..".enable_vibration = toggled_on
+
+
+func _on_lock_camera_toggled(toggled_on: bool) -> void:
+	$"../../..".lock_camera = toggled_on
+
+
+func _on_lock_movement_x_toggled(toggled_on: bool) -> void:
+	$"../../..".lock_movement_x = toggled_on
+
+
+func _on_lock_movement_y_toggled(toggled_on: bool) -> void:
+	$"../../..".lock_movement_y = toggled_on
+
+
+func _on_lock_perspective_toggled(toggled_on: bool) -> void:
+	$"../../..".lock_perspective = toggled_on
