@@ -54,7 +54,7 @@ func _input(event: InputEvent) -> void:
 					player.is_driving = false
 					player.is_animation_locked = true
 					player.global_position.y = player.global_position.y - 0.1
-					player.animation_player.play("Exiting_Car")
+					player.animation_player.play("Exiting_Car" + "/mixamo_com")
 					await get_tree().create_timer(1.0).timeout
 					animation_player.play("door_front_driver_open")
 					audio_player2.stream = player.is_driving_in.sound_door_open
@@ -66,7 +66,7 @@ func _input(event: InputEvent) -> void:
 					audio_player2.play()
 					await get_tree().create_timer(0.2).timeout
 					player.animation_player.stop()
-					player.animation_player.play("Standing_Idle")
+					player.animation_player.play("Standing_Idle" + "/mixamo_com")
 					player.global_position = exit_driver_door.global_position
 					player.global_position.y = exit_driver_door.global_position.y - 0.1
 					player.global_rotation = exit_driver_door.global_rotation
@@ -103,7 +103,7 @@ func _input(event: InputEvent) -> void:
 					player.is_animation_locked = true
 					player.global_position = open_driver_door.global_position
 					player.global_rotation = open_driver_door.global_rotation
-					player.animation_player.play("Entering_Car")
+					player.animation_player.play("Entering_Car" + "/mixamo_com")
 					await get_tree().create_timer(1.0).timeout
 					animation_player.play("door_front_driver_open")
 					audio_player2.stream = sound_door_open
@@ -116,7 +116,7 @@ func _input(event: InputEvent) -> void:
 					player.global_position = drivers_seat.global_position
 					player.global_rotation = drivers_seat.global_rotation
 					player.animation_player.stop()
-					player.animation_player.play(driving.animation_driving)
+					player.animation_player.play(driving.ANIMATION_DRIVING)
 
 					# Get the string name of the player's current state
 					var current_state = player.base_state.get_state_name(player.current_state)
@@ -149,7 +149,7 @@ func _physics_process(delta: float) -> void:
 		if player.is_driving:
 
 			# Check if the current animation is "driving" (not getting in or getting out)
-			if player.animation_player.current_animation == driving.animation_driving:
+			if player.animation_player.current_animation == driving.ANIMATION_DRIVING:
 
 				# Get the forward direction of the car
 				var forward_dir = -global_transform.basis.z

@@ -1,9 +1,9 @@
 extends BaseState
 
-const animation_hanging = "Hanging_Idle"
-const animation_hanging_shimmy_left = "Braced_Hang_Shimmy_Left_In_Place"
-const animation_hanging_shimmy_right = "Braced_Hang_Shimmy_Right_In_Place"
-var node_name = "Hanging"
+const ANIMATION_HANGING := "Hanging_Idle" + "/mixamo_com"
+const ANIMATION_HANGING_SHIMMY_LEFT := "Braced_Hang_Shimmy_Left_In_Place" + "/mixamo_com"
+const ANIMATION_HANGING_SHIMMY_RIGHT := "Braced_Hang_Shimmy_Right_In_Place" + "/mixamo_com"
+const NODE_NAME := "Hanging"
 
 
 ## Called when there is an input event.
@@ -16,13 +16,13 @@ func _input(event: InputEvent) -> void:
 		if event.is_action_pressed("crouch"):
 
 			# Start falling
-			transition(node_name, "Falling")
+			transition(NODE_NAME, "Falling")
 
 		# [jump] button _pressed_
 		if event.is_action_pressed("jump"):
 
 			# Start climbing
-			transition(node_name, "Climbing")
+			transition(NODE_NAME, "Climbing")
 
 		# [move_left] button pressed
 		if event.is_action_pressed("move_left"):
@@ -60,25 +60,25 @@ func play_animation() -> void:
 		if Input.is_action_pressed("move_left"):
 
 			# Check if the animation player is not already playing the appropriate animation
-			if player.animation_player.current_animation != animation_hanging_shimmy_left:
+			if player.animation_player.current_animation != ANIMATION_HANGING_SHIMMY_LEFT:
 
 				# Stop the current animation so no blending occurs
 				player.animation_player.stop()
 
 				# Play the "hanging, shimmy-ing left" animation
-				player.animation_player.play(animation_hanging_shimmy_left)
+				player.animation_player.play(ANIMATION_HANGING_SHIMMY_LEFT)
 
 		# Check if the player if moving right
 		elif Input.is_action_pressed("move_right"):
 
 			# Check if the animation player is not already playing the appropriate animation
-			if player.animation_player.current_animation != animation_hanging_shimmy_right:
+			if player.animation_player.current_animation != ANIMATION_HANGING_SHIMMY_RIGHT:
 
 				# Stop the current animation so no blending occurs
 				player.animation_player.stop()
 
 				# Play the "hanging, shimmy-ing left" animation
-				player.animation_player.play(animation_hanging_shimmy_right)
+				player.animation_player.play(ANIMATION_HANGING_SHIMMY_RIGHT)
 
 		# The player must not be moving
 		else:
@@ -90,13 +90,13 @@ func play_animation() -> void:
 			player.visuals_aux_scene.position = player.visuals_aux_scene_position
 
 			# Check if the animation player is not already playing the appropriate animation
-			if player.animation_player.current_animation != animation_hanging:
+			if player.animation_player.current_animation != ANIMATION_HANGING:
 
 				# Stop the current animation so no blending occurs
 				player.animation_player.stop()
 
 				# Play the "hanging" animation
-				player.animation_player.play(animation_hanging)
+				player.animation_player.play(ANIMATION_HANGING)
 
 
 ## Moves the player in the given direction.

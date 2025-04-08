@@ -1,9 +1,9 @@
 extends BaseState
 
-const animation_driving = "Driving"
-const animation_entering_car = "Entering_Car"
-const animation_exiting_car = "Exiting_Car"
-var node_name = "Driving"
+const ANIMATION_DRIVING := "Driving" + "/mixamo_com"
+const ANIMATION_ENTERING_CAR := "Entering_Car" + "/mixamo_com"
+const ANIMATION_EXITING_CAR := "Exiting_Car" + "/mixamo_com"
+const NODE_NAME := "Driving"
 
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
@@ -26,10 +26,10 @@ func play_animation() -> void:
 	if !player.is_animation_locked:
 
 		# Check if the animation player is not already playing the appropriate animation
-		if player.animation_player.current_animation != animation_driving:
+		if player.animation_player.current_animation != ANIMATION_DRIVING:
 
 			# Play the "crouching idle, holding rifle" animation
-			player.animation_player.play(animation_driving)
+			player.animation_player.play(ANIMATION_DRIVING)
 
 
 ## Start "driving".

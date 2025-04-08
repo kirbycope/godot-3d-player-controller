@@ -1,9 +1,9 @@
 extends BaseState
 
-const animation_jumping = "Falling_Idle"
-const animation_jumping_holding_rifle = "Rifle_Falling_Idle"
-const animation_jumping_holding_tool = "Tool_Falling_Idle"
-var node_name = "Jumping"
+const ANIMATION_JUMPING := "Falling_Idle" + "/mixamo_com"
+const ANIMATION_JUMPING_HOLDING_RIFLE := "Rifle_Falling_Idle" + "/mixamo_com"
+const ANIMATION_JUMPING_HOLDING_TOOL := "Tool_Falling_Idle" + "/mixamo_com"
+const NODE_NAME := "Jumping"
 
 
 ## Called when there is an input event.
@@ -34,7 +34,7 @@ func _input(event: InputEvent) -> void:
 					elif player.enable_flying and !player.is_flying:
 
 						# Start "flying"
-						transition(node_name, "Flying")
+						transition(NODE_NAME, "Flying")
 
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
@@ -53,13 +53,13 @@ func _process(_delta: float) -> void:
 		if !collision_object.is_in_group("held") and !collision_object is CharacterBody3D:
 
 			# Start "hanging"
-			transition(node_name, "Hanging")
+			transition(NODE_NAME, "Hanging")
 
 	# Check if the player is falling
 	if player.velocity.y < 0.0:
 
 		# Start "falling"
-		transition(node_name, "Falling")
+		transition(NODE_NAME, "Falling")
 
 	# Check if the player is "jumping"
 	if player.is_jumping:
@@ -78,28 +78,28 @@ func play_animation() -> void:
 		if player.is_holding_rifle:
 
 			# Check if the animation player is not already playing the appropriate animation
-			if player.animation_player.current_animation != animation_jumping_holding_rifle:
+			if player.animation_player.current_animation != ANIMATION_JUMPING_HOLDING_RIFLE:
 
 				# Play the "jumping, holding a rifle" animation
-				player.animation_player.play(animation_jumping_holding_rifle)
+				player.animation_player.play(ANIMATION_JUMPING_HOLDING_RIFLE)
 
 		# Check if the player is "holding a tool"
 		elif player.is_holding_tool:
 
 			# Check if the animation player is not already playing the appropriate animation
-			if player.animation_player.current_animation != animation_jumping_holding_tool:
+			if player.animation_player.current_animation != ANIMATION_JUMPING_HOLDING_TOOL:
 
 				# Play the "jumping, holding a tool" animation
-				player.animation_player.play(animation_jumping_holding_tool)
+				player.animation_player.play(ANIMATION_JUMPING_HOLDING_TOOL)
 
 		# The player must be unarmed
 		else:
 
 			# Check if the animation player is not already playing the appropriate animation
-			if player.animation_player.current_animation != animation_jumping:
+			if player.animation_player.current_animation != ANIMATION_JUMPING:
 
 				# Play the "jumping" animation
-				player.animation_player.play(animation_jumping)
+				player.animation_player.play(ANIMATION_JUMPING)
 
 
 ## Start "jumping".

@@ -1,8 +1,8 @@
 extends CharacterBody3D
 
-const bone_name_head = "mixamorigHead"
-const bone_name_left_hand = "mixamorigLeftHandIndex1"
-const bone_name_right_hand = "mixamorigRightHandIndex1"
+const bone_name_head = "Head"
+const bone_name_left_hand = "LeftHand"
+const bone_name_right_hand = "RightHand"
 
 # State machine variables
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -64,9 +64,6 @@ var virtual_velocity: Vector3 = Vector3.ZERO
 @export var lock_movement_x: bool = false
 @export var lock_movement_y: bool = false
 @export var lock_perspective: bool = false
-@export var look_sensitivity_controller: float = 120.0
-@export var look_sensitivity_mouse: float = 0.2
-@export var look_sensitivity_virtual: float = 60.0
 @export var perspective: int = 0
 @export var speed_crawling: float = 0.75
 @export var speed_current: float = 3.0
@@ -77,9 +74,6 @@ var virtual_velocity: Vector3 = Vector3.ZERO
 @export var speed_sprinting: float = 5.0
 @export var speed_swimming: float = 3.0
 @export var speed_walking: float = 1.0
-@export var zoom_max: float = 3.0
-@export var zoom_min: float = 1.0
-@export var zoom_speed: float = 0.2
 
 # Note: `@onready` variables are set when the scene is loaded.
 @onready var animation_player = $Visuals/AuxScene/AnimationPlayer
@@ -93,7 +87,7 @@ var virtual_velocity: Vector3 = Vector3.ZERO
 @onready var held_item_mount = $Visuals/HeldItemMount
 @onready var initial_position = position
 @onready var item_mount = $ItemMount
-@onready var player_skeleton = $Visuals/AuxScene/Node/Skeleton3D
+@onready var player_skeleton = $Visuals/AuxScene/GeneralSkeleton
 @onready var raycast_lookat = $CameraMount/Camera3D/RayCast3D
 @onready var raycast_jumptarget = $Visuals/RayCast3D_JumpTarget
 @onready var raycast_top = $Visuals/RayCast3D_InFrontPlayer_Top
@@ -107,73 +101,6 @@ var virtual_velocity: Vector3 = Vector3.ZERO
 @onready var visuals = $Visuals
 @onready var visuals_aux_scene = $Visuals/AuxScene
 @onready var visuals_aux_scene_position = $Visuals/AuxScene.position
-
-
-## Called when there is an input event.
-func _input(event) -> void:
-
-	# Check if the game is not paused
-	if !game_paused:
-
-		# Check if the camera is using a third-person perspective and the perspective is not locked
-		if perspective == 0 and !lock_perspective:
-
-			# [zoom in] button _pressed_
-			if event.is_action_pressed("zoom_in"):
-
-				# Move the camera towards the player, slightly
-				camera.transform.origin.z = clamp(camera.transform.origin.z + zoom_speed, zoom_min, zoom_max)
-
-			# [zoom out] button _pressed_
-			if event.is_action_pressed("zoom_out"):
-
-				# Move the camera away from the player, slightly
-				camera.transform.origin.z = clamp(camera.transform.origin.z - zoom_speed, zoom_min, zoom_max)
-
-		# Check for mouse motion and the camera is not locked
-		if event is InputEventMouseMotion and !lock_camera:
-
-			# Check if the mouse is captured
-			if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-
-				# Rotate camera based on mouse movement
-				camera_rotate_by_mouse(event)
-
-		# [select] button _pressed_ and the camera is not locked
-		if event.is_action_pressed("select") and !lock_camera:
-
-			# Check if in third-person
-			if perspective == 0:
-
-				# Flag the player as in "first" person
-				perspective = 1
-
-				# Set camera's position
-				camera.position = Vector3.ZERO
-
-				# Set the camera's raycast position to match the camera's position
-				raycast_lookat.position = Vector3.ZERO
-
-				# Align visuals with the camera
-				visuals.rotation = Vector3(0.0, 0.0, camera_mount.rotation.z)
-
-			# Check if in first-person
-			elif perspective == 1:
-
-				# Flag the player as in "third" person
-				perspective = 0
-
-				# Set camera mount's position
-				camera_mount.position = Vector3(0.0, 1.65, 0.0)
-
-				# Set camera's position
-				camera.position = Vector3(0.0, 0.6, 2.5)
-
-				# Set the camera's raycast position to match the player's position
-				raycast_lookat.position = Vector3(0.0, 0.0, -2.5)
-
-				# Set the visual's rotation
-				visuals.rotation = Vector3.ZERO
 
 
 ## Called when the node enters the scene tree for the first time.
@@ -211,17 +138,6 @@ func _physics_process(delta) -> void:
 			is_punching_left = false
 			is_punching_right = false
 
-		# Handle [look_*] using controller
-		var look_actions = ["look_down", "look_up", "look_left", "look_right"]
-
-		# Check each "look" action in the list
-		for action in look_actions:
-
-			# Check if the action is _pressed_ and the camera is not locked
-			if Input.is_action_pressed(action) and !lock_camera:
-
-				# Rotate camera based on controller movement
-				camera_rotate_by_controller(delta)
 	
 		# Check if the player is not "driving" and not "hanging"
 		if !is_driving and !is_hanging:
@@ -246,9 +162,6 @@ func _physics_process(delta) -> void:
 
 			# Move player
 			move_player(delta)
-
-		# Move the camera to player
-		move_camera()
 
 
 ## Returns if the player is "grounded".
@@ -380,94 +293,6 @@ func check_punch_collision() -> void:
 
 			# Vibrate the controller
 			Input.start_joy_vibration(0, 1.0, 0.0, 0.1)
-
-
-## Rotate camera using the right-analog stick.
-func camera_rotate_by_controller(delta: float) -> void:
-
-	# Get the intensity of each action 
-	var look_up = Input.get_action_strength("look_up")
-	var look_down = Input.get_action_strength("look_down")
-	var look_left = Input.get_action_strength("look_left")
-	var look_right = Input.get_action_strength("look_right")
-
-	# Calculate the input strength for vertical and horizontal movement
-	var vertical_input = look_up - look_down
-	var horizontal_input = look_right - look_left
-
-	# Calculate the rotation speed based on the input strength
-	var vertical_rotation_speed = abs(vertical_input)
-	var horizontal_rotation_speed = abs(horizontal_input)
-
-	# Check if the player is using a controller
-	if Input.is_joy_known(0):
-
-		# Adjust rotation speed based on input intensity (magnitude of the right-stick movement)
-		vertical_rotation_speed *= look_sensitivity_controller
-		horizontal_rotation_speed *= look_sensitivity_controller
-	
-	# The input must have been triggerd by a touch event
-	else:
-
-		# Adjust rotation speed based on input intensity (magnitude of the touch-drag movement)
-		vertical_rotation_speed *= look_sensitivity_virtual
-		horizontal_rotation_speed *= look_sensitivity_virtual
-
-	# Calculate the desired vertical rotation based on controller motion
-	var new_rotation_x = camera_mount.rotation_degrees.x + (vertical_input * vertical_rotation_speed * delta)
-
-	# Limit how far up/down the camera can rotate
-	new_rotation_x = clamp(new_rotation_x, -80, 90)
-
-	# Rotate camera up/forward and down/backward
-	camera_mount.rotation_degrees.x = new_rotation_x
-
-	# Update the player (visuals+camera) opposite the horizontal controller motion
-	rotation_degrees.y = rotation_degrees.y - (horizontal_input * horizontal_rotation_speed * delta)
-
-	# Check if the player is in "third person" perspective
-	if perspective == 0:
-
-		# Rotate the visuals opposite the camera's horizontal rotation
-		visuals.rotation_degrees.y = visuals.rotation_degrees.y + (horizontal_input * horizontal_rotation_speed * delta)
-
-
-## Rotate camera using the mouse motion.
-func camera_rotate_by_mouse(event: InputEvent) -> void:
-
-	# Calculate the desired vertical rotation based on mouse motion
-	var new_rotation_x = camera_mount.rotation_degrees.x - event.relative.y * look_sensitivity_mouse
-
-	# Limit how far up/down the camera can rotate
-	new_rotation_x = clamp(new_rotation_x, -80, 90)
-
-	# Rotate camera up/forward and down/backward
-	camera_mount.rotation_degrees.x = new_rotation_x
-
-	# Update the player (visuals+camera) opposite the horizontal mouse motion
-	rotate_y(deg_to_rad(-event.relative.x * look_sensitivity_mouse))
-
-	# Check if the player is in "third person" perspective
-	if perspective == 0:
-
-		# Rotate the visuals opposite the camera's horizontal rotation
-		visuals.rotate_y(deg_to_rad(event.relative.x * look_sensitivity_mouse))
-
-
-## Update the camera to follow the character head's position (while in "first person").
-func move_camera():
-
-	# Check if in "first person" perspective
-	if perspective == 1:
-
-		# Get the index of the bone in the player's skeleton
-		var bone_index = player_skeleton.find_bone(bone_name_head)
-
-		# Get the overall transform of the specified bone, with respect to the player's skeleton.
-		var bone_pose = player_skeleton.get_bone_global_pose(bone_index)
-
-		# Adjust the camera mount position to match the bone's relative position (adjusting for $Visuals/AuxScene scaling)
-		camera_mount.position = Vector3(-bone_pose.origin.x * 0.01, bone_pose.origin.y * 0.01, (-bone_pose.origin.z * 0.01) - 0.165)
 
 
 ## Moves the player based on velocity and shapecast collision.

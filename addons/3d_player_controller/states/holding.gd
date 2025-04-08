@@ -1,7 +1,7 @@
 extends BaseState
 
-const animation_standing_holding_rifle = "Rifle_Low_Idle"
-var node_name = "Holding"
+const ANIMATION_STANDING_HOLDING_RIFLE := "Rifle_Low_Idle"  + "/mixamo_com"
+const NODE_NAME := "Holding"
 
 
 ## Called when there is an input event.
@@ -119,7 +119,7 @@ func move_held_item_mount() -> void:
 		var rot_z = bone_basis.z + 0.33
 
 		# Hack: Handle idle animation postional data
-		if player.animation_player.current_animation == animation_standing_holding_rifle:
+		if player.animation_player.current_animation == ANIMATION_STANDING_HOLDING_RIFLE:
 			rot_y = rot_y + 0.2
 			rot_z = bone_basis.z - 0.75
 

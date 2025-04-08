@@ -1,9 +1,9 @@
 extends BaseState
 
-const animation_sprinting = "Sprinting_In_Place"
-const animation_sprinting_holding_rifle = "Rifle_Sprinting_In_Place"
-const animation_sprinting_holding_tool = "Tool_Sprinting_In_Place"
-var node_name = "Sprinting"
+const ANIMATION_SPRINTING := "Sprinting_In_Place" + "/mixamo_com"
+const ANIMATION_SPRINTING_HOLDING_RIFLE := "Rifle_Sprinting_In_Place" + "/mixamo_com"
+const ANIMATION_SPRINTING_HOLDING_TOOL := "Tool_Sprinting_In_Place" + "/mixamo_com"
+const NODE_NAME := "Sprinting"
 
 
 ## Called when there is an input event.
@@ -16,13 +16,13 @@ func _input(event: InputEvent) -> void:
 		if event.is_action_pressed("jump") and player.enable_jumping:
 
 			# Start "jumping"
-			transition(node_name, "Jumping")
+			transition(NODE_NAME, "Jumping")
 
 		# [sprint] button just _released_
 		if event.is_action_released("sprint"):
 
 			# Start "standing"
-			transition(node_name, "Standing")
+			transition(NODE_NAME, "Standing")
 
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
@@ -35,7 +35,7 @@ func _process(_delta: float) -> void:
 	if player.velocity == Vector3.ZERO and player.virtual_velocity == Vector3.ZERO:
 
 		# Start "standing"
-		transition(node_name, "Standing")
+		transition(NODE_NAME, "Standing")
 
 	# Check if the player is "sprinting"
 	if player.is_sprinting:
@@ -54,19 +54,19 @@ func play_animation() -> void:
 		if player.is_holding_rifle:
 
 			# Check if the animation player is not already playing the appropriate animation
-			if player.animation_player.current_animation != animation_sprinting_holding_rifle:
+			if player.animation_player.current_animation != ANIMATION_SPRINTING_HOLDING_RIFLE:
 
 				# Play the "sprinting, holding a rifle" animation
-				player.animation_player.play(animation_sprinting_holding_rifle)
+				player.animation_player.play(ANIMATION_SPRINTING_HOLDING_RIFLE)
 
 		# The player must be unarmed
 		else:
 
 			# Check if the animation player is not already playing the appropriate animation
-			if player.animation_player.current_animation != animation_sprinting:
+			if player.animation_player.current_animation != ANIMATION_SPRINTING:
 
 				# Play the "sprinting" animation
-				player.animation_player.play(animation_sprinting)
+				player.animation_player.play(ANIMATION_SPRINTING)
 
 
 ## Start "sprinting".

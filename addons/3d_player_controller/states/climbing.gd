@@ -1,6 +1,6 @@
 extends BaseState
 
-var node_name = "Climbing"
+const NODE_NAME := "Climbing"
 
 
 ## Called when there is an input event.
@@ -68,7 +68,7 @@ func start() -> void:
 	await get_tree().create_timer(0.2).timeout
 
 	# Start "standing"
-	transition(node_name, "Standing")
+	transition(NODE_NAME, "Standing")
 
 
 ## Stop "climbing".

@@ -1,10 +1,10 @@
 extends BaseState
 
-const animation_running = "Running_In_Place"
-const animation_running_aiming_rifle = "Rifle_Aiming_Run_In_Place"
-const animation_running_holding_rifle = "Rifle_Low_Run_In_Place"
-const animation_running_holding_tool = "Running_In_Place_With_Sword_Right"
-var node_name = "Running"
+const ANIMATION_RUNNING := "Running_In_Place" + "/mixamo_com"
+const ANIMATION_RUNNING_AIMING_RIFLE := "Rifle_Aiming_Run_In_Place" + "/mixamo_com"
+const ANIMATION_RUNNING_HOLDING_RIFLE := "Rifle_Low_Run_In_Place" + "/mixamo_com"
+const ANIMATION_RUNNING_HOLDING_TOOL := "Running_In_Place_With_Sword_Right" + "/mixamo_com"
+const NODE_NAME := "Running"
 
 
 ## Called when there is an input event.
@@ -17,19 +17,19 @@ func _input(event: InputEvent) -> void:
 		if event.is_action_pressed("crouch") and player.enable_crouching:
 
 			# Start "crouching"
-			transition(node_name, "Crouching")
+			transition(NODE_NAME, "Crouching")
 
 		# [jump] button just _pressed_
 		if event.is_action_pressed("jump") and player.enable_jumping:
 
 			# Start "jumping"
-			transition(node_name, "Jumping")
+			transition(NODE_NAME, "Jumping")
 
 		# [sprint] button _pressed_
 		if event.is_action_pressed("sprint"):
 
 			# Start "sprinting"
-			transition(node_name, "Sprinting")
+			transition(NODE_NAME, "Sprinting")
 
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
@@ -42,7 +42,7 @@ func _process(_delta: float) -> void:
 	if player.velocity == Vector3.ZERO and player.virtual_velocity == Vector3.ZERO:
 
 		# Start "standing"		
-		transition(node_name, "Standing")
+		transition(NODE_NAME, "Standing")
 
 	# The player must be moving
 	else:
@@ -51,13 +51,13 @@ func _process(_delta: float) -> void:
 		if player.speed_current <= player.speed_walking:
 
 			# Start "walking"
-			transition(node_name, "Walking")
+			transition(NODE_NAME, "Walking")
 
 		# Check if the player speed is faster than "running" but slower than or equal to "sprinting"
 		elif player.speed_running < player.speed_current and player.speed_current <= player.speed_sprinting:
 
 			# Start "sprinting"
-			transition(node_name, "Sprinting")
+			transition(NODE_NAME, "Sprinting")
 
 	# Check if the player is "running"
 	if player.is_running:
@@ -76,28 +76,28 @@ func play_animation() -> void:
 		if player.is_holding_rifle:
 
 			# Check if the animation player is not already playing the appropriate animation
-			if player.animation_player.current_animation != animation_running_holding_rifle:
+			if player.animation_player.current_animation != ANIMATION_RUNNING_HOLDING_RIFLE:
 
 				# Play the "running, holding rifle" animation
-				player.animation_player.play(animation_running_holding_rifle)
+				player.animation_player.play(ANIMATION_RUNNING_HOLDING_RIFLE)
 
 		# Check if the player is "holding a tool"
 		elif player.is_holding_tool:
 
 			# Check if the animation player is not already playing the appropriate animation
-			if player.animation_player.current_animation != animation_running_holding_tool:
+			if player.animation_player.current_animation != ANIMATION_RUNNING_HOLDING_TOOL:
 
 				# Play the "running, holding a tool" animation
-				player.animation_player.play(animation_running_holding_tool)
+				player.animation_player.play(ANIMATION_RUNNING_HOLDING_TOOL)
 
 		# The player must be unarmed
 		else:
 
 			# Check if the animation player is not already playing the appropriate animation
-			if player.animation_player.current_animation != animation_running:
+			if player.animation_player.current_animation != ANIMATION_RUNNING:
 
 				# Play the "running" animation
-				player.animation_player.play(animation_running)
+				player.animation_player.play(ANIMATION_RUNNING)
 
 
 ## Start "running".

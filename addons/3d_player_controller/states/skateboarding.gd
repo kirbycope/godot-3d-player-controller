@@ -1,9 +1,9 @@
 extends BaseState
 
-const animation_skateboarding_fast = "Skateboarding_Fast_In_Place"
-const animation_skateboarding_normal = "Skateboarding_In_Place"
-const animation_skateboarding_slow = "Skateboarding_Slow_In_Place"
-var node_name = "Skateboarding"
+const ANIMATION_SKATEBOARDING_FAST := "Skateboarding_Fast_In_Place" + "/mixamo_com"
+const ANIMATION_SKATEBOARDING_NORMAL := "Skateboarding_In_Place" + "/mixamo_com"
+const ANIMATION_SKATEBOARDING_SLOW := "Skateboarding_Slow_In_Place" + "/mixamo_com"
+const NODE_NAME := "Skateboarding"
 
 
 ## Called when there is an input event.
@@ -68,7 +68,7 @@ func _process(_delta: float) -> void:
 	if !player.is_skateboarding:
 
 		# Start "standing"
-		transition(node_name, "Standing")
+		transition(NODE_NAME, "Standing")
 
 	# Check if the player is "skateboarding"
 	if player.is_skateboarding:
@@ -96,28 +96,28 @@ func play_animation() -> void:
 				if 0.0 < player.speed_current and player.speed_current <= player.speed_walking:
 
 					# Check if the animation player is not already playing the appropriate animation
-					if player.animation_player.current_animation != animation_skateboarding_slow:
+					if player.animation_player.current_animation != ANIMATION_SKATEBOARDING_SLOW:
 
 						# Play the "slow skateboarding" animation
-						player.animation_player.play(animation_skateboarding_slow)
+						player.animation_player.play(ANIMATION_SKATEBOARDING_SLOW)
 
 				# Check if the player speed is faster than "walking" but slower than or equal to "running"
 				elif player.speed_walking < player.speed_current and player.speed_current <= player.speed_running:
 
 					# Check if the animation player is not already playing the appropriate animation
-					if player.animation_player.current_animation != animation_skateboarding_normal:
+					if player.animation_player.current_animation != ANIMATION_SKATEBOARDING_NORMAL:
 
 						# Play the "normal skateboarding" animation
-						player.animation_player.play(animation_skateboarding_normal)
+						player.animation_player.play(ANIMATION_SKATEBOARDING_NORMAL)
 
 				# Check if the player speed is faster than "running"
 				elif player.speed_running < player.speed_current:
 
 					# Check if the animation player is not already playing the appropriate animation
-					if player.animation_player.current_animation != animation_skateboarding_fast:
+					if player.animation_player.current_animation != ANIMATION_SKATEBOARDING_FAST:
 
 						# Play the "slow skateboarding" animation
-						player.animation_player.play(animation_skateboarding_fast)
+						player.animation_player.play(ANIMATION_SKATEBOARDING_FAST)
 
 			# The player must be not grounded
 			else:
@@ -129,7 +129,7 @@ func play_animation() -> void:
 		else:
 
 				# Play the "slow skateboarding" animation
-				player.animation_player.play(animation_skateboarding_slow)
+				player.animation_player.play(ANIMATION_SKATEBOARDING_SLOW)
 
 				# Slow down the animation player
 				player.animation_player.speed_scale = 0.5
