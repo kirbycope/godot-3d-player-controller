@@ -16,7 +16,6 @@ var is_double_jumping: bool = false
 var is_driving: bool = false
 var is_driving_in
 var is_falling: bool = false
-var is_grounded: bool = true
 var is_firing: bool = false
 var is_flying: bool = false
 var is_hanging: bool = false
@@ -112,7 +111,7 @@ func _ready() -> void:
 	# Make sure the game is unpaused
 	game_paused = false
 
-	# Captures the mouse input
+	# Capture the mouse
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
@@ -146,9 +145,9 @@ func _physics_process(delta) -> void:
 			if is_swimming:
 
 				# Ignore the gravity
-				velocity.y += 0.0
+				velocity.y = 0.0
 
-			# The player must not be "hanging" or "swimming"
+			# The player must not be "swimming"
 			else:
 
 				# Add the gravity
@@ -162,13 +161,6 @@ func _physics_process(delta) -> void:
 
 			# Move player
 			move_player(delta)
-
-
-## Returns if the player is "grounded".
-func check_grounded() -> bool:
-
-	# Return is_grounded unless it is null, if so then return the result of is_on_floor()
-	return is_grounded || is_on_floor()
 
 
 ## Check if the kick hits anything.
@@ -303,7 +295,7 @@ func move_player(delta: float) -> void:
 	shapecast.global_position.z = global_position.z + velocity.z * delta
 
 	# Check if the player is grounded
-	if check_grounded():
+	if is_on_floor():
 		shapecast.target_position.y = -0.5
 	else:
 		shapecast.target_position.y = 0.55
@@ -338,9 +330,6 @@ func move_player(delta: float) -> void:
 		# Stop vertical movement by zeroing the Y velocity
 		velocity.y = 0.0
 
-		# Flag the character as "grounded"
-		is_grounded = true
-
 	# Moves the body based on velocity.
 	move_and_slide()
 
@@ -348,8 +337,10 @@ func move_player(delta: float) -> void:
 ## Update the player's velocity based on input and status.
 func update_velocity() -> void:
 
-	# Get the input direction and handle the movement/deceleration.
+	# Get an input vector by specifying four actions for the positive and negative X and Y axes
 	var input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+
+	# Create a normalized 3D direction vector from the 2D input
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
 	# Calculate the input magnitude (intensity of the left-analog stick)
@@ -400,7 +391,7 @@ func update_velocity() -> void:
 	else:
 
 		# Check if the player is skateboarding and grounded
-		if is_skateboarding and is_grounded:
+		if is_skateboarding and is_on_floor():
 
 			# Set the friction to the skateboarding friction
 			var friction_current = friction_skateboarding

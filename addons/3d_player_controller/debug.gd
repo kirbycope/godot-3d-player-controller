@@ -125,7 +125,6 @@ func _process(_delta: float) -> void:
 		$Panel1/IsFalling.button_pressed = player.is_falling
 		$Panel1/IsFiring.button_pressed = player.is_firing
 		$Panel1/IsFlying.button_pressed = player.is_flying
-		$Panel1/IsGrounded.button_pressed = player.is_grounded
 		$Panel1/IsHanging.button_pressed = player.is_hanging
 		$Panel1/IsHolding.button_pressed = player.is_holding
 		$Panel1/IsHoldingFishingRod.button_pressed = player.is_holding_fishing_rod

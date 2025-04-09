@@ -24,11 +24,29 @@ func _process(_delta: float) -> void:
 
 		# [jump] button just _pressed_
 		if Input.is_action_pressed("jump"):
+
+			# Check if the player is swimming in a body of water
 			if player.is_swimming_in:
+
+				# Get the water level (top of water body)
 				var water_top = player.is_swimming_in.get_parent().position.y + (player.is_swimming_in.get_child(0).shape.size.y / 2)
+
+				# Get the player's new position (if it were incremented)
 				var new_position = player.position.y + 0.01
-				var player_top = new_position + player.collision_height/2
+
+				# Get the player's top position (position + height)
+				var player_top = new_position + (player.collision_height * .75)
+
+				# Check if the water is above the player
 				if player_top <= water_top:
+
+					# Check if the player is on the floor
+					if player.is_on_floor():
+
+						# Increase the vertical position (so the player is not snapped back to the floor)
+						new_position = new_position + 0.09
+
+					# Increment the player's vertical position
 					player.position.y = new_position
 
 	# Check if the player is not "swimming"
@@ -56,8 +74,11 @@ func play_animation() -> void:
 			# Check if the animation player is not already playing the appropriate animation
 			if player.animation_player.current_animation != ANIMATION_SWIMMING:
 
+				# Move the collison shape to match the player
+				player.collision_shape.rotation_degrees.x = 90
+
 				# Adjust player visuals for animation
-				#player.visuals_aux_scene.position.y = lerp(player.visuals_aux_scene.position.y, player.collision_height/2, 0.25)
+				player.visuals_aux_scene.position.y = lerp(player.visuals_aux_scene.position.y, player.collision_height * .5, 0.1)
 
 				# Play the "swimming" animation
 				player.animation_player.play(ANIMATION_SWIMMING)
@@ -77,8 +98,11 @@ func play_animation() -> void:
 			# Check if the animation player is not already playing the appropriate animation
 			if player.animation_player.current_animation != ANIMATION_TREADING_WATER:
 
+				# Move the collison shape to match the player
+				player.collision_shape.rotation_degrees.x = 0
+
 				# [Re]set the player visuals postion
-				#player.visuals_aux_scene.position.y = player.collision_height / 4
+				player.visuals_aux_scene.position.y = 0.0
 
 				# Play the "treading water" animation
 				player.animation_player.play(ANIMATION_TREADING_WATER)
@@ -116,13 +140,13 @@ func start() -> void:
 		var parent_position = player.is_swimming_in.get_parent().position
 		var child_size = player.is_swimming_in.get_child(0).shape.size
 		var water_top = player.is_swimming_in.get_parent().position.y + (child_size.y / 2)
-		var player_half_height = player.collision_height / 2
+		var player_half_height = player.collision_height * .75
 		
 		# Check if the player is below water level
-		#if (player.position.y + player_half_height) < (parent_position.y + water_top):
+		if (player.position.y + player_half_height) < (parent_position.y + water_top):
 
 			# Set the player's vertical position to be at water level
-			#player.position.y = water_top - player_half_height
+			player.position.y = water_top - player_half_height
 
 
 ## Stop "swimming".
@@ -137,8 +161,8 @@ func stop() -> void:
 	# Remove which body the player is swimming in
 	player.is_swimming_in = null
 
-	# [Re]set the player visuals postion
-	#player.visuals_aux_scene.position.y = player.collision_height / 2
+	# Reset the collison shape to match the player
+	player.collision_shape.rotation_degrees.x = 0
 
 	# Stop the "swimming" sound effect
 	if player.audio_player.stream == swimming_sound:
