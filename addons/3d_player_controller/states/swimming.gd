@@ -41,10 +41,10 @@ func _process(_delta: float) -> void:
 				if player_top <= water_top:
 
 					# Check if the player is on the floor
-					if player.is_on_floor():
+					#if player.is_on_floor():
 
 						# Increase the vertical position (so the player is not snapped back to the floor)
-						new_position = new_position + 0.09
+						#new_position = new_position + 0.09
 
 					# Increment the player's vertical position
 					player.position.y = new_position
@@ -132,8 +132,11 @@ func start() -> void:
 	# Set the player's speed
 	player.speed_current = player.speed_swimming
 
-	# Slow the player down
-	player.velocity.y = player.velocity.y * 0.0
+	# Set player properties
+	player.gravity = 0.0
+	player.motion_mode = CharacterBody3D.MOTION_MODE_FLOATING
+	player.position.y += 0.1
+	player.velocity.y = 0.0
 
 	# Get positional information
 	if player.is_swimming_in:
@@ -157,6 +160,12 @@ func stop() -> void:
 
 	# Flag the player as not "swimming"
 	player.is_swimming = false
+
+	# [Re]Set player properties
+	player.gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+	player.motion_mode = CharacterBody3D.MOTION_MODE_GROUNDED
+	player.velocity.y -= player.gravity
+	player.visuals.rotation.x = 0
 
 	# Remove which body the player is swimming in
 	player.is_swimming_in = null

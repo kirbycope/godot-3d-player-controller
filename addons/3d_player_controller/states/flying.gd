@@ -38,6 +38,9 @@ func _process(_delta: float) -> void:
 
 						# Start "falling"
 						transition(NODE_NAME, "Falling")
+						
+						# Stop processing inputs (this frame)
+						return
 
 					# Either way, reset the timer
 					timer_jump = Time.get_ticks_msec()
@@ -82,7 +85,28 @@ func _process(_delta: float) -> void:
 		if Input.is_action_just_released("jump"):
 
 			# Reset the player's pitch
-				player.visuals.rotation.x = 0
+			player.visuals.rotation.x = 0
+
+		# [sprint] button _pressed_
+		if Input.is_action_pressed("sprint"):
+
+			# Check if the player is not "sprinting"
+			if !player.is_sprinting:
+
+				# Set the player's speed
+				player.speed_current = player.speed_flying_fast
+
+				# Flag the player as "sprinting"
+				player.is_sprinting = true
+
+		# [sprint] button just _released_
+		if Input.is_action_just_released("sprint"):
+
+			# Set the player's speed
+			player.speed_current = player.speed_flying
+
+			# Flag the player as not "sprinting"
+			player.is_sprinting = false
 
 	# Check if the player is "flying"
 	if player.is_flying:
@@ -128,6 +152,9 @@ func start() -> void:
 	# Flag the player as "flying"
 	player.is_flying = true
 
+	# Set the player's speed
+	player.speed_current = player.speed_flying
+
 	# Set player properties
 	player.gravity = 0.0
 	player.motion_mode = CharacterBody3D.MOTION_MODE_FLOATING
@@ -145,7 +172,7 @@ func stop() -> void:
 	player.is_flying = false
 
 	# [Re]Set player properties
-	player.gravity = 9.8
+	player.visuals.rotation.x = 0
+	player.gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 	player.motion_mode = CharacterBody3D.MOTION_MODE_GROUNDED
 	player.velocity.y -= player.gravity
-	player.visuals.rotation.x = 0

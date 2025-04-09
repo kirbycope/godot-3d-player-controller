@@ -43,6 +43,7 @@ volume_db = -10.0
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="VirtualButtons" parent="CanvasLayer" instance=ExtResource("2_vtolg")]
+z_index = 1
 
 [node name="VirtualController3D" type="Node2D" parent="CanvasLayer"]
 script = ExtResource("2_ifath")
