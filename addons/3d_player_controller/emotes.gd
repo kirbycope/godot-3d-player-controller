@@ -1,5 +1,9 @@
 extends Control
 
+const ANIMATION_CLAPPING := "Clapping" + "/mixamo_com"
+const ANIMATION_CRYING := "Crying" + "/mixamo_com"
+const ANIMATION_QUICK_INFORMAL_BOW := "Quick_Informal_Bow" + "/mixamo_com"
+const ANIMATION_WAVING := "Waving" + "/mixamo_com"
 @onready var player: CharacterBody3D = get_parent().get_parent().get_parent()
 
 
@@ -118,7 +122,7 @@ func _on_emote_4_button_button_down() -> void:
 func emote1() -> void:
 
 	# Play the "waving" animation
-	player.animation_player.play("Waving")
+	player.animation_player.play(ANIMATION_WAVING)
 
 	# Flag the animation player as locked
 	player.is_animation_locked = true
@@ -131,7 +135,7 @@ func emote1() -> void:
 func emote2() -> void:
 
 	# Play the "clapping" animation
-	player.animation_player.play("Clapping")
+	player.animation_player.play(ANIMATION_CLAPPING)
 
 	# Flag the animation player as locked
 	player.is_animation_locked = true
@@ -144,7 +148,7 @@ func emote2() -> void:
 func emote3() -> void:
 
 	# Play the "crying" animation
-	player.animation_player.play("Crying")
+	player.animation_player.play(ANIMATION_CRYING)
 
 	# Flag the animation player as locked
 	player.is_animation_locked = true
@@ -157,7 +161,7 @@ func emote3() -> void:
 func emote4() -> void:
 
 	# Play the "bowing" animation
-	player.animation_player.play("Quick_Informal_Bow")
+	player.animation_player.play(ANIMATION_QUICK_INFORMAL_BOW)
 
 	# Flag the animation player as locked
 	player.is_animation_locked = true

@@ -13,13 +13,6 @@ extends Camera3D
 @onready var player = $"../.."
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	# Uncomment the next line if using GodotSteam
-	#if !is_multiplayer_authority(): return
-	pass
-
-
 ## Called when there is an input event.
 func _input(event) -> void:
 
@@ -91,6 +84,9 @@ func _input(event) -> void:
 ## Use _physics_process(delta) if the input needs to be checked continuously in sync with the physics engine, like for smooth movement or jump control.
 func _physics_process(delta) -> void:
 
+	# Uncomment the next line if using GodotSteam
+	#if !is_multiplayer_authority(): return
+
 	# If the game is not paused...
 	if !player.game_paused:
 
@@ -151,7 +147,7 @@ func camera_rotate_by_controller(delta: float) -> void:
 	camera_mount.rotation_degrees.x = new_rotation_x
 
 	# Update the player (visuals+camera) opposite the horizontal controller motion
-	rotation_degrees.y = rotation_degrees.y - (horizontal_input * horizontal_rotation_speed * delta)
+	player.rotation_degrees.y = player.rotation_degrees.y - (horizontal_input * horizontal_rotation_speed * delta)
 
 	# Check if the player is in "third person" perspective
 	if player.perspective == 0:

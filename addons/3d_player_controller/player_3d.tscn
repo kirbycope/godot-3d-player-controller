@@ -102,7 +102,7 @@ visible = false
 visible = false
 
 [node name="RayCast3D" type="RayCast3D" parent="CameraMount/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
 target_position = Vector3(0, 0, -2)
 
 [node name="ItemMount" type="Node3D" parent="."]

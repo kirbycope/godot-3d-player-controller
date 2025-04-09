@@ -1,6 +1,15 @@
 extends BaseState
 
+const ANIMATION_CROUCHING_AIMING_RIFLE := "Rifle_Aiming_Idle_Crouching" + "/mixamo_com"
+const ANIMATION_CROUCHING_FIRING_RIFLE := "Rifle_Firing_Crouching" + "/mixamo_com"
+const ANIMATION_CROUCHING_HOLDING_RIFLE := "Rifle_Idle_Crouching" + "/mixamo_com"
+const ANIMATION_CROUCHING_MOVE_HOLDING_RIFLE := "Rifle_Walk_Crouching" + "/mixamo_com"
+const ANIMATION_STANDING_AIMING_RIFLE := "Rifle_Aiming_Idle" + "/mixamo_com"
+const ANIMATION_STANDING_FIRING_RIFLE := "Rifle_Firing" + "/mixamo_com"
 const ANIMATION_STANDING_HOLDING_RIFLE := "Rifle_Low_Idle"  + "/mixamo_com"
+const ANIMATION_STANDING_CASTING_FISHING_ROD := "Fishing_Cast" + "/mixamo_com"
+const ANIMATION_STANDING_HOLDING_FISHING_ROD := "Fishing_Idle" + "/mixamo_com"
+const ANIMATION_STANDING_REELING_FISHING_ROD := "Fishing_Reel" + "/mixamo_com"
 const NODE_NAME := "Holding"
 
 
@@ -27,6 +36,9 @@ func _input(event: InputEvent) -> void:
 
 				# Flag the player as "holding" something
 				player.is_holding = false
+
+				# Return so that no other input is handled
+				return
 
 		# [use] button _pressed_ (and not holding something)
 		if event.is_action_pressed("use") and !player.is_holding:
@@ -79,18 +91,29 @@ func move_held_item_mount() -> void:
 		# Get the overall transform of the specified bone, with respect to the player's skeleton.
 		var bone_pose = player.player_skeleton.get_bone_global_pose(bone_index)
 
-		# Adjust the held item mount position to match the bone's relative position (adjusting for $Visuals/AuxScene 0.1 scaling)
+		# Get the position of the bone
 		var bone_origin = bone_pose.origin
-		var pos_x = (-bone_origin.x * 0.01) + 0.1
-		var pos_y = (bone_origin.y * 0.01)
-		var pos_z = (-bone_origin.z * 0.01) - 0.15
-		player.held_item_mount.position = Vector3(pos_x, pos_y, pos_z)
+		var pos_x = (-bone_origin.x) + 0.05
+		var pos_y = (bone_origin.y) + 0.1
+		var pos_z = (-bone_origin.z) - 0.1
 
 		# Set the rotation of the held item mount to match the bone's rotation
 		var bone_basis = bone_pose.basis.get_euler()
-		var rot_x = -bone_basis.x + 0
-		var rot_y = bone_basis.y + 0.5
-		var rot_z = -bone_basis.z + 1.0
+		var rot_x = (-bone_basis.x)
+		var rot_y = (bone_basis.y)
+		var rot_z = -(bone_basis.z) - 1.25
+
+		# Hack: Handle ANIMATION_STANDING_HOLDING_FISHING_ROD
+		if player.animation_player.current_animation == ANIMATION_STANDING_HOLDING_FISHING_ROD:
+			pos_x = (-bone_origin.x) + 0.05
+			pos_y = (bone_origin.y) + 0.1
+			pos_z = (-bone_origin.z) - 0.1
+			rot_x = (-bone_basis.x)
+			rot_y = (bone_basis.y)
+			rot_z = (-bone_basis.z) - 1.25
+
+		# Apply the position
+		player.held_item_mount.position = Vector3(pos_x, pos_y, pos_z)
 
 		# Apply the rotation
 		player.held_item_mount.rotation = Vector3(rot_x, rot_y, rot_z)
@@ -105,24 +128,52 @@ func move_held_item_mount() -> void:
 		# Get the overall transform of the specified bone, with respect to the player's skeleton.
 		var bone_pose = player.player_skeleton.get_bone_global_pose(bone_index)
 
-		# Adjust the held item mount position to match the bone's relative position (adjusting for $Visuals/AuxScene scaling)
+		# Get the position of the bone
 		var bone_origin = bone_pose.origin
-		var pos_x = (-bone_origin.x * 0.01)
-		var pos_y = (bone_origin.y * 0.01)
-		var pos_z = (-bone_origin.z * 0.01)
-		player.held_item_mount.position = Vector3(pos_x, pos_y, pos_z)
+		var pos_x = (-bone_origin.x)
+		var pos_y = (bone_origin.y)
+		var pos_z = (-bone_origin.z)
 
-		# Set the rotation of the held item mount to match the bone's rotation
+		# Get the rotation of the held item mount to match the bone's rotation
 		var bone_basis = bone_pose.basis.get_euler()
 		var rot_x = bone_basis.x
-		var rot_y = bone_basis.y - 0.2
-		var rot_z = bone_basis.z + 0.33
+		var rot_y = bone_basis.y
+		var rot_z = bone_basis.z
 
-		# Hack: Handle idle animation postional data
+		# Hack: Handle ANIMATION_CROUCHING_AIMING_RIFLE and ANIMATION_CROUCHING_HOLDING_RIFLE
+		if player.animation_player.current_animation == ANIMATION_CROUCHING_AIMING_RIFLE\
+		or player.animation_player.current_animation == ANIMATION_CROUCHING_FIRING_RIFLE\
+		or player.animation_player.current_animation == ANIMATION_CROUCHING_HOLDING_RIFLE:
+			pos_x = (-bone_origin.x) - 0.01
+			pos_y = (bone_origin.y) + 0.01
+			pos_z = (-bone_origin.z) - 0.15
+			rot_x = bone_basis.x
+			rot_y = bone_basis.y
+			rot_z = bone_basis.z + 0.55
+
+		# Hack: Handle ANIMATION_STANDING_AIMING_RIFLE and ANIMATION_STANDING_FIRING_RIFLE
+		if player.animation_player.current_animation == ANIMATION_STANDING_AIMING_RIFLE\
+		or player.animation_player.current_animation == ANIMATION_STANDING_FIRING_RIFLE\
+		or player.animation_player.current_animation == ANIMATION_CROUCHING_MOVE_HOLDING_RIFLE:
+			pos_x = (-bone_origin.x) - 0.01
+			pos_y = (bone_origin.y) + 0.01
+			pos_z = (-bone_origin.z) - 0.15
+			rot_x = bone_basis.x
+			rot_y = bone_basis.y
+			rot_z = bone_basis.z + 0.3
+	
+		# Hack: Handle ANIMATION_STANDING_HOLDING_RIFLE
 		if player.animation_player.current_animation == ANIMATION_STANDING_HOLDING_RIFLE:
-			rot_y = rot_y + 0.2
-			rot_z = bone_basis.z - 0.75
+			pos_x = (-bone_origin.x) - 0.125
+			pos_y = (bone_origin.y) - 0.05
+			pos_z = (-bone_origin.z) - 0.03
+			rot_x = bone_basis.x#
+			rot_y = bone_basis.y# + 0.15
+			rot_z = bone_basis.z - 0.85
 
+		# Apply the position
+		player.held_item_mount.position = Vector3(pos_x, pos_y, pos_z)
+	
 		# Apply the rotation
 		player.held_item_mount.rotation = Vector3(rot_x, rot_y, rot_z)
 

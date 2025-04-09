@@ -1,6 +1,7 @@
 extends BaseState
 
 const ANIMATION_CRAWLING := "Crawling_In_Place" + "/mixamo_com"
+const ANIMATION_CROUCHING_MOVE_HOLDING_RIFLE := "Rifle_Walk_Crouching" + "/mixamo_com"
 const NODE_NAME := "Crawling"
 
 
@@ -52,10 +53,10 @@ func play_animation() -> void:
 		if player.is_holding_rifle:
 
 			# Check if the animation player is not already playing the appropriate animation
-			if player.animation_player.current_animation != player.animation_crouching_move_holding_rifle:
+			if player.animation_player.current_animation != ANIMATION_CROUCHING_MOVE_HOLDING_RIFLE:
 
 				# Play the "crouching and moving, holding a rifle" animation
-				player.animation_player.play(player.animation_crouching_move_holding_rifle, -1, 0.75)
+				player.animation_player.play(ANIMATION_CROUCHING_MOVE_HOLDING_RIFLE, -1, 0.75)
 
 		# The player must be unarmed
 		else:

@@ -49,7 +49,7 @@ size = Vector3(0.69, 0.69, 0.69)
 size = Vector3(0.5, 0.5, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k6ut6"]
-size = Vector3(2.4, 2.4, 2.4)
+size = Vector3(0.75, 0.75, 0.75)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o5lsk"]
 albedo_texture = ExtResource("6_moi5b")
@@ -130,12 +130,12 @@ transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 
 shape = SubResource("BoxShape3D_hm17w")
 
 [node name="FishingRod" parent="." instance=ExtResource("6_byq53")]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -4, 0.5, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0.5, -2)
 
 [node name="Area3D" type="Area3D" parent="FishingRod"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FishingRod/Area3D"]
-transform = Transform3D(0.5, -0.866025, 0, 0.866025, 0.5, 0, 0, 0, 1, 0.5, 0.75, 0)
+transform = Transform3D(0.5, -0.866025, 0, 0.866025, 0.5, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_k6ut6")
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="."]
