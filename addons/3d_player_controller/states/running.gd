@@ -25,12 +25,6 @@ func _input(event: InputEvent) -> void:
 			# Start "jumping"
 			transition(NODE_NAME, "Jumping")
 
-		# [sprint] button _pressed_
-		if event.is_action_pressed("sprint"):
-
-			# Start "sprinting"
-			transition(NODE_NAME, "Sprinting")
-
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -58,6 +52,12 @@ func _process(_delta: float) -> void:
 
 			# Start "sprinting"
 			transition(NODE_NAME, "Sprinting")
+
+	# [sprint] button _pressed_
+	if Input.is_action_pressed("sprint"):
+
+		# Start "sprinting"
+		transition(NODE_NAME, "Sprinting")
 
 	# Check if the player is "running"
 	if player.is_running:

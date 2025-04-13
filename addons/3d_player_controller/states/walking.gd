@@ -8,19 +8,6 @@ const ANIMATION_WALKING_HOLDING_TOOL := "Tool_Walking_In_Place" + "/mixamo_com"
 const NODE_NAME := "Walking"
 
 
-## Called when there is an input event.
-func _input(event: InputEvent) -> void:
-
-	# Check if the game is not paused
-	if !player.game_paused:
-
-		# [sprint] button _pressed_
-		if event.is_action_pressed("sprint"):
-
-			# Start "sprinting"
-			transition(NODE_NAME, "Sprinting")
-
-
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 
@@ -47,7 +34,13 @@ func _process(_delta: float) -> void:
 
 			# Start "sprinting"
 			transition(NODE_NAME, "Sprinting")
-	
+
+		# [sprint] button _pressed_
+		if Input.is_action_pressed("sprint"):
+
+			# Start "sprinting"
+			transition(NODE_NAME, "Sprinting")
+
 	# Check if the player is "walking"
 	if player.is_walking:
 

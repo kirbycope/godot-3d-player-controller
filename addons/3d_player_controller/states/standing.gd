@@ -353,6 +353,9 @@ func start() -> void:
 	# Set the player's speed
 	player.speed_current = 0.0
 
+	# Set the player's velocity
+	player.velocity = Vector3.ZERO
+
 
 ## Stop "standing".
 func stop() -> void:
