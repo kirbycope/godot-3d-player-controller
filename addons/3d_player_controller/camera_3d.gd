@@ -49,35 +49,14 @@ func _input(event) -> void:
 			# Check if in third-person
 			if player.perspective == 0:
 
-				# Flag the player as in "first" person
-				player.perspective = 1
-
-				# Set camera's position
-				position = Vector3.ZERO
-
-				# Set the camera's raycast position to match the camera's position
-				player.raycast_lookat.position = Vector3.ZERO
-
-				# Align visuals with the camera
-				player.visuals.rotation = Vector3(0.0, 0.0, camera_mount.rotation.z)
+				# Switch to "first" person perspective
+				switch_to_first_person()
 
 			# Check if in first-person
 			elif player.perspective == 1:
 
-				# Flag the player as in "third" person
-				player.perspective = 0
-
-				# Set camera mount's position
-				camera_mount.position = Vector3(0.0, 1.65, 0.0)
-
-				# Set camera's position
-				position = Vector3(0.0, 0.6, 2.5)
-
-				# Set the camera's raycast position to match the player's position
-				player.raycast_lookat.position = Vector3(0.0, 0.0, -2.5)
-
-				# Set the visual's rotation
-				player.visuals.rotation = Vector3.ZERO
+				# Switch to "third" person perspective
+				switch_to_third_person()
 
 
 ## Called each physics frame with the time since the last physics frame as argument (delta, in seconds).
@@ -192,3 +171,38 @@ func move_camera():
 
 		# Adjust the camera mount position to match the bone's relative position (adjusting for $Visuals/AuxScene scaling)
 		camera_mount.position = Vector3(-bone_pose.origin.x, bone_pose.origin.y, -bone_pose.origin.z)
+
+
+## Switches the player perspective to "first" person.
+func switch_to_first_person() -> void:
+
+	# Flag the player as in "first" person
+	player.perspective = 1
+
+	# Set camera's position
+	position = Vector3.ZERO
+
+	# Set the camera's raycast position to match the camera's position
+	player.raycast_lookat.position = Vector3.ZERO
+
+	# Align visuals with the camera
+	player.visuals.rotation = Vector3(0.0, 0.0, camera_mount.rotation.z)
+
+
+## Switches the player perspective to "third" person.
+func switch_to_third_person() -> void:
+
+	# Flag the player as in "third" person
+	player.perspective = 0
+
+	# Set camera mount's position
+	camera_mount.position = Vector3(0.0, 1.65, 0.0)
+
+	# Set camera's position
+	position = Vector3(0.0, 0.6, 2.5)
+
+	# Set the camera's raycast position to match the player's position
+	player.raycast_lookat.position = Vector3(0.0, 0.0, -2.5)
+
+	# Set the visual's rotation
+	player.visuals.rotation = Vector3.ZERO
