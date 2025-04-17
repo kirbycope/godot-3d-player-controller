@@ -1,0 +1,58 @@
+[gd_scene load_steps=12 format=3 uid="uid://clo0cpddagrkh"]
+
+[ext_resource type="Script" uid="uid://duayexmvx1psh" path="res://addons/3d_player_controller/virtual_buttons.gd" id="1_0hims"]
+[ext_resource type="Texture2D" uid="uid://bj7uitcvuqoj2" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/2x/buttonA.png" id="2_5w6gn"]
+[ext_resource type="Texture2D" uid="uid://q6jtj44oubc7" path="res://addons/3d_player_controller/textures/game_icons/PNG/Black/2x/buttonA.png" id="3_3yclv"]
+[ext_resource type="Texture2D" uid="uid://vl0yrruyt7mg" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/2x/buttonB.png" id="4_5x0rk"]
+[ext_resource type="Texture2D" uid="uid://br2deugypebsf" path="res://addons/3d_player_controller/textures/game_icons/PNG/Black/2x/buttonB.png" id="5_ql403"]
+[ext_resource type="Texture2D" uid="uid://bunnq8pux1mto" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/2x/buttonX.png" id="6_w0f2g"]
+[ext_resource type="Texture2D" uid="uid://bxr6eq3d630hb" path="res://addons/3d_player_controller/textures/game_icons/PNG/Black/2x/buttonX.png" id="7_ytx0s"]
+[ext_resource type="Texture2D" uid="uid://4ocyt3lph7nn" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/2x/buttonY.png" id="8_vjpuo"]
+[ext_resource type="Texture2D" uid="uid://wa8fdt0bd4ls" path="res://addons/3d_player_controller/textures/game_icons/PNG/Black/2x/buttonY.png" id="9_y2vt1"]
+[ext_resource type="Texture2D" uid="uid://ccq1g1ykf8ilm" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/2x/buttonStart.png" id="10_m5xin"]
+[ext_resource type="Texture2D" uid="uid://c0xwwpsqsdj2s" path="res://addons/3d_player_controller/textures/game_icons/PNG/Black/2x/buttonStart.png" id="11_sh2j1"]
+
+[node name="VirtualButtonsBottomRight" type="Control"]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1280.0
+offset_top = -720.0
+offset_right = -1280.0
+offset_bottom = -720.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("1_0hims")
+
+[node name="TouchScreenButtonA" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
+position = Vector2(-185, -185)
+texture_normal = ExtResource("2_5w6gn")
+texture_pressed = ExtResource("3_3yclv")
+action = "jump"
+
+[node name="TouchScreenButtonB" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
+position = Vector2(-105, -265)
+texture_normal = ExtResource("4_5x0rk")
+texture_pressed = ExtResource("5_ql403")
+action = "sprint"
+
+[node name="TouchScreenButtonX" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
+position = Vector2(-265, -265)
+texture_normal = ExtResource("6_w0f2g")
+texture_pressed = ExtResource("7_ytx0s")
+action = "use"
+
+[node name="TouchScreenButtonY" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
+position = Vector2(-185, -345)
+texture_normal = ExtResource("8_vjpuo")
+texture_pressed = ExtResource("9_y2vt1")
+action = "crouch"
+
+[node name="TouchScreenButtonStart" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
+position = Vector2(-100, -100)
+texture_normal = ExtResource("10_m5xin")
+texture_pressed = ExtResource("11_sh2j1")
+action = "start"

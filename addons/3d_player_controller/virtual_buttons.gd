@@ -15,4 +15,4 @@ func _ready() -> void:
 func _on_input_type_changed(input_type: Controls.InputType) -> void:
 
 	# Set the visibility of the virtual buttons based on the input type
-	visible = (input_type == Controls.InputType.TOUCH)
+	$"..".visible = (input_type == Controls.InputType.TOUCH)

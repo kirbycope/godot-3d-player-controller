@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://r3qggst0jwcy"]
+
+[ext_resource type="Texture2D" uid="uid://cn3il7dxlb64s" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/2x/buttonL1.png" id="1_eota3"]
+[ext_resource type="Texture2D" uid="uid://kldsqvvedgwh" path="res://addons/3d_player_controller/textures/game_icons/PNG/Black/2x/buttonL1.png" id="2_orr3j"]
+[ext_resource type="Texture2D" uid="uid://cm5roi4x54ovo" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/2x/buttonL2.png" id="3_brfa5"]
+[ext_resource type="Texture2D" uid="uid://bxkolso711hpj" path="res://addons/3d_player_controller/textures/game_icons/PNG/Black/2x/buttonL2.png" id="4_yq2s1"]
+
+[node name="VirtualButtonsTopLeft" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TouchScreenButtonL1" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
+position = Vector2(0, 100)
+texture_normal = ExtResource("1_eota3")
+texture_pressed = ExtResource("2_orr3j")
+action = "left_punch"
+
+[node name="TouchScreenButtonL2" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
+texture_normal = ExtResource("3_brfa5")
+texture_pressed = ExtResource("4_yq2s1")
+action = "left_kick"

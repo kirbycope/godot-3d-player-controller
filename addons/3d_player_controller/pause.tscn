@@ -48,9 +48,9 @@ autowrap_mode = 0
 
 [node name="BackToGameButton" type="TextureButton" parent="Panel"]
 layout_mode = 0
-offset_top = 42.0
+offset_top = 260.0
 offset_right = 200.0
-offset_bottom = 82.0
+offset_bottom = 300.0
 
 [node name="TextureRect" type="TextureRect" parent="Panel/BackToGameButton"]
 layout_mode = 0
@@ -135,9 +135,9 @@ autowrap_mode = 0
 
 [node name="LeaveGameButton" type="TextureButton" parent="Panel"]
 layout_mode = 0
-offset_top = 260.0
+offset_top = 42.0
 offset_right = 200.0
-offset_bottom = 300.0
+offset_bottom = 82.0
 
 [node name="TextureRect" type="TextureRect" parent="Panel/LeaveGameButton"]
 layout_mode = 0

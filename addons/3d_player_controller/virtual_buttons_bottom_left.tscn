@@ -1,0 +1,50 @@
+[gd_scene load_steps=11 format=3 uid="uid://dg7alw1ljs6jc"]
+
+[ext_resource type="Texture2D" uid="uid://cvf5re3ib54f3" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/2x/down.png" id="1_lcfk3"]
+[ext_resource type="Texture2D" uid="uid://bjgkimksvjssg" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/2x/buttonSelect.png" id="1_xb0al"]
+[ext_resource type="Texture2D" uid="uid://0yu3q81472qy" path="res://addons/3d_player_controller/textures/game_icons/PNG/Black/2x/buttonSelect.png" id="2_ce8tp"]
+[ext_resource type="Texture2D" uid="uid://dfmy8qf1cu6gl" path="res://addons/3d_player_controller/textures/game_icons/PNG/Black/2x/down.png" id="2_e0kik"]
+[ext_resource type="Texture2D" uid="uid://dpia73c5jpc3n" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/2x/left.png" id="3_vdopd"]
+[ext_resource type="Texture2D" uid="uid://dua825h4qeoiv" path="res://addons/3d_player_controller/textures/game_icons/PNG/Black/2x/left.png" id="4_lv7gs"]
+[ext_resource type="Texture2D" uid="uid://cvgnoobno4qb3" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/2x/right.png" id="5_1tsb6"]
+[ext_resource type="Texture2D" uid="uid://cp2bxprqjm1r8" path="res://addons/3d_player_controller/textures/game_icons/PNG/Black/2x/right.png" id="6_vxjgn"]
+[ext_resource type="Texture2D" uid="uid://c4f0ye7kocfu4" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/2x/up.png" id="7_u0ual"]
+[ext_resource type="Texture2D" uid="uid://dhiavub4l2123" path="res://addons/3d_player_controller/textures/game_icons/PNG/Black/2x/up.png" id="8_0l5f3"]
+
+[node name="VirtualButtonsBottomLeft" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TouchScreenButtonDown" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
+position = Vector2(85, -185)
+texture_normal = ExtResource("1_lcfk3")
+texture_pressed = ExtResource("2_e0kik")
+action = "dpad_down"
+
+[node name="TouchScreenButtonLeft" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
+position = Vector2(5, -265)
+texture_normal = ExtResource("3_vdopd")
+texture_pressed = ExtResource("4_lv7gs")
+action = "dpad_left"
+
+[node name="TouchScreenButtonRight" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
+position = Vector2(165, -265)
+texture_normal = ExtResource("5_1tsb6")
+texture_pressed = ExtResource("6_vxjgn")
+action = "dpad_right"
+
+[node name="TouchScreenButtonUp" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
+position = Vector2(85, -345)
+texture_normal = ExtResource("7_u0ual")
+texture_pressed = ExtResource("8_0l5f3")
+action = "dpad_up"
+
+[node name="TouchScreenButtonSelect" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
+position = Vector2(0, -100)
+texture_normal = ExtResource("1_xb0al")
+texture_pressed = ExtResource("2_ce8tp")
+action = "select"

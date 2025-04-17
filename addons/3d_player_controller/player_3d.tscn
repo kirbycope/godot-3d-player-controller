@@ -1,11 +1,15 @@
-[gd_scene load_steps=28 format=3 uid="uid://ujh51l2wv1vk"]
+[gd_scene load_steps=32 format=3 uid="uid://ujh51l2wv1vk"]
 
 [ext_resource type="Script" uid="uid://2iaqywmqcahl" path="res://addons/3d_player_controller/player_3d.gd" id="1_f3dlg"]
+[ext_resource type="PackedScene" uid="uid://r3qggst0jwcy" path="res://addons/3d_player_controller/virtual_buttons_top_left.tscn" id="2_1p282"]
 [ext_resource type="Script" uid="uid://qg3kc3fkwemc" path="res://addons/3d_player_controller/virtual_controller_3d.gd" id="2_ifath"]
-[ext_resource type="PackedScene" uid="uid://c7x2c4rsai64q" path="res://addons/3d_player_controller/virtual_buttons.tscn" id="2_vtolg"]
+[ext_resource type="Script" uid="uid://duayexmvx1psh" path="res://addons/3d_player_controller/virtual_buttons.gd" id="2_vdjk1"]
+[ext_resource type="PackedScene" uid="uid://cstsy0gh6slk4" path="res://addons/3d_player_controller/virtual_buttons_top_right.tscn" id="3_k4p2k"]
 [ext_resource type="PackedScene" uid="uid://dv80q7jwkx20r" path="res://addons/3d_player_controller/debug.tscn" id="3_xex47"]
 [ext_resource type="PackedScene" uid="uid://c714y0011rxmt" path="res://addons/3d_player_controller/y_bot.tscn" id="4_swcjt"]
 [ext_resource type="PackedScene" uid="uid://bf6dhhwfpuau6" path="res://addons/3d_player_controller/pause.tscn" id="4_t2fvs"]
+[ext_resource type="PackedScene" uid="uid://dg7alw1ljs6jc" path="res://addons/3d_player_controller/virtual_buttons_bottom_left.tscn" id="4_vdjk1"]
+[ext_resource type="PackedScene" uid="uid://clo0cpddagrkh" path="res://addons/3d_player_controller/virtual_buttons_bottom_right.tscn" id="5_0pvj7"]
 [ext_resource type="PackedScene" uid="uid://u2wxuwpmjwha" path="res://addons/3d_player_controller/emotes.tscn" id="5_icw06"]
 [ext_resource type="Script" uid="uid://xf1vm85b12dr" path="res://addons/3d_player_controller/camera_3d.gd" id="5_j65kv"]
 [ext_resource type="Script" uid="uid://bxskxesywooou" path="res://addons/3d_player_controller/states/climbing.gd" id="5_xlvyu"]
@@ -42,11 +46,43 @@ volume_db = -10.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="VirtualButtons" parent="CanvasLayer" instance=ExtResource("2_vtolg")]
-z_index = 1
-
 [node name="VirtualController3D" type="Node2D" parent="CanvasLayer"]
 script = ExtResource("2_ifath")
+
+[node name="VirtualButtons" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_vdjk1")
+
+[node name="VirtualButtonsBottomLeft" parent="CanvasLayer" instance=ExtResource("4_vdjk1")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_right = 0.0
+grow_horizontal = 1
+grow_vertical = 0
+
+[node name="VirtualButtonsBottomRight" parent="CanvasLayer" instance=ExtResource("5_0pvj7")]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+script = null
+
+[node name="VirtualButtonsTopLeft" parent="CanvasLayer" instance=ExtResource("2_1p282")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="VirtualButtonsTopRight" parent="CanvasLayer" instance=ExtResource("3_k4p2k")]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
