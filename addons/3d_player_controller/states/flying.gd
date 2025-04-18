@@ -6,8 +6,8 @@ const NODE_NAME := "Flying"
 var timer_jump = 0.0
 
 
-## Called every frame. '_delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
+## Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
 
 	# Uncomment the next line if using GodotSteam
 	#if !is_multiplayer_authority(): return
@@ -55,7 +55,7 @@ func _process(_delta: float) -> void:
 		if Input.is_action_pressed("crouch"):
 
 			# Decrease the player's vertical position
-			player.position.y -= 0.01
+			player.position.y -= 5 * delta
 
 			# End ANIMATION_FLYING if collision detected below the player
 			if player.raycast_below.is_colliding():
@@ -79,7 +79,7 @@ func _process(_delta: float) -> void:
 		if Input.is_action_pressed("jump"):
 
 			# Increase the player's vertical position
-			player.position.y += 0.01
+			player.position.y += 5 * delta
 
 		# [jump] button just _released_
 		if Input.is_action_just_released("jump"):
