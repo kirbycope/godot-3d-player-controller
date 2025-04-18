@@ -9,8 +9,9 @@ extends Camera3D
 @export var zoom_speed: float = 0.2
 
 # Note: `@onready` variables are set when the scene is loaded.
-@onready var camera_mount = $".."
-@onready var player = $"../.."
+@onready var camera_mount: Node3D = $".."
+@onready var player: CharacterBody3D = $"../.."
+@onready var retical: Control = $Retical
 
 
 ## Called when there is an input event.
@@ -180,13 +181,16 @@ func switch_to_first_person() -> void:
 	player.perspective = 1
 
 	# Set camera's position
-	position = Vector3.ZERO
+	position = Vector3(0.0, 0.1, 0.0)
 
 	# Set the camera's raycast position to match the camera's position
 	player.raycast_lookat.position = Vector3.ZERO
 
 	# Align visuals with the camera
 	player.visuals.rotation = Vector3(0.0, 0.0, camera_mount.rotation.z)
+
+	# Show the retical
+	retical.show()
 
 
 ## Switches the player perspective to "third" person.
@@ -206,3 +210,6 @@ func switch_to_third_person() -> void:
 
 	# Set the visual's rotation
 	player.visuals.rotation = Vector3.ZERO
+
+	# Hide the retical
+	retical.hide()

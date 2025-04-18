@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://ujh51l2wv1vk"]
+[gd_scene load_steps=33 format=3 uid="uid://ujh51l2wv1vk"]
 
 [ext_resource type="Script" uid="uid://2iaqywmqcahl" path="res://addons/3d_player_controller/player_3d.gd" id="1_f3dlg"]
 [ext_resource type="PackedScene" uid="uid://r3qggst0jwcy" path="res://addons/3d_player_controller/virtual_buttons_top_left.tscn" id="2_1p282"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" uid="uid://dgr1stgatu2la" path="res://addons/3d_player_controller/states/crouching.gd" id="7_2pwpa"]
 [ext_resource type="Script" uid="uid://da2abedbjpere" path="res://addons/3d_player_controller/states/falling.gd" id="8_50ucx"]
 [ext_resource type="Script" uid="uid://b1b2rgyyrsjig" path="res://addons/3d_player_controller/states/flying.gd" id="9_2t1yj"]
+[ext_resource type="Texture2D" uid="uid://c4wibovgpj7xy" path="res://addons/3d_player_controller/textures/reticle.png" id="10_0pvj7"]
 [ext_resource type="Script" uid="uid://d31ddqb4hyuqm" path="res://addons/3d_player_controller/states/hanging.gd" id="10_eblo2"]
 [ext_resource type="Script" uid="uid://cyls4atmagils" path="res://addons/3d_player_controller/states/holding.gd" id="11_ekkl0"]
 [ext_resource type="Script" uid="uid://drdtp8y8bxm65" path="res://addons/3d_player_controller/states/driving.gd" id="11_mcv3d"]
@@ -125,6 +126,27 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 [node name="Camera3D" type="Camera3D" parent="CameraMount"]
 transform = Transform3D(1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, 0, 0.6, 2.5)
 script = ExtResource("5_j65kv")
+
+[node name="Retical" type="Control" parent="CameraMount/Camera3D"]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="CameraMount/Camera3D/Retical"]
+texture_filter = 1
+layout_mode = 0
+offset_left = -3.0
+offset_top = -3.0
+offset_right = 4.0
+offset_bottom = 4.0
+texture = ExtResource("10_0pvj7")
+stretch_mode = 3
 
 [node name="Emotes" parent="CameraMount/Camera3D" instance=ExtResource("5_icw06")]
 visible = false
