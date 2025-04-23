@@ -85,7 +85,6 @@ var virtual_velocity: Vector3 = Vector3.ZERO
 @onready var collision_position = $CollisionShape3D.position
 @onready var held_item_mount = $Visuals/HeldItemMount
 @onready var initial_position = position
-@onready var item_mount = $ItemMount
 @onready var player_skeleton = $Visuals/AuxScene/GeneralSkeleton
 @onready var raycast_lookat = $CameraMount/Camera3D/RayCast3D
 @onready var raycast_jumptarget = $Visuals/RayCast3D_JumpTarget

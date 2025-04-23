@@ -34,6 +34,9 @@ func _input(event: InputEvent) -> void:
 				# Flag the node as no longer "held"
 				held_node.remove_from_group("held")
 
+				# Move the collider to Layer 2
+				held_node.collision_layer = 1
+
 				# Flag the player as "holding" something
 				player.is_holding = false
 
@@ -54,6 +57,9 @@ func _input(event: InputEvent) -> void:
 
 					# Flag the RigidBody3D as being "held"
 					collider.add_to_group("held")
+
+					# Move the collider to Layer 2
+					collider.collision_layer = 2
 
 					# Flag the player as "holding" something
 					player.is_holding = true
@@ -191,7 +197,37 @@ func move_held_object() -> void:
 		var held_node = held_nodes[0]
 
 		# Move the first node to the holding position
-		held_node.global_transform = player.item_mount.global_transform
+		if player.raycast_lookat.is_colliding():
+			var collision_point = player.raycast_lookat.get_collision_point()
+			var direction = player.raycast_lookat.global_transform.basis.z.normalized()
+
+			# Access the shape's size from the CollisionShape3D
+			var shape = held_node.get_node("CollisionShape3D").shape
+			var object_depth = 0.0
+
+			if shape is BoxShape3D:
+				object_depth = shape.size.z
+			elif shape is SphereShape3D:
+				object_depth = shape.radius * 2.0
+			elif shape is CapsuleShape3D:
+				object_depth = shape.height + shape.radius * 2.0
+			else:
+				object_depth = 1.0
+
+			# Offset the object backward along the ray direction
+			held_node.global_position = collision_point + direction * (object_depth * 0.5)
+
+		else:
+			var origin = player.raycast_lookat.global_transform.origin
+			var direction = player.raycast_lookat.global_transform.basis.z.normalized()
+			var distance = player.raycast_lookat.target_position.length() * -0.5
+			held_node.global_position = origin + direction * distance
+
+		# Rotate the held item with the player
+		if player.perspective == 0:
+			held_node.rotation.y = -player.visuals.rotation.y
+		else:
+			held_node.rotation.y = player.rotation.y
 
 		# If the held node is a RigidBody, reset its velocities
 		if held_node is RigidBody3D:

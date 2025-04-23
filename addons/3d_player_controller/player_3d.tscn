@@ -164,9 +164,6 @@ visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
 target_position = Vector3(0, 0, -2)
 
-[node name="ItemMount" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1)
-
 [node name="States" type="Node" parent="."]
 
 [node name="Base" type="Node" parent="States"]
