@@ -196,40 +196,53 @@ func move_held_object() -> void:
 		# Get the first node in the "held" group
 		var held_node = held_nodes[0]
 
-		# Move the first node to the holding position
-		if player.raycast_lookat.is_colliding():
-			var collision_point = player.raycast_lookat.get_collision_point()
-			var direction = player.raycast_lookat.global_transform.basis.z.normalized()
+		# Check if the held node is a RigidBody3D
+		if held_node is RigidBody3D:
 
-			# Access the shape's size from the CollisionShape3D
-			var shape = held_node.get_node("CollisionShape3D").shape
-			var object_depth = 0.0
+			# Check if the held node and ray are colliding (seperatly)
+			# Note: The held node must have Solver > Contact Monitor > set True and Max Contact to 1 or more
+			if held_node.get_colliding_bodies().size() > 0 and player.raycast_lookat.is_colliding():
 
-			if shape is BoxShape3D:
-				object_depth = shape.size.z
-			elif shape is SphereShape3D:
-				object_depth = shape.radius * 2.0
-			elif shape is CapsuleShape3D:
-				object_depth = shape.height + shape.radius * 2.0
+				# Get the collision point of the ray
+				var collision_point = player.raycast_lookat.get_collision_point()
+
+				# Get the (normalized) direction of the ray
+				var direction = player.raycast_lookat.global_transform.basis.z.normalized()
+
+				# Access the shape's size from the CollisionShape3D
+				var shape = held_node.get_node("CollisionShape3D").shape
+				var object_depth = 0.0
+
+				if shape is BoxShape3D:
+					object_depth = shape.size.z
+				elif shape is SphereShape3D:
+					object_depth = shape.radius * 2.0
+				elif shape is CapsuleShape3D:
+					object_depth = shape.height + shape.radius * 2.0
+				else:
+					object_depth = 1.0
+
+				# Offset the object backward along the ray direction
+				held_node.global_position = collision_point + direction * (object_depth * 0.5)
+
+			# The node must not be colliding
 			else:
-				object_depth = 1.0
 
-			# Offset the object backward along the ray direction
-			held_node.global_position = collision_point + direction * (object_depth * 0.5)
+				# Get the origin position of ray
+				var origin = player.raycast_lookat.global_transform.origin
 
-		else:
-			var origin = player.raycast_lookat.global_transform.origin
-			var direction = player.raycast_lookat.global_transform.basis.z.normalized()
-			var distance = player.raycast_lookat.target_position.length() * -0.5
-			held_node.global_position = origin + direction * distance
+				# Get the (normalized) direction of the ray
+				var direction = -player.raycast_lookat.global_transform.basis.z.normalized()
+
+				# Set the distance from the player that the object is held
+				var distance = 1
+
+				# Move the held object to the new position
+				held_node.global_position = origin + (direction * distance)
 
 		# Rotate the held item with the player
-		if player.perspective == 0:
-			held_node.rotation.y = -player.visuals.rotation.y
-		else:
-			held_node.rotation.y = player.rotation.y
+		held_node.rotation.y = player.rotation.y
 
-		# If the held node is a RigidBody, reset its velocities
-		if held_node is RigidBody3D:
-			held_node.linear_velocity = Vector3.ZERO
-			held_node.angular_velocity = Vector3.ZERO
+		# Reset velocities
+		held_node.linear_velocity = Vector3.ZERO
+		held_node.angular_velocity = Vector3.ZERO

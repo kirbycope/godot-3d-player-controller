@@ -113,6 +113,8 @@ material = SubResource("StandardMaterial3D_j64gc")
 
 [node name="MetalBox" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.445, -2)
+contact_monitor = true
+max_contacts_reported = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MetalBox"]
 shape = SubResource("BoxShape3D_3tkmj")
