@@ -19,6 +19,12 @@ func _input(event: InputEvent) -> void:
 	# Check if the game is not paused
 	if !player.game_paused:
 
+		# [left_punch] button _pressed_ (and holding something)
+		if event.is_action_pressed("left_punch") and player.is_holding:
+
+			# Throw the held object
+			throw_held_object()
+
 		# [use] button _pressed_ (and holding something)
 		if event.is_action_pressed("use") and player.is_holding:
 
@@ -246,3 +252,31 @@ func move_held_object() -> void:
 		# Reset velocities
 		held_node.linear_velocity = Vector3.ZERO
 		held_node.angular_velocity = Vector3.ZERO
+
+
+# Add this new function to throw the held object
+func throw_held_object() -> void:
+
+	# Get the nodes in the "held" group
+	var held_nodes = get_tree().get_nodes_in_group("held")
+
+	# Check if nodes were found in the group
+	if not held_nodes.is_empty():
+
+		# Get the first node in the "held" group
+		var held_node = held_nodes[0]
+
+		# Flag the node as no longer "held"
+		held_node.remove_from_group("held")
+
+		# Move the collider back to Layer 1
+		held_node.collision_layer = 1
+
+		# Flag the player as no longer "holding" something
+		player.is_holding = false
+
+		# Get the direction the player is looking
+		var throw_direction = -player.raycast_lookat.global_transform.basis.z.normalized()
+
+		# Apply force to throw the object
+		held_node.apply_central_impulse(throw_direction * player.throw_force)

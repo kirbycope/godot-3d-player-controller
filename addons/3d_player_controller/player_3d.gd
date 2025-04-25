@@ -73,6 +73,7 @@ var virtual_velocity: Vector3 = Vector3.ZERO
 @export var speed_sprinting: float = 5.0
 @export var speed_swimming: float = 3.0
 @export var speed_walking: float = 1.0
+@export var throw_force: float = 3.5
 
 # Note: `@onready` variables are set when the scene is loaded.
 @onready var animation_player = $Visuals/AuxScene/AnimationPlayer
