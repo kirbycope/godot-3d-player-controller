@@ -206,24 +206,30 @@ func _input(event: InputEvent) -> void:
 			right_swipe_delta = right_swipe_current_position - right_swipe_initial_position
 
 			# Trigger the [look_left] action _pressed_
-			if right_swipe_delta.x < - SWIPE_DEADZONE*2:
+			if right_swipe_delta.x < -SWIPE_DEADZONE:
 				Input.action_release("look_right")
 				Input.action_press("look_left")
-
 			# Trigger the [look_right] action _pressed_
-			if right_swipe_delta.x > SWIPE_DEADZONE*2:
+			elif right_swipe_delta.x > SWIPE_DEADZONE:
 				Input.action_release("look_left")
 				Input.action_press("look_right")
+			# Trigger the [look_left] and [look_right] actions _released_
+			else:
+				Input.action_release("look_left")
+				Input.action_release("look_right")
 
 			# Trigger the [look_up] action _pressed_
-			if right_swipe_delta.y < SWIPE_DEADZONE*2:
+			if right_swipe_delta.y < -SWIPE_DEADZONE*2:
 				Input.action_release("look_down")
 				Input.action_press("look_up")
-
 			# Trigger the [look_down] action _pressed_
-			if right_swipe_delta.y > SWIPE_DEADZONE*2:
+			elif right_swipe_delta.y > SWIPE_DEADZONE*2:
 				Input.action_release("look_up")
 				Input.action_press("look_down")
+			# Trigger the [look_up] and [look_down] actions _released_
+			else:
+				Input.action_release("look_up")
+				Input.action_release("look_down")
 
 	# Redraw canvas items via `_draw()`
 	queue_redraw()
