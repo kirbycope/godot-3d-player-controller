@@ -1,9 +1,9 @@
 extends Node
 
 enum InputType {
-	MOUSE_KEYBOARD,
-	CONTROLLER,
-	TOUCH
+	MOUSE_KEYBOARD, # 0
+	CONTROLLER,	 	# 1
+	TOUCH			# 2
 }
 
 signal input_type_changed(new_type)
@@ -373,7 +373,7 @@ func _ready() -> void:
 		joypad_button_event.button_index = JOY_BUTTON_Y
 		InputMap.action_add_event("crouch", joypad_button_event)
 
-	# 🄻1
+	# 🄻1 Check if [left_punch] action is not in the Input Map
 	if not InputMap.has_action("left_punch"):
 
 		# Add the [left_punch] action to the Input Map
@@ -390,7 +390,7 @@ func _ready() -> void:
 		joypad_button_event.button_index = JOY_BUTTON_LEFT_SHOULDER
 		InputMap.action_add_event("left_punch", joypad_button_event)
 
-	# 🄻2
+	# 🄻2 Check if [left_kick] action is not in the Input Map
 	if not InputMap.has_action("left_kick"):
 
 		# Add the [left_kick] action to the Input Map
@@ -407,6 +407,24 @@ func _ready() -> void:
 		joypad_axis_event.axis = JOY_AXIS_TRIGGER_LEFT
 		joypad_axis_event.axis_value = 1.0
 		InputMap.action_add_event("left_kick", joypad_axis_event)
+
+	# 🄻2 Check if [aim] action is not in the Input Map
+	if not InputMap.has_action("aim"):
+
+		# Add the [aim] action to the Input Map
+		InputMap.add_action("aim")
+
+		# Mouse [right-click]
+		var mouse_button_event = InputEventMouseButton.new()
+		mouse_button_event.button_index  = MOUSE_BUTTON_RIGHT
+		mouse_button_event.pressed = true
+		InputMap.action_add_event("aim", mouse_button_event)
+
+		# Controller 🄻2
+		var joypad_axis_event = InputEventJoypadMotion.new()
+		joypad_axis_event.axis = JOY_AXIS_TRIGGER_LEFT
+		joypad_axis_event.axis_value = 1.0
+		InputMap.action_add_event("aim", joypad_axis_event)
 
 	# Ⓛ3 Check if [zoom_in] action
 	if not InputMap.has_action("zoom_in"):
@@ -425,7 +443,7 @@ func _ready() -> void:
 		joypad_button_event.button_index = JOY_BUTTON_LEFT_STICK
 		InputMap.action_add_event("zoom_in", joypad_button_event)
 
-	# 🅁1
+	# 🅁1 Check if [right_punch] action is not in the Input Map
 	if not InputMap.has_action("right_punch"):
 
 		# Add the [right_punch] action to the Input Map
@@ -443,7 +461,7 @@ func _ready() -> void:
 		mouse_button_event.pressed = true
 		InputMap.action_add_event("right_punch", joypad_button_event)
 
-	# 🅁2
+	# 🅁2 Check if [right_kick] action is not in the Input Map
 	if not InputMap.has_action("right_kick"):
 
 		# Add the [right_kick] action to the Input Map
@@ -460,6 +478,24 @@ func _ready() -> void:
 		joypad_axis_event.axis = JOY_AXIS_TRIGGER_RIGHT
 		joypad_axis_event.axis_value = 1.0
 		InputMap.action_add_event("right_kick", joypad_axis_event)
+
+	# 🅁2 Check if [shoot] action is not in the Input Map
+	if not InputMap.has_action("shoot"):
+
+		# Add the [shoot] action to the Input Map
+		InputMap.add_action("shoot")
+
+		# Mouse [left-click]
+		var mouse_button_event = InputEventMouseButton.new()
+		mouse_button_event.button_index = MOUSE_BUTTON_LEFT
+		mouse_button_event.pressed = true
+		InputMap.action_add_event("shoot", mouse_button_event)
+
+		# Controller 🅁2
+		var joypad_axis_event = InputEventJoypadMotion.new()
+		joypad_axis_event.axis = JOY_AXIS_TRIGGER_RIGHT
+		joypad_axis_event.axis_value = 1.0
+		InputMap.action_add_event("shoot", joypad_axis_event)
 
 	# Ⓡ3 Check if [zoom_out] action
 	if not InputMap.has_action("zoom_out"):

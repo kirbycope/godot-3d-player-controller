@@ -24,8 +24,8 @@ func _input(event: InputEvent) -> void:
 			# Start "jumping"
 			transition(NODE_NAME, "Jumping")
 
-		# [left-punch] button just _pressed_
-		if event.is_action_pressed("left_punch"):
+		# [aim] button just _pressed_
+		if event.is_action_pressed("aim"):
 
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
@@ -36,8 +36,26 @@ func _input(event: InputEvent) -> void:
 					# Flag the player as is "aiming"
 					player.is_aiming = true
 
-				# The player must be unarmed
-				else:
+		# [aim] button just _released_
+		if event.is_action_released("aim"):
+
+			# Check if the animation player is not locked
+			if !player.is_animation_locked:
+
+				# Check if the player is "holding a rifle"
+				if player.is_holding_rifle:
+
+					# Flag the player as not "aiming"
+					player.is_aiming = false
+
+		# [left-punch] button just _pressed_
+		if event.is_action_pressed("left_punch"):
+
+			# Check if the animation player is not locked
+			if !player.is_animation_locked:
+
+				# Check if the player is not "holding a rifle"
+				if !player.is_holding_rifle:
 
 					# Check if punching is enabled
 					if player.enable_punching:
@@ -93,8 +111,8 @@ func _input(event: InputEvent) -> void:
 							# Check the punch hits something
 							player.check_punch_collision()
 
-		# [right-punch] button just _pressed_
-		if event.is_action_pressed("right_punch"):
+		# [shoot] button just _pressed_
+		if event.is_action_pressed("shoot"):
 
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:

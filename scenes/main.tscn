@@ -291,7 +291,7 @@ material = SubResource("StandardMaterial3D_1jjce")
 transform = Transform3D(0.883883, 0, -0.883883, 0, 1.25, 0, 0.883883, 0, 0.883883, 4, 1.101, -2)
 
 [node name="Duck" parent="." instance=ExtResource("11_11ve4")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 2.22262, 3.26335e-05, -3.2671)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -4.27738, 3.26335e-05, -5.2671)
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.55, -2)

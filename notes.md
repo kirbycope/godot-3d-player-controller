@@ -42,3 +42,35 @@
 1. In the "FileSystem", double-click `player_3d.tscn`
 1. Replace "AuxScene" with your character
 	- Keep the "AuxScene" name (scripts reference it)
+
+----
+
+## Controls
+|    Action		|  Virtual/XBox	|    Keyboard/Mouse		|
+| Debug			|				| F3					|
+| DPAD_UP		| DPAD_UP		| Tab					|
+| DPAD_DOWN		| DPAD_DOWN		| Q						|
+| DPAD_LEFT		| DPAD_LEFT		| B						|
+| DPAD_RIGHT	| DPAD_RIGHT	| T						|
+| MOVE_UP		| L.JOY_UP		| W						|
+| MOVE_DOWN		| L.JOY_DOWN	| S						|
+| MOVE_LEFT		| L.JOY_LEFT	| A						|
+| MOVE_RIGHT	| L.JOY_RIGHT	| D						|
+| Select		| Select		| F5					|
+| Start			| Start			| Esc					|
+| LOOK_UP		| R.JOY_UP		| Up/Mouse				|
+| LOOK_DOWN		| R.JOY_DOWN	| Down/Mouse			|
+| LOOK_LEFT		| R.JOY_LEFT	| Left/Mouse			|
+| LOOK_RIGHT	| R.JOY_RIGHT	| Right/Mouse			|
+| Jump			| A				| Space					|
+| Sprint		| B				| Shift					|
+| Crouch		| Y				| Ctrl					|
+| Use			| X				| E						|
+| Left Punch	| L1			| Mouse-button left		|
+| Left Kick		| L2			| Mouse-button xbutton2	|
+| Aim			| L2			| Mouse-button right	|
+| Zoom In		| L3			| Mouse-scroll down		|
+| Right Punch	| L1			| Mouse-button right	|
+| Right Kick	| R2			| Mouse-button xbutton1	|
+| Shoot			| R2			| Mouse-button left		|
+| Zoom Out		| R3			| Mouse-scroll up		|
