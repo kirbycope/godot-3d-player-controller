@@ -36,6 +36,7 @@ var is_sprinting: bool = false
 var is_standing: bool = false
 var is_swimming_in
 var is_swimming: bool = false
+var is_using: bool = false
 var is_walking: bool = false
 var virtual_velocity: Vector3 = Vector3.ZERO
 

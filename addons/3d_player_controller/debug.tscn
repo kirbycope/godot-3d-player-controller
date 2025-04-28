@@ -44,7 +44,7 @@ script = ExtResource("1_nyx4n")
 [node name="Panel1" type="Panel" parent="."]
 layout_mode = 0
 offset_right = 216.0
-offset_bottom = 676.0
+offset_bottom = 700.0
 
 [node name="Label22" type="Label" parent="Panel1"]
 layout_mode = 0
@@ -449,19 +449,34 @@ offset_top = 624.0
 offset_right = 216.0
 offset_bottom = 648.0
 
-[node name="IsWalking" type="CheckBox" parent="Panel1"]
+[node name="IsUsing" type="CheckBox" parent="Panel1"]
 layout_mode = 0
 offset_left = 192.0
 offset_top = 648.0
 offset_right = 216.0
 offset_bottom = 672.0
 
-[node name="Label27" type="Label" parent="Panel1"]
+[node name="Label33" type="Label" parent="Panel1"]
 layout_mode = 0
 offset_left = 9.0
 offset_top = 648.0
 offset_right = 179.0
 offset_bottom = 671.0
+text = "is_using"
+
+[node name="IsWalking" type="CheckBox" parent="Panel1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 672.0
+offset_right = 216.0
+offset_bottom = 696.0
+
+[node name="Label27" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 672.0
+offset_right = 179.0
+offset_bottom = 695.0
 text = "is_walking"
 
 [node name="Panel2" type="Panel" parent="."]

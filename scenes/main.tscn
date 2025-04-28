@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=42 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" uid="uid://c7agev1ouwnuu" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="Texture2D" uid="uid://e6rn4rs3cr0v" path="res://assets/kenney_nl/prototype_textures/PNG/Dark/texture_09.png" id="2_d2mly"]
@@ -92,6 +92,25 @@ size = Vector3(10.2, 2, 0.1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3eb0q"]
 size = Vector3(1.4, 1, 0.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jbj1t"]
+size = Vector3(0.2, 1.1, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_muem4"]
+albedo_color = Color(0.443137, 0.443137, 0.443137, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dp3eg"]
+material = SubResource("StandardMaterial3D_muem4")
+size = Vector3(0.2, 1, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0ld40"]
+albedo_color = Color(0.788235, 0, 0.145098, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_gqmmt"]
+material = SubResource("StandardMaterial3D_0ld40")
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.1
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_oaegt")
@@ -327,6 +346,20 @@ shape = SubResource("BoxShape3D_3eb0q")
 
 [node name="Honda_CRV_2023" parent="." instance=ExtResource("15_5l67w")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 8, 0, 0)
+
+[node name="Button" type="StaticBody3D" parent="." groups=["Usable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Button"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+shape = SubResource("BoxShape3D_jbj1t")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Button"]
+mesh = SubResource("BoxMesh_dp3eg")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Button"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("CylinderMesh_gqmmt")
 
 [connection signal="body_entered" from="PortalGun/Area3D" to="." method="_on_area_3d_portal_gun_body_entered"]
 [connection signal="body_entered" from="FishingRod/Area3D" to="." method="_on_area_3d_fishing_rod_body_entered"]

@@ -14,6 +14,7 @@ const ANIMATION_STANDING_PUNCHING_HIGH_LEFT := "Punching_High_Left" + "/mixamo_c
 const ANIMATION_STANDING_PUNCHING_HIGH_RIGHT := "Punching_High_Right" + "/mixamo_com"
 const ANIMATION_STANDING_PUNCHING_LOW_LEFT := "Punching_Low_Left" + "/mixamo_com"
 const ANIMATION_STANDING_PUNCHING_LOW_RIGHT := "Punching_Low_Right" + "/mixamo_com"
+const ANIMATION_STANDING_USING := "Button_Pushing" + "/mixamo_com"
 const NODE_NAME := "Standing"
 
 
@@ -200,6 +201,15 @@ func _input(event: InputEvent) -> void:
 				# Flag the player as not "casting"
 				player.is_casting = false
 
+		# [use] button just _pressed_ (and the middle raycast is colliding)
+		if event.is_action_pressed("use") and player.raycast_middle.is_colliding():
+
+			# Check that the collider is usable
+			if player.raycast_middle.get_collider().is_in_group("Usable"):
+
+				# Flag the player as "using"
+				player.is_using = true
+
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -330,6 +340,24 @@ func play_animation() -> void:
 
 		# The player must be unarmed
 		else:
+
+			# Check if the player is "using"
+			if player.is_using:
+
+				# Flag the animation player as locked
+				player.is_animation_locked = true
+
+				# Play the "standing using" animation
+				player.animation_player.play(ANIMATION_STANDING_USING)
+
+				# Delay execution
+				await get_tree().create_timer(3.3).timeout
+
+				# Flag the animation player no longer locked
+				player.is_animation_locked = false
+
+				# Flag the player as no longer using
+				player.is_using = false
 
 			# Check if the animation player is not already playing the appropriate animation
 			if player.animation_player.current_animation != ANIMATION_STANDING:

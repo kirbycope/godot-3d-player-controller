@@ -151,9 +151,6 @@ func _physics_process(delta: float) -> void:
 			# Check if the current animation is "driving" (not getting in or getting out)
 			if player.animation_player.current_animation == driving.ANIMATION_DRIVING:
 
-				# Get the forward direction of the car
-				var forward_dir = -global_transform.basis.z
-
 				# Calculate current speed
 				var current_speed = linear_velocity.length()
 
@@ -191,9 +188,6 @@ func _physics_process(delta: float) -> void:
 
 				# Default to the "idle" sound
 				var target_stream: AudioStream = sound_idle
-
-				# Check the car's current speed
-				var speed = linear_velocity.length()
 
 				# Check if the car is  accelerating
 				if Input.is_action_pressed("move_up"):
