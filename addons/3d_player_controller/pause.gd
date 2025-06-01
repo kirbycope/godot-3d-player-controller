@@ -1,6 +1,7 @@
 extends Control
 
 @onready var player: CharacterBody3D = get_parent().get_parent().get_parent()
+@onready var quit: ColorRect = $Quit
 
 
 ## Called once for every event before _unhandled_input(), allowing you to consume some events.
@@ -42,6 +43,9 @@ func _on_settings_button_pressed() -> void:
 
 ## Handle "Leave Game" button _pressed_.
 func _on_leave_game_button_pressed() -> void:
+
+	# Show the "game ended" message [to web browser users]
+	quit.show()
 
 	# Close the application
 	get_tree().quit()
