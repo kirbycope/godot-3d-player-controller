@@ -58,11 +58,7 @@ var tap_initial_position = null
 ## Called when CanvasItem has been requested to redraw (after queue_redraw is called, either manually or by the engine).
 func _draw() -> void:
 
-	# Check if analog sticks are not enabled
-	if not enable_analog_sticks:
 
-		# Return without drawing anything
-		return
 
 	# Check if there is a left-swipe event
 	if left_swipe_event_index != null:
@@ -115,6 +111,12 @@ func _draw() -> void:
 
 ## Called when there is an input event.
 func _input(event: InputEvent) -> void:
+
+	# Check if analog sticks are not enabled
+	if not enable_analog_sticks:
+
+		# Return without drawing anything
+		return
 
 	# Check if the input is a Touch event
 	if event is InputEventScreenTouch:

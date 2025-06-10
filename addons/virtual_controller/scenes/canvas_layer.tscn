@@ -78,7 +78,7 @@
 [ext_resource type="Texture2D" uid="uid://cc4s75o2k441e" path="res://addons/virtual_controller/assets/textures/sony_buttons/Analogue R Inputs/Button - PS Analogue R.png" id="77_lc8rx"]
 
 [node name="Controls" type="CanvasLayer"]
-layer = -1
+layer = 0
 script = ExtResource("1_av0r5")
 
 [node name="VirtualController" type="Node2D" parent="."]
@@ -128,8 +128,11 @@ grow_vertical = 1
 [node name="Debug" type="Control" parent="."]
 visible = false
 layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("6_rpj2f")
 
 [node name="MicrosoftController" type="Control" parent="Debug"]
