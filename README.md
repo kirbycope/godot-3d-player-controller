@@ -9,13 +9,21 @@ Include this addon with your project. No need to "activate" as the intended usag
 <details>
 <summary>Using Addons</summary>
 
-### Installing the Addon
+### Installing this Addon
 1. Download [install-3d-player-controller.sh](ci/install-3d-player-controller.sh)
 1. Move the file to a folder named `ci` in your project
 1. Open your project in VS Code
 1. Open the "Git Bash" terminal
 1. Run `bash ci/install-3d-player-controller.sh`
 	- This script will download the [3d_player_controller](/addons/3d_player_controller) folder from _this_ repo and then cleanup the `.git` files/folders.
+
+### Updating Controller Sub-Module
+1. Download [install-virtual-controller.sh](ci/install-virtual-controller.sh)
+1. Move the file to a folder named `ci` in your project
+1. Open your project in VS Code
+1. Open the "Git Bash" terminal
+1. Run `bash ci/install-virtual-controller.sh`
+	- This script will download the [virtual_controller](/addons/virtual_controller) folder from _its_ repo and then cleanup the `.git` files/folders.
 
 </details>
 
@@ -134,14 +142,5 @@ Note: This only needs to be done once.
 	- A GitHub Action will deploy your website
 1. On the main page of the GitHub repo, click the gear icon next to "About"
 1. Select "Use your GitHub Pages website", then select "Save changes"
-
-### Set Up Godot
-Note: This only needs to be done once.</br>
-The following is needed to work with GitHub Pages.
-1. Select "Project" > "Export..."
-	- If you see errors, click the link for "Manage Export Templates" and then click "Download and Install"
-1. Select the preset "Web (Runnable)"
-1. For "Head Include", enter `<script src="coi-serviceworker.js"></script>`
-1. Download [coi.js](https://github.com/gzuidhof/coi-serviceworker/raw/master/coi-serviceworker.js) and add it to the `/docs` directory
 
 </details>
