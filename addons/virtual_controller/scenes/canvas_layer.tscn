@@ -128,18 +128,23 @@ grow_vertical = 1
 [node name="Debug" type="Control" parent="."]
 visible = false
 layout_mode = 3
-anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 script = ExtResource("6_rpj2f")
 
 [node name="MicrosoftController" type="Control" parent="Debug"]
 visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_top = -40.0
+offset_right = -8.0
+grow_horizontal = 0
+grow_vertical = 0
 
 [node name="Black" type="Control" parent="Debug/MicrosoftController"]
 anchors_preset = 0
@@ -148,118 +153,118 @@ offset_bottom = 40.0
 
 [node name="Button0" type="TextureRect" parent="Debug/MicrosoftController/Black"]
 layout_mode = 0
-offset_left = 1179.0
-offset_top = 620.0
-offset_right = 1229.0
-offset_bottom = 670.0
+offset_left = -53.0
+offset_top = -76.0
+offset_right = 427.0
+offset_bottom = 404.0
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("8_jgsuc")
 
 [node name="Button1" type="TextureRect" parent="Debug/MicrosoftController/Black"]
 layout_mode = 0
-offset_left = 1211.0
-offset_top = 588.0
-offset_right = 1261.0
-offset_bottom = 638.0
+offset_left = -21.0
+offset_top = -108.0
+offset_right = 459.0
+offset_bottom = 372.0
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("9_cfi02")
 
 [node name="Button2" type="TextureRect" parent="Debug/MicrosoftController/Black"]
 layout_mode = 0
-offset_left = 1147.0
-offset_top = 588.0
-offset_right = 1197.0
-offset_bottom = 638.0
+offset_left = -85.0
+offset_top = -108.0
+offset_right = 395.0
+offset_bottom = 372.0
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("10_q3u7l")
 
 [node name="Button3" type="TextureRect" parent="Debug/MicrosoftController/Black"]
 layout_mode = 0
-offset_left = 1179.0
-offset_top = 556.0
-offset_right = 1229.0
-offset_bottom = 606.0
+offset_left = -53.0
+offset_top = -140.0
+offset_right = 427.0
+offset_bottom = 340.0
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("11_6drl8")
 
 [node name="Button4" type="TextureRect" parent="Debug/MicrosoftController/Black"]
 layout_mode = 0
-offset_left = 925.0
-offset_top = 548.0
-offset_right = 975.0
-offset_bottom = 598.0
+offset_left = -307.0
+offset_top = -148.0
+offset_right = 173.0
+offset_bottom = 332.0
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("12_eb6ii")
 
 [node name="Button5" type="TextureRect" parent="Debug/MicrosoftController/Black"]
 layout_mode = 0
-offset_left = 1230.0
-offset_top = 548.0
-offset_right = 1280.0
-offset_bottom = 598.0
+offset_left = -2.0
+offset_top = -148.0
+offset_right = 478.0
+offset_bottom = 332.0
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("13_250ck")
 
 [node name="Button6" type="TextureRect" parent="Debug/MicrosoftController/Black"]
 layout_mode = 0
-offset_left = 925.0
-offset_top = 516.0
-offset_right = 975.0
-offset_bottom = 566.0
+offset_left = -307.0
+offset_top = -180.0
+offset_right = 173.0
+offset_bottom = 300.0
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("14_qbja6")
 
 [node name="Button7" type="TextureRect" parent="Debug/MicrosoftController/Black"]
 layout_mode = 0
-offset_left = 1230.0
-offset_top = 516.0
-offset_right = 1280.0
-offset_bottom = 566.0
+offset_left = -2.0
+offset_top = -180.0
+offset_right = 478.0
+offset_bottom = 300.0
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("15_r1vsc")
 
 [node name="Button8" type="TextureRect" parent="Debug/MicrosoftController/Black"]
 layout_mode = 0
-offset_left = 1059.0
-offset_top = 588.0
-offset_right = 1109.0
-offset_bottom = 638.0
+offset_left = -173.0
+offset_top = -108.0
+offset_right = 307.0
+offset_bottom = 372.0
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("16_jvhpi")
 
 [node name="Button9" type="TextureRect" parent="Debug/MicrosoftController/Black"]
 layout_mode = 0
-offset_left = 1107.0
-offset_top = 588.0
-offset_right = 1157.0
-offset_bottom = 638.0
+offset_left = -125.0
+offset_top = -108.0
+offset_right = 355.0
+offset_bottom = 372.0
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("16_jvhpi")
 
 [node name="StickL" type="TextureRect" parent="Debug/MicrosoftController/Black"]
 layout_mode = 0
-offset_left = 955.0
-offset_top = 564.0
-offset_right = 1055.0
-offset_bottom = 664.0
+offset_left = -277.0
+offset_top = -132.0
+offset_right = 203.0
+offset_bottom = 348.0
 scale = Vector2(0.18, 0.18)
 texture = ExtResource("18_6drl8")
 
 [node name="StickR" type="TextureRect" parent="Debug/MicrosoftController/Black"]
 layout_mode = 0
-offset_left = 1107.0
-offset_top = 628.0
-offset_right = 1207.0
-offset_bottom = 728.0
+offset_left = -125.0
+offset_top = -68.0
+offset_right = 355.0
+offset_bottom = 412.0
 scale = Vector2(0.18, 0.18)
 texture = ExtResource("18_6drl8")
 
 [node name="DPad" type="TextureRect" parent="Debug/MicrosoftController/Black"]
 layout_mode = 0
-offset_left = 1001.0
-offset_top = 626.0
-offset_right = 1101.0
-offset_bottom = 726.0
+offset_left = -231.0
+offset_top = -70.0
+offset_right = -131.0
+offset_bottom = 30.0
 texture = ExtResource("18_eco06")
 
 [node name="White" type="Control" parent="Debug/MicrosoftController"]
@@ -269,117 +274,117 @@ offset_bottom = 40.0
 
 [node name="Button0" type="TextureRect" parent="Debug/MicrosoftController/White"]
 layout_mode = 0
-offset_left = 1179.0
-offset_top = 620.0
-offset_right = 1229.0
-offset_bottom = 670.0
+offset_left = -53.0
+offset_top = -76.0
+offset_right = 427.0
+offset_bottom = 404.0
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("20_8oii7")
 
 [node name="Button1" type="TextureRect" parent="Debug/MicrosoftController/White"]
 layout_mode = 0
-offset_left = 1211.0
-offset_top = 588.0
-offset_right = 1261.0
-offset_bottom = 638.0
+offset_left = -21.0
+offset_top = -108.0
+offset_right = 459.0
+offset_bottom = 372.0
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("21_w8mee")
 
 [node name="Button2" type="TextureRect" parent="Debug/MicrosoftController/White"]
 layout_mode = 0
-offset_left = 1147.0
-offset_top = 588.0
-offset_right = 1197.0
-offset_bottom = 638.0
+offset_left = -85.0
+offset_top = -108.0
+offset_right = 395.0
+offset_bottom = 372.0
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("22_frt4r")
 
 [node name="Button3" type="TextureRect" parent="Debug/MicrosoftController/White"]
 layout_mode = 0
-offset_left = 1179.0
-offset_top = 556.0
-offset_right = 1229.0
-offset_bottom = 606.0
+offset_left = -53.0
+offset_top = -140.0
+offset_right = 427.0
+offset_bottom = 340.0
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("23_1w15y")
 
 [node name="Button4" type="TextureRect" parent="Debug/MicrosoftController/White"]
 layout_mode = 0
-offset_left = 925.0
-offset_top = 548.0
-offset_right = 975.0
-offset_bottom = 598.0
+offset_left = -307.0
+offset_top = -148.0
+offset_right = 173.0
+offset_bottom = 332.0
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("24_qbja6")
 
 [node name="Button5" type="TextureRect" parent="Debug/MicrosoftController/White"]
 layout_mode = 0
-offset_left = 1230.0
-offset_top = 548.0
-offset_right = 1280.0
-offset_bottom = 598.0
+offset_left = -2.0
+offset_top = -148.0
+offset_right = 478.0
+offset_bottom = 332.0
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("25_r1vsc")
 
 [node name="Button6" type="TextureRect" parent="Debug/MicrosoftController/White"]
 layout_mode = 0
-offset_left = 925.0
-offset_top = 516.0
-offset_right = 975.0
-offset_bottom = 566.0
+offset_left = -307.0
+offset_top = -180.0
+offset_right = 173.0
+offset_bottom = 300.0
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("26_a3ua3")
 
 [node name="Button7" type="TextureRect" parent="Debug/MicrosoftController/White"]
 layout_mode = 0
-offset_left = 1230.0
-offset_top = 516.0
-offset_right = 1280.0
-offset_bottom = 566.0
+offset_left = -2.0
+offset_top = -180.0
+offset_right = 478.0
+offset_bottom = 300.0
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("27_8ukeq")
 
 [node name="Button8" type="TextureRect" parent="Debug/MicrosoftController/White"]
 layout_mode = 0
-offset_left = 1059.0
-offset_top = 588.0
-offset_right = 1109.0
-offset_bottom = 638.0
+offset_left = -173.0
+offset_top = -108.0
+offset_right = 307.0
+offset_bottom = 372.0
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("28_a3ua3")
 
 [node name="Button9" type="TextureRect" parent="Debug/MicrosoftController/White"]
 layout_mode = 0
-offset_left = 1107.0
-offset_top = 588.0
-offset_right = 1157.0
-offset_bottom = 638.0
+offset_left = -125.0
+offset_top = -108.0
+offset_right = 355.0
+offset_bottom = 372.0
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("29_8ukeq")
 
 [node name="Button12" type="TextureRect" parent="Debug/MicrosoftController/White"]
 layout_mode = 0
-offset_left = 1003.0
-offset_top = 628.0
-offset_right = 1103.0
-offset_bottom = 728.0
+offset_left = -229.0
+offset_top = -68.0
+offset_right = -129.0
+offset_bottom = 32.0
 texture = ExtResource("31_av0r5")
 
 [node name="Button13" type="TextureRect" parent="Debug/MicrosoftController/White"]
 layout_mode = 0
-offset_left = 1003.0
-offset_top = 628.0
-offset_right = 1103.0
-offset_bottom = 728.0
+offset_left = -229.0
+offset_top = -68.0
+offset_right = -129.0
+offset_bottom = 32.0
 texture = ExtResource("31_av0r5")
 flip_v = true
 
 [node name="Button14" type="TextureRect" parent="Debug/MicrosoftController/White"]
 layout_mode = 0
-offset_left = 1103.0
-offset_top = 628.0
-offset_right = 1203.0
-offset_bottom = 728.0
+offset_left = -129.0
+offset_top = -68.0
+offset_right = -29.0
+offset_bottom = 32.0
 rotation = 1.5708
 texture = ExtResource("31_av0r5")
 flip_h = true
@@ -387,36 +392,43 @@ flip_v = true
 
 [node name="Button15" type="TextureRect" parent="Debug/MicrosoftController/White"]
 layout_mode = 0
-offset_left = 1103.0
-offset_top = 628.0
-offset_right = 1203.0
-offset_bottom = 728.0
+offset_left = -129.0
+offset_top = -68.0
+offset_right = -29.0
+offset_bottom = 32.0
 rotation = 1.5708
 texture = ExtResource("31_av0r5")
 
 [node name="StickL" type="TextureRect" parent="Debug/MicrosoftController/White"]
 layout_mode = 0
-offset_left = 955.0
-offset_top = 564.0
-offset_right = 1055.0
-offset_bottom = 664.0
+offset_left = -277.0
+offset_top = -132.0
+offset_right = 203.0
+offset_bottom = 348.0
 scale = Vector2(0.18, 0.18)
 texture = ExtResource("31_8oii7")
 
 [node name="StickR" type="TextureRect" parent="Debug/MicrosoftController/White"]
 layout_mode = 0
-offset_left = 1107.0
-offset_top = 628.0
-offset_right = 1207.0
-offset_bottom = 728.0
+offset_left = -125.0
+offset_top = -68.0
+offset_right = 355.0
+offset_bottom = 412.0
 scale = Vector2(0.18, 0.18)
 texture = ExtResource("32_w8mee")
 
 [node name="NintendoController" type="Control" parent="Debug"]
 visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
 
 [node name="Black" type="Control" parent="Debug/NintendoController"]
 layout_mode = 3
@@ -426,118 +438,118 @@ offset_bottom = 40.0
 
 [node name="Button0" type="TextureRect" parent="Debug/NintendoController/Black"]
 layout_mode = 0
-offset_left = 1179.0
-offset_top = 620.0
-offset_right = 1229.0
-offset_bottom = 670.0
+offset_left = -60.9998
+offset_top = -75.9999
+offset_right = 59.0002
+offset_bottom = 44.0001
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("33_pikrh")
 
 [node name="Button1" type="TextureRect" parent="Debug/NintendoController/Black"]
 layout_mode = 0
-offset_left = 1211.0
-offset_top = 588.0
-offset_right = 1261.0
-offset_bottom = 638.0
+offset_left = -28.9998
+offset_top = -108.0
+offset_right = 91.0002
+offset_bottom = 12.0001
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("34_qbja6")
 
 [node name="Button2" type="TextureRect" parent="Debug/NintendoController/Black"]
 layout_mode = 0
-offset_left = 1147.0
-offset_top = 588.0
-offset_right = 1197.0
-offset_bottom = 638.0
+offset_left = -92.9998
+offset_top = -108.0
+offset_right = 27.0002
+offset_bottom = 12.0001
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("35_r1vsc")
 
 [node name="Button3" type="TextureRect" parent="Debug/NintendoController/Black"]
 layout_mode = 0
-offset_left = 1179.0
-offset_top = 556.0
-offset_right = 1229.0
-offset_bottom = 606.0
+offset_left = -60.9998
+offset_top = -140.0
+offset_right = 59.0002
+offset_bottom = -19.9999
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("36_a3ua3")
 
 [node name="Button4" type="TextureRect" parent="Debug/NintendoController/Black"]
 layout_mode = 0
-offset_left = 925.0
-offset_top = 548.0
-offset_right = 975.0
-offset_bottom = 598.0
+offset_left = -315.0
+offset_top = -148.0
+offset_right = -195.0
+offset_bottom = -27.9999
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("37_jvhpi")
 
 [node name="Button5" type="TextureRect" parent="Debug/NintendoController/Black"]
 layout_mode = 0
-offset_left = 1230.0
-offset_top = 548.0
-offset_right = 1280.0
-offset_bottom = 598.0
+offset_left = -9.99976
+offset_top = -148.0
+offset_right = 110.0
+offset_bottom = -27.9999
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("38_11shj")
 
 [node name="Button6" type="TextureRect" parent="Debug/NintendoController/Black"]
 layout_mode = 0
-offset_left = 925.0
-offset_top = 516.0
-offset_right = 975.0
-offset_bottom = 566.0
+offset_left = -315.0
+offset_top = -180.0
+offset_right = -195.0
+offset_bottom = -59.9999
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("39_ymtqw")
 
 [node name="Button7" type="TextureRect" parent="Debug/NintendoController/Black"]
 layout_mode = 0
-offset_left = 1230.0
-offset_top = 516.0
-offset_right = 1280.0
-offset_bottom = 566.0
+offset_left = -9.99976
+offset_top = -180.0
+offset_right = 110.0
+offset_bottom = -59.9999
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("40_4853l")
 
 [node name="Button8" type="TextureRect" parent="Debug/NintendoController/Black"]
 layout_mode = 0
-offset_left = 1059.0
-offset_top = 588.0
-offset_right = 1109.0
-offset_bottom = 638.0
+offset_left = -181.0
+offset_top = -108.0
+offset_right = -60.9998
+offset_bottom = 12.0001
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("41_8ukeq")
 
 [node name="Button9" type="TextureRect" parent="Debug/NintendoController/Black"]
 layout_mode = 0
-offset_left = 1107.0
-offset_top = 588.0
-offset_right = 1157.0
-offset_bottom = 638.0
+offset_left = -133.0
+offset_top = -108.0
+offset_right = -12.9998
+offset_bottom = 12.0001
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("41_8ukeq")
 
 [node name="StickL" type="TextureRect" parent="Debug/NintendoController/Black"]
 layout_mode = 0
-offset_left = 955.0
-offset_top = 564.0
-offset_right = 1055.0
-offset_bottom = 664.0
+offset_left = -285.0
+offset_top = -132.0
+offset_right = -165.0
+offset_bottom = -11.9999
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("42_b5gk3")
 
 [node name="StickR" type="TextureRect" parent="Debug/NintendoController/Black"]
 layout_mode = 0
-offset_left = 1107.0
-offset_top = 628.0
-offset_right = 1207.0
-offset_bottom = 728.0
+offset_left = -133.0
+offset_top = -67.9999
+offset_right = -12.9998
+offset_bottom = 52.0001
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("42_b5gk3")
 
 [node name="DPad" type="TextureRect" parent="Debug/NintendoController/Black"]
 layout_mode = 0
-offset_left = 1001.0
-offset_top = 626.0
-offset_right = 1101.0
-offset_bottom = 726.0
+offset_left = -239.0
+offset_top = -70.0
+offset_right = -139.0
+offset_bottom = 30.0
 texture = ExtResource("18_eco06")
 
 [node name="White" type="Control" parent="Debug/NintendoController"]
@@ -548,117 +560,117 @@ offset_bottom = 40.0
 
 [node name="Button0" type="TextureRect" parent="Debug/NintendoController/White"]
 layout_mode = 0
-offset_left = 1179.0
-offset_top = 620.0
-offset_right = 1229.0
-offset_bottom = 670.0
+offset_left = -60.9998
+offset_top = -75.9999
+offset_right = 59.0002
+offset_bottom = 44.0001
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("43_kdavd")
 
 [node name="Button1" type="TextureRect" parent="Debug/NintendoController/White"]
 layout_mode = 0
-offset_left = 1211.0
-offset_top = 588.0
-offset_right = 1261.0
-offset_bottom = 638.0
+offset_left = -28.9998
+offset_top = -108.0
+offset_right = 91.0002
+offset_bottom = 12.0001
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("44_fg4nx")
 
 [node name="Button2" type="TextureRect" parent="Debug/NintendoController/White"]
 layout_mode = 0
-offset_left = 1147.0
-offset_top = 588.0
-offset_right = 1197.0
-offset_bottom = 638.0
+offset_left = -92.9998
+offset_top = -108.0
+offset_right = 27.0002
+offset_bottom = 12.0001
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("45_jvhpi")
 
 [node name="Button3" type="TextureRect" parent="Debug/NintendoController/White"]
 layout_mode = 0
-offset_left = 1179.0
-offset_top = 556.0
-offset_right = 1229.0
-offset_bottom = 606.0
+offset_left = -60.9998
+offset_top = -140.0
+offset_right = 59.0002
+offset_bottom = -19.9999
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("46_11shj")
 
 [node name="Button4" type="TextureRect" parent="Debug/NintendoController/White"]
 layout_mode = 0
-offset_left = 925.0
-offset_top = 548.0
-offset_right = 975.0
-offset_bottom = 598.0
+offset_left = -315.0
+offset_top = -148.0
+offset_right = -195.0
+offset_bottom = -27.9999
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("47_eyu82")
 
 [node name="Button5" type="TextureRect" parent="Debug/NintendoController/White"]
 layout_mode = 0
-offset_left = 1230.0
-offset_top = 548.0
-offset_right = 1280.0
-offset_bottom = 598.0
+offset_left = -9.99976
+offset_top = -148.0
+offset_right = 110.0
+offset_bottom = -27.9999
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("48_ofoqt")
 
 [node name="Button6" type="TextureRect" parent="Debug/NintendoController/White"]
 layout_mode = 0
-offset_left = 925.0
-offset_top = 516.0
-offset_right = 975.0
-offset_bottom = 566.0
+offset_left = -315.0
+offset_top = -180.0
+offset_right = -195.0
+offset_bottom = -59.9999
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("49_4ni4y")
 
 [node name="Button7" type="TextureRect" parent="Debug/NintendoController/White"]
 layout_mode = 0
-offset_left = 1230.0
-offset_top = 516.0
-offset_right = 1280.0
-offset_bottom = 566.0
+offset_left = -9.99976
+offset_top = -180.0
+offset_right = 110.0
+offset_bottom = -59.9999
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("50_2nrib")
 
 [node name="Button8" type="TextureRect" parent="Debug/NintendoController/White"]
 layout_mode = 0
-offset_left = 1059.0
-offset_top = 588.0
-offset_right = 1109.0
-offset_bottom = 638.0
+offset_left = -181.0
+offset_top = -108.0
+offset_right = -60.9998
+offset_bottom = 12.0001
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("51_ymtqw")
 
 [node name="Button9" type="TextureRect" parent="Debug/NintendoController/White"]
 layout_mode = 0
-offset_left = 1107.0
-offset_top = 588.0
-offset_right = 1157.0
-offset_bottom = 638.0
+offset_left = -133.0
+offset_top = -108.0
+offset_right = -12.9998
+offset_bottom = 12.0001
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("52_4853l")
 
 [node name="Button12" type="TextureRect" parent="Debug/NintendoController/White"]
 layout_mode = 0
-offset_left = 1003.0
-offset_top = 628.0
-offset_right = 1103.0
-offset_bottom = 728.0
+offset_left = -237.0
+offset_top = -68.0
+offset_right = -137.0
+offset_bottom = 32.0
 texture = ExtResource("31_av0r5")
 
 [node name="Button13" type="TextureRect" parent="Debug/NintendoController/White"]
 layout_mode = 0
-offset_left = 1003.0
-offset_top = 628.0
-offset_right = 1103.0
-offset_bottom = 728.0
+offset_left = -237.0
+offset_top = -68.0
+offset_right = -137.0
+offset_bottom = 32.0
 texture = ExtResource("31_av0r5")
 flip_v = true
 
 [node name="Button14" type="TextureRect" parent="Debug/NintendoController/White"]
 layout_mode = 0
-offset_left = 1103.0
-offset_top = 628.0
-offset_right = 1203.0
-offset_bottom = 728.0
+offset_left = -137.0
+offset_top = -68.0
+offset_right = -37.0
+offset_bottom = 32.0
 rotation = 1.5708
 texture = ExtResource("31_av0r5")
 flip_h = true
@@ -666,36 +678,44 @@ flip_v = true
 
 [node name="Button15" type="TextureRect" parent="Debug/NintendoController/White"]
 layout_mode = 0
-offset_left = 1103.0
-offset_top = 628.0
-offset_right = 1203.0
-offset_bottom = 728.0
+offset_left = -137.0
+offset_top = -68.0
+offset_right = -37.0
+offset_bottom = 32.0
 rotation = 1.5708
 texture = ExtResource("31_av0r5")
 
 [node name="StickL" type="TextureRect" parent="Debug/NintendoController/White"]
 layout_mode = 0
-offset_left = 955.0
-offset_top = 564.0
-offset_right = 1055.0
-offset_bottom = 664.0
+offset_left = -285.0
+offset_top = -132.0
+offset_right = -165.0
+offset_bottom = -11.9999
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("53_rwqn1")
 
 [node name="StickR" type="TextureRect" parent="Debug/NintendoController/White"]
 layout_mode = 0
-offset_left = 1107.0
-offset_top = 628.0
-offset_right = 1207.0
-offset_bottom = 728.0
+offset_left = -133.0
+offset_top = -67.9999
+offset_right = -12.9998
+offset_bottom = 52.0001
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("54_ga23q")
 
 [node name="SonyController" type="Control" parent="Debug"]
 visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -48.0
+offset_bottom = -8.0
+grow_horizontal = 0
+grow_vertical = 0
 
 [node name="Black" type="Control" parent="Debug/SonyController"]
 layout_mode = 3
@@ -705,118 +725,118 @@ offset_bottom = 40.0
 
 [node name="Button0" type="TextureRect" parent="Debug/SonyController/Black"]
 layout_mode = 0
-offset_left = 1179.0
-offset_top = 620.0
-offset_right = 1229.0
-offset_bottom = 670.0
+offset_left = -69.0
+offset_top = -60.0
+offset_right = 411.0
+offset_bottom = 420.0
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("55_11shj")
 
 [node name="Button1" type="TextureRect" parent="Debug/SonyController/Black"]
 layout_mode = 0
-offset_left = 1211.0
-offset_top = 588.0
-offset_right = 1261.0
-offset_bottom = 638.0
+offset_left = -37.0
+offset_top = -92.0
+offset_right = 443.0
+offset_bottom = 388.0
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("56_ymtqw")
 
 [node name="Button2" type="TextureRect" parent="Debug/SonyController/Black"]
 layout_mode = 0
-offset_left = 1147.0
-offset_top = 588.0
-offset_right = 1197.0
-offset_bottom = 638.0
+offset_left = -101.0
+offset_top = -92.0
+offset_right = 379.0
+offset_bottom = 388.0
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("57_4853l")
 
 [node name="Button3" type="TextureRect" parent="Debug/SonyController/Black"]
 layout_mode = 0
-offset_left = 1179.0
-offset_top = 556.0
-offset_right = 1229.0
-offset_bottom = 606.0
+offset_left = -69.0
+offset_top = -124.0
+offset_right = 411.0
+offset_bottom = 356.0
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("58_b5gk3")
 
 [node name="Button4" type="TextureRect" parent="Debug/SonyController/Black"]
 layout_mode = 0
-offset_left = 925.0
-offset_top = 548.0
-offset_right = 975.0
-offset_bottom = 598.0
+offset_left = -323.0
+offset_top = -132.0
+offset_right = 157.0
+offset_bottom = 348.0
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("59_eyu82")
 
 [node name="Button5" type="TextureRect" parent="Debug/SonyController/Black"]
 layout_mode = 0
-offset_left = 1230.0
-offset_top = 548.0
-offset_right = 1280.0
-offset_bottom = 598.0
+offset_left = -18.0
+offset_top = -132.0
+offset_right = 462.0
+offset_bottom = 348.0
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("60_ofoqt")
 
 [node name="Button6" type="TextureRect" parent="Debug/SonyController/Black"]
 layout_mode = 0
-offset_left = 925.0
-offset_top = 516.0
-offset_right = 975.0
-offset_bottom = 566.0
+offset_left = -323.0
+offset_top = -164.0
+offset_right = 157.0
+offset_bottom = 316.0
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("61_4ni4y")
 
 [node name="Button7" type="TextureRect" parent="Debug/SonyController/Black"]
 layout_mode = 0
-offset_left = 1230.0
-offset_top = 516.0
-offset_right = 1280.0
-offset_bottom = 566.0
+offset_left = -18.0
+offset_top = -164.0
+offset_right = 462.0
+offset_bottom = 316.0
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("62_2nrib")
 
 [node name="Button8" type="TextureRect" parent="Debug/SonyController/Black"]
 layout_mode = 0
-offset_left = 1059.0
-offset_top = 588.0
-offset_right = 1109.0
-offset_bottom = 638.0
+offset_left = -189.0
+offset_top = -92.0
+offset_right = 291.0
+offset_bottom = 388.0
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("63_11shj")
 
 [node name="Button9" type="TextureRect" parent="Debug/SonyController/Black"]
 layout_mode = 0
-offset_left = 1107.0
-offset_top = 588.0
-offset_right = 1157.0
-offset_bottom = 638.0
+offset_left = -141.0
+offset_top = -92.0
+offset_right = 339.0
+offset_bottom = 388.0
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("64_ymtqw")
 
 [node name="StickL" type="TextureRect" parent="Debug/SonyController/Black"]
 layout_mode = 0
-offset_left = 1019.0
-offset_top = 628.0
-offset_right = 1499.0
-offset_bottom = 1108.0
+offset_left = -229.0
+offset_top = -52.0
+offset_right = 251.0
+offset_bottom = 428.0
 scale = Vector2(0.18, 0.18)
 texture = ExtResource("65_rwqn1")
 
 [node name="StickR" type="TextureRect" parent="Debug/SonyController/Black"]
 layout_mode = 0
-offset_left = 1107.0
-offset_top = 628.0
-offset_right = 1207.0
-offset_bottom = 728.0
+offset_left = -141.0
+offset_top = -52.0
+offset_right = 339.0
+offset_bottom = 428.0
 scale = Vector2(0.18, 0.18)
 texture = ExtResource("65_rwqn1")
 
 [node name="DPad" type="TextureRect" parent="Debug/SonyController/Black"]
 layout_mode = 0
-offset_left = 937.0
-offset_top = 562.0
-offset_right = 1037.0
-offset_bottom = 662.0
+offset_left = -311.0
+offset_top = -118.0
+offset_right = -211.0
+offset_bottom = -18.0
 texture = ExtResource("18_eco06")
 
 [node name="White" type="Control" parent="Debug/SonyController"]
@@ -827,117 +847,117 @@ offset_bottom = 40.0
 
 [node name="Button0" type="TextureRect" parent="Debug/SonyController/White"]
 layout_mode = 0
-offset_left = 1179.0
-offset_top = 620.0
-offset_right = 1229.0
-offset_bottom = 670.0
+offset_left = -69.0
+offset_top = -60.0
+offset_right = 411.0
+offset_bottom = 420.0
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("66_ga23q")
 
 [node name="Button1" type="TextureRect" parent="Debug/SonyController/White"]
 layout_mode = 0
-offset_left = 1211.0
-offset_top = 588.0
-offset_right = 1261.0
-offset_bottom = 638.0
+offset_left = -37.0
+offset_top = -92.0
+offset_right = 443.0
+offset_bottom = 388.0
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("67_uqm5x")
 
 [node name="Button2" type="TextureRect" parent="Debug/SonyController/White"]
 layout_mode = 0
-offset_left = 1147.0
-offset_top = 588.0
-offset_right = 1197.0
-offset_bottom = 638.0
+offset_left = -101.0
+offset_top = -92.0
+offset_right = 379.0
+offset_bottom = 388.0
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("68_ongio")
 
 [node name="Button3" type="TextureRect" parent="Debug/SonyController/White"]
 layout_mode = 0
-offset_left = 1179.0
-offset_top = 556.0
-offset_right = 1229.0
-offset_bottom = 606.0
+offset_left = -69.0
+offset_top = -124.0
+offset_right = 411.0
+offset_bottom = 356.0
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("69_y7ls1")
 
 [node name="Button4" type="TextureRect" parent="Debug/SonyController/White"]
 layout_mode = 0
-offset_left = 925.0
-offset_top = 548.0
-offset_right = 975.0
-offset_bottom = 598.0
+offset_left = -323.0
+offset_top = -132.0
+offset_right = 157.0
+offset_bottom = 348.0
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("70_165h6")
 
 [node name="Button5" type="TextureRect" parent="Debug/SonyController/White"]
 layout_mode = 0
-offset_left = 1230.0
-offset_top = 548.0
-offset_right = 1280.0
-offset_bottom = 598.0
+offset_left = -18.0
+offset_top = -132.0
+offset_right = 462.0
+offset_bottom = 348.0
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("71_1f0tj")
 
 [node name="Button6" type="TextureRect" parent="Debug/SonyController/White"]
 layout_mode = 0
-offset_left = 925.0
-offset_top = 516.0
-offset_right = 975.0
-offset_bottom = 566.0
+offset_left = -323.0
+offset_top = -164.0
+offset_right = 157.0
+offset_bottom = 316.0
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("72_qrwev")
 
 [node name="Button7" type="TextureRect" parent="Debug/SonyController/White"]
 layout_mode = 0
-offset_left = 1230.0
-offset_top = 516.0
-offset_right = 1280.0
-offset_bottom = 566.0
+offset_left = -18.0
+offset_top = -164.0
+offset_right = 462.0
+offset_bottom = 316.0
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("73_cnafy")
 
 [node name="Button8" type="TextureRect" parent="Debug/SonyController/White"]
 layout_mode = 0
-offset_left = 1059.0
-offset_top = 588.0
-offset_right = 1109.0
-offset_bottom = 638.0
+offset_left = -189.0
+offset_top = -92.0
+offset_right = 291.0
+offset_bottom = 388.0
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("74_dv2wv")
 
 [node name="Button9" type="TextureRect" parent="Debug/SonyController/White"]
 layout_mode = 0
-offset_left = 1107.0
-offset_top = 588.0
-offset_right = 1157.0
-offset_bottom = 638.0
+offset_left = -141.0
+offset_top = -92.0
+offset_right = 339.0
+offset_bottom = 388.0
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("75_c37my")
 
 [node name="Button12" type="TextureRect" parent="Debug/SonyController/White"]
 layout_mode = 0
-offset_left = 939.0
-offset_top = 564.0
-offset_right = 1039.0
-offset_bottom = 664.0
+offset_left = -309.0
+offset_top = -116.0
+offset_right = -209.0
+offset_bottom = -16.0
 texture = ExtResource("31_av0r5")
 
 [node name="Button13" type="TextureRect" parent="Debug/SonyController/White"]
 layout_mode = 0
-offset_left = 939.0
-offset_top = 564.0
-offset_right = 1039.0
-offset_bottom = 664.0
+offset_left = -309.0
+offset_top = -116.0
+offset_right = -209.0
+offset_bottom = -16.0
 texture = ExtResource("31_av0r5")
 flip_v = true
 
 [node name="Button14" type="TextureRect" parent="Debug/SonyController/White"]
 layout_mode = 0
-offset_left = 1039.0
-offset_top = 564.0
-offset_right = 1139.0
-offset_bottom = 664.0
+offset_left = -209.0
+offset_top = -116.0
+offset_right = -109.0
+offset_bottom = -16.0
 rotation = 1.5708
 texture = ExtResource("31_av0r5")
 flip_h = true
@@ -945,27 +965,27 @@ flip_v = true
 
 [node name="Button15" type="TextureRect" parent="Debug/SonyController/White"]
 layout_mode = 0
-offset_left = 1039.0
-offset_top = 564.0
-offset_right = 1139.0
-offset_bottom = 664.0
+offset_left = -209.0
+offset_top = -116.0
+offset_right = -109.0
+offset_bottom = -16.0
 rotation = 1.5708
 texture = ExtResource("31_av0r5")
 
 [node name="StickL" type="TextureRect" parent="Debug/SonyController/White"]
 layout_mode = 0
-offset_left = 1019.0
-offset_top = 628.0
-offset_right = 1499.0
-offset_bottom = 1108.0
+offset_left = -229.0
+offset_top = -52.0
+offset_right = 251.0
+offset_bottom = 428.0
 scale = Vector2(0.18, 0.18)
 texture = ExtResource("76_q214y")
 
 [node name="StickR" type="TextureRect" parent="Debug/SonyController/White"]
 layout_mode = 0
-offset_left = 1107.0
-offset_top = 628.0
-offset_right = 1207.0
-offset_bottom = 728.0
+offset_left = -141.0
+offset_top = -52.0
+offset_right = 339.0
+offset_bottom = 428.0
 scale = Vector2(0.18, 0.18)
 texture = ExtResource("77_lc8rx")
