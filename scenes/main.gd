@@ -18,6 +18,10 @@ func _ready() -> void:
 	# Rotate the Portal gun
 	$"PortalGun/AnimationPlayer".play("rotate")
 
+	# Show the controller
+	player.get_node("Controls/Debug").show()
+	player.get_node("Controls/Debug/MicrosoftController").show()
+
 
 func _on_area_3d_fishing_rod_body_entered(body: Node3D) -> void:
 	if body is CharacterBody3D:

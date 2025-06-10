@@ -1,0 +1,971 @@
+[gd_scene load_steps=77 format=3 uid="uid://cx7x0f3lh4aus"]
+
+[ext_resource type="Script" uid="uid://nrm2nfdpnpku" path="res://addons/virtual_controller/scripts/controls.gd" id="1_av0r5"]
+[ext_resource type="Script" uid="uid://cm1p2ejcm3mg4" path="res://addons/virtual_controller/scripts/virtual_controller.gd" id="1_c4rma"]
+[ext_resource type="PackedScene" uid="uid://c5lir3jkw3qk" path="res://addons/virtual_controller/scenes/virtual_buttons_bottom_left.tscn" id="3_ek3oe"]
+[ext_resource type="PackedScene" uid="uid://d1yeyb0luu5cy" path="res://addons/virtual_controller/scenes/virtual_buttons_bottom_right.tscn" id="4_4a2ha"]
+[ext_resource type="PackedScene" uid="uid://clp3r7jjx7lg6" path="res://addons/virtual_controller/scenes/virtual_buttons_top_left.tscn" id="5_g6s7q"]
+[ext_resource type="PackedScene" uid="uid://gpoak7bsf1wf" path="res://addons/virtual_controller/scenes/virtual_buttons_top_right.tscn" id="6_jtalx"]
+[ext_resource type="Script" uid="uid://duebqq1cob4v2" path="res://addons/virtual_controller/scripts/debug.gd" id="6_rpj2f"]
+[ext_resource type="Texture2D" uid="uid://cnalvnwjdgge" path="res://addons/virtual_controller/assets/textures/microsoft_buttons/Digital Buttons/ABXY/button_xbox_digital_a_3.png" id="8_jgsuc"]
+[ext_resource type="Texture2D" uid="uid://bsigv33cmoqol" path="res://addons/virtual_controller/assets/textures/microsoft_buttons/Digital Buttons/ABXY/button_xbox_digital_b_3.png" id="9_cfi02"]
+[ext_resource type="Texture2D" uid="uid://7hg7xcrx7ut2" path="res://addons/virtual_controller/assets/textures/microsoft_buttons/Digital Buttons/ABXY/button_xbox_digital_x_3.png" id="10_q3u7l"]
+[ext_resource type="Texture2D" uid="uid://c0302lrsjix38" path="res://addons/virtual_controller/assets/textures/microsoft_buttons/Digital Buttons/ABXY/button_xbox_digital_y_3.png" id="11_6drl8"]
+[ext_resource type="Texture2D" uid="uid://dm3c4a42d4608" path="res://addons/virtual_controller/assets/textures/microsoft_buttons/Digital Buttons/Shoulder/button_xbox_digital_bumper_dark_1.png" id="12_eb6ii"]
+[ext_resource type="Texture2D" uid="uid://bimndrukudmkr" path="res://addons/virtual_controller/assets/textures/microsoft_buttons/Digital Buttons/Shoulder/button_xbox_digital_bumper_dark_2.png" id="13_250ck"]
+[ext_resource type="Texture2D" uid="uid://dcxxgprufayxe" path="res://addons/virtual_controller/assets/textures/microsoft_buttons/Analog Triggers/button_xbox_analog_trigger_dark_1.png" id="14_qbja6"]
+[ext_resource type="Texture2D" uid="uid://cqjelj76o4sav" path="res://addons/virtual_controller/assets/textures/microsoft_buttons/Analog Triggers/button_xbox_analog_trigger_dark_2.png" id="15_r1vsc"]
+[ext_resource type="Texture2D" uid="uid://ec4v8rc5yvav" path="res://addons/virtual_controller/assets/textures/microsoft_buttons/Digital Buttons/System/button_xbox_digital_blank.png" id="16_jvhpi"]
+[ext_resource type="Texture2D" uid="uid://bj7vcxh64u57a" path="res://addons/virtual_controller/assets/textures/microsoft_buttons/Digital Buttons/Analog/button_xboxone_digital_analog_click_dark_3.png" id="18_6drl8"]
+[ext_resource type="Texture2D" uid="uid://ch6xi4278b3vg" path="res://addons/virtual_controller/assets/textures/game_icons/PNG/Black/2x/plus.png" id="18_eco06"]
+[ext_resource type="Texture2D" uid="uid://bo5vlvqkuqx0t" path="res://addons/virtual_controller/assets/textures/microsoft_buttons/Digital Buttons/ABXY/button_xbox_digital_a_1.png" id="20_8oii7"]
+[ext_resource type="Texture2D" uid="uid://dl1smn48373om" path="res://addons/virtual_controller/assets/textures/microsoft_buttons/Digital Buttons/ABXY/button_xbox_digital_b_1.png" id="21_w8mee"]
+[ext_resource type="Texture2D" uid="uid://6ipv14d8jbid" path="res://addons/virtual_controller/assets/textures/microsoft_buttons/Digital Buttons/ABXY/button_xbox_digital_x_1.png" id="22_frt4r"]
+[ext_resource type="Texture2D" uid="uid://dl1teoee3w8ud" path="res://addons/virtual_controller/assets/textures/microsoft_buttons/Digital Buttons/ABXY/button_xbox_digital_y_1.png" id="23_1w15y"]
+[ext_resource type="Texture2D" uid="uid://b7igltabtl4he" path="res://addons/virtual_controller/assets/textures/microsoft_buttons/Digital Buttons/Shoulder/button_xbox_digital_bumper_light_1.png" id="24_qbja6"]
+[ext_resource type="Texture2D" uid="uid://wob1xrfmag2g" path="res://addons/virtual_controller/assets/textures/microsoft_buttons/Digital Buttons/Shoulder/button_xbox_digital_bumper_light_2.png" id="25_r1vsc"]
+[ext_resource type="Texture2D" uid="uid://oaf3h0le07cf" path="res://addons/virtual_controller/assets/textures/microsoft_buttons/Analog Triggers/button_xbox_analog_trigger_light_1.png" id="26_a3ua3"]
+[ext_resource type="Texture2D" uid="uid://cuu0rjt1ubtmh" path="res://addons/virtual_controller/assets/textures/microsoft_buttons/Analog Triggers/button_xbox_analog_trigger_light_2.png" id="27_8ukeq"]
+[ext_resource type="Texture2D" uid="uid://cyd03lc2cqtvf" path="res://addons/virtual_controller/assets/textures/microsoft_buttons/Digital Buttons/System/button_xbox_digital_view_1.png" id="28_a3ua3"]
+[ext_resource type="Texture2D" uid="uid://cgrewbd7g728p" path="res://addons/virtual_controller/assets/textures/microsoft_buttons/Digital Buttons/System/button_xbox_digital_menu_1.png" id="29_8ukeq"]
+[ext_resource type="Texture2D" uid="uid://vg3swftwygly" path="res://addons/virtual_controller/assets/textures/microsoft_buttons/Digital Buttons/Analog/button_xboxone_digital_analog_click_dark_1.png" id="31_8oii7"]
+[ext_resource type="Texture2D" uid="uid://bk44w0e4iypid" path="res://addons/virtual_controller/assets/textures/game_icons/PNG/White/2x/plus-1.png" id="31_av0r5"]
+[ext_resource type="Texture2D" uid="uid://cep7qsv36pjmc" path="res://addons/virtual_controller/assets/textures/microsoft_buttons/Digital Buttons/Analog/button_xboxone_digital_analog_click_dark_2.png" id="32_w8mee"]
+[ext_resource type="Texture2D" uid="uid://ds6o2swrrd01h" path="res://addons/virtual_controller/assets/textures/nintendo_buttons/1x/button_switch_digital_b_1.png" id="33_pikrh"]
+[ext_resource type="Texture2D" uid="uid://dtbacmto62tss" path="res://addons/virtual_controller/assets/textures/nintendo_buttons/1x/button_switch_digital_a_1.png" id="34_qbja6"]
+[ext_resource type="Texture2D" uid="uid://c32bxdlqoynif" path="res://addons/virtual_controller/assets/textures/nintendo_buttons/1x/button_switch_digital_x_1.png" id="35_r1vsc"]
+[ext_resource type="Texture2D" uid="uid://c1v1i0d50bnse" path="res://addons/virtual_controller/assets/textures/nintendo_buttons/1x/button_switch_digital_y_1.png" id="36_a3ua3"]
+[ext_resource type="Texture2D" uid="uid://bt3v03utlm4vc" path="res://addons/virtual_controller/assets/textures/nintendo_buttons/1x/button_switch_digital_l_alt.png" id="37_jvhpi"]
+[ext_resource type="Texture2D" uid="uid://k3qaechqjtcf" path="res://addons/virtual_controller/assets/textures/nintendo_buttons/1x/button_switch_digital_r_alt.png" id="38_11shj"]
+[ext_resource type="Texture2D" uid="uid://bfsuhw6ulohop" path="res://addons/virtual_controller/assets/textures/nintendo_buttons/1x/button_switch_digital_zl_alt.png" id="39_ymtqw"]
+[ext_resource type="Texture2D" uid="uid://2n5jryx6wg6j" path="res://addons/virtual_controller/assets/textures/nintendo_buttons/1x/button_switch_digital_zr_alt.png" id="40_4853l"]
+[ext_resource type="Texture2D" uid="uid://q3lrgp47vc45" path="res://addons/virtual_controller/assets/textures/nintendo_buttons/1x/button_switch_digital_.png" id="41_8ukeq"]
+[ext_resource type="Texture2D" uid="uid://dqvmmlbsarfgy" path="res://addons/virtual_controller/assets/textures/nintendo_buttons/1x/button_switch_analog_.png" id="42_b5gk3"]
+[ext_resource type="Texture2D" uid="uid://dhc6o05qa55w0" path="res://addons/virtual_controller/assets/textures/nintendo_buttons/1x/button_switch_digital_b.png" id="43_kdavd"]
+[ext_resource type="Texture2D" uid="uid://div7utaovcmo0" path="res://addons/virtual_controller/assets/textures/nintendo_buttons/1x/button_switch_digital_a.png" id="44_fg4nx"]
+[ext_resource type="Texture2D" uid="uid://d2rkor2jlus0q" path="res://addons/virtual_controller/assets/textures/nintendo_buttons/1x/button_switch_digital_x.png" id="45_jvhpi"]
+[ext_resource type="Texture2D" uid="uid://b4dm8wr2x3o5h" path="res://addons/virtual_controller/assets/textures/nintendo_buttons/1x/button_switch_digital_y.png" id="46_11shj"]
+[ext_resource type="Texture2D" uid="uid://cxyw75nob7aaa" path="res://addons/virtual_controller/assets/textures/nintendo_buttons/1x/button_switch_digital_l.png" id="47_eyu82"]
+[ext_resource type="Texture2D" uid="uid://ch01tglqar05w" path="res://addons/virtual_controller/assets/textures/nintendo_buttons/1x/button_switch_digital_r.png" id="48_ofoqt"]
+[ext_resource type="Texture2D" uid="uid://dr5j3a0ujfo33" path="res://addons/virtual_controller/assets/textures/nintendo_buttons/1x/button_switch_digital_zl.png" id="49_4ni4y"]
+[ext_resource type="Texture2D" uid="uid://shejsmlnosak" path="res://addons/virtual_controller/assets/textures/nintendo_buttons/1x/button_switch_digital_zr.png" id="50_2nrib"]
+[ext_resource type="Texture2D" uid="uid://b8clm82yj4iag" path="res://addons/virtual_controller/assets/textures/nintendo_buttons/1x/button_switch_digital_-.png" id="51_ymtqw"]
+[ext_resource type="Texture2D" uid="uid://d3v8yfc1hm5ip" path="res://addons/virtual_controller/assets/textures/nintendo_buttons/1x/button_switch_digital_+.png" id="52_4853l"]
+[ext_resource type="Texture2D" uid="uid://c0gingye85kin" path="res://addons/virtual_controller/assets/textures/nintendo_buttons/1x/button_switch_analog_l.png" id="53_rwqn1"]
+[ext_resource type="Texture2D" uid="uid://dkosy6cwuoxgq" path="res://addons/virtual_controller/assets/textures/nintendo_buttons/1x/button_switch_analog_r.png" id="54_ga23q"]
+[ext_resource type="Texture2D" uid="uid://dfucc2m27u38u" path="res://addons/virtual_controller/assets/textures/sony_buttons/Main Buttons/Button - PS Cross White 2.png" id="55_11shj"]
+[ext_resource type="Texture2D" uid="uid://u8obigj8yrqk" path="res://addons/virtual_controller/assets/textures/sony_buttons/Main Buttons/Button - PS Circle 2.png" id="56_ymtqw"]
+[ext_resource type="Texture2D" uid="uid://bmw4jo66r8y5a" path="res://addons/virtual_controller/assets/textures/sony_buttons/Main Buttons/Button - PS Square 2.png" id="57_4853l"]
+[ext_resource type="Texture2D" uid="uid://sn04i6gnh54d" path="res://addons/virtual_controller/assets/textures/sony_buttons/Main Buttons/Button - PS Triangle 2.png" id="58_b5gk3"]
+[ext_resource type="Texture2D" uid="uid://wh40iujp5ab7" path="res://addons/virtual_controller/assets/textures/sony_buttons/R and L Inputs/Button - PS L1 – 2.png" id="59_eyu82"]
+[ext_resource type="Texture2D" uid="uid://c0bat30xa3j6n" path="res://addons/virtual_controller/assets/textures/sony_buttons/R and L Inputs/Button - PS R1 – 2.png" id="60_ofoqt"]
+[ext_resource type="Texture2D" uid="uid://b1m5stmwqi4em" path="res://addons/virtual_controller/assets/textures/sony_buttons/R and L Inputs/Button - PS L2 – 2.png" id="61_4ni4y"]
+[ext_resource type="Texture2D" uid="uid://c6okwp1v1p3jr" path="res://addons/virtual_controller/assets/textures/sony_buttons/R and L Inputs/Button - PS R2 – 2.png" id="62_2nrib"]
+[ext_resource type="Texture2D" uid="uid://dnl5v8g8f0w12" path="res://addons/virtual_controller/assets/textures/sony_buttons/Other Inputs/Button - PS Share - 2.png" id="63_11shj"]
+[ext_resource type="Texture2D" uid="uid://da6cbkj4edaoe" path="res://addons/virtual_controller/assets/textures/sony_buttons/Other Inputs/Button - PS Options - 2.png" id="64_ymtqw"]
+[ext_resource type="Texture2D" uid="uid://b4dbi3u4nmc4n" path="res://addons/virtual_controller/assets/textures/sony_buttons/Analogue Blank Inputs/Button - PS Analogue Blank.png" id="65_rwqn1"]
+[ext_resource type="Texture2D" uid="uid://kmqcs4g2mokp" path="res://addons/virtual_controller/assets/textures/sony_buttons/Main Buttons/Button - PS Cross 1.png" id="66_ga23q"]
+[ext_resource type="Texture2D" uid="uid://52de20s73bey" path="res://addons/virtual_controller/assets/textures/sony_buttons/Main Buttons/Button - PS Circle 1.png" id="67_uqm5x"]
+[ext_resource type="Texture2D" uid="uid://d3ya33yr2qvr0" path="res://addons/virtual_controller/assets/textures/sony_buttons/Main Buttons/Button - PS Square 1.png" id="68_ongio"]
+[ext_resource type="Texture2D" uid="uid://vlc02d63ee25" path="res://addons/virtual_controller/assets/textures/sony_buttons/Main Buttons/Button - PS Triangle 1.png" id="69_y7ls1"]
+[ext_resource type="Texture2D" uid="uid://5tnj4tsaeb1a" path="res://addons/virtual_controller/assets/textures/sony_buttons/R and L Inputs/Button - PS L1.png" id="70_165h6"]
+[ext_resource type="Texture2D" uid="uid://5ymitnl4eh52" path="res://addons/virtual_controller/assets/textures/sony_buttons/R and L Inputs/Button - PS R1.png" id="71_1f0tj"]
+[ext_resource type="Texture2D" uid="uid://bcevjis5nlc8b" path="res://addons/virtual_controller/assets/textures/sony_buttons/R and L Inputs/Button - PS L2.png" id="72_qrwev"]
+[ext_resource type="Texture2D" uid="uid://bldq7s6js7sil" path="res://addons/virtual_controller/assets/textures/sony_buttons/R and L Inputs/Button - PS R2.png" id="73_cnafy"]
+[ext_resource type="Texture2D" uid="uid://dr6h2guva7yaf" path="res://addons/virtual_controller/assets/textures/sony_buttons/Other Inputs/Button - PS Share.png" id="74_dv2wv"]
+[ext_resource type="Texture2D" uid="uid://bdiusmrhir1g1" path="res://addons/virtual_controller/assets/textures/sony_buttons/Other Inputs/Button - PS Options.png" id="75_c37my"]
+[ext_resource type="Texture2D" uid="uid://dyc3vxg0xp0ca" path="res://addons/virtual_controller/assets/textures/sony_buttons/Analogue L Inputs/Button - PS Analogue L.png" id="76_q214y"]
+[ext_resource type="Texture2D" uid="uid://cc4s75o2k441e" path="res://addons/virtual_controller/assets/textures/sony_buttons/Analogue R Inputs/Button - PS Analogue R.png" id="77_lc8rx"]
+
+[node name="Controls" type="CanvasLayer"]
+layer = -1
+script = ExtResource("1_av0r5")
+
+[node name="VirtualController" type="Node2D" parent="."]
+script = ExtResource("1_c4rma")
+
+[node name="VirtualButtons" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VirtualButtonsBottomLeft" parent="VirtualButtons" instance=ExtResource("3_ek3oe")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_right = 0.0
+offset_top = 680.0
+offset_bottom = 680.0
+grow_horizontal = 1
+grow_vertical = 0
+
+[node name="VirtualButtonsBottomRight" parent="VirtualButtons" instance=ExtResource("4_4a2ha")]
+layout_mode = 1
+offset_left = 1240.0
+offset_top = 680.0
+offset_right = 1240.0
+offset_bottom = 680.0
+
+[node name="VirtualButtonsTopLeft" parent="VirtualButtons" instance=ExtResource("5_g6s7q")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="VirtualButtonsTopRight" parent="VirtualButtons" instance=ExtResource("6_jtalx")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_bottom = 0.0
+offset_left = 1240.0
+offset_right = 1240.0
+grow_horizontal = 0
+grow_vertical = 1
+
+[node name="Debug" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_rpj2f")
+
+[node name="MicrosoftController" type="Control" parent="Debug"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Black" type="Control" parent="Debug/MicrosoftController"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button0" type="TextureRect" parent="Debug/MicrosoftController/Black"]
+layout_mode = 0
+offset_left = 1179.0
+offset_top = 620.0
+offset_right = 1229.0
+offset_bottom = 670.0
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("8_jgsuc")
+
+[node name="Button1" type="TextureRect" parent="Debug/MicrosoftController/Black"]
+layout_mode = 0
+offset_left = 1211.0
+offset_top = 588.0
+offset_right = 1261.0
+offset_bottom = 638.0
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("9_cfi02")
+
+[node name="Button2" type="TextureRect" parent="Debug/MicrosoftController/Black"]
+layout_mode = 0
+offset_left = 1147.0
+offset_top = 588.0
+offset_right = 1197.0
+offset_bottom = 638.0
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("10_q3u7l")
+
+[node name="Button3" type="TextureRect" parent="Debug/MicrosoftController/Black"]
+layout_mode = 0
+offset_left = 1179.0
+offset_top = 556.0
+offset_right = 1229.0
+offset_bottom = 606.0
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("11_6drl8")
+
+[node name="Button4" type="TextureRect" parent="Debug/MicrosoftController/Black"]
+layout_mode = 0
+offset_left = 925.0
+offset_top = 548.0
+offset_right = 975.0
+offset_bottom = 598.0
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("12_eb6ii")
+
+[node name="Button5" type="TextureRect" parent="Debug/MicrosoftController/Black"]
+layout_mode = 0
+offset_left = 1230.0
+offset_top = 548.0
+offset_right = 1280.0
+offset_bottom = 598.0
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("13_250ck")
+
+[node name="Button6" type="TextureRect" parent="Debug/MicrosoftController/Black"]
+layout_mode = 0
+offset_left = 925.0
+offset_top = 516.0
+offset_right = 975.0
+offset_bottom = 566.0
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("14_qbja6")
+
+[node name="Button7" type="TextureRect" parent="Debug/MicrosoftController/Black"]
+layout_mode = 0
+offset_left = 1230.0
+offset_top = 516.0
+offset_right = 1280.0
+offset_bottom = 566.0
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("15_r1vsc")
+
+[node name="Button8" type="TextureRect" parent="Debug/MicrosoftController/Black"]
+layout_mode = 0
+offset_left = 1059.0
+offset_top = 588.0
+offset_right = 1109.0
+offset_bottom = 638.0
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("16_jvhpi")
+
+[node name="Button9" type="TextureRect" parent="Debug/MicrosoftController/Black"]
+layout_mode = 0
+offset_left = 1107.0
+offset_top = 588.0
+offset_right = 1157.0
+offset_bottom = 638.0
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("16_jvhpi")
+
+[node name="StickL" type="TextureRect" parent="Debug/MicrosoftController/Black"]
+layout_mode = 0
+offset_left = 955.0
+offset_top = 564.0
+offset_right = 1055.0
+offset_bottom = 664.0
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("18_6drl8")
+
+[node name="StickR" type="TextureRect" parent="Debug/MicrosoftController/Black"]
+layout_mode = 0
+offset_left = 1107.0
+offset_top = 628.0
+offset_right = 1207.0
+offset_bottom = 728.0
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("18_6drl8")
+
+[node name="DPad" type="TextureRect" parent="Debug/MicrosoftController/Black"]
+layout_mode = 0
+offset_left = 1001.0
+offset_top = 626.0
+offset_right = 1101.0
+offset_bottom = 726.0
+texture = ExtResource("18_eco06")
+
+[node name="White" type="Control" parent="Debug/MicrosoftController"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button0" type="TextureRect" parent="Debug/MicrosoftController/White"]
+layout_mode = 0
+offset_left = 1179.0
+offset_top = 620.0
+offset_right = 1229.0
+offset_bottom = 670.0
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("20_8oii7")
+
+[node name="Button1" type="TextureRect" parent="Debug/MicrosoftController/White"]
+layout_mode = 0
+offset_left = 1211.0
+offset_top = 588.0
+offset_right = 1261.0
+offset_bottom = 638.0
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("21_w8mee")
+
+[node name="Button2" type="TextureRect" parent="Debug/MicrosoftController/White"]
+layout_mode = 0
+offset_left = 1147.0
+offset_top = 588.0
+offset_right = 1197.0
+offset_bottom = 638.0
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("22_frt4r")
+
+[node name="Button3" type="TextureRect" parent="Debug/MicrosoftController/White"]
+layout_mode = 0
+offset_left = 1179.0
+offset_top = 556.0
+offset_right = 1229.0
+offset_bottom = 606.0
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("23_1w15y")
+
+[node name="Button4" type="TextureRect" parent="Debug/MicrosoftController/White"]
+layout_mode = 0
+offset_left = 925.0
+offset_top = 548.0
+offset_right = 975.0
+offset_bottom = 598.0
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("24_qbja6")
+
+[node name="Button5" type="TextureRect" parent="Debug/MicrosoftController/White"]
+layout_mode = 0
+offset_left = 1230.0
+offset_top = 548.0
+offset_right = 1280.0
+offset_bottom = 598.0
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("25_r1vsc")
+
+[node name="Button6" type="TextureRect" parent="Debug/MicrosoftController/White"]
+layout_mode = 0
+offset_left = 925.0
+offset_top = 516.0
+offset_right = 975.0
+offset_bottom = 566.0
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("26_a3ua3")
+
+[node name="Button7" type="TextureRect" parent="Debug/MicrosoftController/White"]
+layout_mode = 0
+offset_left = 1230.0
+offset_top = 516.0
+offset_right = 1280.0
+offset_bottom = 566.0
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("27_8ukeq")
+
+[node name="Button8" type="TextureRect" parent="Debug/MicrosoftController/White"]
+layout_mode = 0
+offset_left = 1059.0
+offset_top = 588.0
+offset_right = 1109.0
+offset_bottom = 638.0
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("28_a3ua3")
+
+[node name="Button9" type="TextureRect" parent="Debug/MicrosoftController/White"]
+layout_mode = 0
+offset_left = 1107.0
+offset_top = 588.0
+offset_right = 1157.0
+offset_bottom = 638.0
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("29_8ukeq")
+
+[node name="Button12" type="TextureRect" parent="Debug/MicrosoftController/White"]
+layout_mode = 0
+offset_left = 1003.0
+offset_top = 628.0
+offset_right = 1103.0
+offset_bottom = 728.0
+texture = ExtResource("31_av0r5")
+
+[node name="Button13" type="TextureRect" parent="Debug/MicrosoftController/White"]
+layout_mode = 0
+offset_left = 1003.0
+offset_top = 628.0
+offset_right = 1103.0
+offset_bottom = 728.0
+texture = ExtResource("31_av0r5")
+flip_v = true
+
+[node name="Button14" type="TextureRect" parent="Debug/MicrosoftController/White"]
+layout_mode = 0
+offset_left = 1103.0
+offset_top = 628.0
+offset_right = 1203.0
+offset_bottom = 728.0
+rotation = 1.5708
+texture = ExtResource("31_av0r5")
+flip_h = true
+flip_v = true
+
+[node name="Button15" type="TextureRect" parent="Debug/MicrosoftController/White"]
+layout_mode = 0
+offset_left = 1103.0
+offset_top = 628.0
+offset_right = 1203.0
+offset_bottom = 728.0
+rotation = 1.5708
+texture = ExtResource("31_av0r5")
+
+[node name="StickL" type="TextureRect" parent="Debug/MicrosoftController/White"]
+layout_mode = 0
+offset_left = 955.0
+offset_top = 564.0
+offset_right = 1055.0
+offset_bottom = 664.0
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("31_8oii7")
+
+[node name="StickR" type="TextureRect" parent="Debug/MicrosoftController/White"]
+layout_mode = 0
+offset_left = 1107.0
+offset_top = 628.0
+offset_right = 1207.0
+offset_bottom = 728.0
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("32_w8mee")
+
+[node name="NintendoController" type="Control" parent="Debug"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Black" type="Control" parent="Debug/NintendoController"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button0" type="TextureRect" parent="Debug/NintendoController/Black"]
+layout_mode = 0
+offset_left = 1179.0
+offset_top = 620.0
+offset_right = 1229.0
+offset_bottom = 670.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("33_pikrh")
+
+[node name="Button1" type="TextureRect" parent="Debug/NintendoController/Black"]
+layout_mode = 0
+offset_left = 1211.0
+offset_top = 588.0
+offset_right = 1261.0
+offset_bottom = 638.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("34_qbja6")
+
+[node name="Button2" type="TextureRect" parent="Debug/NintendoController/Black"]
+layout_mode = 0
+offset_left = 1147.0
+offset_top = 588.0
+offset_right = 1197.0
+offset_bottom = 638.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("35_r1vsc")
+
+[node name="Button3" type="TextureRect" parent="Debug/NintendoController/Black"]
+layout_mode = 0
+offset_left = 1179.0
+offset_top = 556.0
+offset_right = 1229.0
+offset_bottom = 606.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("36_a3ua3")
+
+[node name="Button4" type="TextureRect" parent="Debug/NintendoController/Black"]
+layout_mode = 0
+offset_left = 925.0
+offset_top = 548.0
+offset_right = 975.0
+offset_bottom = 598.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("37_jvhpi")
+
+[node name="Button5" type="TextureRect" parent="Debug/NintendoController/Black"]
+layout_mode = 0
+offset_left = 1230.0
+offset_top = 548.0
+offset_right = 1280.0
+offset_bottom = 598.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("38_11shj")
+
+[node name="Button6" type="TextureRect" parent="Debug/NintendoController/Black"]
+layout_mode = 0
+offset_left = 925.0
+offset_top = 516.0
+offset_right = 975.0
+offset_bottom = 566.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("39_ymtqw")
+
+[node name="Button7" type="TextureRect" parent="Debug/NintendoController/Black"]
+layout_mode = 0
+offset_left = 1230.0
+offset_top = 516.0
+offset_right = 1280.0
+offset_bottom = 566.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("40_4853l")
+
+[node name="Button8" type="TextureRect" parent="Debug/NintendoController/Black"]
+layout_mode = 0
+offset_left = 1059.0
+offset_top = 588.0
+offset_right = 1109.0
+offset_bottom = 638.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("41_8ukeq")
+
+[node name="Button9" type="TextureRect" parent="Debug/NintendoController/Black"]
+layout_mode = 0
+offset_left = 1107.0
+offset_top = 588.0
+offset_right = 1157.0
+offset_bottom = 638.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("41_8ukeq")
+
+[node name="StickL" type="TextureRect" parent="Debug/NintendoController/Black"]
+layout_mode = 0
+offset_left = 955.0
+offset_top = 564.0
+offset_right = 1055.0
+offset_bottom = 664.0
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("42_b5gk3")
+
+[node name="StickR" type="TextureRect" parent="Debug/NintendoController/Black"]
+layout_mode = 0
+offset_left = 1107.0
+offset_top = 628.0
+offset_right = 1207.0
+offset_bottom = 728.0
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("42_b5gk3")
+
+[node name="DPad" type="TextureRect" parent="Debug/NintendoController/Black"]
+layout_mode = 0
+offset_left = 1001.0
+offset_top = 626.0
+offset_right = 1101.0
+offset_bottom = 726.0
+texture = ExtResource("18_eco06")
+
+[node name="White" type="Control" parent="Debug/NintendoController"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button0" type="TextureRect" parent="Debug/NintendoController/White"]
+layout_mode = 0
+offset_left = 1179.0
+offset_top = 620.0
+offset_right = 1229.0
+offset_bottom = 670.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("43_kdavd")
+
+[node name="Button1" type="TextureRect" parent="Debug/NintendoController/White"]
+layout_mode = 0
+offset_left = 1211.0
+offset_top = 588.0
+offset_right = 1261.0
+offset_bottom = 638.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("44_fg4nx")
+
+[node name="Button2" type="TextureRect" parent="Debug/NintendoController/White"]
+layout_mode = 0
+offset_left = 1147.0
+offset_top = 588.0
+offset_right = 1197.0
+offset_bottom = 638.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("45_jvhpi")
+
+[node name="Button3" type="TextureRect" parent="Debug/NintendoController/White"]
+layout_mode = 0
+offset_left = 1179.0
+offset_top = 556.0
+offset_right = 1229.0
+offset_bottom = 606.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("46_11shj")
+
+[node name="Button4" type="TextureRect" parent="Debug/NintendoController/White"]
+layout_mode = 0
+offset_left = 925.0
+offset_top = 548.0
+offset_right = 975.0
+offset_bottom = 598.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("47_eyu82")
+
+[node name="Button5" type="TextureRect" parent="Debug/NintendoController/White"]
+layout_mode = 0
+offset_left = 1230.0
+offset_top = 548.0
+offset_right = 1280.0
+offset_bottom = 598.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("48_ofoqt")
+
+[node name="Button6" type="TextureRect" parent="Debug/NintendoController/White"]
+layout_mode = 0
+offset_left = 925.0
+offset_top = 516.0
+offset_right = 975.0
+offset_bottom = 566.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("49_4ni4y")
+
+[node name="Button7" type="TextureRect" parent="Debug/NintendoController/White"]
+layout_mode = 0
+offset_left = 1230.0
+offset_top = 516.0
+offset_right = 1280.0
+offset_bottom = 566.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("50_2nrib")
+
+[node name="Button8" type="TextureRect" parent="Debug/NintendoController/White"]
+layout_mode = 0
+offset_left = 1059.0
+offset_top = 588.0
+offset_right = 1109.0
+offset_bottom = 638.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("51_ymtqw")
+
+[node name="Button9" type="TextureRect" parent="Debug/NintendoController/White"]
+layout_mode = 0
+offset_left = 1107.0
+offset_top = 588.0
+offset_right = 1157.0
+offset_bottom = 638.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("52_4853l")
+
+[node name="Button12" type="TextureRect" parent="Debug/NintendoController/White"]
+layout_mode = 0
+offset_left = 1003.0
+offset_top = 628.0
+offset_right = 1103.0
+offset_bottom = 728.0
+texture = ExtResource("31_av0r5")
+
+[node name="Button13" type="TextureRect" parent="Debug/NintendoController/White"]
+layout_mode = 0
+offset_left = 1003.0
+offset_top = 628.0
+offset_right = 1103.0
+offset_bottom = 728.0
+texture = ExtResource("31_av0r5")
+flip_v = true
+
+[node name="Button14" type="TextureRect" parent="Debug/NintendoController/White"]
+layout_mode = 0
+offset_left = 1103.0
+offset_top = 628.0
+offset_right = 1203.0
+offset_bottom = 728.0
+rotation = 1.5708
+texture = ExtResource("31_av0r5")
+flip_h = true
+flip_v = true
+
+[node name="Button15" type="TextureRect" parent="Debug/NintendoController/White"]
+layout_mode = 0
+offset_left = 1103.0
+offset_top = 628.0
+offset_right = 1203.0
+offset_bottom = 728.0
+rotation = 1.5708
+texture = ExtResource("31_av0r5")
+
+[node name="StickL" type="TextureRect" parent="Debug/NintendoController/White"]
+layout_mode = 0
+offset_left = 955.0
+offset_top = 564.0
+offset_right = 1055.0
+offset_bottom = 664.0
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("53_rwqn1")
+
+[node name="StickR" type="TextureRect" parent="Debug/NintendoController/White"]
+layout_mode = 0
+offset_left = 1107.0
+offset_top = 628.0
+offset_right = 1207.0
+offset_bottom = 728.0
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("54_ga23q")
+
+[node name="SonyController" type="Control" parent="Debug"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Black" type="Control" parent="Debug/SonyController"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button0" type="TextureRect" parent="Debug/SonyController/Black"]
+layout_mode = 0
+offset_left = 1179.0
+offset_top = 620.0
+offset_right = 1229.0
+offset_bottom = 670.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("55_11shj")
+
+[node name="Button1" type="TextureRect" parent="Debug/SonyController/Black"]
+layout_mode = 0
+offset_left = 1211.0
+offset_top = 588.0
+offset_right = 1261.0
+offset_bottom = 638.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("56_ymtqw")
+
+[node name="Button2" type="TextureRect" parent="Debug/SonyController/Black"]
+layout_mode = 0
+offset_left = 1147.0
+offset_top = 588.0
+offset_right = 1197.0
+offset_bottom = 638.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("57_4853l")
+
+[node name="Button3" type="TextureRect" parent="Debug/SonyController/Black"]
+layout_mode = 0
+offset_left = 1179.0
+offset_top = 556.0
+offset_right = 1229.0
+offset_bottom = 606.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("58_b5gk3")
+
+[node name="Button4" type="TextureRect" parent="Debug/SonyController/Black"]
+layout_mode = 0
+offset_left = 925.0
+offset_top = 548.0
+offset_right = 975.0
+offset_bottom = 598.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("59_eyu82")
+
+[node name="Button5" type="TextureRect" parent="Debug/SonyController/Black"]
+layout_mode = 0
+offset_left = 1230.0
+offset_top = 548.0
+offset_right = 1280.0
+offset_bottom = 598.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("60_ofoqt")
+
+[node name="Button6" type="TextureRect" parent="Debug/SonyController/Black"]
+layout_mode = 0
+offset_left = 925.0
+offset_top = 516.0
+offset_right = 975.0
+offset_bottom = 566.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("61_4ni4y")
+
+[node name="Button7" type="TextureRect" parent="Debug/SonyController/Black"]
+layout_mode = 0
+offset_left = 1230.0
+offset_top = 516.0
+offset_right = 1280.0
+offset_bottom = 566.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("62_2nrib")
+
+[node name="Button8" type="TextureRect" parent="Debug/SonyController/Black"]
+layout_mode = 0
+offset_left = 1059.0
+offset_top = 588.0
+offset_right = 1109.0
+offset_bottom = 638.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("63_11shj")
+
+[node name="Button9" type="TextureRect" parent="Debug/SonyController/Black"]
+layout_mode = 0
+offset_left = 1107.0
+offset_top = 588.0
+offset_right = 1157.0
+offset_bottom = 638.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("64_ymtqw")
+
+[node name="StickL" type="TextureRect" parent="Debug/SonyController/Black"]
+layout_mode = 0
+offset_left = 1019.0
+offset_top = 628.0
+offset_right = 1499.0
+offset_bottom = 1108.0
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("65_rwqn1")
+
+[node name="StickR" type="TextureRect" parent="Debug/SonyController/Black"]
+layout_mode = 0
+offset_left = 1107.0
+offset_top = 628.0
+offset_right = 1207.0
+offset_bottom = 728.0
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("65_rwqn1")
+
+[node name="DPad" type="TextureRect" parent="Debug/SonyController/Black"]
+layout_mode = 0
+offset_left = 937.0
+offset_top = 562.0
+offset_right = 1037.0
+offset_bottom = 662.0
+texture = ExtResource("18_eco06")
+
+[node name="White" type="Control" parent="Debug/SonyController"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button0" type="TextureRect" parent="Debug/SonyController/White"]
+layout_mode = 0
+offset_left = 1179.0
+offset_top = 620.0
+offset_right = 1229.0
+offset_bottom = 670.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("66_ga23q")
+
+[node name="Button1" type="TextureRect" parent="Debug/SonyController/White"]
+layout_mode = 0
+offset_left = 1211.0
+offset_top = 588.0
+offset_right = 1261.0
+offset_bottom = 638.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("67_uqm5x")
+
+[node name="Button2" type="TextureRect" parent="Debug/SonyController/White"]
+layout_mode = 0
+offset_left = 1147.0
+offset_top = 588.0
+offset_right = 1197.0
+offset_bottom = 638.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("68_ongio")
+
+[node name="Button3" type="TextureRect" parent="Debug/SonyController/White"]
+layout_mode = 0
+offset_left = 1179.0
+offset_top = 556.0
+offset_right = 1229.0
+offset_bottom = 606.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("69_y7ls1")
+
+[node name="Button4" type="TextureRect" parent="Debug/SonyController/White"]
+layout_mode = 0
+offset_left = 925.0
+offset_top = 548.0
+offset_right = 975.0
+offset_bottom = 598.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("70_165h6")
+
+[node name="Button5" type="TextureRect" parent="Debug/SonyController/White"]
+layout_mode = 0
+offset_left = 1230.0
+offset_top = 548.0
+offset_right = 1280.0
+offset_bottom = 598.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("71_1f0tj")
+
+[node name="Button6" type="TextureRect" parent="Debug/SonyController/White"]
+layout_mode = 0
+offset_left = 925.0
+offset_top = 516.0
+offset_right = 975.0
+offset_bottom = 566.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("72_qrwev")
+
+[node name="Button7" type="TextureRect" parent="Debug/SonyController/White"]
+layout_mode = 0
+offset_left = 1230.0
+offset_top = 516.0
+offset_right = 1280.0
+offset_bottom = 566.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("73_cnafy")
+
+[node name="Button8" type="TextureRect" parent="Debug/SonyController/White"]
+layout_mode = 0
+offset_left = 1059.0
+offset_top = 588.0
+offset_right = 1109.0
+offset_bottom = 638.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("74_dv2wv")
+
+[node name="Button9" type="TextureRect" parent="Debug/SonyController/White"]
+layout_mode = 0
+offset_left = 1107.0
+offset_top = 588.0
+offset_right = 1157.0
+offset_bottom = 638.0
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("75_c37my")
+
+[node name="Button12" type="TextureRect" parent="Debug/SonyController/White"]
+layout_mode = 0
+offset_left = 939.0
+offset_top = 564.0
+offset_right = 1039.0
+offset_bottom = 664.0
+texture = ExtResource("31_av0r5")
+
+[node name="Button13" type="TextureRect" parent="Debug/SonyController/White"]
+layout_mode = 0
+offset_left = 939.0
+offset_top = 564.0
+offset_right = 1039.0
+offset_bottom = 664.0
+texture = ExtResource("31_av0r5")
+flip_v = true
+
+[node name="Button14" type="TextureRect" parent="Debug/SonyController/White"]
+layout_mode = 0
+offset_left = 1039.0
+offset_top = 564.0
+offset_right = 1139.0
+offset_bottom = 664.0
+rotation = 1.5708
+texture = ExtResource("31_av0r5")
+flip_h = true
+flip_v = true
+
+[node name="Button15" type="TextureRect" parent="Debug/SonyController/White"]
+layout_mode = 0
+offset_left = 1039.0
+offset_top = 564.0
+offset_right = 1139.0
+offset_bottom = 664.0
+rotation = 1.5708
+texture = ExtResource("31_av0r5")
+
+[node name="StickL" type="TextureRect" parent="Debug/SonyController/White"]
+layout_mode = 0
+offset_left = 1019.0
+offset_top = 628.0
+offset_right = 1499.0
+offset_bottom = 1108.0
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("76_q214y")
+
+[node name="StickR" type="TextureRect" parent="Debug/SonyController/White"]
+layout_mode = 0
+offset_left = 1107.0
+offset_top = 628.0
+offset_right = 1207.0
+offset_bottom = 728.0
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("77_lc8rx")
