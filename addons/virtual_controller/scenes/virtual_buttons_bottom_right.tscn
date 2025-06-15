@@ -1,24 +1,32 @@
-[gd_scene load_steps=21 format=3 uid="uid://d1yeyb0luu5cy"]
+[gd_scene load_steps=29 format=3 uid="uid://d1yeyb0luu5cy"]
 
 [ext_resource type="Texture2D" uid="uid://bf7ao2r1en2cq" path="res://addons/virtual_controller/assets/textures/game_icons/PNG/White/2x/buttonA.png" id="1_dyvab"]
 [ext_resource type="Texture2D" uid="uid://gq6lwxhonocy" path="res://addons/virtual_controller/assets/textures/game_icons/PNG/Black/2x/buttonA.png" id="2_k0k70"]
 [ext_resource type="Texture2D" uid="uid://d17g6mlhk5xvx" path="res://addons/virtual_controller/assets/textures/game_icons/PNG/White/2x/buttonB.png" id="3_o41q3"]
 [ext_resource type="Texture2D" uid="uid://koptcqtseyee" path="res://addons/virtual_controller/assets/textures/game_icons/PNG/White/1x/stop.png" id="3_uwa31"]
+[ext_resource type="Texture2D" uid="uid://5q2xmugddyx7" path="res://addons/virtual_controller/assets/textures/playstation_series/Double/white_playstation_button_cross.png" id="4_2hqlr"]
 [ext_resource type="Texture2D" uid="uid://brdf0o13vm14t" path="res://addons/virtual_controller/assets/textures/game_icons/PNG/Black/2x/buttonB.png" id="4_3qn5a"]
+[ext_resource type="Texture2D" uid="uid://mlqenpjx55f2" path="res://addons/virtual_controller/assets/textures/playstation_series/Double/black_playstation_button_cross.png" id="5_2x4f6"]
 [ext_resource type="Texture2D" uid="uid://cw26jjwephqik" path="res://addons/virtual_controller/assets/textures/game_icons/PNG/White/2x/buttonX.png" id="5_aort8"]
 [ext_resource type="Texture2D" uid="uid://bbpqtu1ugpnis" path="res://addons/virtual_controller/assets/textures/game_icons/PNG/Black/2x/buttonX.png" id="6_o41q3"]
 [ext_resource type="Texture2D" uid="uid://dnvya1u1n7dvw" path="res://addons/virtual_controller/assets/textures/game_icons/PNG/White/2x/buttonY.png" id="6_yx8li"]
 [ext_resource type="Texture2D" uid="uid://01tnswshakyt" path="res://addons/virtual_controller/assets/textures/game_icons/PNG/White/2x/buttonStart.png" id="7_o7vf7"]
 [ext_resource type="Texture2D" uid="uid://bb57xq2u6f5xc" path="res://addons/virtual_controller/assets/textures/game_icons/PNG/Black/2x/buttonY.png" id="8_3qn5a"]
+[ext_resource type="Texture2D" uid="uid://c3p18xrk8ilbx" path="res://addons/virtual_controller/assets/textures/playstation_series/Double/white_playstation_button_circle.png" id="8_16rok"]
 [ext_resource type="Texture2D" uid="uid://cnoglo10hvyc1" path="res://addons/virtual_controller/assets/textures/game_icons/PNG/Black/2x/buttonStart.png" id="8_vh2ts"]
+[ext_resource type="Texture2D" uid="uid://c2yn4c21tm50k" path="res://addons/virtual_controller/assets/textures/playstation_series/Double/black_playstation_button_circle.png" id="9_hdapk"]
+[ext_resource type="Texture2D" uid="uid://h3vwbbe6qoep" path="res://addons/virtual_controller/assets/textures/playstation_series/Double/white_playstation_button_square.png" id="12_0u8lu"]
 [ext_resource type="Texture2D" uid="uid://cpl7bnbr2af4k" path="res://addons/virtual_controller/assets/textures/game_icons/PNG/White/2x/button.png" id="12_pcoid"]
 [ext_resource type="Texture2D" uid="uid://bs3x0u2uoe38j" path="res://addons/virtual_controller/assets/textures/switch_2/Default/switch_up.png" id="13_6fb8o"]
+[ext_resource type="Texture2D" uid="uid://bvcjgduexl5t1" path="res://addons/virtual_controller/assets/textures/playstation_series/Double/black_playstation_button_square.png" id="13_hhuy7"]
 [ext_resource type="Texture2D" uid="uid://dxprm05hgebi0" path="res://addons/virtual_controller/assets/textures/switch_2/Default/black_switch_up.png" id="13_wdm52"]
 [ext_resource type="Texture2D" uid="uid://0g16pve55u1o" path="res://addons/virtual_controller/assets/textures/switch_2/Default/switch_down.png" id="14_qcjq4"]
 [ext_resource type="Texture2D" uid="uid://djp0pnw46bdwx" path="res://addons/virtual_controller/assets/textures/switch_2/Default/switch_left.png" id="15_2be4w"]
 [ext_resource type="Texture2D" uid="uid://badj8r1p5y7id" path="res://addons/virtual_controller/assets/textures/switch_2/Default/black_switch_down.png" id="15_6fb8o"]
+[ext_resource type="Texture2D" uid="uid://ctmht3trha3em" path="res://addons/virtual_controller/assets/textures/playstation_series/Double/white_playstation_button_triangle.png" id="16_ajbu6"]
 [ext_resource type="Texture2D" uid="uid://oh366wk4rivr" path="res://addons/virtual_controller/assets/textures/switch_2/Default/switch_right.png" id="16_wdm52"]
 [ext_resource type="Texture2D" uid="uid://cgovkvm8tv21f" path="res://addons/virtual_controller/assets/textures/switch_2/Default/black_switch_left.png" id="17_c4fdf"]
+[ext_resource type="Texture2D" uid="uid://c0rilaeqj1cox" path="res://addons/virtual_controller/assets/textures/playstation_series/Double/black_playstation_button_triangle.png" id="17_iq1u3"]
 [ext_resource type="Texture2D" uid="uid://dfekelui7hmee" path="res://addons/virtual_controller/assets/textures/switch_2/Default/black_switch_right.png" id="19_13uvn"]
 
 [node name="VirtualButtonsBottomRight" type="Control"]
@@ -50,6 +58,22 @@ position = Vector2(52, 50)
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("12_pcoid")
 
+[node name="TouchScreenButtonCross" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
+visible = false
+position = Vector2(-185, -169)
+texture_normal = ExtResource("4_2hqlr")
+texture_pressed = ExtResource("5_2x4f6")
+passby_press = true
+action = "jump"
+
+[node name="Background" type="Sprite2D" parent="TouchScreenButtonCross"]
+visible = false
+self_modulate = Color(0.000113828, 0.000113828, 0.000113828, 1)
+z_index = -1
+position = Vector2(52, 50)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("12_pcoid")
+
 [node name="TouchScreenButtonB" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
 position = Vector2(-105, -249)
 texture_normal = ExtResource("3_o41q3")
@@ -58,6 +82,21 @@ passby_press = true
 action = "sprint"
 
 [node name="Background" type="Sprite2D" parent="TouchScreenButtonB"]
+visible = false
+z_index = -1
+position = Vector2(52, 50)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("12_pcoid")
+
+[node name="TouchScreenButtonCircle" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
+visible = false
+position = Vector2(-105, -249)
+texture_normal = ExtResource("8_16rok")
+texture_pressed = ExtResource("9_hdapk")
+passby_press = true
+action = "sprint"
+
+[node name="Background" type="Sprite2D" parent="TouchScreenButtonCircle"]
 visible = false
 z_index = -1
 position = Vector2(52, 50)
@@ -78,6 +117,21 @@ position = Vector2(52, 50)
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("12_pcoid")
 
+[node name="TouchScreenButtonSquare" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
+visible = false
+position = Vector2(-265, -249)
+texture_normal = ExtResource("12_0u8lu")
+texture_pressed = ExtResource("13_hhuy7")
+passby_press = true
+action = "use"
+
+[node name="Background" type="Sprite2D" parent="TouchScreenButtonSquare"]
+visible = false
+z_index = -1
+position = Vector2(52, 50)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("12_pcoid")
+
 [node name="TouchScreenButtonY" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
 position = Vector2(-185, -329)
 texture_normal = ExtResource("6_yx8li")
@@ -86,6 +140,21 @@ passby_press = true
 action = "crouch"
 
 [node name="Background" type="Sprite2D" parent="TouchScreenButtonY"]
+visible = false
+z_index = -1
+position = Vector2(52, 50)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("12_pcoid")
+
+[node name="TouchScreenButtonTriangle" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
+visible = false
+position = Vector2(-185, -329)
+texture_normal = ExtResource("16_ajbu6")
+texture_pressed = ExtResource("17_iq1u3")
+passby_press = true
+action = "crouch"
+
+[node name="Background" type="Sprite2D" parent="TouchScreenButtonTriangle"]
 visible = false
 z_index = -1
 position = Vector2(52, 50)
