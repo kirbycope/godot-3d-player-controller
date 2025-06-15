@@ -30,7 +30,10 @@ enum InputType {
 
 var current_input_type = InputType.KEYBOARD_MOUSE
 
+## Analog stick deadzone
 @export var input_deadzone := 0.15
+## Hide if input is not a touch event
+@export var hide_touch_controls := true
 
 @onready var virtual_buttons: Control = $VirtualButtons
 
@@ -41,8 +44,11 @@ func _input(event: InputEvent) -> void:
 	# Set the current input type
 	set_current_input_type(event)
 
-	# Show the virtual touch controls as needed
-	virtual_buttons.visible = (current_input_type == InputType.TOUCH)
+	# Check if the touch controls should be hidden if the input type is not touch
+	if hide_touch_controls:
+
+		# Show the virtual touch controls as needed
+		virtual_buttons.visible = (current_input_type == InputType.TOUCH)
 
 
 ## Called when the node enters the scene tree for the first time.

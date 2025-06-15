@@ -85,30 +85,30 @@ script = ExtResource("1_av0r5")
 script = ExtResource("1_c4rma")
 
 [node name="VirtualButtons" type="Control" parent="."]
-visible = false
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="VirtualButtonsBottomLeft" parent="VirtualButtons" instance=ExtResource("3_ek3oe")]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_right = 0.0
-offset_top = 680.0
-offset_bottom = 680.0
 grow_horizontal = 1
 grow_vertical = 0
 
 [node name="VirtualButtonsBottomRight" parent="VirtualButtons" instance=ExtResource("4_4a2ha")]
 layout_mode = 1
-offset_left = 1240.0
-offset_top = 680.0
-offset_right = 1240.0
-offset_bottom = 680.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
 
 [node name="VirtualButtonsTopLeft" parent="VirtualButtons" instance=ExtResource("5_g6s7q")]
+layout_mode = 1
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -120,8 +120,6 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_bottom = 0.0
-offset_left = 1240.0
-offset_right = 1240.0
 grow_horizontal = 0
 grow_vertical = 1
 

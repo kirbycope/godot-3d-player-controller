@@ -9,22 +9,45 @@ enum theme {
 	Nintendo64,
 	NintendoEntertainmentSystem,
 	NintendoGameCube,
+	PlayStationSeries,
 	SuperNintendoEntertainmentSystem,
+	XBoxSeriesS,
+	XBoxSeriesX
 }
 
-const BD_NAVBAR = "#563d7c"		# PURPLE, LIGHT .bd-navbar
-const BTN_DANGER = "#dc3545"	# RED .btn-danger
-const BTN_DARK = "#343a40"		# BLACK .btn-dark
-const BTN_PRIMARY = "#007bff" 	# BLUE .btn-primary
-const BTN_SECONDARY = "#6c757d"	# GRAY .btn-secondary
-const BTN_SUCCESS = "#28a745"	# GREEN .btn-success
-const BTN_WARNING = "#ffc107"	# YELLOW .btn-warning
-const OLD_BV = "#322348"		# PURPLE, DARK .old-bv
+const ALERT_WARNING = "#856404"			# YELLOW, DARK .alert-warning
+const BD_NAVBAR = "#563d7c"				# PURPLE, LIGHT .bd-navbar
+const BOOTSTRAP_RED = "#dc3545"			# RED .btn-danger :root{--red: #dc3545;}
+const BOOTSTRAP_GRAY_DARK = "#343a40"	# GRAY, DARK .btn-dark :root{--gray-dark: #343a40;}
+const BOOTSTRAP_BLUE = "#007bff" 		# BLUE .btn-primary :root{--blue: #007bff;}
+const BOOTSTRAP_GRAY = "#6c757d"		# GRAY .btn-secondary :root{--gray: #6c757d;}
+const BOOTSTRAP_GREEN = "#28a745"		# GREEN .btn-success :root{--green: #28a745;}
+const BOOTSTRAP_YELLOW = "#ffc107"		# YELLOW .btn-warning :root{--yellow: #ffc107;}
+const OLD_BV = "#322348"				# PURPLE, DARK .old-bv
 const MAX_DISTANCE := 64
 const SWIPE_DEADZONE := 8
 
+const BLACK_BUTTON_A = preload("res://addons/virtual_controller/assets/textures/game_icons/PNG/Black/2x/buttonA.png")
+const BLACK_BUTTON_B = preload("res://addons/virtual_controller/assets/textures/game_icons/PNG/Black/2x/buttonB.png")
+const BLACK_BUTTON_X = preload("res://addons/virtual_controller/assets/textures/game_icons/PNG/Black/2x/buttonX.png")
+const BLACK_BUTTON_Y = preload("res://addons/virtual_controller/assets/textures/game_icons/PNG/Black/2x/buttonY.png")
+const WHITE_BUTTON_A = preload("res://addons/virtual_controller/assets/textures/game_icons/PNG/White/2x/buttonA.png")
+const WHITE_BUTTON_B = preload("res://addons/virtual_controller/assets/textures/game_icons/PNG/White/2x/buttonB.png")
+const WHITE_BUTTON_X = preload("res://addons/virtual_controller/assets/textures/game_icons/PNG/White/2x/buttonX.png")
+const WHITE_BUTTON_Y = preload("res://addons/virtual_controller/assets/textures/game_icons/PNG/White/2x/buttonY.png")
+
+const BLACK_PLAYSTATION_BUTTON_CIRCLE = preload("res://addons/virtual_controller/assets/textures/playstation_series/Double/black_playstation_button_circle.png")
+const BLACK_PLAYSTATION_BUTTON_CROSS = preload("res://addons/virtual_controller/assets/textures/playstation_series/Double/black_playstation_button_cross.png")
+const BLACK_PLAYSTATION_BUTTON_SQUARE = preload("res://addons/virtual_controller/assets/textures/playstation_series/Double/black_playstation_button_square.png")
+const BLACK_PLAYSTATION_BUTTON_TRIANGLE = preload("res://addons/virtual_controller/assets/textures/playstation_series/Double/black_playstation_button_triangle.png")
+const WHITE_PLAYSTATION_BUTTON_CIRCLE = preload("res://addons/virtual_controller/assets/textures/playstation_series/Double/white_playstation_button_circle.png")
+const WHITE_PLAYSTATION_BUTTON_CROSS = preload("res://addons/virtual_controller/assets/textures/playstation_series/Double/white_playstation_button_cross.png")
+const WHITE_PLAYSTATION_BUTTON_SQUARE = preload("res://addons/virtual_controller/assets/textures/playstation_series/Double/white_playstation_button_square.png")
+const WHITE_PLAYSTATION_BUTTON_TRIANGLE = preload("res://addons/virtual_controller/assets/textures/playstation_series/Double/white_playstation_button_triangle.png")
+
 @export var current_theme = theme.DEFAULT
-@export var enable_analog_sticks := true
+@export var enable_analog_stick_left := true
+@export var enable_analog_stick_right := true
 
 var left_swipe_current_position = null
 var left_swipe_event_index = null
@@ -45,9 +68,25 @@ var tap_initial_position = null
 @onready var touch_screen_button_up: TouchScreenButton = $"../VirtualButtons/VirtualButtonsBottomLeft/TouchScreenButtonUp"
 @onready var touch_screen_button_select: TouchScreenButton = $"../VirtualButtons/VirtualButtonsBottomLeft/TouchScreenButtonSelect"
 @onready var touch_screen_button_a: TouchScreenButton = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonA"
+@onready var touch_screen_button_a_background: Sprite2D = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonA/Background"
+@onready var touch_screen_button_a_initial_position := touch_screen_button_a.position
 @onready var touch_screen_button_b: TouchScreenButton = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonB"
+@onready var touch_screen_button_b_background: Sprite2D = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonB/Background"
+@onready var touch_screen_button_b_initial_position := touch_screen_button_b.position
+@onready var touch_screen_button_c_up: TouchScreenButton = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonCUp"
+@onready var touch_screen_button_c_up_background: Sprite2D = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonCUp/Background"
+@onready var touch_screen_button_c_down: TouchScreenButton = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonCDown"
+@onready var touch_screen_button_c_down_background: Sprite2D = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonCDown/Background"
+@onready var touch_screen_button_c_left: TouchScreenButton = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonCLeft"
+@onready var touch_screen_button_c_left_background: Sprite2D = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonCLeft/Background"
+@onready var touch_screen_button_c_right: TouchScreenButton = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonCRight"
+@onready var touch_screen_button_c_right_background: Sprite2D = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonCRight/Background"
 @onready var touch_screen_button_x: TouchScreenButton = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonX"
+@onready var touch_screen_button_x_background: Sprite2D = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonX/Background"
+@onready var touch_screen_button_x_initial_position := touch_screen_button_x.position
 @onready var touch_screen_button_y: TouchScreenButton = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonY"
+@onready var touch_screen_button_y_background: Sprite2D = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonY/Background"
+@onready var touch_screen_button_y_initial_position := touch_screen_button_y.position
 @onready var touch_screen_button_start: TouchScreenButton = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonStart"
 @onready var touch_screen_button_l_1: TouchScreenButton = $"../VirtualButtons/VirtualButtonsTopLeft/TouchScreenButtonL1"
 @onready var touch_screen_button_l_2: TouchScreenButton = $"../VirtualButtons/VirtualButtonsTopLeft/TouchScreenButtonL2"
@@ -57,8 +96,6 @@ var tap_initial_position = null
 
 ## Called when CanvasItem has been requested to redraw (after queue_redraw is called, either manually or by the engine).
 func _draw() -> void:
-
-
 
 	# Check if there is a left-swipe event
 	if left_swipe_event_index != null:
@@ -90,8 +127,17 @@ func _draw() -> void:
 		# Define the position to draw the gray circle
 		var draw_position_gray =  right_swipe_initial_position
 
-		# Draw a gray circle at the event origin
-		draw_circle(draw_position_gray, 64, Color(0.502, 0.502, 0.502, 0.5))
+		# Check if the theme is Nintendo GameCube
+		if current_theme == theme.NintendoGameCube:
+
+			# Draw a dark yellow circle at the event origin
+			draw_circle(draw_position_gray, 64, Color(ALERT_WARNING, 0.5))
+
+		# The theme must not be Nintendo GameCube
+		else:
+
+			# Draw a gray circle at the event origin
+			draw_circle(draw_position_gray, 64, Color(0.502, 0.502, 0.502, 0.5))
 
 		# Check if for drag motion
 		if right_swipe_current_position != null:
@@ -105,15 +151,24 @@ func _draw() -> void:
 			# Define the position to draw the white circle
 			var draw_position_white = right_swipe_initial_position + right_swipe_delta
 
-			# Draw a white circle at the event location
-			draw_circle(draw_position_white, 48, Color(1.0, 1.0, 1.0, 0.5))
+			# Check if the theme is Nintendo GameCube
+			if current_theme == theme.NintendoGameCube:
+
+				# Draw a yellow circle at the event location
+				draw_circle(draw_position_white, 48, Color(BOOTSTRAP_YELLOW, 0.5))
+
+			# The theme must not be Nintendo GameCube
+			else:
+
+				# Draw a white circle at the event location
+				draw_circle(draw_position_white, 48, Color(1.0, 1.0, 1.0, 0.5))
 
 
 ## Called when there is an input event.
 func _input(event: InputEvent) -> void:
 
 	# Check if analog sticks are not enabled
-	if not enable_analog_sticks:
+	if not enable_analog_stick_left and not enable_analog_stick_right:
 
 		# Return without drawing anything
 		return
@@ -130,23 +185,29 @@ func _input(event: InputEvent) -> void:
 				# Skip processing this touch event for the virtual controller
 				return
 
-			# Check if the touch event took place on the left-half of the screen and the event has not been recorded
-			if event.position.x < get_viewport().get_visible_rect().size.x / 2 and !left_swipe_event_index:
+			# Check if the left analog stick is enabled
+			if enable_analog_stick_left:
 
-				# Record the touch event index
-				left_swipe_event_index = event.index
+				# Check if the touch event took place on the left-half of the screen and the event has not been recorded
+				if event.position.x < get_viewport().get_visible_rect().size.x / 2 and !left_swipe_event_index:
 
-				# Record inital position
-				left_swipe_initial_position = event.position
+					# Record the touch event index
+					left_swipe_event_index = event.index
 
-			# Check if the touch event took place on the right-half of the screen and the event has not been recorded
-			if event.position.x > get_viewport().get_visible_rect().size.x / 2 and !right_swipe_event_index:
+					# Record inital position
+					left_swipe_initial_position = event.position
 
-				# Record the touch event index
-				right_swipe_event_index = event.index
+			# Check if the right analog stick is enabled
+			if enable_analog_stick_right:
 
-				# Record inital position
-				right_swipe_initial_position = event.position
+				# Check if the touch event took place on the right-half of the screen and the event has not been recorded
+				if event.position.x > get_viewport().get_visible_rect().size.x / 2 and !right_swipe_event_index:
+
+					# Record the touch event index
+					right_swipe_event_index = event.index
+
+					# Record inital position
+					right_swipe_initial_position = event.position
 
 		# [touch] screen just _released_
 		else:
@@ -203,7 +264,7 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventScreenDrag:
 
 		# Check if the event is related to the left-swipe event
-		if event.index == left_swipe_event_index:
+		if event.index == left_swipe_event_index and enable_analog_stick_left:
 
 			# Record swipe current position
 			left_swipe_current_position = event.position
@@ -242,7 +303,7 @@ func _input(event: InputEvent) -> void:
 				Input.action_release("move_down")
 
 		# Check if the event is related to the right-swipe event
-		if event.index == right_swipe_event_index:
+		if event.index == right_swipe_event_index and enable_analog_stick_right:
 
 			# Record swipe current position
 			right_swipe_current_position = event.position
@@ -283,83 +344,9 @@ func _input(event: InputEvent) -> void:
 	queue_redraw()
 
 
-## Called when the node enters the scene tree for the first time.
+# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-
-	# Check if the current theme is "New Nintendo 3DS"
-	if current_theme == theme.NewNintendo3DS:
-		touch_screen_button_a.modulate = BTN_DANGER
-		touch_screen_button_b.modulate = BTN_WARNING
-		touch_screen_button_x.modulate = BTN_PRIMARY
-		touch_screen_button_y.modulate = BTN_SUCCESS
-
-	# Check if the current theme is "Nintendo 64"
-	elif current_theme == theme.Nintendo64:
-		touch_screen_button_down.modulate = BTN_DARK
-		touch_screen_button_up.modulate = BTN_DARK
-		touch_screen_button_left.modulate = BTN_DARK
-		touch_screen_button_right.modulate = BTN_DARK
-		touch_screen_button_a.modulate = BTN_PRIMARY
-		touch_screen_button_b.modulate = BTN_SUCCESS
-		touch_screen_button_x.visible = false
-		touch_screen_button_y.visible = false
-		touch_screen_button_select.visible = false
-		touch_screen_button_start.modulate = BTN_DANGER
-		touch_screen_button_l_1.modulate = BTN_DARK
-		touch_screen_button_l_2.modulate = BTN_DARK
-		touch_screen_button_r_1.modulate = BTN_DARK
-		touch_screen_button_r_2.modulate = BTN_DARK
-
-	# Check if the current theme is "Nintendo Entertainment System"
-	elif current_theme == theme.NintendoEntertainmentSystem:
-		touch_screen_button_down.modulate = BTN_DARK
-		touch_screen_button_up.modulate = BTN_DARK
-		touch_screen_button_left.modulate = BTN_DARK
-		touch_screen_button_right.modulate = BTN_DARK
-		touch_screen_button_a.modulate = BTN_DANGER
-		touch_screen_button_b.modulate = BTN_DANGER
-		touch_screen_button_x.visible = false
-		touch_screen_button_y.visible = false
-		touch_screen_button_select.modulate = BTN_DARK
-		touch_screen_button_start.modulate = BTN_DARK
-		touch_screen_button_l_1.visible = false
-		touch_screen_button_l_2.visible = false
-		touch_screen_button_r_1.visible = false
-		touch_screen_button_r_2.visible = false
-
-	# Check if the current theme is "Nintendo GameCube"
-	elif current_theme == theme.NintendoGameCube:
-		touch_screen_button_down.modulate = BTN_SECONDARY
-		touch_screen_button_up.modulate = BTN_SECONDARY
-		touch_screen_button_left.modulate = BTN_SECONDARY
-		touch_screen_button_right.modulate = BTN_SECONDARY
-		touch_screen_button_a.modulate = BTN_SUCCESS
-		touch_screen_button_b.modulate = BTN_DANGER
-		touch_screen_button_x.modulate = BTN_SECONDARY
-		touch_screen_button_y.modulate = BTN_SECONDARY
-		touch_screen_button_select.visible = false
-		touch_screen_button_start.modulate = BTN_SECONDARY
-		touch_screen_button_l_1.modulate = BTN_SECONDARY
-		touch_screen_button_l_2.modulate = BTN_SECONDARY
-		touch_screen_button_r_1.modulate = BTN_SECONDARY
-		touch_screen_button_r_2.modulate = BTN_SECONDARY
-
-	# Check if the current theme is "Super Nintendo Entertainment System"
-	elif current_theme == theme.SuperNintendoEntertainmentSystem:
-		touch_screen_button_down.modulate = BTN_DARK
-		touch_screen_button_up.modulate = BTN_DARK
-		touch_screen_button_left.modulate = BTN_DARK
-		touch_screen_button_right.modulate = BTN_DARK
-		touch_screen_button_a.modulate = OLD_BV
-		touch_screen_button_b.modulate = OLD_BV
-		touch_screen_button_x.modulate = BD_NAVBAR
-		touch_screen_button_y.modulate = BD_NAVBAR
-		touch_screen_button_select.modulate = BTN_DARK
-		touch_screen_button_start.modulate = BTN_DARK
-		touch_screen_button_l_1.modulate = BTN_SECONDARY
-		touch_screen_button_l_2.visible = false
-		touch_screen_button_r_1.modulate = BTN_SECONDARY
-		touch_screen_button_r_2.visible = false
+	update_theme(current_theme)
 
 
 ## Checks if a given position is within any TouchScreenButton.
@@ -415,3 +402,298 @@ func update_button_passthrough():
 	touch_screen_button_y.passby_press = should_passthrough
 	touch_screen_button_r_1.passby_press = should_passthrough
 	touch_screen_button_r_2.passby_press = should_passthrough
+
+
+## Updates the theme of the virtual controller.
+func update_theme(new_theme: theme) -> void:
+
+	# Update the current theme
+	current_theme = new_theme
+
+	# Reset the virtual controller state
+	enable_analog_stick_left = true
+	enable_analog_stick_right = true
+	left_swipe_current_position = null
+	left_swipe_event_index = null
+	left_swipe_delta = null
+	left_swipe_initial_position = null
+	right_swipe_current_position = null
+	right_swipe_event_index = null
+	right_swipe_delta = null
+	right_swipe_initial_position = null
+	right_touch_initial_time = null
+	tap_event_index = null
+	tap_initial_position = null
+	touch_screen_button_down.show()
+	touch_screen_button_down.self_modulate = Color.WHITE
+	touch_screen_button_left.show()
+	touch_screen_button_left.self_modulate = Color.WHITE
+	touch_screen_button_right.show()
+	touch_screen_button_right.self_modulate = Color.WHITE
+	touch_screen_button_up.show()
+	touch_screen_button_up.self_modulate = Color.WHITE
+	touch_screen_button_select.show()
+	touch_screen_button_select.self_modulate = Color.WHITE
+	touch_screen_button_a.show()
+	touch_screen_button_a.texture_normal = WHITE_BUTTON_A
+	touch_screen_button_a.texture_pressed = BLACK_BUTTON_A
+	touch_screen_button_a.self_modulate = Color.WHITE
+	touch_screen_button_a_background.hide()
+	touch_screen_button_a_background.self_modulate = Color.BLACK
+	touch_screen_button_a.position = touch_screen_button_a_initial_position
+	touch_screen_button_b.show()
+	touch_screen_button_b.texture_normal = WHITE_BUTTON_B
+	touch_screen_button_b.texture_pressed = BLACK_BUTTON_B
+	touch_screen_button_b.self_modulate = Color.WHITE
+	touch_screen_button_b_background.hide()
+	touch_screen_button_b_background.self_modulate = Color.BLACK
+	touch_screen_button_b.position = touch_screen_button_b_initial_position
+	touch_screen_button_c_up.hide()
+	touch_screen_button_c_down.hide()
+	touch_screen_button_c_left.hide()
+	touch_screen_button_c_right.hide()
+	touch_screen_button_c_up_background.hide()
+	touch_screen_button_c_down_background.hide()
+	touch_screen_button_c_left_background.hide()
+	touch_screen_button_c_right_background.hide()
+	touch_screen_button_x.show()
+	touch_screen_button_x.texture_normal = WHITE_BUTTON_X
+	touch_screen_button_x.texture_pressed = BLACK_BUTTON_X
+	touch_screen_button_x.self_modulate = Color.WHITE
+	touch_screen_button_x_background.hide()
+	touch_screen_button_x_background.self_modulate = Color.BLACK
+	touch_screen_button_x.position = touch_screen_button_x_initial_position
+	touch_screen_button_y.show()
+	touch_screen_button_y.texture_normal = WHITE_BUTTON_Y
+	touch_screen_button_y.texture_pressed = BLACK_BUTTON_Y
+	touch_screen_button_y.self_modulate = Color.WHITE
+	touch_screen_button_y_background.hide()
+	touch_screen_button_y_background.self_modulate = Color.BLACK
+	touch_screen_button_y.position = touch_screen_button_y_initial_position
+	touch_screen_button_start.show()
+	touch_screen_button_start.self_modulate = Color.WHITE
+	touch_screen_button_l_1.show()
+	touch_screen_button_l_1.self_modulate = Color.WHITE
+	touch_screen_button_l_2.show()
+	touch_screen_button_l_2.self_modulate = Color.WHITE
+	touch_screen_button_r_1.show()
+	touch_screen_button_r_1.self_modulate = Color.WHITE
+	touch_screen_button_r_2.show()
+	touch_screen_button_r_2.self_modulate = Color.WHITE
+
+	# Check if the current theme is "New Nintendo 3DS"
+	if current_theme == theme.NewNintendo3DS:
+		touch_screen_button_a.self_modulate = BOOTSTRAP_RED
+		touch_screen_button_b.self_modulate = BOOTSTRAP_YELLOW
+		touch_screen_button_x.self_modulate = BOOTSTRAP_BLUE
+		touch_screen_button_y.self_modulate = BOOTSTRAP_GREEN
+		touch_screen_button_a_background.show()
+		touch_screen_button_a_background.self_modulate = Color.WHITE
+		touch_screen_button_b_background.show()
+		touch_screen_button_b_background.self_modulate = Color.WHITE
+		touch_screen_button_x_background.show()
+		touch_screen_button_x_background.self_modulate = Color.WHITE
+		touch_screen_button_y_background.show()
+		touch_screen_button_y_background.self_modulate = Color.WHITE
+		touch_screen_button_a.position = touch_screen_button_b_initial_position
+		touch_screen_button_b.position = touch_screen_button_a_initial_position
+		touch_screen_button_x.position = touch_screen_button_y_initial_position
+		touch_screen_button_y.position = touch_screen_button_x_initial_position
+
+	# Check if the current theme is "Nintendo 64"
+	elif current_theme == theme.Nintendo64:
+		enable_analog_stick_right = false
+		touch_screen_button_up.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_down.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_left.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_right.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_a.self_modulate = BOOTSTRAP_BLUE
+		touch_screen_button_b.self_modulate = BOOTSTRAP_GREEN
+		touch_screen_button_a_background.show()
+		touch_screen_button_a_background.self_modulate = Color.GRAY
+		touch_screen_button_b_background.show()
+		touch_screen_button_b_background.self_modulate = Color.GRAY
+		touch_screen_button_c_up.show()
+		touch_screen_button_c_up.self_modulate = Color.YELLOW
+		touch_screen_button_c_up_background.show()
+		touch_screen_button_c_up_background.self_modulate = Color.GRAY
+		touch_screen_button_c_down.show()
+		touch_screen_button_c_down.self_modulate = Color.YELLOW
+		touch_screen_button_c_down_background.show()
+		touch_screen_button_c_down_background.self_modulate = Color.GRAY
+		touch_screen_button_c_left.show()
+		touch_screen_button_c_left.self_modulate = Color.YELLOW
+		touch_screen_button_c_left_background.show()
+		touch_screen_button_c_left_background.self_modulate = Color.GRAY
+		touch_screen_button_c_right.show()
+		touch_screen_button_c_right.self_modulate = Color.YELLOW
+		touch_screen_button_c_right_background.show()
+		touch_screen_button_c_right_background.self_modulate = Color.GRAY
+		touch_screen_button_x.hide()
+		touch_screen_button_y.hide()
+		touch_screen_button_select.hide()
+		touch_screen_button_start.self_modulate = BOOTSTRAP_RED
+		touch_screen_button_l_1.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_l_2.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_r_1.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_r_2.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_b.position = touch_screen_button_x_initial_position
+
+	# Check if the current theme is "Nintendo Entertainment System"
+	elif current_theme == theme.NintendoEntertainmentSystem:
+		enable_analog_stick_left = false
+		enable_analog_stick_right = false
+		touch_screen_button_up.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_down.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_left.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_right.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_a.self_modulate = BOOTSTRAP_RED
+		touch_screen_button_b.self_modulate = BOOTSTRAP_RED
+		touch_screen_button_a_background.show()
+		touch_screen_button_a_background.self_modulate = Color.BLACK
+		touch_screen_button_b_background.show()
+		touch_screen_button_b_background.self_modulate = Color.BLACK
+		touch_screen_button_x.hide()
+		touch_screen_button_y.hide()
+		touch_screen_button_select.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_start.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_l_1.hide()
+		touch_screen_button_l_2.hide()
+		touch_screen_button_r_1.hide()
+		touch_screen_button_r_2.hide()
+		touch_screen_button_a.position = touch_screen_button_b_initial_position
+		touch_screen_button_b.position = touch_screen_button_a_initial_position
+		touch_screen_button_x.position = touch_screen_button_y_initial_position
+		touch_screen_button_y.position = touch_screen_button_x_initial_position
+
+	# Check if the current theme is "Nintendo GameCube"
+	elif current_theme == theme.NintendoGameCube:
+		touch_screen_button_up.self_modulate = BOOTSTRAP_GRAY
+		touch_screen_button_down.self_modulate = BOOTSTRAP_GRAY
+		touch_screen_button_left.self_modulate = BOOTSTRAP_GRAY
+		touch_screen_button_right.self_modulate = BOOTSTRAP_GRAY
+		touch_screen_button_a.self_modulate = BOOTSTRAP_GREEN
+		touch_screen_button_b.self_modulate = BOOTSTRAP_RED
+		touch_screen_button_x.self_modulate = BOOTSTRAP_GRAY
+		touch_screen_button_y.self_modulate = BOOTSTRAP_GRAY
+		touch_screen_button_a_background.show()
+		touch_screen_button_a_background.self_modulate = Color.BLACK
+		touch_screen_button_b_background.show()
+		touch_screen_button_b_background.self_modulate = Color.BLACK
+		touch_screen_button_x_background.show()
+		touch_screen_button_x_background.self_modulate = Color.BLACK
+		touch_screen_button_y_background.show()
+		touch_screen_button_y_background.self_modulate = Color.BLACK
+		touch_screen_button_select.hide()
+		touch_screen_button_start.self_modulate = BOOTSTRAP_GRAY
+		touch_screen_button_l_1.self_modulate = BOOTSTRAP_GRAY
+		touch_screen_button_l_2.self_modulate = BOOTSTRAP_GRAY
+		touch_screen_button_r_1.self_modulate = BOOTSTRAP_GRAY
+		touch_screen_button_r_2.self_modulate = BOOTSTRAP_GRAY
+		touch_screen_button_a.position = touch_screen_button_b_initial_position
+		touch_screen_button_b.position = touch_screen_button_a_initial_position
+		touch_screen_button_x.position = touch_screen_button_y_initial_position
+		touch_screen_button_y.position = touch_screen_button_x_initial_position
+
+	# Check if the current theme is "PlayStation Series"
+	elif current_theme == theme.PlayStationSeries:
+		touch_screen_button_down.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_up.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_left.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_right.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_a.texture_normal = WHITE_PLAYSTATION_BUTTON_CROSS
+		touch_screen_button_a.texture_pressed = BLACK_PLAYSTATION_BUTTON_CROSS
+		touch_screen_button_a.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_a_background.show()
+		touch_screen_button_a_background.self_modulate = BOOTSTRAP_BLUE
+		touch_screen_button_b.texture_normal = WHITE_PLAYSTATION_BUTTON_CIRCLE
+		touch_screen_button_b.texture_pressed = BLACK_PLAYSTATION_BUTTON_CIRCLE
+		touch_screen_button_b.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_b_background.show()
+		touch_screen_button_b_background.self_modulate = BOOTSTRAP_RED
+		touch_screen_button_x.texture_normal = WHITE_PLAYSTATION_BUTTON_SQUARE
+		touch_screen_button_x.texture_pressed = BLACK_PLAYSTATION_BUTTON_SQUARE
+		touch_screen_button_x.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_x_background.show()
+		touch_screen_button_x_background.self_modulate = Color.PINK
+		touch_screen_button_y.texture_normal = WHITE_PLAYSTATION_BUTTON_TRIANGLE
+		touch_screen_button_y.texture_pressed = BLACK_PLAYSTATION_BUTTON_TRIANGLE
+		touch_screen_button_y.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_y_background.show()
+		touch_screen_button_y_background.self_modulate = BOOTSTRAP_GREEN
+		touch_screen_button_select.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_start.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_l_1.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_l_2.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_r_1.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_r_2.self_modulate = BOOTSTRAP_GRAY_DARK
+
+	# Check if the current theme is "Super Nintendo Entertainment System"
+	elif current_theme == theme.SuperNintendoEntertainmentSystem:
+		enable_analog_stick_left = false
+		enable_analog_stick_right = false
+		touch_screen_button_up.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_down.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_left.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_right.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_a.self_modulate = OLD_BV
+		touch_screen_button_b.self_modulate = OLD_BV
+		touch_screen_button_x.self_modulate = BD_NAVBAR
+		touch_screen_button_y.self_modulate = BD_NAVBAR
+		touch_screen_button_a_background.show()
+		touch_screen_button_a_background.self_modulate = Color.GRAY
+		touch_screen_button_b_background.show()
+		touch_screen_button_b_background.self_modulate = Color.GRAY
+		touch_screen_button_x_background.show()
+		touch_screen_button_x_background.self_modulate = Color.GRAY
+		touch_screen_button_y_background.show()
+		touch_screen_button_y_background.self_modulate = Color.GRAY
+		touch_screen_button_select.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_start.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_l_1.self_modulate = BOOTSTRAP_GRAY
+		touch_screen_button_l_2.hide()
+		touch_screen_button_r_1.self_modulate = BOOTSTRAP_GRAY
+		touch_screen_button_r_2.hide()
+		touch_screen_button_a.position = touch_screen_button_b_initial_position
+		touch_screen_button_b.position = touch_screen_button_a_initial_position
+		touch_screen_button_x.position = touch_screen_button_y_initial_position
+		touch_screen_button_y.position = touch_screen_button_x_initial_position
+
+	# Check if the current theme is "Xbox Series S"
+	elif current_theme == theme.XBoxSeriesS:
+		touch_screen_button_a_background.show()
+		touch_screen_button_a_background.self_modulate = BOOTSTRAP_GREEN
+		touch_screen_button_b_background.show()
+		touch_screen_button_b_background.self_modulate = BOOTSTRAP_RED
+		touch_screen_button_x_background.show()
+		touch_screen_button_x_background.self_modulate = BOOTSTRAP_BLUE
+		touch_screen_button_y_background.show()
+		touch_screen_button_y_background.self_modulate = BOOTSTRAP_YELLOW
+
+	# Check if the current theme is "Xbox Series X"
+	elif current_theme == theme.XBoxSeriesX:
+		touch_screen_button_down.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_up.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_left.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_right.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_a.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_a_background.show()
+		touch_screen_button_a_background.self_modulate = BOOTSTRAP_GREEN
+		touch_screen_button_b.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_b_background.show()
+		touch_screen_button_b_background.self_modulate = BOOTSTRAP_RED
+		touch_screen_button_x.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_x_background.show()
+		touch_screen_button_x_background.self_modulate = BOOTSTRAP_BLUE
+		touch_screen_button_y.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_y_background.show()
+		touch_screen_button_y_background.self_modulate = BOOTSTRAP_YELLOW
+		touch_screen_button_select.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_start.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_l_1.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_l_2.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_r_1.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_r_2.self_modulate = BOOTSTRAP_GRAY_DARK
+	
+	# Redraw canvas items via `_draw()`
+	queue_redraw()

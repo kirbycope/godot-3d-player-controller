@@ -14,13 +14,14 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TouchScreenButtonL1" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
-position = Vector2(0, 100)
+position = Vector2(0, 84)
 texture_normal = ExtResource("1_h0ai3")
 texture_pressed = ExtResource("2_q7kgu")
 passby_press = true
 action = "left_punch"
 
 [node name="TouchScreenButtonL2" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
+position = Vector2(0, -16)
 texture_normal = ExtResource("2_b1e5m")
 texture_pressed = ExtResource("3_q7kgu")
 passby_press = true
