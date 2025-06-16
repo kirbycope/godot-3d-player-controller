@@ -12,15 +12,15 @@ func _ready() -> void:
 	# Make sure the game is unpaused
 	player.game_paused = false
 
-	# Show the debug control
-	player.get_node("CameraMount/Camera3D/Debug").visible = true
-
 	# Rotate the Portal gun
 	$"PortalGun/AnimationPlayer".play("rotate")
 
+	# Show the debug control
+	#player.get_node("CameraMount/Camera3D/Debug").visible = true
+
 	# Show the controller
-	player.get_node("Controls/Debug").show()
-	player.get_node("Controls/Debug/MicrosoftController").show()
+	#player.get_node("Controls/Debug").show()
+	#player.get_node("Controls/Debug/MicrosoftController").show()
 
 
 func _on_area_3d_fishing_rod_body_entered(body: Node3D) -> void:
