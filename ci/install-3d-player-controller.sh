@@ -43,3 +43,7 @@ cp -rfv addons/3d_player_controller/* "$TARGET_DIR/"
 # Clean up temporary directory
 cd "$PROJECT_DIR"
 rm -rf "$TEMP_DIR"
+
+# Install virtual controller as well
+echo "Installing virtual controller..."
+./ci/install-virtual-controller.sh
