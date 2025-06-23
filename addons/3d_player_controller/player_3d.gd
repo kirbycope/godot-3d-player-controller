@@ -122,7 +122,6 @@ func _ready() -> void:
 
 
 ## Called each physics frame with the time since the last physics frame as argument (delta, in seconds).
-## Use _physics_process(delta) if the input needs to be checked continuously in sync with the physics engine, like for smooth movement or jump control.
 func _physics_process(delta) -> void:
 
 	# Uncomment the next line if using GodotSteam
@@ -143,7 +142,6 @@ func _physics_process(delta) -> void:
 			is_punching_left = false
 			is_punching_right = false
 
-	
 		# Check if the player is not "driving" and not "hanging"
 		if !is_driving and !is_hanging:
 
