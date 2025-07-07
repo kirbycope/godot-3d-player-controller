@@ -1,0 +1,51 @@
+[gd_scene load_steps=2 format=3 uid="uid://oatiyge81y5c"]
+
+[ext_resource type="Script" uid="uid://dwahsbadwpsep" path="res://addons/3d_player_controller/chat_window.gd" id="1_8y6ow"]
+
+[node name="ChatWindow" type="Control"]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = -327.0
+offset_right = 579.0
+offset_bottom = -3.0
+grow_vertical = 0
+script = ExtResource("1_8y6ow")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ChatDisplay" type="ScrollContainer" parent="VBoxContainer"]
+z_index = 1
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="MessageContainer" type="VBoxContainer" parent="VBoxContainer/ChatDisplay"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 3
+
+[node name="InputContainer" type="HBoxContainer" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="MessageInput" type="LineEdit" parent="VBoxContainer/InputContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Type your message..."
+
+[node name="SendButton" type="Button" parent="VBoxContainer/InputContainer"]
+layout_mode = 2
+text = "Send"
+
+[connection signal="text_submitted" from="VBoxContainer/InputContainer/MessageInput" to="." method="_on_message_input_text_submitted"]
+[connection signal="pressed" from="VBoxContainer/InputContainer/SendButton" to="." method="_on_send_button_pressed"]

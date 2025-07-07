@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://ujh51l2wv1vk"]
+[gd_scene load_steps=29 format=3 uid="uid://ujh51l2wv1vk"]
 
 [ext_resource type="Script" uid="uid://2iaqywmqcahl" path="res://addons/3d_player_controller/player_3d.gd" id="1_f3dlg"]
 [ext_resource type="PackedScene" uid="uid://cx7x0f3lh4aus" path="res://addons/virtual_controller/scenes/canvas_layer.tscn" id="2_j65kv"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bf6dhhwfpuau6" path="res://addons/3d_player_controller/pause.tscn" id="4_t2fvs"]
 [ext_resource type="PackedScene" uid="uid://u2wxuwpmjwha" path="res://addons/3d_player_controller/emotes.tscn" id="5_icw06"]
 [ext_resource type="Script" uid="uid://xf1vm85b12dr" path="res://addons/3d_player_controller/camera_3d.gd" id="5_j65kv"]
+[ext_resource type="PackedScene" uid="uid://oatiyge81y5c" path="res://addons/3d_player_controller/chat_window.tscn" id="5_k4p2k"]
 [ext_resource type="Script" uid="uid://bxskxesywooou" path="res://addons/3d_player_controller/states/climbing.gd" id="5_xlvyu"]
 [ext_resource type="Script" uid="uid://br5fy64tx7tfn" path="res://addons/3d_player_controller/states/crawling.gd" id="6_72vy6"]
 [ext_resource type="Script" uid="uid://b23wyc1lxy7ni" path="res://addons/3d_player_controller/states/base.gd" id="6_u38ru"]
@@ -70,6 +71,8 @@ stretch_mode = 3
 
 [node name="Emotes" parent="CameraMount/Camera3D" instance=ExtResource("5_icw06")]
 visible = false
+
+[node name="ChatWindow" parent="CameraMount/Camera3D" instance=ExtResource("5_k4p2k")]
 
 [node name="Pause" parent="CameraMount/Camera3D" instance=ExtResource("4_t2fvs")]
 visible = false
