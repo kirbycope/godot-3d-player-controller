@@ -1,5 +1,14 @@
 extends Control
 
+# Player/
+#├── AudioStreamPlayer3D
+#├── CameraMount/
+#│	└── Camera3D/
+#│		└── ChatWindow
+#├── Controls
+#├── States
+#└── Visuals
+
 const MESSAGE_SCENE : PackedScene = preload("res://addons/3d_player_controller/message.tscn")
 
 var should_show_messages: bool = false
@@ -7,8 +16,15 @@ var should_show_messages: bool = false
 @onready var chat_display = $VBoxContainer/ChatDisplay/MessageContainer
 @onready var input_container = $VBoxContainer/InputContainer
 @onready var input_field = $VBoxContainer/InputContainer/MessageInput
+@onready var player = get_parent().get_parent().get_parent()
 @onready var scroll_container = $VBoxContainer/ChatDisplay
 @onready var send_button = $VBoxContainer/InputContainer/SendButton
+
+
+## Called when the node enters the scene tree for the first time.
+func _ready():
+	# Hide the input field
+	input_container.hide()
 
 
 ## Called when there is an input event.
@@ -21,7 +37,12 @@ func _input(event: InputEvent) -> void:
 
 		# Show the chat input
 		input_container.show()
+
+		# Focus the input field
 		input_field.grab_focus()
+
+		# Disable player movement
+		player.game_paused = true
 
 	# [cancel] button _pressed_
 	if event.is_action_pressed("ui_cancel"):
@@ -31,12 +52,6 @@ func _input(event: InputEvent) -> void:
 
 		# Hide the chat input
 		input_container.hide()
-
-
-func _ready() -> void:
-	# Connect mouse enter/exit signals for the scroll container
-	scroll_container.mouse_entered.connect(_on_chat_display_mouse_entered)
-	scroll_container.mouse_exited.connect(_on_chat_display_mouse_exited)
 
 
 func _on_chat_display_mouse_entered() -> void:
@@ -62,21 +77,32 @@ func _on_message_input_text_submitted(_text: String) -> void:
 
 
 func send_message() -> void:
+	# Get the text from the input field
 	var message_text = input_field.text.strip_edges()
 
+	# Return early if the message is empty
 	if message_text.is_empty():
 		return
 
-	# Always create message locally first for immediate feedback
-	#create_message_for_all.rpc(str(Steam.getPersonaName()), message_text)
 	var username = OS.get_environment("USERNAME")
 	if username.is_empty():
 		username = OS.get_environment("USER")
+
+	# Always create message locally first for immediate feedback
+	#create_message_for_all.rpc(str(Steam.getPersonaName()), message_text)
 	create_message_for_all.rpc(username, message_text)
 
-	# Clear input and refocus
+	# Clear input and
 	input_field.text = ""
-	input_field.grab_focus()
+
+	# [Re]Set refocus on the input field
+	#input_field.grab_focus()
+
+	# Hide the input field
+	input_container.hide()
+
+	# Enable player movement
+	player.game_paused = false
 
 
 @rpc("any_peer", "call_local")
