@@ -54,8 +54,16 @@ modulate = Color(1, 1, 1, 0)
 position = Vector2(529, 0)
 texture_normal = SubResource("PlaceholderTexture2D_8y6ow")
 
+[node name="CancelButton" type="Button" parent="VBoxContainer/InputContainer"]
+layout_mode = 2
+text = " X "
+
+[node name="TouchCancelButton" type="TouchScreenButton" parent="VBoxContainer/InputContainer"]
+
 [connection signal="mouse_entered" from="VBoxContainer/ChatDisplay" to="." method="_on_chat_display_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer/ChatDisplay" to="." method="_on_chat_display_mouse_exited"]
 [connection signal="text_submitted" from="VBoxContainer/InputContainer/MessageInput" to="." method="_on_message_input_text_submitted"]
 [connection signal="pressed" from="VBoxContainer/InputContainer/SendButton" to="." method="_on_send_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/InputContainer/TouchSendButton" to="." method="_on_send_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/InputContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/InputContainer/TouchCancelButton" to="." method="_on_cancel_button_pressed"]

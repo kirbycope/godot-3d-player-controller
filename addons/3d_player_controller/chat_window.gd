@@ -54,6 +54,17 @@ func _input(event: InputEvent) -> void:
 		input_container.hide()
 
 
+func _on_cancel_button_pressed() -> void:
+	# Clear input field
+	input_field.text = ""
+
+	# Hide the input field
+	input_container.hide()
+
+	# Enable player movement
+	player.game_paused = false
+
+
 func _on_chat_display_mouse_entered() -> void:
 	# Show all messages
 	for message in chat_display.get_children():
@@ -92,17 +103,11 @@ func send_message() -> void:
 	#create_message_for_all.rpc(str(Steam.getPersonaName()), message_text)
 	create_message_for_all.rpc(username, message_text)
 
-	# Clear input and
-	input_field.text = ""
-
 	# [Re]Set refocus on the input field
 	#input_field.grab_focus()
 
-	# Hide the input field
-	input_container.hide()
-
-	# Enable player movement
-	player.game_paused = false
+	# Close the chat input
+	_on_cancel_button_pressed()
 
 
 @rpc("any_peer", "call_local")
