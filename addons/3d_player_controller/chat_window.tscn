@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://oatiyge81y5c"]
+[gd_scene load_steps=3 format=3 uid="uid://oatiyge81y5c"]
 
 [ext_resource type="Script" uid="uid://dwahsbadwpsep" path="res://addons/3d_player_controller/chat_window.gd" id="1_8y6ow"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_8y6ow"]
+size = Vector2(47, 31)
 
 [node name="ChatWindow" type="Control"]
 layout_mode = 3
@@ -46,7 +49,13 @@ placeholder_text = "Type your message..."
 layout_mode = 2
 text = "Send"
 
+[node name="TouchSendButton" type="TouchScreenButton" parent="VBoxContainer/InputContainer"]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(529, 0)
+texture_normal = SubResource("PlaceholderTexture2D_8y6ow")
+
 [connection signal="mouse_entered" from="VBoxContainer/ChatDisplay" to="." method="_on_chat_display_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer/ChatDisplay" to="." method="_on_chat_display_mouse_exited"]
 [connection signal="text_submitted" from="VBoxContainer/InputContainer/MessageInput" to="." method="_on_message_input_text_submitted"]
 [connection signal="pressed" from="VBoxContainer/InputContainer/SendButton" to="." method="_on_send_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/InputContainer/TouchSendButton" to="." method="_on_send_button_pressed"]
