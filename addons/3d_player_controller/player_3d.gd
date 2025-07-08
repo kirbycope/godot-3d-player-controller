@@ -81,6 +81,7 @@ var virtual_velocity: Vector3 = Vector3.ZERO
 @onready var audio_player = $AudioStreamPlayer3D
 @onready var base_state: BaseState = $States/Base
 @onready var camera_mount = $CameraMount
+@onready var camera_mount_offset = $CameraMount.position
 @onready var camera = $CameraMount/Camera3D
 @onready var collision_shape = $CollisionShape3D
 @onready var collision_height = $CollisionShape3D.shape.height
@@ -101,6 +102,7 @@ var virtual_velocity: Vector3 = Vector3.ZERO
 @onready var menu_settings = $CameraMount/Camera3D/Settings
 @onready var shapecast = $ShapeCast3D
 @onready var visuals = $Visuals
+@onready var visuals_offset = $Visuals.position
 @onready var visuals_aux_scene = $Visuals/AuxScene
 @onready var visuals_aux_scene_position = $Visuals/AuxScene.position
 
@@ -119,6 +121,22 @@ func _ready() -> void:
 
 	# Set the debug canvas layer behind all others
 	$Controls.layer = -1
+
+	# Set the camera mount's initial position
+	camera_mount.global_position = global_position + camera_mount_offset
+
+
+## Called every frame. '_delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	# Update the camera mount's position
+	camera_mount.global_position.x = global_position.x
+	camera_mount.global_position.y = lerp(camera_mount.global_position.y, global_position.y + camera_mount_offset.y, 1.0)
+	camera_mount.global_position.z = global_position.z
+
+	# Update the visuals' position
+	visuals.global_position.x = global_position.x
+	visuals.global_position.y = lerp(visuals.global_position.y, global_position.y + visuals_offset.y, 1.0)
+	visuals.global_position.z = global_position.z
 
 
 ## Called each physics frame with the time since the last physics frame as argument (delta, in seconds).

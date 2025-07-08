@@ -148,13 +148,14 @@ func camera_rotate_by_mouse(event: InputEvent) -> void:
 	# Rotate camera up/forward and down/backward
 	camera_mount.rotation_degrees.x = new_rotation_x
 
-	# Update the player (visuals+camera) opposite the horizontal mouse motion
+	# Update the player and camera opposite the horizontal mouse motion
 	player.rotate_y(deg_to_rad(-event.relative.x * look_sensitivity_mouse))
+	camera_mount.rotate_y(deg_to_rad(-event.relative.x * look_sensitivity_mouse))
 
 	# Check if the player is in "third person" perspective
 	if player.perspective == 0:
 
-		# Rotate the visuals opposite the camera's horizontal rotation
+		# Rotate the visuals with the camera's horizontal rotation
 		player.visuals.rotate_y(deg_to_rad(event.relative.x * look_sensitivity_mouse))
 
 
