@@ -47,12 +47,24 @@ func _input(event: InputEvent) -> void:
 
 			# Move the player left
 			move_character(-1)
+		
+		# [move_left] button released
+		if event.is_action_released("move_left"):
+
+			# Move the player back into hanging position
+			move_character(0)
 
 		# [move_right] button pressed
 		if event.is_action_pressed("move_right"):
 
 			# Move the player right
 			move_character(1)
+
+		# [move_right] button released
+		if event.is_action_released("move_right"):
+
+			# Move the player back into hanging position
+			move_character(0)
 
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
@@ -64,24 +76,69 @@ func _process(_delta: float) -> void:
 	# Check if the player is "hanging"
 	if player.is_hanging:
 
-		# Play the animation
-		play_animation()
+		# Check if the player still has a raycast collision
+		if !player.raycast_high.is_colliding():
+
+			# Start falling
+			transition(NODE_NAME, "Falling")
+
+		# The player must still be facing a surface
+		else:
+
+			# Play the animation
+			play_animation()
+
+
+## Resets the player's position after shimmying.
+func end_shimmy() -> void:
+	# Check if the player is currently "shimmying"
+	if player.is_shimmying:
+
+		# [Hack] Adjust player visuals for animation
+		player.visuals_aux_scene.position.y += 0.45
+
+		# Flag the player as not "shimmying"
+		player.is_shimmying = false
 
 
 ## Moves the player in the given direction.
 func move_character(direction: float) -> void:
 
-	# Adjust player visuals for animation
-	player.visuals_aux_scene.position.y -= 0.45
+	# Check if the player's movement has stopped
+	if direction == 0:
 
-	# Calculate movement vector based on camera's orientation
-	var move_direction = player.camera.global_transform.basis * Vector3(direction, 0, 0)
+		# Check if neither movement key is pressed (truly stopped)
+		if !Input.is_action_pressed("move_left") and !Input.is_action_pressed("move_right"):
 
-	# Apply movement
-	player.velocity = move_direction * player.speed_current
+			# Stop "shimmying" if applicable
+			end_shimmy()
 
-	# If using CharacterBody3D, you need to call move_and_slide()
-	player.move_and_slide()
+	# The player must be moving
+	else:
+
+		# Check if the player is not currently "shimmying"
+		if !player.is_shimmying:
+
+			# [Hack] Adjust player visuals for animation
+			player.visuals_aux_scene.position.y -= 0.45
+
+			# Flag the player as "shimmying"
+			player.is_shimmying = true
+
+		# Get the wall normal from the raycast
+		var wall_normal = player.raycast_high.get_collision_normal()
+		
+		# Calculate the right vector (perpendicular to wall normal and up)
+		var wall_right = Vector3.UP.cross(wall_normal).normalized()
+		
+		# Calculate movement vector along the wall surface
+		var move_direction = wall_right * direction
+
+		# Apply movement
+		player.velocity = move_direction * player.speed_current
+
+		# If using CharacterBody3D, you need to call move_and_slide()
+		player.move_and_slide()
 
 
 ## Plays the appropriate animation based on player state.
@@ -121,7 +178,7 @@ func play_animation() -> void:
 			player.velocity = Vector3.ZERO
 
 			# Re[set] player visuals for animation
-			player.visuals_aux_scene.position = player.visuals_aux_scene_position
+			player.visuals_aux_scene.position.y = 0.0
 
 			# Check if the animation player is not already playing the appropriate animation
 			if player.animation_player.current_animation != ANIMATION_HANGING:
@@ -147,8 +204,6 @@ func start() -> void:
 
 	# Set the player's movement speed
 	player.speed_current = player.speed_crawling
-
-	## -- Begin move player into position -- ##
 	
 	# Get the player's height
 	var player_height = player.get_node("CollisionShape3D").shape.height
@@ -171,16 +226,27 @@ func start() -> void:
 	# Get the collision normal
 	var normal = player.raycast_high.get_collision_normal()
 
+	# [Debug] Print the normal to verify it's correct
+	#print("Wall normal: ", normal)
+
 	# Calculate the rotation to align with the wall
-	# The player should face the wall
-	var target_basis = Basis()
-	target_basis.y = Vector3.UP  # Keep upright
-	target_basis.z = normal     # Face the wall
-	target_basis.x = target_basis.y.cross(target_basis.z)  # Calculate right vector
-	target_basis = target_basis.orthonormalized()  # Ensure basis is orthonormal
+	# The player should face the wall (opposite to the normal)
+	var forward = normal  # Face towards the wall (same as normal)
+	var up = Vector3.UP
+	var right = up.cross(forward).normalized()
+
+	# Recalculate up to ensure orthogonality
+	up = forward.cross(right).normalized()
+
+	# Create the target basis
+	var target_basis = Basis(right, up, forward)
+
+	# Ensure the basis is orthonormal (this is crucial)
+	target_basis = target_basis.orthonormalized()
 
 	# Set the player's rotation
 	player.basis = target_basis
+	player.camera_mount.basis = target_basis
 
 	# Set the player's position to the new point
 	player.position = point
@@ -197,14 +263,6 @@ func start() -> void:
 	# Flag the animation player no longer locked
 	player.is_animation_locked = false
 
-	## -- End move player into position -- ##
-
-	# Set CollisionShape3D height
-	#player.get_node("CollisionShape3D").shape.height = player.collision_height / 2
-
-	# Set CollisionShape3D position
-	#player.get_node("CollisionShape3D").position = player.collision_position
-
 
 ## Stop "hanging".
 func stop() -> void:
@@ -212,8 +270,14 @@ func stop() -> void:
 	# Disable _this_ state node
 	process_mode = PROCESS_MODE_DISABLED
 
+	# Stop "shimmying" if applicable
+	end_shimmy()
+
 	# Flag player as not "hanging"
 	player.is_hanging = false
+
+	# Flag the player as not "shimmying"
+	player.is_shimmying = false
 
 	# [Re]Set the player's movement speed
 	player.speed_current = player.speed_walking
