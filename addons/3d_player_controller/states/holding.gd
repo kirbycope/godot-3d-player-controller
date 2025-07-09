@@ -97,7 +97,7 @@ func move_held_item_mount() -> void:
 	if player.is_holding_fishing_rod:
 
 		# Get the left hand bone
-		var bone_name = player.bone_name_left_hand
+		var bone_name = player.BONE_NAME_LEFT_HAND
 		var bone_index = player.player_skeleton.find_bone(bone_name)
 
 		# Get the overall transform of the specified bone, with respect to the player's skeleton.
