@@ -1,5 +1,23 @@
 extends BaseState
 
+# States (states.gd)
+#├── Base (base.gd)
+#├── Climbing (climbing.gd)
+#├── Crawling (crawling.gd)
+#├── Crouching (crouching.gd)
+#├── Driving (driving.gd)
+#├── Falling (falling.gd)
+#├── Flying (flying.gd)
+#├── Hanging (hanging.gd)
+#├── Holding (holding.gd)
+#├── Jumping (jumping.gd)
+#├── Running (running.gd)
+#├── Skateboarding (skateboarding.gd)
+#├── Sprinting (sprinting.gd)
+#├── Standing (standing.gd)
+#├── Swimming (swimming.gd)
+#└── Walking (walking.gd)
+
 const ANIMATION_CROUCHING := "Crouching_Idle" + "/mixamo_com"
 const ANIMATION_CROUCHING_AIMING_RIFLE := "Rifle_Aiming_Idle_Crouching" + "/mixamo_com"
 const ANIMATION_CROUCHING_FIRING_RIFLE := "Rifle_Firing_Crouching" + "/mixamo_com"
@@ -220,7 +238,7 @@ func start() -> void:
 	process_mode = PROCESS_MODE_INHERIT
 
 	# Set the player's new state
-	player.current_state = States.State.CROUCHING
+	player.current_state = STATES.State.CROUCHING
 
 	# Flag the player as "crouching"
 	player.is_crouching = true

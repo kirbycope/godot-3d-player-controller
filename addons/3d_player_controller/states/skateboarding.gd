@@ -1,5 +1,23 @@
 extends BaseState
 
+# States (states.gd)
+#├── Base (base.gd)
+#├── Climbing (climbing.gd)
+#├── Crawling (crawling.gd)
+#├── Crouching (crouching.gd)
+#├── Driving (driving.gd)
+#├── Falling (falling.gd)
+#├── Flying (flying.gd)
+#├── Hanging (hanging.gd)
+#├── Holding (holding.gd)
+#├── Jumping (jumping.gd)
+#├── Running (running.gd)
+#├── Skateboarding (skateboarding.gd)
+#├── Sprinting (sprinting.gd)
+#├── Standing (standing.gd)
+#├── Swimming (swimming.gd)
+#└── Walking (walking.gd)
+
 const ANIMATION_SKATEBOARDING_FAST := "Skateboarding_Fast_In_Place" + "/mixamo_com"
 const ANIMATION_SKATEBOARDING_NORMAL := "Skateboarding_In_Place" + "/mixamo_com"
 const ANIMATION_SKATEBOARDING_SLOW := "Skateboarding_Slow_In_Place" + "/mixamo_com"
@@ -142,7 +160,7 @@ func start() -> void:
 	process_mode = PROCESS_MODE_INHERIT
 
 	# Set the player's new state
-	player.current_state = States.State.SKATEBOARDING
+	player.current_state = STATES.State.SKATEBOARDING
 
 	# Flag the player as "skateboarding"
 	player.is_skateboarding = true

@@ -1,5 +1,23 @@
 extends BaseState
 
+# States (states.gd)
+#├── Base (base.gd)
+#├── Climbing (climbing.gd)
+#├── Crawling (crawling.gd)
+#├── Crouching (crouching.gd)
+#├── Driving (driving.gd)
+#├── Falling (falling.gd)
+#├── Flying (flying.gd)
+#├── Hanging (hanging.gd)
+#├── Holding (holding.gd)
+#├── Jumping (jumping.gd)
+#├── Running (running.gd)
+#├── Skateboarding (skateboarding.gd)
+#├── Sprinting (sprinting.gd)
+#├── Standing (standing.gd)
+#├── Swimming (swimming.gd)
+#└── Walking (walking.gd)
+
 const ANIMATION_SWIMMING := "Swimming_In_Place" + "/mixamo_com"
 const ANIMATION_TREADING_WATER := "Treading_Water" + "/mixamo_com"
 const NODE_NAME := "Swimming"
@@ -118,7 +136,7 @@ func start() -> void:
 	process_mode = PROCESS_MODE_INHERIT
 
 	# Set the player's new state
-	player.current_state = States.State.SWIMMING
+	player.current_state = STATES.State.SWIMMING
 
 	# Flag the player as "swimming"
 	player.is_swimming = true

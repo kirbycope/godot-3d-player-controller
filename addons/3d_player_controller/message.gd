@@ -15,7 +15,7 @@ extends PanelContainer
 #├── CollisionShape3D
 #├── Controls (controls.gd)
 #├── ShapeCast3D
-#├── States (states.gd)
+#├── States
 #└── Visuals
 #│	└── AuxScene
 #│		└── AnimationPlayer

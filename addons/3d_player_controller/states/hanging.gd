@@ -1,5 +1,23 @@
 extends BaseState
 
+# States (states.gd)
+#├── Base (base.gd)
+#├── Climbing (climbing.gd)
+#├── Crawling (crawling.gd)
+#├── Crouching (crouching.gd)
+#├── Driving (driving.gd)
+#├── Falling (falling.gd)
+#├── Flying (flying.gd)
+#├── Hanging (hanging.gd)
+#├── Holding (holding.gd)
+#├── Jumping (jumping.gd)
+#├── Running (running.gd)
+#├── Skateboarding (skateboarding.gd)
+#├── Sprinting (sprinting.gd)
+#├── Standing (standing.gd)
+#├── Swimming (swimming.gd)
+#└── Walking (walking.gd)
+
 const ANIMATION_HANGING := "Hanging_Idle" + "/mixamo_com"
 const ANIMATION_HANGING_SHIMMY_LEFT := "Braced_Hang_Shimmy_Left_In_Place" + "/mixamo_com"
 const ANIMATION_HANGING_SHIMMY_RIGHT := "Braced_Hang_Shimmy_Right_In_Place" + "/mixamo_com"
@@ -48,6 +66,22 @@ func _process(_delta: float) -> void:
 
 		# Play the animation
 		play_animation()
+
+
+## Moves the player in the given direction.
+func move_character(direction: float) -> void:
+
+	# Adjust player visuals for animation
+	player.visuals_aux_scene.position.y -= 0.45
+
+	# Calculate movement vector based on camera's orientation
+	var move_direction = player.camera.global_transform.basis * Vector3(direction, 0, 0)
+
+	# Apply movement
+	player.velocity = move_direction * player.speed_current
+
+	# If using CharacterBody3D, you need to call move_and_slide()
+	player.move_and_slide()
 
 
 ## Plays the appropriate animation based on player state.
@@ -99,22 +133,6 @@ func play_animation() -> void:
 				player.animation_player.play(ANIMATION_HANGING)
 
 
-## Moves the player in the given direction.
-func move_character(direction: float) -> void:
-
-	# Adjust player visuals for animation
-	player.visuals_aux_scene.position.y -= 0.45
-
-	# Calculate movement vector based on camera's orientation
-	var move_direction = player.camera.global_transform.basis * Vector3(direction, 0, 0)
-
-	# Apply movement
-	player.velocity = move_direction * player.speed_current
-
-	# If using CharacterBody3D, you need to call move_and_slide()
-	player.move_and_slide()
-
-
 ## Start "hanging".
 func start() -> void:
 
@@ -122,7 +140,7 @@ func start() -> void:
 	process_mode = PROCESS_MODE_INHERIT
 
 	# Set the player's new state
-	player.current_state = States.State.HANGING
+	player.current_state = STATES.State.HANGING
 
 	# Flag the player as "hanging"
 	player.is_hanging = true

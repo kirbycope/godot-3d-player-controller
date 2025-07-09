@@ -1,5 +1,23 @@
 extends BaseState
 
+# States (states.gd)
+#├── Base (base.gd)
+#├── Climbing (climbing.gd)
+#├── Crawling (crawling.gd)
+#├── Crouching (crouching.gd)
+#├── Driving (driving.gd)
+#├── Falling (falling.gd)
+#├── Flying (flying.gd)
+#├── Hanging (hanging.gd)
+#├── Holding (holding.gd)
+#├── Jumping (jumping.gd)
+#├── Running (running.gd)
+#├── Skateboarding (skateboarding.gd)
+#├── Sprinting (sprinting.gd)
+#├── Standing (standing.gd)
+#├── Swimming (swimming.gd)
+#└── Walking (walking.gd)
+
 const ANIMATION_STANDING := "Standing_Idle" + "/mixamo_com"
 const ANIMATION_STANDING_AIMING_RIFLE := "Rifle_Aiming_Idle" + "/mixamo_com"
 const ANIMATION_STANDING_FIRING_RIFLE := "Rifle_Firing" + "/mixamo_com"
@@ -391,7 +409,7 @@ func start() -> void:
 	process_mode = PROCESS_MODE_INHERIT
 
 	# Set the player's new state
-	player.current_state = States.State.STANDING
+	player.current_state = STATES.State.STANDING
 
 	# Flag the player as "standing"
 	player.is_standing = true

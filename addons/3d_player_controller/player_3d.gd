@@ -14,7 +14,7 @@ extends CharacterBody3D
 #├── CollisionShape3D
 #├── Controls (controls.gd)
 #├── ShapeCast3D
-#├── States (states.gd)
+#├── States
 #└── Visuals
 #│	└── AuxScene
 #│		└── AnimationPlayer
@@ -22,9 +22,10 @@ extends CharacterBody3D
 const BONE_NAME_HEAD = "Head"
 const BONE_NAME_LEFT_HAND = "LeftHand"
 const BONE_NAME_RIGHT_HAND = "RightHand"
+const STATES = preload("res://addons/3d_player_controller/states/states.gd")
 
 # Note: `@export` variables are available for editing in the property editor.
-@export var current_state: States.State = States.State.STANDING
+@export var current_state: STATES.State = STATES.State.STANDING
 @export var enable_chat: bool = false
 @export var enable_emotes: bool = true
 @export var enable_crouching: bool = true
