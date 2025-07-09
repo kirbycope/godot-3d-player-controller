@@ -1,44 +1,27 @@
 extends CharacterBody3D
+## player_3d.gd
 
-const bone_name_head = "Head"
-const bone_name_left_hand = "LeftHand"
-const bone_name_right_hand = "RightHand"
+# Player (player_3d.gd)
+#├── AudioStreamPlayer3D
+#├── CameraMount
+#│	└── Camera3D (camera_3d.gd)
+#│		└── ChatWindow (chat_window.gd)
+#│			└── Message (message.gd)
+#│		└── Debug (debug.gd)
+#│		└── Emotes (emotes.gd)
+#│		└── Pause (pause.gd)
+#│		└── Settings (settings.gd)
+#├── CollisionShape3D
+#├── Controls (controls.gd)
+#├── ShapeCast3D
+#├── States (states.gd)
+#└── Visuals
+#│	└── AuxScene
+#│		└── AnimationPlayer
 
-# State machine variables
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-var is_aiming: bool = false
-var is_animation_locked: bool = false
-var is_casting: bool = false
-var is_climbing: bool = false
-var is_crawling: bool = false
-var is_crouching: bool = false
-var is_double_jumping: bool = false
-var is_driving: bool = false
-var is_driving_in
-var is_falling: bool = false
-var is_firing: bool = false
-var is_flying: bool = false
-var is_hanging: bool = false
-var is_holding: bool = false
-var is_holding_fishing_rod: bool = false
-var is_holding_rifle: bool = false
-var is_holding_tool: bool = false
-var is_jumping: bool = false
-var is_kicking_left: bool = false
-var is_kicking_right: bool = false
-var is_punching_left: bool = false
-var is_punching_right: bool = false
-var is_reeling: bool = false
-var is_running: bool = false
-var is_skateboarding: bool = false
-var is_skateboarding_on
-var is_sprinting: bool = false
-var is_standing: bool = false
-var is_swimming_in
-var is_swimming: bool = false
-var is_using: bool = false
-var is_walking: bool = false
-var virtual_velocity: Vector3 = Vector3.ZERO
+const BONE_NAME_HEAD = "Head"
+const BONE_NAME_LEFT_HAND = "LeftHand"
+const BONE_NAME_RIGHT_HAND = "RightHand"
 
 # Note: `@export` variables are available for editing in the property editor.
 @export var current_state: States.State = States.State.STANDING
@@ -76,12 +59,47 @@ var virtual_velocity: Vector3 = Vector3.ZERO
 @export var speed_walking: float = 1.0
 @export var throw_force: float = 3.5
 
+# State machine variables
+var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+var is_aiming: bool = false
+var is_animation_locked: bool = false
+var is_casting: bool = false
+var is_climbing: bool = false
+var is_crawling: bool = false
+var is_crouching: bool = false
+var is_double_jumping: bool = false
+var is_driving: bool = false
+var is_driving_in
+var is_falling: bool = false
+var is_firing: bool = false
+var is_flying: bool = false
+var is_hanging: bool = false
+var is_holding: bool = false
+var is_holding_fishing_rod: bool = false
+var is_holding_rifle: bool = false
+var is_holding_tool: bool = false
+var is_jumping: bool = false
+var is_kicking_left: bool = false
+var is_kicking_right: bool = false
+var is_punching_left: bool = false
+var is_punching_right: bool = false
+var is_reeling: bool = false
+var is_running: bool = false
+var is_skateboarding: bool = false
+var is_skateboarding_on
+var is_sprinting: bool = false
+var is_standing: bool = false
+var is_swimming_in
+var is_swimming: bool = false
+var is_using: bool = false
+var is_walking: bool = false
+var virtual_velocity: Vector3 = Vector3.ZERO
+
 # Note: `@onready` variables are set when the scene is loaded.
 @onready var animation_player = $Visuals/AuxScene/AnimationPlayer
 @onready var audio_player = $AudioStreamPlayer3D
 @onready var base_state: BaseState = $States/Base
 @onready var camera_mount = $CameraMount
-@onready var camera_mount_offset = $CameraMount.position
 @onready var camera = $CameraMount/Camera3D
 @onready var collision_shape = $CollisionShape3D
 @onready var collision_height = $CollisionShape3D.shape.height
@@ -109,10 +127,8 @@ var virtual_velocity: Vector3 = Vector3.ZERO
 
 ## Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-
 	# Uncomment the next line if using GodotSteam
 	#camera.current = is_multiplayer_authority()
-
 	# Make sure the game is unpaused
 	game_paused = false
 
@@ -122,17 +138,9 @@ func _ready() -> void:
 	# Set the debug canvas layer behind all others
 	$Controls.layer = -1
 
-	# Set the camera mount's initial position
-	camera_mount.global_position = global_position + camera_mount_offset
-
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	# Update the camera mount's position
-	camera_mount.global_position.x = global_position.x
-	camera_mount.global_position.y = lerp(camera_mount.global_position.y, global_position.y + camera_mount_offset.y, 1.0)
-	camera_mount.global_position.z = global_position.z
-
+func _process(_delta: float) -> void:
 	# Update the visuals' position
 	visuals.global_position.x = global_position.x
 	visuals.global_position.y = lerp(visuals.global_position.y, global_position.y + visuals_offset.y, 1.0)
@@ -141,16 +149,12 @@ func _process(delta: float) -> void:
 
 ## Called each physics frame with the time since the last physics frame as argument (delta, in seconds).
 func _physics_process(delta) -> void:
-
 	# Uncomment the next line if using GodotSteam
 	#if !is_multiplayer_authority(): return
-
 	# If the game is not paused...
 	if !game_paused:
-
 		# Check if no animation is playing
 		if !animation_player.is_playing():
-
 			# Flag the animation player no longer locked
 			is_animation_locked = false
 
@@ -162,16 +166,13 @@ func _physics_process(delta) -> void:
 
 		# Check if the player is not "driving" and not "hanging"
 		if !is_driving and !is_hanging:
-
 			# Check if the player is "swimming"
 			if is_swimming:
-
 				# Ignore the gravity
 				velocity.y = 0.0
 
 			# The player must not be "swimming"
 			else:
-
 				# Add the gravity
 				velocity.y -= gravity * delta
 
@@ -180,17 +181,14 @@ func _physics_process(delta) -> void:
 
 		# Check if the animation player is unlocked
 		if !is_animation_locked:
-
 			# Move player
 			move_player(delta)
 
 
 ## Check if the kick hits anything.
 func check_kick_collision() -> void:
-
 	# Check if the RayCast3D is colliding with something
 	if raycast_low.is_colliding():
-
 		# Get the object the RayCast is colliding with
 		var collider = raycast_low.get_collider()
 
@@ -209,7 +207,6 @@ func check_kick_collision() -> void:
 
 		# Apply force to RigidBody3D objects
 		if collider is RigidBody3D:
-
 			# Define the force to apply to the collided object
 			var force = force_kicking_sprinting if is_sprinting else force_kicking
 
@@ -221,38 +218,30 @@ func check_kick_collision() -> void:
 
 		# Check if the collider is a CharacterBody3D
 		if collider is CharacterBody3D:
-
 			# Check if kicking left
 			if is_kicking_left:
-
 				# Check if the collider has the appropriate function
 				if collider.has_method("animate_hit_low_left"):
-
 					# Play the appropriate hit animation
 					collider.call("animate_hit_low_left")
 
 			# Must be kicking right
 			else:
-
 				# Check if the collider has the appropriate function
 				if collider.has_method("animate_hit_low_right"):
-
 					# Play the appropriate hit animation
 					collider.call("animate_hit_low_right")
 
 		# Check if controller vibration is enabled
 		if enable_vibration:
-
 			# Vibrate the controller
 			Input.start_joy_vibration(0, 0.0, 1.0, 0.1)
 
 
 ## Checks if the thrown punch hits anything.
 func check_punch_collision() -> void:
-
 	# Check if the RayCast3D is collining with something
 	if raycast_middle.is_colliding():
-
 		# Get the object the RayCast is colliding with
 		var collider = raycast_middle.get_collider()
 
@@ -271,7 +260,6 @@ func check_punch_collision() -> void:
 
 		# Apply force to RigidBody3D objects
 		if collider is RigidBody3D:
-
 			# Define the force to apply to the collided force_punching
 			var force = force_punching_sprinting if is_sprinting else force_punching
 
@@ -283,35 +271,28 @@ func check_punch_collision() -> void:
 
 		# Check if the collider is a CharacterBody3D
 		if collider is CharacterBody3D:
-
 			# Check if punching left
 			if is_punching_left:
-
 				# Check if the collider has the appropriate function
 				if collider.has_method("animate_hit_high_left"):
-
 					# Play the appropriate hit animation
 					collider.call("animate_hit_high_left")
 
 			# Must be punching right
 			else:
-
 				# Check if the collider has the appropriate function
 				if collider.has_method("animate_hit_high_right"):
-
 					# Play the appropriate hit animation
 					collider.call("animate_hit_high_right")
 
 		# Check if controller vibration is enabled
 		if enable_vibration:
-
 			# Vibrate the controller
 			Input.start_joy_vibration(0, 1.0, 0.0, 0.1)
 
 
 ## Moves the player based on velocity and shapecast collision.
 func move_player(delta: float) -> void:
-
 	# Set the shapecast position to the player's potential new position
 	shapecast.global_position.x = global_position.x + velocity.x * delta
 	shapecast.global_position.z = global_position.z + velocity.z * delta
@@ -339,13 +320,11 @@ func move_player(delta: float) -> void:
 
 	# Check if no collisions were detected
 	if !result:
-
 		# Force the shapecast to update its state
 		shapecast.force_shapecast_update()
 
 	# Check if the shapecast is colliding, the player is moving down (or not at all), no direct collision was found, and the angle of the slope isn't too great
 	if shapecast.is_colliding() and velocity.y <= 0.0 and !result and shapecast.get_collision_normal(0).angle_to(Vector3.UP) < floor_max_angle:
-
 		# Set the character's Y position to match the collision point (likely the ground)
 		global_position.y = shapecast.get_collision_point(0).y
 
@@ -358,7 +337,6 @@ func move_player(delta: float) -> void:
 
 ## Update the player's velocity based on input and status.
 func update_velocity() -> void:
-
 	# Get an input vector by specifying four actions for the positive and negative X and Y axes
 	var input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 
@@ -375,52 +353,42 @@ func update_velocity() -> void:
 
 	# Check for directional movement
 	if direction:
-
 		# Check if the animation player is unlocked
 		if !is_animation_locked:
-
 			# Check if the player is not in "third person" perspective
 			if perspective == 0:
-
 				# Update the camera to look in the direction based on player input
 				visuals.look_at(position + direction)
 
 			# Check if movement along the x-axis is locked
 			if lock_movement_x:
-
 				# Update [virtual] horizontal velocity
 				virtual_velocity.x = direction.x * speed_current
 
 			# The x-axis movement not locked
 			else:
-
 				# Update horizontal velocity
 				velocity.x = direction.x * speed_current
 
 			# Check if movement along the z-axis is locked
 			if lock_movement_y:
-
 				# Update vertical velocity
 				virtual_velocity.z = direction.z * speed_current
 
 			# The y-axis movement not locked
 			else:
-
 				# Update vertical velocity
 				velocity.z = direction.z * speed_current
 
 	# No movement detected
 	else:
-
 		# Check if the player is skateboarding and grounded
 		if is_skateboarding and is_on_floor():
-
 			# Set the friction to the skateboarding friction
 			var friction_current = friction_skateboarding
 
 			# [crouch] action _pressed_
 			if is_crouching:
-
 				# Slow down the player, more than usual
 				friction_current = friction_current * 10
 
@@ -430,7 +398,6 @@ func update_velocity() -> void:
 
 		# The player is not skateboarding (on the ground)
 		else:
-
 			# Update horizontal velocity
 			velocity.x = move_toward(velocity.x, 0, speed_current)
 

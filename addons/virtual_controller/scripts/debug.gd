@@ -3,7 +3,7 @@ extends Control
 # Script for the debug UI to display controller input events.
 # This script is part of the Virtual Controller add-on for Godot Engine.
 
-@onready var controls: CanvasLayer = $".."
+@onready var controls: CanvasLayer = get_parent()
 @onready var microsoft_controller: Control = $MicrosoftController
 @onready var microsoft_stick_l_origin: Vector2 = $MicrosoftController/White/StickL.position
 @onready var microsoft_stick_r_origin: Vector2 = $MicrosoftController/White/StickR.position

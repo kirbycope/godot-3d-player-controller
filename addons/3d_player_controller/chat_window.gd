@@ -1,18 +1,29 @@
 extends Control
+## chat_window.gd
 
-# Player/
+# Player (player_3d.gd)
 #├── AudioStreamPlayer3D
-#├── CameraMount/
-#│	└── Camera3D/
-#│		└── ChatWindow
-#├── Controls
-#├── States
+#├── CameraMount
+#│	└── Camera3D (camera_3d.gd)
+#│		└── ChatWindow (chat_window.gd)
+#│			└── Message (message.gd)
+#│		└── Debug (debug.gd)
+#│		└── Emotes (emotes.gd)
+#│		└── Pause (pause.gd)
+#│		└── Settings (settings.gd)
+#├── CollisionShape3D
+#├── Controls (controls.gd)
+#├── ShapeCast3D
+#├── States (states.gd)
 #└── Visuals
+#│	└── AuxScene
+#│		└── AnimationPlayer
 
 const MESSAGE_SCENE : PackedScene = preload("res://addons/3d_player_controller/message.tscn")
 
 var should_show_messages: bool = false
 
+# Note: `@onready` variables are set when the scene is loaded.
 @onready var chat_display = $VBoxContainer/ChatDisplay/MessageContainer
 @onready var input_container = $VBoxContainer/InputContainer
 @onready var input_field = $VBoxContainer/InputContainer/MessageInput
@@ -54,6 +65,7 @@ func _input(event: InputEvent) -> void:
 		input_container.hide()
 
 
+## Called when the "X" (cancel) button is pressed.
 func _on_cancel_button_pressed() -> void:
 	# Clear input field
 	input_field.text = ""
@@ -65,6 +77,7 @@ func _on_cancel_button_pressed() -> void:
 	player.game_paused = false
 
 
+## Called when the mouse enters the chat display area.
 func _on_chat_display_mouse_entered() -> void:
 	# Show all messages
 	for message in chat_display.get_children():
@@ -72,6 +85,7 @@ func _on_chat_display_mouse_entered() -> void:
 			message.show()
 
 
+## Called when the mouse exits the chat display area.
 func _on_chat_display_mouse_exited() -> void:
 	# Hide messages that should be hidden (timer expired)
 	for message in chat_display.get_children():
@@ -79,14 +93,16 @@ func _on_chat_display_mouse_exited() -> void:
 			message.hide()
 
 
+## Called when the "Send" button is pressed.
 func _on_send_button_pressed() -> void:
 	send_message()
 
-
+## Called when the input field text is submitted (e.g., by pressing Enter).
 func _on_message_input_text_submitted(_text: String) -> void:
 	send_message()
 
 
+## Sends a message to all peers.
 func send_message() -> void:
 	# Get the text from the input field
 	var message_text = input_field.text.strip_edges()
@@ -111,8 +127,9 @@ func send_message() -> void:
 
 
 @rpc("any_peer", "call_local")
+## Creates a new message for all peers.
 func create_message_for_all(sender: String, message_text: String) -> void:
-
+	# Create a new message instance
 	var message = MESSAGE_SCENE.instantiate()
 	chat_display.add_child(message)
 	message.set_message(sender, message_text)

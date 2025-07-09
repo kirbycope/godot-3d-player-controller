@@ -134,7 +134,7 @@ func move_held_item_mount() -> void:
 	elif player.is_holding_rifle:
 
 		# Get the right hand bone
-		var bone_name = player.bone_name_right_hand
+		var bone_name = player.BONE_NAME_RIGHT_HAND
 		var bone_index = player.player_skeleton.find_bone(bone_name)
 
 		# Get the overall transform of the specified bone, with respect to the player's skeleton.

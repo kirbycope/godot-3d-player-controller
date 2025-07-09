@@ -1,8 +1,8 @@
 extends CharacterBody3D
 
-@onready var player: CharacterBody3D = $"../Player"
+@onready var player: CharacterBody3D = get_parent().get_node("Player")
 
-
+## Called when there is an input event.
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("use"):
 		if player.raycast_lookat.is_colliding():
@@ -19,6 +19,7 @@ func _input(event: InputEvent) -> void:
 			$AnimationPlayer.play("Arm_Cat|Caress_idle")
 
 
+## Called every frame. '_delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	if $AnimationPlayer.current_animation == "":
 		$AnimationPlayer.play("Arm_Cat|Idle_1")

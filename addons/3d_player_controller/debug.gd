@@ -1,24 +1,40 @@
 extends Control
+## debug.gd
 
+# Player (player_3d.gd)
+#├── AudioStreamPlayer3D
+#├── CameraMount
+#│	└── Camera3D (camera_3d.gd)
+#│		└── ChatWindow (chat_window.gd)
+#│			└── Message (message.gd)
+#│		└── Debug (debug.gd)
+#│		└── Emotes (emotes.gd)
+#│		└── Pause (pause.gd)
+#│		└── Settings (settings.gd)
+#├── CollisionShape3D
+#├── Controls (controls.gd)
+#├── ShapeCast3D
+#├── States (states.gd)
+#└── Visuals
+#│	└── AuxScene
+#│		└── AnimationPlayer
+
+# Note: `@onready` variables are set when the scene is loaded.
 @onready var player: CharacterBody3D = get_parent().get_parent().get_parent()
 
 
 ## Called once for every event before _unhandled_input(), allowing you to consume some events.
 func _input(event) -> void:
-
 	# [debug] button _pressed_
 	if event.is_action_pressed("debug"):
-
 		# Toggle "debug" visibility
 		visible = !visible
 
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-
 	# Check is the Debug Panel is visible
 	if visible:
-
 		# Panel 1
 		$Panel1/IsAiming.button_pressed = player.is_aiming
 		$Panel1/IsAnimationLocked.button_pressed = player.is_animation_locked
@@ -69,49 +85,61 @@ func _process(_delta: float) -> void:
 		$FPS/Label.text = "FPS: " + str(int(Engine.get_frames_per_second()))
 
 
+## Called when the "enable_chat" toggle option is changed.
 func _on_enable_chat_toggled(toggled_on: bool) -> void:
 	player.enable_chat = toggled_on
 
 
+## Called when the "enable_crouching" toggle option is changed.
 func _on_enable_crouching_toggled(toggled_on: bool) -> void:
 	player.enable_crouching = toggled_on
 
 
+## Called when the "enable_double_jump" toggle option is changed.
 func _on_enable_double_jump_toggled(toggled_on: bool) -> void:
 	player.enable_double_jump = toggled_on
 
 
+## Called when the "enable_flying" toggle option is changed.
 func _on_enable_flying_toggled(toggled_on: bool) -> void:
 	player.enable_flying = toggled_on
 
 
+## Called when the "enable_jumping" toggle option is changed.
 func _on_enable_jumping_toggled(toggled_on: bool) -> void:
 	player.enable_jumping = toggled_on
 
 
+## Called when the "enable_kicking" toggle option is changed.
 func _on_enable_kicking_toggled(toggled_on: bool) -> void:
 	player.enable_kicking = toggled_on
 
 
+## Called when the "enable_punching" toggle option is changed.
 func _on_enable_punching_toggled(toggled_on: bool) -> void:
 	player.enable_punching = toggled_on
 
 
+## Called when the "enable_vibration" toggle option is changed.
 func _on_enable_vibration_toggled(toggled_on: bool) -> void:
 	player.enable_vibration = toggled_on
 
 
+## Called when the "locak_camera" toggle option is changed.
 func _on_lock_camera_toggled(toggled_on: bool) -> void:
 	player.lock_camera = toggled_on
 
 
+## Called when the "lock_movement_x" toggle option is changed.
 func _on_lock_movement_x_toggled(toggled_on: bool) -> void:
 	player.lock_movement_x = toggled_on
 
 
+## Called when the "lock_movement_y" toggle option is changed.
 func _on_lock_movement_y_toggled(toggled_on: bool) -> void:
 	player.lock_movement_y = toggled_on
 
 
+## Called when the "lock_perspective" toggle option is changed.
 func _on_lock_perspective_toggled(toggled_on: bool) -> void:
 	player.lock_perspective = toggled_on
