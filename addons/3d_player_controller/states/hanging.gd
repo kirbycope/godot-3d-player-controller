@@ -1,4 +1,5 @@
 extends BaseState
+## hanging.gd
 
 # States (states.gd)
 #├── Base (base.gd)
@@ -226,9 +227,6 @@ func start() -> void:
 	# Get the collision normal
 	var normal = player.raycast_high.get_collision_normal()
 
-	# [Debug] Print the normal to verify it's correct
-	#print("Wall normal: ", normal)
-
 	# Calculate the rotation to align with the wall
 	# The player should face the wall (opposite to the normal)
 	var forward = normal  # Face towards the wall (same as normal)
@@ -244,9 +242,30 @@ func start() -> void:
 	# Ensure the basis is orthonormal (this is crucial)
 	target_basis = target_basis.orthonormalized()
 
+	# Get rotation from the target basis
+	var target_rotation = target_basis.get_euler()
+	
+	# Get the current player rotation
+	var current_y_rotation = player.rotation.y
+	
+	# Normalize the rotations to -PI to PI range
+	current_y_rotation = fmod(current_y_rotation + PI, 2 * PI) - PI
+	var target_y_rotation = fmod(target_rotation.y + PI, 2 * PI) - PI
+	
+	# Calculate the difference
+	var rotation_diff = abs(target_y_rotation - current_y_rotation)
+	
+	# If the difference is greater than PI, try the opposite direction
+	if rotation_diff > PI:
+		target_y_rotation += PI if target_y_rotation < 0 else -PI
+		target_y_rotation = fmod(target_y_rotation + PI, 2 * PI) - PI
+	
+	# Use the adjusted Y rotation
+	target_rotation.y = target_y_rotation
+
 	# Set the player's rotation
-	player.basis = target_basis
-	player.camera_mount.basis = target_basis
+	player.rotation = target_rotation
+	player.camera_mount.rotation = target_rotation
 
 	# Set the player's position to the new point
 	player.position = point

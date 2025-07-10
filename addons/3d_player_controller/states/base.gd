@@ -1,5 +1,6 @@
 class_name BaseState
 extends Node
+## base.gd
 
 # States (states.gd)
 #├── Base (base.gd)
