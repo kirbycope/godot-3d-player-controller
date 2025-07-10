@@ -141,14 +141,6 @@ func _ready() -> void:
 	$Controls.layer = -1
 
 
-## Called every frame. '_delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	# Update the visuals' position
-	visuals.global_position.x = global_position.x
-	visuals.global_position.y = lerp(visuals.global_position.y, global_position.y + visuals_offset.y, 1.0)
-	visuals.global_position.z = global_position.z
-
-
 ## Called each physics frame with the time since the last physics frame as argument (delta, in seconds).
 func _physics_process(delta) -> void:
 	# Uncomment the next line if using GodotSteam

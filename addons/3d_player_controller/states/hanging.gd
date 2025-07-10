@@ -260,7 +260,6 @@ func start() -> void:
 
 	# Set the player's rotation
 	player.rotation = target_rotation
-	player.camera_mount.rotation = target_rotation
 
 	# Set the player's position to the new point
 	player.position = point
@@ -276,6 +275,7 @@ func start() -> void:
 
 	# Flag the animation player no longer locked
 	player.is_animation_locked = false
+
 
 ## Stop "hanging".
 func stop() -> void:

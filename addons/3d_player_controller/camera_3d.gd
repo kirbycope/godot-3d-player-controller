@@ -29,15 +29,8 @@ extends Camera3D
 
 # Note: `@onready` variables are set when the scene is loaded.
 @onready var camera_mount: Node3D = get_parent()
-@onready var camera_mount_offset = camera_mount.position
 @onready var player: CharacterBody3D = get_parent().get_parent()
 @onready var retical: Control = $Retical
-
-
-## Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	# Set the camera mount's initial position
-	camera_mount.global_position = player.global_position + camera_mount_offset
 
 
 ## Called when there is an input event.
@@ -76,13 +69,6 @@ func _input(event) -> void:
 			elif player.perspective == 1:
 				# Switch to "third" person perspective
 				switch_to_third_person()
-
-
-## Called every frame. '_delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-		camera_mount.global_position.x = player.global_position.x
-		camera_mount.global_position.y = lerp(camera_mount.global_position.y, player.global_position.y + camera_mount_offset.y, 1.0)
-		camera_mount.global_position.z = player.global_position.z
 
 
 ## Called each physics frame with the time since the last physics frame as argument (delta, in seconds).
@@ -144,7 +130,6 @@ func camera_rotate_by_controller(delta: float) -> void:
 
 	# Update the player (visuals+camera) opposite the horizontal controller motion
 	player.rotation_degrees.y = player.rotation_degrees.y - (horizontal_input * horizontal_rotation_speed * delta)
-	camera_mount.rotation_degrees.y = player.rotation_degrees.y - (horizontal_input * horizontal_rotation_speed * delta)
 
 	# Check if the player is in "third person" perspective
 	if player.perspective == 0:
@@ -165,7 +150,6 @@ func camera_rotate_by_mouse(event: InputEvent) -> void:
 
 	# Update the player and camera opposite the horizontal mouse motion
 	player.rotate_y(deg_to_rad(-event.relative.x * look_sensitivity_mouse))
-	camera_mount.rotate_y(deg_to_rad(-event.relative.x * look_sensitivity_mouse))
 
 	# Check if the player is in "third person" perspective
 	if player.perspective == 0:
@@ -184,9 +168,7 @@ func move_camera():
 		var bone_pose = player.player_skeleton.get_bone_global_pose(bone_index)
 
 		# Adjust the camera position to match the bone's relative position
-		position = Vector3(-bone_pose.origin.x, bone_pose.origin.y, -bone_pose.origin.z) +\
-				   Vector3(0.0, 0.1, 0.0) -\
-				   camera_mount_offset
+		camera_mount.position = Vector3(-bone_pose.origin.x, bone_pose.origin.y, -bone_pose.origin.z)
 
 
 ## Switches the player perspective to "first" person.
@@ -195,7 +177,7 @@ func switch_to_first_person() -> void:
 	player.perspective = 1
 
 	# Set camera's position
-	position = Vector3(0.0, 0.1, 0.0)
+	position = Vector3(0.0, 0.0, 0.0)
 
 	# Set the camera's raycast position to match the camera's position
 	player.raycast_lookat.position = Vector3.ZERO
@@ -211,9 +193,6 @@ func switch_to_first_person() -> void:
 func switch_to_third_person() -> void:
 	# Flag the player as in "third" person
 	player.perspective = 0
-
-	# Set camera mount's position
-	camera_mount.position = Vector3(0.0, 1.5, 0.0)
 
 	# Set camera's position
 	position = Vector3(0.0, 0.6, 2.5)
