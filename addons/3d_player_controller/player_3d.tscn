@@ -74,6 +74,7 @@ stretch_mode = 3
 visible = false
 
 [node name="ChatWindow" parent="CameraMount/Camera3D" instance=ExtResource("5_k4p2k")]
+visible = false
 
 [node name="Pause" parent="CameraMount/Camera3D" instance=ExtResource("4_t2fvs")]
 visible = false
@@ -93,6 +94,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("CapsuleShape3D_5e6s3")
 
 [node name="Controls" parent="." instance=ExtResource("2_j65kv")]
+visible = false
 
 [node name="ShapeCast3D" type="ShapeCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
