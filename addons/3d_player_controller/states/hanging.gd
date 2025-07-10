@@ -27,65 +27,52 @@ const NODE_NAME := "Hanging"
 
 ## Called when there is an input event.
 func _input(event: InputEvent) -> void:
-
 	# Check if the game is not paused
 	if !player.game_paused:
-
 		# [crouch] button _pressed_
 		if event.is_action_pressed("crouch"):
-
 			# Start falling
 			transition(NODE_NAME, "Falling")
 
 		# [jump] button _pressed_
 		if event.is_action_pressed("jump"):
-
 			# Start climbing
 			transition(NODE_NAME, "Climbing")
 
 		# [move_left] button pressed
 		if event.is_action_pressed("move_left"):
-
 			# Move the player left
 			move_character(-1)
 		
 		# [move_left] button released
 		if event.is_action_released("move_left"):
-
 			# Move the player back into hanging position
 			move_character(0)
 
 		# [move_right] button pressed
 		if event.is_action_pressed("move_right"):
-
 			# Move the player right
 			move_character(1)
 
 		# [move_right] button released
 		if event.is_action_released("move_right"):
-
 			# Move the player back into hanging position
 			move_character(0)
 
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-
 	# Uncomment the next line if using GodotSteam
 	#if !is_multiplayer_authority(): return
-
 	# Check if the player is "hanging"
 	if player.is_hanging:
-
 		# Check if the player still has a raycast collision
 		if !player.raycast_high.is_colliding():
-
 			# Start falling
 			transition(NODE_NAME, "Falling")
 
 		# The player must still be facing a surface
 		else:
-
 			# Play the animation
 			play_animation()
 
@@ -94,7 +81,6 @@ func _process(_delta: float) -> void:
 func end_shimmy() -> void:
 	# Check if the player is currently "shimmying"
 	if player.is_shimmying:
-
 		# [Hack] Adjust player visuals for animation
 		player.visuals_aux_scene.position.y += 0.45
 
@@ -104,22 +90,17 @@ func end_shimmy() -> void:
 
 ## Moves the player in the given direction.
 func move_character(direction: float) -> void:
-
 	# Check if the player's movement has stopped
 	if direction == 0:
-
 		# Check if neither movement key is pressed (truly stopped)
 		if !Input.is_action_pressed("move_left") and !Input.is_action_pressed("move_right"):
-
 			# Stop "shimmying" if applicable
 			end_shimmy()
 
 	# The player must be moving
 	else:
-
 		# Check if the player is not currently "shimmying"
 		if !player.is_shimmying:
-
 			# [Hack] Adjust player visuals for animation
 			player.visuals_aux_scene.position.y -= 0.45
 
@@ -144,16 +125,12 @@ func move_character(direction: float) -> void:
 
 ## Plays the appropriate animation based on player state.
 func play_animation() -> void:
-
 	# Check if the animation player is not locked
 	if !player.is_animation_locked:
-
 		# Check if the player is moving left
 		if Input.is_action_pressed("move_left"):
-
 			# Check if the animation player is not already playing the appropriate animation
 			if player.animation_player.current_animation != ANIMATION_HANGING_SHIMMY_LEFT:
-
 				# Stop the current animation so no blending occurs
 				player.animation_player.stop()
 
@@ -162,10 +139,8 @@ func play_animation() -> void:
 
 		# Check if the player if moving right
 		elif Input.is_action_pressed("move_right"):
-
 			# Check if the animation player is not already playing the appropriate animation
 			if player.animation_player.current_animation != ANIMATION_HANGING_SHIMMY_RIGHT:
-
 				# Stop the current animation so no blending occurs
 				player.animation_player.stop()
 
@@ -174,7 +149,6 @@ func play_animation() -> void:
 
 		# The player must not be moving
 		else:
-
 			# Stop player movement
 			player.velocity = Vector3.ZERO
 
@@ -183,7 +157,6 @@ func play_animation() -> void:
 
 			# Check if the animation player is not already playing the appropriate animation
 			if player.animation_player.current_animation != ANIMATION_HANGING:
-
 				# Stop the current animation so no blending occurs
 				player.animation_player.stop()
 
@@ -193,7 +166,6 @@ func play_animation() -> void:
 
 ## Start "hanging".
 func start() -> void:
-
 	# Enable _this_ state node
 	process_mode = PROCESS_MODE_INHERIT
 
@@ -227,41 +199,64 @@ func start() -> void:
 	# Get the collision normal
 	var normal = player.raycast_high.get_collision_normal()
 
-	# Calculate the rotation to align with the wall
-	# The player should face the wall (opposite to the normal)
-	var forward = normal  # Face towards the wall (same as normal)
-	var up = Vector3.UP
-	var right = up.cross(forward).normalized()
+	# Get the current player's forward direction
+	var current_forward = - player.transform.basis.z.normalized()
 
-	# Recalculate up to ensure orthogonality
-	up = forward.cross(right).normalized()
+	# Check if player is already facing the wall correctly
+	# If the dot product is close to 1, they're already facing the wall
+	var dot_product = current_forward.dot(normal)
 
-	# Create the target basis
-	var target_basis = Basis(right, up, forward)
+	# If player is already facing the wall well enough, don't change rotation
+	var target_rotation
+	if dot_product > 0.7: # Threshold for "close enough"
+		target_rotation = player.rotation
+	else:
+		# Calculate the rotation to align with the wall
+		# The player should face the wall (same direction as normal)
+		var forward = normal
+		var up = Vector3.UP
+		var right = up.cross(forward).normalized()
 
-	# Ensure the basis is orthonormal (this is crucial)
-	target_basis = target_basis.orthonormalized()
+		# Handle case where forward and up are parallel (shouldn't happen on walls)
+		if right.length_squared() < 0.001:
+			right = Vector3.RIGHT
 
-	# Get rotation from the target basis
-	var target_rotation = target_basis.get_euler()
-	
-	# Get the current player rotation
-	var current_y_rotation = player.rotation.y
-	
-	# Normalize the rotations to -PI to PI range
-	current_y_rotation = fmod(current_y_rotation + PI, 2 * PI) - PI
-	var target_y_rotation = fmod(target_rotation.y + PI, 2 * PI) - PI
-	
-	# Calculate the difference
-	var rotation_diff = abs(target_y_rotation - current_y_rotation)
-	
-	# If the difference is greater than PI, try the opposite direction
-	if rotation_diff > PI:
-		target_y_rotation += PI if target_y_rotation < 0 else -PI
-		target_y_rotation = fmod(target_y_rotation + PI, 2 * PI) - PI
-	
-	# Use the adjusted Y rotation
-	target_rotation.y = target_y_rotation
+		# Recalculate up to ensure orthogonality
+		up = forward.cross(right).normalized()
+
+		# Create the target basis
+		var target_basis = Basis(right, up, forward)
+
+		# Ensure the basis is orthonormal
+		target_basis = target_basis.orthonormalized()
+
+		# Get rotation from the target basis
+		target_rotation = target_basis.get_euler()
+
+		# Get the current player rotation
+		var current_y_rotation = player.rotation.y
+
+		# Find the equivalent target rotation that's closest to current rotation
+		var target_y_rotation = target_rotation.y
+
+		var angle_options = [
+			target_y_rotation,
+			target_y_rotation + 2 * PI,
+			target_y_rotation - 2 * PI
+		]
+
+		# Choose the angle closest to current rotation
+		var best_angle = target_y_rotation
+		var min_diff = abs(current_y_rotation - target_y_rotation)
+
+		for angle in angle_options:
+			var diff = abs(current_y_rotation - angle)
+			if diff < min_diff:
+				min_diff = diff
+				best_angle = angle
+
+		# Use the best angle
+		target_rotation.y = best_angle
 
 	# Set the player's rotation
 	player.rotation = target_rotation
@@ -282,10 +277,8 @@ func start() -> void:
 	# Flag the animation player no longer locked
 	player.is_animation_locked = false
 
-
 ## Stop "hanging".
 func stop() -> void:
-
 	# Disable _this_ state node
 	process_mode = PROCESS_MODE_DISABLED
 
@@ -302,7 +295,7 @@ func stop() -> void:
 	player.speed_current = player.speed_walking
 
 	# Make the player start falling again
-	player.velocity.y = -player.gravity
+	player.velocity.y = - player.gravity
 
 	# Reset CollisionShape3D height
 	player.get_node("CollisionShape3D").shape.height = player.collision_height
