@@ -47,7 +47,7 @@ func play_animation() -> void:
 		# Check if the animation player is not already playing the appropriate animation
 		if player.animation_player.current_animation != ANIMATION_DRIVING:
 
-			# Play the "crouching idle, holding rifle" animation
+			# Play the "driving" animation
 			player.animation_player.play(ANIMATION_DRIVING)
 
 

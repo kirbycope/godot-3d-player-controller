@@ -16,8 +16,8 @@ extends CharacterBody3D
 #├── ShapeCast3D
 #├── States
 #└── Visuals
-#│	└── AuxScene
-#│		└── AnimationPlayer
+#	└── AuxScene
+#		└── AnimationPlayer
 
 const BONE_NAME_HEAD = "Head"
 const BONE_NAME_LEFT_HAND = "LeftHand"

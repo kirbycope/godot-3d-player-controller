@@ -1,10 +1,8 @@
 extends VehicleBody3D
 
-var engine_power
-var player: CharacterBody3D
-var near_driver_door: int = false
-var last_mouse_move_time: float = 0.0
+const DRIVING = preload("res://addons/3d_player_controller/states/DRIVING.gd")
 
+# Note: `@export` variables are available for editing in the property editor.
 @export var final_drive_ratio: float = 3.9
 @export var gear_ratio: float = 3.5
 @export var horse_power: float = 190
@@ -14,6 +12,12 @@ var last_mouse_move_time: float = 0.0
 @export var traction_factor: float = 0.7
 @export var wheel_radius: float = 0.4
 
+var engine_power
+var last_mouse_move_time: float = 0.0
+var player: CharacterBody3D
+var near_driver_door: int = false
+
+# Note: `@onready` variables are set when the scene is loaded.
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var audio_player: AudioStreamPlayer3D = $AudioStreamPlayer3D
 @onready var audio_player2: AudioStreamPlayer3D = $AudioStreamPlayer3D2
@@ -26,30 +30,22 @@ var last_mouse_move_time: float = 0.0
 @onready var sound_idle = preload("res://assets/honda_crv/Engine Running Inside Car_1.wav")
 @onready var sound_horn = preload("res://assets/honda_crv/Honk_1.wav")
 
-var driving = preload("res://addons/3d_player_controller/states/driving.gd")
-
 
 ## Called when there is an input event.
 func _input(event: InputEvent) -> void:
-
 	# Check if the player is not null
 	if player:
-
 		# Check if the game is not paused
 		if !player.game_paused:
-
 			# Track mouse movement
 			if event is InputEventMouseMotion:
-
 				# Log the time of the event
 				last_mouse_move_time = Time.get_ticks_msec() / 1000.0
 
 			# [crouch] action _pressed_
 			if event.is_action_pressed("crouch"):
-
-				# Check if the player is driving
+				# Check if the player is DRIVING
 				if player.is_driving:
-
 					# Transition animation
 					player.is_driving = false
 					player.is_animation_locked = true
@@ -79,22 +75,18 @@ func _input(event: InputEvent) -> void:
 
 			# [jump] action _pressed_
 			if event.is_action_pressed("jump"):
-
-				# Check if the player is driving
+				# Check if the player is DRIVING
 				if player.is_driving:
-
 					# Set the secondary audio stream to the horn sound
 					audio_player2.stream = sound_horn
 
 					# Play the horn sound
 					audio_player2.play()
 
-			# [use] action _pressed_ (and no player is driving)
+			# [use] action _pressed_ (and no player is DRIVING)
 			if event.is_action_pressed("use"):
-
 				# Check if the player is near the driver's door
 				if near_driver_door:
-
 					# Store the vehicle with the player
 					player.is_driving_in = self
 
@@ -116,18 +108,17 @@ func _input(event: InputEvent) -> void:
 					player.global_position = drivers_seat.global_position
 					player.global_rotation = drivers_seat.global_rotation
 					player.animation_player.stop()
-					player.animation_player.play(driving.ANIMATION_DRIVING)
+					player.animation_player.play(DRIVING.ANIMATION_DRIVING)
 
 					# Get the string name of the player's current state
 					var current_state = player.base_state.get_state_name(player.current_state)
 
-					# Start "driving"
+					# Start "DRIVING"
 					player.base_state.transition(current_state, "Driving")
 
 
 ## Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-
 	# Convert HP to force in Newtons
 	engine_power = (horse_power * 5252 * gear_ratio * final_drive_ratio) / (max_rpm * wheel_radius)
 
@@ -141,22 +132,18 @@ func _ready() -> void:
 
 ## Called during the physics processing step of the main loop.
 func _physics_process(delta: float) -> void:
-
 	# Check if the player if not null
 	if player:
-
-		# Check if the player is driving
+		# Check if the player is DRIVING
 		if player.is_driving:
-
-			# Check if the current animation is "driving" (not getting in or getting out)
-			if player.animation_player.current_animation == driving.ANIMATION_DRIVING:
-
+			# Check if the current animation is "DRIVING" (not getting in or getting out)
+			if player.animation_player.current_animation == DRIVING.ANIMATION_DRIVING:
 				# Calculate current speed
 				var current_speed = linear_velocity.length()
 
 				# Calculate steering with speed-sensitive adjustment
 				var raw_steer = Input.get_axis("move_right", "move_left")
-				var speed_factor = clamp(1.0 - (current_speed / 50.0), 0.3, 1.0)  # Reduce steering at high speeds
+				var speed_factor = clamp(1.0 - (current_speed / 50.0), 0.3, 1.0) # Reduce steering at high speeds
 				var target_steer = raw_steer * max_steer * speed_factor
 
 				# Smooth steering transition
@@ -164,7 +151,7 @@ func _physics_process(delta: float) -> void:
 
 				# Calculate engine force with traction consideration
 				var acceleration = Input.get_axis("move_down", "move_up")
-				var speed_normalized = clamp(current_speed / 30.0, 0.0, 1.0)  # Normalize speed for traction calculation
+				var speed_normalized = clamp(current_speed / 30.0, 0.0, 1.0) # Normalize speed for traction calculation
 				var traction_multiplier = 1.0 - (1.0 - traction_factor) * speed_normalized
 
 				# Apply engine force with traction and steering compensation
@@ -191,29 +178,24 @@ func _physics_process(delta: float) -> void:
 
 				# Check if the car is  accelerating
 				if Input.is_action_pressed("move_up"):
-
 					# Play the "accelerate" sound
 					target_stream = sound_accelerate
 
 				# Check if the audio player is not playing the target sound
 				if audio_player.stream != target_stream:
-
 					# Set the audio player's stream to the target sound
 					audio_player.stream = target_stream
 
 				# Check if the audio player is not playing
 				if not audio_player.playing:
-
 					# Play the sound
 					audio_player.play()
 
 
 ## Called when a Node3D enters the Area3D.
 func _on_area_3d_body_entered(body: Node3D) -> void:
-
 	# Check if the body is a Player
 	if body.is_in_group("Player"):
-
 		# Store the player
 		player = body
 
@@ -223,9 +205,7 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 
 ## Called when a Node3D exits the Area3D.
 func _on_area_3d_body_exited(body: Node3D) -> void:
-
 	# Check if the body is a Player
 	if body.is_in_group("Player"):
-
 		# Flag the player as not near the driver's door
 		near_driver_door = false
