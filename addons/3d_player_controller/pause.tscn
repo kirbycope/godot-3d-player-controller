@@ -46,13 +46,21 @@ scroll_active = false
 scroll_following = true
 autowrap_mode = 0
 
-[node name="BackToGameButton" type="TextureButton" parent="Panel"]
-layout_mode = 0
-offset_top = 260.0
-offset_right = 200.0
-offset_bottom = 300.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 34.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="Panel/BackToGameButton"]
+[node name="BackToGameButton" type="TextureButton" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/BackToGameButton"]
 layout_mode = 0
 offset_left = 165.0
 offset_top = 4.0
@@ -61,7 +69,7 @@ offset_bottom = 36.0
 texture = ExtResource("2_1s3bm")
 expand_mode = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Panel/BackToGameButton"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/VBoxContainer/BackToGameButton"]
 layout_mode = 0
 offset_top = 3.0
 offset_right = 170.0
@@ -75,13 +83,11 @@ scroll_active = false
 scroll_following = true
 autowrap_mode = 0
 
-[node name="ReturnHomeButton" type="TextureButton" parent="Panel"]
-layout_mode = 0
-offset_top = 82.0
-offset_right = 200.0
-offset_bottom = 122.0
+[node name="ReturnHomeButton" type="TextureButton" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="Panel/ReturnHomeButton"]
+[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/ReturnHomeButton"]
 layout_mode = 0
 offset_left = 165.0
 offset_top = 4.0
@@ -90,7 +96,7 @@ offset_bottom = 36.0
 texture = ExtResource("3_hblcw")
 expand_mode = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Panel/ReturnHomeButton"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/VBoxContainer/ReturnHomeButton"]
 layout_mode = 0
 offset_top = 3.0
 offset_right = 170.0
@@ -104,13 +110,11 @@ scroll_active = false
 scroll_following = true
 autowrap_mode = 0
 
-[node name="SettingsButton" type="TextureButton" parent="Panel"]
-layout_mode = 0
-offset_top = 122.0
-offset_right = 200.0
-offset_bottom = 162.0
+[node name="SettingsButton" type="TextureButton" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="Panel/SettingsButton"]
+[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/SettingsButton"]
 layout_mode = 0
 offset_left = 165.0
 offset_top = 4.0
@@ -119,7 +123,7 @@ offset_bottom = 36.0
 texture = ExtResource("4_7k071")
 expand_mode = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Panel/SettingsButton"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/VBoxContainer/SettingsButton"]
 layout_mode = 0
 offset_top = 3.0
 offset_right = 170.0
@@ -133,13 +137,11 @@ scroll_active = false
 scroll_following = true
 autowrap_mode = 0
 
-[node name="LeaveGameButton" type="TextureButton" parent="Panel"]
-layout_mode = 0
-offset_top = 42.0
-offset_right = 200.0
-offset_bottom = 82.0
+[node name="LeaveGameButton" type="TextureButton" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="Panel/LeaveGameButton"]
+[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/LeaveGameButton"]
 layout_mode = 0
 offset_left = 160.0
 offset_right = 200.0
@@ -147,7 +149,7 @@ offset_bottom = 40.0
 texture = ExtResource("3_ymsbp")
 expand_mode = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Panel/LeaveGameButton"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/VBoxContainer/LeaveGameButton"]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 3.0
@@ -191,7 +193,7 @@ text = "Game ended.
 Refresh to restart."
 horizontal_alignment = 1
 
-[connection signal="pressed" from="Panel/BackToGameButton" to="." method="_on_back_to_game_button_pressed"]
-[connection signal="pressed" from="Panel/ReturnHomeButton" to="." method="_on_return_home_button_pressed"]
-[connection signal="pressed" from="Panel/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="Panel/LeaveGameButton" to="." method="_on_leave_game_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/BackToGameButton" to="." method="_on_back_to_game_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/ReturnHomeButton" to="." method="_on_return_home_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/LeaveGameButton" to="." method="_on_leave_game_button_pressed"]

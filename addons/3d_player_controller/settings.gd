@@ -16,17 +16,17 @@ extends Control
 #├── ShapeCast3D
 #├── States
 #└── Visuals
-#│	└── AuxScene
-#│		└── AnimationPlayer
+#	└── AuxScene
+#		└── AnimationPlayer
 
 # Note: `@onready` variables are set when the scene is loaded.
-@onready var option_fsr = $Container/FSR
-@onready var option_fxaa = $Container/FXAA
-@onready var option_msaa = $Container/MSAA
-@onready var option_ssaa = $Container/SSAA
-@onready var option_ssrl = $Container/SSRL
-@onready var option_taa = $Container/TAA
-@onready var option_vsync = $Container/VSYNC
+@onready var option_fsr = $Container/VBoxContainer/FSR
+@onready var option_fxaa = $Container/VBoxContainer/FXAA
+@onready var option_msaa = $Container/VBoxContainer/MSAA
+@onready var option_ssaa = $Container/VBoxContainer/SSAA
+@onready var option_ssrl = $Container/VBoxContainer/SSRL
+@onready var option_taa = $Container/VBoxContainer/TAA
+@onready var option_vsync = $Container/VBoxContainer/VSYNC
 @onready var project_fsr = ProjectSettings.get_setting("rendering/scaling_3d/mode")
 @onready var project_fxaa = ProjectSettings.get_setting("rendering/anti_aliasing/quality/screen_space_aa")
 @onready var project_msaa = ProjectSettings.get_setting("rendering/anti_aliasing/quality/msaa_3d")
@@ -36,6 +36,7 @@ extends Control
 @onready var project_vsync = ProjectSettings.get_setting("display/window/vsync/vsync_mode")
 @onready var project_rendering_method = ProjectSettings.get_setting("rendering/renderer/rendering_method")
 @onready var player: CharacterBody3D = get_parent().get_parent().get_parent()
+@onready var v_box_container: VBoxContainer = $Container/VBoxContainer
 
 
 ## Called once for every event before _unhandled_input(), allowing you to consume some events.
@@ -48,6 +49,11 @@ func _input(event) -> void:
 
 ## Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# Connect focus signals for all controls to show visual feedback
+	for button in v_box_container.get_children():
+		button.focus_entered.connect(_on_button_focus_entered.bind(button))
+		button.focus_exited.connect(_on_button_focus_exited.bind(button))
+
 	# By default, hide anything not for all renderers
 	option_fxaa.visible = false
 	option_ssrl.visible = false
@@ -87,6 +93,18 @@ func _ready() -> void:
 		# AMD FidelityFX Super Resolution 2.2 (FSR2) - This is only available in the Forward+ renderer, not the Mobile or Compatibility renderers.
 		option_fsr.visible = true
 		option_fsr.selected = project_fsr
+
+
+## Visual feedback when button gains focus
+func _on_button_focus_entered(button: Control):
+	# Add a colored border or background to show focus
+	button.modulate = Color(0.733, 0.733, 0.733, 1.0)
+
+
+## Remove visual feedback when button loses focus
+func _on_button_focus_exited(button: Control):
+	# Return to normal appearance
+	button.modulate = Color(1.0, 1.0, 1.0)
 
 
 ## Change the VSYNC value.
@@ -182,3 +200,6 @@ func _on_back_button_pressed() -> void:
 
 	# Show the pause menu
 	player.menu_pause.visible = true
+
+	# Set focus to first button when opening pause menu
+	player.menu_pause.v_box_container.get_child(0).grab_focus()

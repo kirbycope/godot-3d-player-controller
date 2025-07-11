@@ -16,12 +16,21 @@ extends Control
 #├── ShapeCast3D
 #├── States
 #└── Visuals
-#│	└── AuxScene
-#│		└── AnimationPlayer
+#	└── AuxScene
+#		└── AnimationPlayer
 
 # Note: `@onready` variables are set when the scene is loaded.
 @onready var player: CharacterBody3D = get_parent().get_parent().get_parent()
 @onready var quit: ColorRect = $Quit
+@onready var v_box_container: VBoxContainer = $Panel/VBoxContainer
+
+
+## Called when the node enters the scene tree for the first time.
+func _ready():
+	# Connect focus signals for all controls to show visual feedback
+	for button in v_box_container.get_children():
+			button.focus_entered.connect(_on_button_focus_entered.bind(button))
+			button.focus_exited.connect(_on_button_focus_exited.bind(button))
 
 
 ## Called once for every event before _unhandled_input(), allowing you to consume some events.
@@ -39,6 +48,18 @@ func _input(event) -> void:
 func _on_back_to_game_button_pressed() -> void:
 	# Toggle game paused
 	toggle_pause()
+
+
+## Visual feedback when button gains focus
+func _on_button_focus_entered(button: Control):
+	# Add a colored border or background to show focus
+	button.modulate = Color(0.733, 0.733, 0.733, 1.0)
+
+
+## Remove visual feedback when button loses focus
+func _on_button_focus_exited(button: Control):
+	# Return to normal appearance
+	button.modulate = Color(1.0, 1.0, 1.0)
 
 
 ## Send player to their inital position.
@@ -76,6 +97,10 @@ func toggle_pause() -> void:
 	# Show the pause menu, if paused
 	visible = player.game_paused
 
+	# Set focus to first button when opening pause menu
+	if visible and v_box_container.get_child_count() > 0:
+		v_box_container.get_child(0).grab_focus()
+
 
 ## Toggles the settings menu.
 func toggle_settings() -> void:
@@ -84,3 +109,6 @@ func toggle_settings() -> void:
 
 	# Show the settings menu
 	player.menu_settings.visible = true
+
+	# Set focus to first button when opening settings menu
+	player.menu_settings.v_box_container.get_child(0).grab_focus()
