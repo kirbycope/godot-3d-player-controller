@@ -85,5 +85,7 @@ func stop() -> void:
 	# Remove the vehicle with the player
 	player.is_driving_in = null
 
-	# Enable CollisionShape3D
+	# Wait 2 physics frames before re-enabling collision
+	await get_tree().physics_frame
+	await get_tree().physics_frame
 	player.collision_shape.disabled = false

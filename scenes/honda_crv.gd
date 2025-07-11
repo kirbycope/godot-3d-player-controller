@@ -46,10 +46,10 @@ func _input(event: InputEvent) -> void:
 			if event.is_action_pressed("crouch"):
 				# Check if the player is DRIVING
 				if player.is_driving:
-					# Transition animation
 					player.is_driving = false
 					player.is_animation_locked = true
-					player.global_position.y = player.global_position.y - 0.1
+					# Transition animation
+					player.global_position.y -= 0.15
 					player.animation_player.play("Exiting_Car" + "/mixamo_com")
 					await get_tree().create_timer(1.0).timeout
 					animation_player.play("door_front_driver_open")
@@ -64,11 +64,10 @@ func _input(event: InputEvent) -> void:
 					player.animation_player.stop()
 					player.animation_player.play("Standing_Idle" + "/mixamo_com")
 					player.global_position = exit_driver_door.global_position
-					player.global_position.y = exit_driver_door.global_position.y - 0.1
-					player.global_rotation = exit_driver_door.global_rotation
-					player.camera_mount.rotation.y = 0
+					player.rotation = exit_driver_door.rotation
+					player.visuals.rotation = exit_driver_door.rotation
+					player.camera_mount.rotation = exit_driver_door.rotation
 					player.is_animation_locked = false
-					await get_tree().create_timer(0.1).timeout
 
 					# Start "standing"
 					player.base_state.transition("Driving", "Standing")
@@ -89,12 +88,12 @@ func _input(event: InputEvent) -> void:
 				if near_driver_door:
 					# Store the vehicle with the player
 					player.is_driving_in = self
-
 					# Transition animation
 					player.collision_shape.disabled = true
 					player.is_animation_locked = true
 					player.global_position = open_driver_door.global_position
-					player.global_rotation = open_driver_door.global_rotation
+					player.rotation = open_driver_door.rotation
+					player.visuals.rotation = open_driver_door.rotation + Vector3( 0.0, deg_to_rad(-90.0), 0.0)
 					player.animation_player.play("Entering_Car" + "/mixamo_com")
 					await get_tree().create_timer(1.0).timeout
 					animation_player.play("door_front_driver_open")
