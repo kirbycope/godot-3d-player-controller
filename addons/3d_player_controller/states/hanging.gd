@@ -221,9 +221,6 @@ func start() -> void:
 		if right.length_squared() < 0.001:
 			right = Vector3.RIGHT
 
-		# Recalculate up to ensure orthogonality
-		up = forward.cross(right).normalized()
-
 		# Create the target basis
 		var target_basis = Basis(right, up, forward)
 
