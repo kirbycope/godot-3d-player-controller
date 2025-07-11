@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=43 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" uid="uid://c7agev1ouwnuu" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="Texture2D" uid="uid://e6rn4rs3cr0v" path="res://assets/kenney_nl/prototype_textures/PNG/Dark/texture_09.png" id="2_d2mly"]
@@ -111,6 +111,10 @@ material = SubResource("StandardMaterial3D_0ld40")
 top_radius = 0.1
 bottom_radius = 0.1
 height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jbj1t"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.5882353, 0.29411766, 0, 1)
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_oaegt")
@@ -360,6 +364,12 @@ mesh = SubResource("BoxMesh_dp3eg")
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Button"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("CylinderMesh_gqmmt")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -8)
+use_collision = true
+size = Vector3(3, 5, 1)
+material = SubResource("StandardMaterial3D_jbj1t")
 
 [connection signal="body_entered" from="PortalGun/Area3D" to="." method="_on_area_3d_portal_gun_body_entered"]
 [connection signal="body_entered" from="FishingRod/Area3D" to="." method="_on_area_3d_fishing_rod_body_entered"]

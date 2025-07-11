@@ -28,6 +28,7 @@ const STATES = preload("res://addons/3d_player_controller/states/states.gd")
 @export var current_state: STATES.State = STATES.State.STANDING
 @export var enable_chat: bool = false
 @export var enable_emotes: bool = true
+@export var enable_climbing: bool = true
 @export var enable_crouching: bool = true
 @export var enable_double_jump: bool = false
 @export var enable_flying: bool = false

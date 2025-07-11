@@ -69,6 +69,7 @@ func _process(_delta: float) -> void:
 
 		# Panel 2
 		$Panel2/EnableCrouching.button_pressed = player.enable_crouching
+		$Panel2/EnableClimbing.button_pressed = player.enable_climbing
 		$Panel2/EnableChat.button_pressed = player.enable_chat
 		$Panel2/EnableDoubleJump.button_pressed = player.enable_double_jump
 		$Panel2/EnableFlying.button_pressed = player.enable_flying
@@ -90,6 +91,11 @@ func _process(_delta: float) -> void:
 ## Called when the "enable_chat" toggle option is changed.
 func _on_enable_chat_toggled(toggled_on: bool) -> void:
 	player.enable_chat = toggled_on
+
+
+## Called when the "enable_climbing" toggle option is changed.
+func _on_enable_climbing_toggled(toggled_on: bool) -> void:
+	player.enable_climbing = toggled_on
 
 
 ## Called when the "enable_crouching" toggle option is changed.

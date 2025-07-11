@@ -41,7 +41,7 @@ func _ready():
 ## Called when there is an input event.
 func _input(event: InputEvent) -> void:
 	# [chat] button _released_
-	if event.is_action_released("dpad_right") and player.game_paused == false:
+	if event.is_action_released("dpad_right") and !player.game_paused:
 
 		# Show the mouse
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

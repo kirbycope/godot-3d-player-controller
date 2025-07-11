@@ -19,6 +19,7 @@ extends BaseState
 #├── Swimming (swimming.gd)
 #└── Walking (walking.gd)
 
+const ANIMATION_CLIMBING_IN_PLACE = "Climbing_Up_Wall_In_Place" + "/mixamo_com"
 const NODE_NAME := "Climbing"
 
 
@@ -51,8 +52,13 @@ func _process(_delta: float) -> void:
 func play_animation() -> void:
 	# Check if the animation player is not locked
 	if !player.is_animation_locked:
-		# ToDo: Play the appropriate climbing animation
-		pass
+		# Check if the animation player is not already playing the appropriate animation
+		if player.animation_player.current_animation != ANIMATION_CLIMBING_IN_PLACE:
+			# Stop the current animation so no blending occurs
+			player.animation_player.stop()
+
+			# Play the "climbing" animation
+			player.animation_player.play(ANIMATION_CLIMBING_IN_PLACE)
 
 
 ## Start "climbing".

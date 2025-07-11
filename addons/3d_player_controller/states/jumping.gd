@@ -77,6 +77,14 @@ func _process(_delta: float) -> void:
 	# Check if the player is falling
 	if player.velocity.y < 0.0:
 
+		# Check if "climbing" is enabled and the player is not currently climbing:
+		if player.enable_climbing and !player.is_climbing:
+			# Check if the player is facing a climbable surface
+			if player.raycast_middle.is_colliding():
+				# Start "climbing"
+				transition(NODE_NAME, "Climbing")
+				return
+
 		# Start "falling"
 		transition(NODE_NAME, "Falling")
 
