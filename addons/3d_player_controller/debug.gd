@@ -16,8 +16,8 @@ extends Control
 #├── ShapeCast3D
 #├── States
 #└── Visuals
-#│	└── AuxScene
-#│		└── AnimationPlayer
+#	└── AuxScene
+#		└── AnimationPlayer
 
 # Note: `@onready` variables are set when the scene is loaded.
 @onready var player: CharacterBody3D = get_parent().get_parent().get_parent()
@@ -75,6 +75,7 @@ func _process(_delta: float) -> void:
 		$Panel2/EnableJumping.button_pressed = player.enable_jumping
 		$Panel2/EnableKicking.button_pressed = player.enable_kicking
 		$Panel2/EnablePunching.button_pressed = player.enable_punching
+		$Panel2/EnableSprinting.button_pressed = player.enable_sprinting
 		$Panel2/EnableVibration.button_pressed = player.enable_vibration
 		$Panel2/LockCamera.button_pressed = player.lock_camera
 		$Panel2/LockMovementX.button_pressed = player.lock_movement_x
@@ -119,6 +120,11 @@ func _on_enable_kicking_toggled(toggled_on: bool) -> void:
 ## Called when the "enable_punching" toggle option is changed.
 func _on_enable_punching_toggled(toggled_on: bool) -> void:
 	player.enable_punching = toggled_on
+
+
+## Called when the "enable_sprinting" toggle option is changed.
+func _on_enable_sprinting_toggled(toggled_on: bool) -> void:
+	player.enable_sprinting = toggled_on
 
 
 ## Called when the "enable_vibration" toggle option is changed.

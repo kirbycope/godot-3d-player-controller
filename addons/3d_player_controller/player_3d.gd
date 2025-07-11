@@ -34,6 +34,7 @@ const STATES = preload("res://addons/3d_player_controller/states/states.gd")
 @export var enable_jumping: bool = true
 @export var enable_kicking: bool = true
 @export var enable_punching: bool = true
+@export var enable_sprinting: bool = true
 @export var enable_vibration: bool = false
 @export var friction_skateboarding: float = 0.01
 @export var force_kicking: float = 2.0
