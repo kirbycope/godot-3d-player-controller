@@ -36,8 +36,15 @@ func _input(event: InputEvent) -> void:
 
 		# [jump] button _pressed_
 		if event.is_action_pressed("jump"):
-			# Start climbing
-			transition(NODE_NAME, "Climbing")
+			# Check if there is a raycast collision
+			if player.raycast_jumptarget.is_colliding():
+				# Get the collision point
+				var collision_point = player.raycast_jumptarget.get_collision_point()
+				# Set the player's position to the collision point
+				var tween = get_tree().create_tween()
+				tween.tween_property(player, "position", collision_point, 0.2)
+				# Start "standing"
+				transition(NODE_NAME, "Standing")
 
 		# [move_left] button pressed
 		if event.is_action_pressed("move_left"):

@@ -131,8 +131,10 @@ var virtual_velocity: Vector3 = Vector3.ZERO
 
 ## Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+
 	# Uncomment the next line if using GodotSteam
 	#camera.current = is_multiplayer_authority()
+
 	# Make sure the game is unpaused
 	game_paused = false
 
@@ -145,8 +147,10 @@ func _ready() -> void:
 
 ## Called each physics frame with the time since the last physics frame as argument (delta, in seconds).
 func _physics_process(delta) -> void:
+
 	# Uncomment the next line if using GodotSteam
 	#if !is_multiplayer_authority(): return
+
 	# If the game is not paused...
 	if !game_paused:
 		# Check if no animation is playing

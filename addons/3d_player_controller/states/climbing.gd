@@ -66,20 +66,31 @@ func _input(event: InputEvent) -> void:
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+
 	# Uncomment the next line if using GodotSteam
 	#if !is_multiplayer_authority(): return
+
 	# Check the eyeline for a ledge to grab.
 	if !player.raycast_top.is_colliding() and player.raycast_high.is_colliding():
+
 		# Get the collision object
 		var collision_object = player.raycast_high.get_collider()
 
 		# Only proceed if the collision object is not in the "held" group and not a player
 		if !collision_object.is_in_group("held") and !collision_object is CharacterBody3D:
+
 			# Start "hanging"
 			transition(NODE_NAME, "Hanging")
 
+	# Check if the player is on the ground (and has no vertical velocity)
+	if player.is_on_floor() and player.velocity.y ==  0.0:
+
+		# Start "standing"
+		transition(NODE_NAME, "Standing")
+
 	# Check if the player is "climbing"
 	if player.is_climbing:
+
 		# Play the animation
 		play_animation()
 
@@ -103,14 +114,21 @@ func move_character(direction: float) -> void:
 func play_animation() -> void:
 	# Check if the animation player is not locked
 	if !player.is_animation_locked:
+
 		# Check if the player is not moving
 		if player.velocity == Vector3.ZERO:
 			# Pause the animation player
 			player.animation_player.pause()
-		# The player must be moving
-		else:
+
+		# Check if the player is moving up
+		elif player.velocity.y > 0.0:
+				# Resume the animation player
+				player.animation_player.play()
+
+		# Check if the player is moving down
+		elif player.velocity.y < 0.0:
 			# Resume the animation player
-			player.animation_player.play()
+			player.animation_player.play_backwards()
 
 		# Check if the animation player is not already playing the appropriate animation
 		if player.animation_player.current_animation != ANIMATION_CLIMBING_IN_PLACE:
