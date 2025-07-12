@@ -157,7 +157,7 @@ func play_animation() -> void:
 
 			# Check if the animation player is not already playing the appropriate animation
 			if player.animation_player.current_animation != ANIMATION_HANGING:
-				# Stop the current animation so no blending occurs
+				# [Hack] Stop the current animation so no blending occurs
 				player.animation_player.stop()
 
 				# Play the "hanging" animation
@@ -185,16 +185,16 @@ func start() -> void:
 	var player_width = player.get_node("CollisionShape3D").shape.radius * 2
 
 	# Get the collision point
-	var point = player.raycast_high.get_collision_point()
+	var collision_point = player.raycast_high.get_collision_point()
 
 	# Calculate the direction from the player to collision point
-	var direction = (point - player.position).normalized()
+	var direction = (collision_point - player.position).normalized()
 
 	# Calculate new point by moving back from point along the direction by the given player radius
-	point = point - direction * player_width
+	collision_point = collision_point - direction * player_width
 
 	# Adjust the point relative to the player's height
-	point.y -= player_height * 0.875
+	collision_point.y -= player_height * 0.875
 
 	# Get the collision normal
 	var normal = player.raycast_high.get_collision_normal()
@@ -259,7 +259,7 @@ func start() -> void:
 	player.rotation = target_rotation
 
 	# Set the player's position to the new point
-	player.position = point
+	player.position = collision_point
 
 	# Flag the animation player as locked
 	player.is_animation_locked = true

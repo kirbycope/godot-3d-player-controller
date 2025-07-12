@@ -160,8 +160,8 @@ func _physics_process(delta) -> void:
 			is_punching_left = false
 			is_punching_right = false
 
-		# Check if the player is not "driving" and not "hanging"
-		if !is_driving and !is_hanging:
+		# Check if the player is not climbing, not driving, and not hanging
+		if !is_climbing and !is_driving and !is_hanging:
 			# Check if the player is "swimming"
 			if is_swimming:
 				# Ignore the gravity
