@@ -157,9 +157,15 @@ func start() -> void:
 	# [DEBUG] Draw a debug sphere at the collision point
 	#_draw_debug_sphere(collision_point, Color.RED)
 
-	# Calculate the direction from the player to collision point
+	# Get the collision normal
 	var collision_normal = player.raycast_high.get_collision_normal()
 	var wall_direction = - collision_normal
+	
+	# Ensure the wall direction is horizontal (remove any vertical component)
+	wall_direction.y = 0.0
+	wall_direction = wall_direction.normalized()
+	
+	# Make the player face the wall while keeping upright
 	player.look_at(player.position + wall_direction, Vector3.UP)
 
 	# Calculate the direction from the player to collision point
@@ -167,15 +173,6 @@ func start() -> void:
 
 	# Calculate new point by moving back from point along the direction by the given player radius
 	collision_point = collision_point - direction * player_width
-
-	# [DEBUG] Draw a debug sphere at the collision point
-	#_draw_debug_sphere(collision_point, Color.YELLOW)
-
-	# Adjust the point relative to the player's height
-	collision_point = Vector3(collision_point.x, player.position.y, collision_point.z)
-
-	# Move center of player to the collision point
-	player.position = collision_point
 
 	# [Hack] Adjust player visuals for animation
 	#player.visuals_aux_scene.position.y = -0.55
