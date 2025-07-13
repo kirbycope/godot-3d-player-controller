@@ -102,11 +102,6 @@ func move_character() -> void:
 	# Apply movement
 	player.velocity = move_direction * player.speed_current
 	player.move_and_slide()
-	
-	# Ensure player stays upright during movement
-	# Lock X and Z rotation to prevent tilting
-	player.rotation.x = 0.0
-	player.rotation.z = 0.0
 
 
 ## Plays the appropriate animation based on player state.
@@ -126,7 +121,6 @@ func play_animation() -> void:
 				player.animation_player.play(ANIMATION_HANGING_SHIMMY_LEFT)
 			else:
 				player.animation_player.play()
-			player.is_shimmying = true
 			return
 
 		if Input.is_action_pressed("move_right"):
@@ -135,10 +129,7 @@ func play_animation() -> void:
 				player.animation_player.play(ANIMATION_HANGING_SHIMMY_RIGHT)
 			else:
 				player.animation_player.play()
-			player.is_shimmying = true
 			return
-
-
 
 		if Input.is_action_pressed("move_up"):
 			player.visuals_aux_scene.position.y = -0.4 # Adjust visuals for climbing up
@@ -146,7 +137,6 @@ func play_animation() -> void:
 				player.animation_player.play(ANIMATION_CLIMBING_IN_PLACE)
 			else:
 				player.animation_player.play()
-			player.is_shimmying = false
 			return
 
 		if Input.is_action_pressed("move_down"):
@@ -155,7 +145,6 @@ func play_animation() -> void:
 				player.animation_player.play_backwards(ANIMATION_CLIMBING_IN_PLACE)
 			else:
 				player.animation_player.play_backwards()
-			player.is_shimmying = false
 			return
 
 

@@ -16,8 +16,8 @@ extends Control
 #├── ShapeCast3D
 #├── States
 #└── Visuals
-#│	└── AuxScene
-#│		└── AnimationPlayer
+#	└── AuxScene
+#		└── AnimationPlayer
 
 const MESSAGE_SCENE : PackedScene = preload("res://addons/3d_player_controller/message.tscn")
 

@@ -16,8 +16,8 @@ extends Camera3D
 #├── ShapeCast3D
 #├── States
 #└── Visuals
-#│	└── AuxScene
-#│		└── AnimationPlayer
+#	└── AuxScene
+#		└── AnimationPlayer
 
 # Note: `@export` variables are available for editing in the property editor.
 @export var look_sensitivity_controller: float = 120.0

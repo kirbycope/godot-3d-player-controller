@@ -17,8 +17,8 @@ extends PanelContainer
 #├── ShapeCast3D
 #├── States
 #└── Visuals
-#│	└── AuxScene
-#│		└── AnimationPlayer
+#	└── AuxScene
+#		└── AnimationPlayer
 
 const HIDE_DELAY: float = 30.0
 

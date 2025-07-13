@@ -16,8 +16,8 @@ extends Control
 #├── ShapeCast3D
 #├── States
 #└── Visuals
-#│	└── AuxScene
-#│		└── AnimationPlayer
+#	└── AuxScene
+#		└── AnimationPlayer
 
 const ANIMATION_CLAPPING := "Clapping" + "/mixamo_com"
 const ANIMATION_CRYING := "Crying" + "/mixamo_com"
