@@ -51,6 +51,7 @@ const STATES = preload("res://addons/3d_player_controller/states/states.gd")
 @export var lock_movement_y: bool = false
 @export var lock_perspective: bool = false
 @export var perspective: int = 0
+@export var speed_climbing: float = 0.5
 @export var speed_crawling: float = 0.75
 @export var speed_current: float = 3.0
 @export var speed_flying: float = 5.0

@@ -112,7 +112,6 @@ func play_animation() -> void:
 		if player.velocity.x < 0.0:
 			player.visuals_aux_scene.position.y = -1.0 # Adjust visuals for left shimmy
 			if player.animation_player.current_animation != ANIMATION_HANGING_SHIMMY_LEFT:
-				player.animation_player.stop()
 				player.animation_player.play(ANIMATION_HANGING_SHIMMY_LEFT)
 			else:
 				player.animation_player.play()
@@ -121,7 +120,6 @@ func play_animation() -> void:
 		if player.velocity.x > 0.0:
 			player.visuals_aux_scene.position.y = -1.0 # Adjust visuals for right shimmy
 			if player.animation_player.current_animation != ANIMATION_HANGING_SHIMMY_RIGHT:
-				player.animation_player.stop()
 				player.animation_player.play(ANIMATION_HANGING_SHIMMY_RIGHT)
 			else:
 				player.animation_player.play()
@@ -130,7 +128,6 @@ func play_animation() -> void:
 		if player.velocity.y > 0.0:
 			player.visuals_aux_scene.position.y = -0.4 # Adjust visuals for climbing up
 			if player.animation_player.current_animation != ANIMATION_CLIMBING_IN_PLACE:
-				player.animation_player.stop()
 				player.animation_player.play(ANIMATION_CLIMBING_IN_PLACE)
 			else:
 				player.animation_player.play()
@@ -139,7 +136,6 @@ func play_animation() -> void:
 		if player.velocity.y < 0.0:
 			player.visuals_aux_scene.position.y = -0.4 # Adjust visuals for climbing down
 			if player.animation_player.current_animation != ANIMATION_CLIMBING_IN_PLACE:
-				player.animation_player.stop()
 				player.animation_player.play_backwards(ANIMATION_CLIMBING_IN_PLACE)
 			else:
 				player.animation_player.play_backwards()
@@ -158,7 +154,7 @@ func start() -> void:
 	player.is_climbing = true
 
 	# Set the player's movement speed
-	player.speed_current = player.speed_crawling
+	player.speed_current = player.speed_climbing
 
 	# Get the player's height
 	var player_height = player.get_node("CollisionShape3D").shape.height
@@ -171,6 +167,11 @@ func start() -> void:
 
 	# [DEBUG] Draw a debug sphere at the collision point
 	#_draw_debug_sphere(collision_point, Color.RED)
+
+	# Get the collision normal
+	var collision_normal = player.raycast_high.get_collision_normal()
+	var wall_direction = -collision_normal
+	player.look_at(player.position + wall_direction, Vector3.UP)
 
 	# Calculate the direction from the player to collision point
 	var direction = (collision_point - player.position).normalized()
@@ -190,6 +191,7 @@ func start() -> void:
 	# [Hack] Adjust player visuals for animation
 	player.visuals_aux_scene.position.y = -0.4
 	player.animation_player.play(ANIMATION_CLIMBING_IN_PLACE)
+	player.animation_player.playback_default_blend_time = 0.0
 
 	# [DEBUG] Draw a debug sphere at the collision point
 	#_draw_debug_sphere(collision_point, Color.GREEN)
@@ -215,8 +217,9 @@ func stop() -> void:
 	# Flag the player as not "climbing"
 	player.is_climbing = false
 
-	# [Hack] Adjust player visuals for animation
+	# [Hack] Reset player visuals for animation
 	player.visuals_aux_scene.position.y = 0.0
+	player.animation_player.playback_default_blend_time = 0.2
 
 
 ## Draws a debug sphere at the given position.
