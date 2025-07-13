@@ -33,6 +33,7 @@ func _input(event: InputEvent) -> void:
 		if event.is_action_pressed("crouch"):
 			# Start falling
 			transition(NODE_NAME, "Falling")
+			return
 
 		# [jump] button _pressed_
 		if event.is_action_pressed("jump"):
@@ -45,26 +46,7 @@ func _input(event: InputEvent) -> void:
 				tween.tween_property(player, "position", collision_point, 0.2)
 				# Start "standing"
 				transition(NODE_NAME, "Standing")
-
-		# [move_left] button pressed
-		if event.is_action_pressed("move_left"):
-			# Move the player left
-			move_character(-1)
-		
-		# [move_left] button released
-		if event.is_action_released("move_left"):
-			# Move the player back into hanging position
-			move_character(0)
-
-		# [move_right] button pressed
-		if event.is_action_pressed("move_right"):
-			# Move the player right
-			move_character(1)
-
-		# [move_right] button released
-		if event.is_action_released("move_right"):
-			# Move the player back into hanging position
-			move_character(0)
+				return
 
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
@@ -73,99 +55,73 @@ func _process(_delta: float) -> void:
 	#if !is_multiplayer_authority(): return
 	# Check if the player is "hanging"
 	if player.is_hanging:
-		# Check if the player still has a raycast collision
+		# Check if the player has no raycast collision
 		if !player.raycast_high.is_colliding():
 			# Start falling
 			transition(NODE_NAME, "Falling")
+			return
+	
+	# Move the player in the current direction
+	move_character()
 
-		# The player must still be facing a surface
-		else:
-			# Play the animation
-			play_animation()
-
-
-## Resets the player's position after shimmying.
-func end_shimmy() -> void:
-	# Check if the player is currently "shimmying"
-	if player.is_shimmying:
-		# [Hack] Adjust player visuals for animation
-		player.visuals_aux_scene.position.y += 0.45
-
-		# Flag the player as not "shimmying"
-		player.is_shimmying = false
+	# Check if the player is "hanging"
+	if player.is_hanging:
+		# Play the animation
+		play_animation()
 
 
-## Moves the player in the given direction.
-func move_character(direction: float) -> void:
-	# Check if the player's movement has stopped
-	if direction == 0:
-		# Check if neither movement key is pressed (truly stopped)
-		if !Input.is_action_pressed("move_left") and !Input.is_action_pressed("move_right"):
-			# Stop "shimmying" if applicable
-			end_shimmy()
+## Moves the player in the current direction.
+func move_character() -> void:
+	# Get the wall normal from the raycast
+	var wall_normal = player.raycast_high.get_collision_normal()
+	# Calculate the right vector (perpendicular to wall normal and up)
+	var wall_right = Vector3.UP.cross(wall_normal).normalized()
 
-	# The player must be moving
-	else:
-		# Check if the player is not currently "shimmying"
-		if !player.is_shimmying:
-			# [Hack] Adjust player visuals for animation
-			player.visuals_aux_scene.position.y -= 0.45
+	var move_direction = Vector3.ZERO
 
-			# Flag the player as "shimmying"
-			player.is_shimmying = true
+	# Check current input states to support diagonal movement
+	if Input.is_action_pressed("move_left"):
+		move_direction += wall_right * -1
+	if Input.is_action_pressed("move_right"):
+		move_direction += wall_right
 
-		# Get the wall normal from the raycast
-		var wall_normal = player.raycast_high.get_collision_normal()
+	# Normalize for consistent speed when moving diagonally
+	if move_direction.length() > 0:
+		move_direction = move_direction.normalized()
 
-		# Calculate the right vector (perpendicular to wall normal and up)
-		var wall_right = Vector3.UP.cross(wall_normal).normalized()
-
-		# Calculate movement vector along the wall surface
-		var move_direction = wall_right * direction
-
-		# Apply movement
-		player.velocity = move_direction * player.speed_current
-
-		# If using CharacterBody3D, you need to call move_and_slide()
-		player.move_and_slide()
+	# Apply movement
+	player.velocity = move_direction * player.speed_current
+	player.move_and_slide()
 
 
 ## Plays the appropriate animation based on player state.
 func play_animation() -> void:
 	# Check if the animation player is not locked
 	if !player.is_animation_locked:
-		# Check if the player is moving left
-		if Input.is_action_pressed("move_left"):
-			# Check if the animation player is not already playing the appropriate animation
-			if player.animation_player.current_animation != ANIMATION_HANGING_SHIMMY_LEFT:
-				# Stop the current animation so no blending occurs
-				player.animation_player.stop()
-
-				# Play the "hanging, shimmy-ing left" animation
-				player.animation_player.play(ANIMATION_HANGING_SHIMMY_LEFT)
-
-		# Check if the player if moving right
-		elif Input.is_action_pressed("move_right"):
-			# Check if the animation player is not already playing the appropriate animation
-			if player.animation_player.current_animation != ANIMATION_HANGING_SHIMMY_RIGHT:
-				# Stop the current animation so no blending occurs
-				player.animation_player.stop()
-
-				# Play the "hanging, shimmy-ing left" animation
-				player.animation_player.play(ANIMATION_HANGING_SHIMMY_RIGHT)
-
-		# The player must not be moving
-		else:
-			# Stop player movement
-			player.velocity = Vector3.ZERO
-
-			# Check if the animation player is not already playing the appropriate animation
+		# If not moving, just pause current animation
+		if player.velocity == Vector3.ZERO:
+			player.visuals_aux_scene.position.y = -0.55 # Adjust visuals for hanging
 			if player.animation_player.current_animation != ANIMATION_HANGING:
-				# [Hack] Stop the current animation so no blending occurs
-				player.animation_player.stop()
-
-				# Play the "hanging" animation
 				player.animation_player.play(ANIMATION_HANGING)
+			else:
+				player.animation_player.play()
+			return
+
+		if Input.is_action_pressed("move_left"):
+			player.visuals_aux_scene.position.y = -1.0 # Adjust visuals for left shimmy
+			if player.animation_player.current_animation != ANIMATION_HANGING_SHIMMY_LEFT:
+				player.animation_player.play(ANIMATION_HANGING_SHIMMY_LEFT)
+			else:
+				player.animation_player.play()
+			return
+
+		if Input.is_action_pressed("move_right"):
+			player.visuals_aux_scene.position.y = -1.0 # Adjust visuals for right shimmy
+			if player.animation_player.current_animation != ANIMATION_HANGING_SHIMMY_RIGHT:
+				player.animation_player.play(ANIMATION_HANGING_SHIMMY_RIGHT)
+			else:
+				player.animation_player.play()
+			return
 
 
 ## Start "hanging".
@@ -180,7 +136,7 @@ func start() -> void:
 	player.is_hanging = true
 
 	# Set the player's movement speed
-	player.speed_current = player.speed_crawling
+	player.speed_current = player.speed_climbing
 
 	# Get the player's height
 	var player_height = player.get_node("CollisionShape3D").shape.height
@@ -193,6 +149,11 @@ func start() -> void:
 
 	# [DEBUG] Draw a debug sphere at the collision point
 	#_draw_debug_sphere(collision_point, Color.RED)
+
+	# Calculate the direction from the player to collision point
+	var collision_normal = player.raycast_high.get_collision_normal()
+	var wall_direction = - collision_normal
+	player.look_at(player.position + wall_direction, Vector3.UP)
 
 	# Calculate the direction from the player to collision point
 	var direction = (collision_point - player.position).normalized()
@@ -210,7 +171,9 @@ func start() -> void:
 	player.position = collision_point
 
 	# [Hack] Adjust player visuals for animation
-	player.visuals_aux_scene.position.y -= 0.55
+	#player.visuals_aux_scene.position.y = -0.55
+	#player.animation_player.play(ANIMATION_HANGING)
+	player.animation_player.playback_default_blend_time = 0.0
 
 	# [DEBUG] Draw a debug sphere at the collision point
 	#_draw_debug_sphere(collision_point, Color.GREEN)
@@ -233,9 +196,6 @@ func stop() -> void:
 	# Disable _this_ state node
 	process_mode = PROCESS_MODE_DISABLED
 
-	# Stop "shimmying" if applicable
-	end_shimmy()
-
 	# Flag player as not "hanging"
 	player.is_hanging = false
 
@@ -245,8 +205,9 @@ func stop() -> void:
 	# Make the player start falling again
 	player.velocity.y = - player.gravity
 
-	# [Hack] Adjust player visuals for animation
-	player.visuals_aux_scene.position.y += 0.55
+	# [Hack] Reset player visuals for animation
+	player.visuals_aux_scene.position.y = 0.0
+	player.animation_player.playback_default_blend_time = 0.2
 
 
 ## Draws a debug sphere at the given position.

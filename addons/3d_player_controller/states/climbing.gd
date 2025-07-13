@@ -33,6 +33,7 @@ func _input(event: InputEvent) -> void:
 		if event.is_action_pressed("crouch"):
 			# Start falling
 			transition(NODE_NAME, "Falling")
+			return
 
 		# [jump] button just _pressed_
 		if event.is_action_pressed("jump") and player.enable_jumping:
@@ -58,12 +59,14 @@ func _process(_delta: float) -> void:
 		if !collision_object.is_in_group("held") and !collision_object is CharacterBody3D:
 			# Start "hanging"
 			transition(NODE_NAME, "Hanging")
+			return
 
 	# Check if the player is on the ground (and has no vertical velocity)
 	if player.is_on_floor() and player.velocity.y == 0.0:
 		# Start "standing"
 		transition(NODE_NAME, "Standing")
-	
+		return
+
 	# Move the player in the current direction
 	move_character()
 
@@ -73,7 +76,7 @@ func _process(_delta: float) -> void:
 		play_animation()
 
 
-## Moves the player in the given direction.
+## Moves the player in the current direction.
 func move_character() -> void:
 	# Get the wall normal from the raycast
 	var wall_normal = player.raycast_high.get_collision_normal()
@@ -109,7 +112,7 @@ func play_animation() -> void:
 			player.animation_player.pause()
 			return
 
-		if player.velocity.x < 0.0:
+		if Input.is_action_pressed("move_left"):
 			player.visuals_aux_scene.position.y = -1.0 # Adjust visuals for left shimmy
 			if player.animation_player.current_animation != ANIMATION_HANGING_SHIMMY_LEFT:
 				player.animation_player.play(ANIMATION_HANGING_SHIMMY_LEFT)
@@ -117,7 +120,7 @@ func play_animation() -> void:
 				player.animation_player.play()
 			return
 
-		if player.velocity.x > 0.0:
+		if Input.is_action_pressed("move_right"):
 			player.visuals_aux_scene.position.y = -1.0 # Adjust visuals for right shimmy
 			if player.animation_player.current_animation != ANIMATION_HANGING_SHIMMY_RIGHT:
 				player.animation_player.play(ANIMATION_HANGING_SHIMMY_RIGHT)
@@ -125,7 +128,7 @@ func play_animation() -> void:
 				player.animation_player.play()
 			return
 
-		if player.velocity.y > 0.0:
+		if Input.is_action_pressed("move_up"):
 			player.visuals_aux_scene.position.y = -0.4 # Adjust visuals for climbing up
 			if player.animation_player.current_animation != ANIMATION_CLIMBING_IN_PLACE:
 				player.animation_player.play(ANIMATION_CLIMBING_IN_PLACE)
@@ -133,7 +136,7 @@ func play_animation() -> void:
 				player.animation_player.play()
 			return
 
-		if player.velocity.y < 0.0:
+		if Input.is_action_pressed("move_down"):
 			player.visuals_aux_scene.position.y = -0.4 # Adjust visuals for climbing down
 			if player.animation_player.current_animation != ANIMATION_CLIMBING_IN_PLACE:
 				player.animation_player.play_backwards(ANIMATION_CLIMBING_IN_PLACE)
@@ -170,7 +173,7 @@ func start() -> void:
 
 	# Get the collision normal
 	var collision_normal = player.raycast_high.get_collision_normal()
-	var wall_direction = -collision_normal
+	var wall_direction = - collision_normal
 	player.look_at(player.position + wall_direction, Vector3.UP)
 
 	# Calculate the direction from the player to collision point
