@@ -44,6 +44,10 @@ func _input(event: InputEvent) -> void:
 				# Set the player's position to the collision point
 				var tween = get_tree().create_tween()
 				tween.tween_property(player, "position", collision_point, 0.2)
+				# Cehck if the player is in first-person perspective
+				if player.perspective == 1:
+					# Rotate the body to match the camera_mount
+					player.visuals.rotation = Vector3(0.0, player.camera_mount.rotation.y, player.camera_mount.rotation.z)
 				# Start "standing"
 				transition(NODE_NAME, "Standing")
 				return
