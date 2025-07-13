@@ -116,10 +116,10 @@ func move_character(direction: float) -> void:
 
 		# Get the wall normal from the raycast
 		var wall_normal = player.raycast_high.get_collision_normal()
-		
+
 		# Calculate the right vector (perpendicular to wall normal and up)
 		var wall_right = Vector3.UP.cross(wall_normal).normalized()
-		
+
 		# Calculate movement vector along the wall surface
 		var move_direction = wall_right * direction
 
@@ -159,9 +159,6 @@ func play_animation() -> void:
 			# Stop player movement
 			player.velocity = Vector3.ZERO
 
-			# Re[set] player visuals for animation
-			player.visuals_aux_scene.position.y = 0.0
-
 			# Check if the animation player is not already playing the appropriate animation
 			if player.animation_player.current_animation != ANIMATION_HANGING:
 				# [Hack] Stop the current animation so no blending occurs
@@ -184,7 +181,7 @@ func start() -> void:
 
 	# Set the player's movement speed
 	player.speed_current = player.speed_crawling
-	
+
 	# Get the player's height
 	var player_height = player.get_node("CollisionShape3D").shape.height
 
@@ -194,79 +191,29 @@ func start() -> void:
 	# Get the collision point
 	var collision_point = player.raycast_high.get_collision_point()
 
+	# [DEBUG] Draw a debug sphere at the collision point
+	#_draw_debug_sphere(collision_point, Color.RED)
+
 	# Calculate the direction from the player to collision point
 	var direction = (collision_point - player.position).normalized()
 
 	# Calculate new point by moving back from point along the direction by the given player radius
 	collision_point = collision_point - direction * player_width
 
+	# [DEBUG] Draw a debug sphere at the collision point
+	#_draw_debug_sphere(collision_point, Color.YELLOW)
+
 	# Adjust the point relative to the player's height
-	collision_point.y -= player_height * 0.875
+	collision_point = Vector3(collision_point.x, player.position.y, collision_point.z)
 
-	# Get the collision normal
-	var normal = player.raycast_high.get_collision_normal()
-
-	# Get the current player's forward direction
-	var current_forward = - player.transform.basis.z.normalized()
-
-	# Check if player is already facing the wall correctly
-	# If the dot product is close to 1, they're already facing the wall
-	var dot_product = current_forward.dot(normal)
-
-	# If player is already facing the wall well enough, don't change rotation
-	var target_rotation
-	if dot_product > 0.7: # Threshold for "close enough"
-		target_rotation = player.rotation
-	else:
-		# Calculate the rotation to align with the wall
-		# The player should face the wall (same direction as normal)
-		var forward = normal
-		var up = Vector3.UP
-		var right = up.cross(forward).normalized()
-
-		# Handle case where forward and up are parallel (shouldn't happen on walls)
-		if right.length_squared() < 0.001:
-			right = Vector3.RIGHT
-
-		# Create the target basis
-		var target_basis = Basis(right, up, forward)
-
-		# Ensure the basis is orthonormal
-		target_basis = target_basis.orthonormalized()
-
-		# Get rotation from the target basis
-		target_rotation = target_basis.get_euler()
-
-		# Get the current player rotation
-		var current_y_rotation = player.rotation.y
-
-		# Find the equivalent target rotation that's closest to current rotation
-		var target_y_rotation = target_rotation.y
-
-		var angle_options = [
-			target_y_rotation,
-			target_y_rotation + 2 * PI,
-			target_y_rotation - 2 * PI
-		]
-
-		# Choose the angle closest to current rotation
-		var best_angle = target_y_rotation
-		var min_diff = abs(current_y_rotation - target_y_rotation)
-
-		for angle in angle_options:
-			var diff = abs(current_y_rotation - angle)
-			if diff < min_diff:
-				min_diff = diff
-				best_angle = angle
-
-		# Use the best angle
-		target_rotation.y = best_angle
-
-	# Set the player's rotation
-	player.rotation = target_rotation
-
-	# Set the player's position to the new point
+	# Move center of player to the collision point
 	player.position = collision_point
+
+	# [Hack] Adjust player visuals for animation
+	player.visuals_aux_scene.position.y -= 0.55
+
+	# [DEBUG] Draw a debug sphere at the collision point
+	#_draw_debug_sphere(collision_point, Color.GREEN)
 
 	# Flag the animation player as locked
 	player.is_animation_locked = true
@@ -295,14 +242,22 @@ func stop() -> void:
 	# Flag the player as not "shimmying"
 	player.is_shimmying = false
 
-	# [Re]Set the player's movement speed
-	player.speed_current = player.speed_walking
-
 	# Make the player start falling again
 	player.velocity.y = - player.gravity
 
-	# Reset CollisionShape3D height
-	player.get_node("CollisionShape3D").shape.height = player.collision_height
+	# [Hack] Adjust player visuals for animation
+	player.visuals_aux_scene.position.y += 0.55
 
-	# Reset CollisionShape3D position
-	player.get_node("CollisionShape3D").position = player.collision_position
+
+## Draws a debug sphere at the given position.
+func _draw_debug_sphere(pos: Vector3, color: Color) -> void:
+	var debug_sphere = MeshInstance3D.new()
+	player.get_tree().get_root().add_child(debug_sphere)
+	var sphere_mesh = SphereMesh.new()
+	sphere_mesh.radius = 0.1
+	sphere_mesh.height = 0.2
+	debug_sphere.mesh = sphere_mesh
+	var material = StandardMaterial3D.new()
+	material.albedo_color = color
+	debug_sphere.material_override = material
+	debug_sphere.global_position = pos

@@ -20,6 +20,8 @@ extends BaseState
 #└── Walking (walking.gd)
 
 const ANIMATION_CLIMBING_IN_PLACE = "Climbing_Up_Wall_In_Place" + "/mixamo_com"
+const ANIMATION_HANGING_SHIMMY_LEFT := "Braced_Hang_Shimmy_Left_In_Place" + "/mixamo_com"
+const ANIMATION_HANGING_SHIMMY_RIGHT := "Braced_Hang_Shimmy_Right_In_Place" + "/mixamo_com"
 const NODE_NAME := "Climbing"
 
 
@@ -34,106 +36,114 @@ func _input(event: InputEvent) -> void:
 
 		# [jump] button just _pressed_
 		if event.is_action_pressed("jump") and player.enable_jumping:
-			# ToDo: Mantle up
+			# ToDo: Jump up and climb higher
 			pass
-
-		# [move_down] button pressed
-		if event.is_action_pressed("move_down"):
-			# Move the player down
-			move_character(-1)
-
-		# [move_down] button released
-		if event.is_action_released("move_down"):
-			# Stop moving down
-			move_character(0)
-			pass
-
-		# [move_up] button pressed
-		if event.is_action_pressed("move_up"):
-			# Move the player up
-			move_character(1)
-
-		# [move_up] button released
-		if event.is_action_released("move_up"):
-			# Stop moving up
-			move_character(0)
 
 		# [sprint] button just _pressed_
 		if event.is_action_pressed("sprint"):
-			# ToDo: Drop down
+			# ToDo: Climb faster
 			pass
 
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-
 	# Uncomment the next line if using GodotSteam
 	#if !is_multiplayer_authority(): return
-
 	# Check the eyeline for a ledge to grab.
 	if !player.raycast_top.is_colliding() and player.raycast_high.is_colliding():
-
 		# Get the collision object
 		var collision_object = player.raycast_high.get_collider()
 
 		# Only proceed if the collision object is not in the "held" group and not a player
 		if !collision_object.is_in_group("held") and !collision_object is CharacterBody3D:
-
 			# Start "hanging"
 			transition(NODE_NAME, "Hanging")
 
 	# Check if the player is on the ground (and has no vertical velocity)
-	if player.is_on_floor() and player.velocity.y ==  0.0:
-
+	if player.is_on_floor() and player.velocity.y == 0.0:
 		# Start "standing"
 		transition(NODE_NAME, "Standing")
+	
+	# Move the player in the current direction
+	move_character()
 
 	# Check if the player is "climbing"
 	if player.is_climbing:
-
 		# Play the animation
 		play_animation()
 
 
 ## Moves the player in the given direction.
-func move_character(direction: float) -> void:
+func move_character() -> void:
 	# Get the wall normal from the raycast
 	var wall_normal = player.raycast_high.get_collision_normal()
+	# Calculate the right vector (perpendicular to wall normal and up)
+	var wall_right = Vector3.UP.cross(wall_normal).normalized()
 
-	# Move along the up vector instead of wall_right
-	var move_direction = Vector3.UP * direction
+	var move_direction = Vector3.ZERO
+
+	# Check current input states to support diagonal movement
+	if Input.is_action_pressed("move_left"):
+		move_direction += wall_right * -1
+	if Input.is_action_pressed("move_right"):
+		move_direction += wall_right
+	if Input.is_action_pressed("move_up"):
+		move_direction += Vector3.UP
+	if Input.is_action_pressed("move_down"):
+		move_direction += Vector3.UP * -1
+
+	# Normalize for consistent speed when moving diagonally
+	if move_direction.length() > 0:
+		move_direction = move_direction.normalized()
 
 	# Apply movement
 	player.velocity = move_direction * player.speed_current
-
-	# If using CharacterBody3D, you need to call move_and_slide()
 	player.move_and_slide()
 
 
 ## Plays the appropriate animation based on player state.
 func play_animation() -> void:
-	# Check if the animation player is not locked
 	if !player.is_animation_locked:
-
-		# Check if the player is not moving
+		# If not moving, just pause current animation
 		if player.velocity == Vector3.ZERO:
-			# Pause the animation player
 			player.animation_player.pause()
+			return
 
-		# Check if the player is moving up
-		elif player.velocity.y > 0.0:
-				# Resume the animation player
+		if player.velocity.x < 0.0:
+			player.visuals_aux_scene.position.y = -1.0 # Adjust visuals for left shimmy
+			if player.animation_player.current_animation != ANIMATION_HANGING_SHIMMY_LEFT:
+				player.animation_player.stop()
+				player.animation_player.play(ANIMATION_HANGING_SHIMMY_LEFT)
+			else:
 				player.animation_player.play()
+			return
 
-		# Check if the player is moving down
-		elif player.velocity.y < 0.0:
-			# Resume the animation player
-			player.animation_player.play_backwards()
+		if player.velocity.x > 0.0:
+			player.visuals_aux_scene.position.y = -1.0 # Adjust visuals for right shimmy
+			if player.animation_player.current_animation != ANIMATION_HANGING_SHIMMY_RIGHT:
+				player.animation_player.stop()
+				player.animation_player.play(ANIMATION_HANGING_SHIMMY_RIGHT)
+			else:
+				player.animation_player.play()
+			return
 
-		# Check if the animation player is not already playing the appropriate animation
-		if player.animation_player.current_animation != ANIMATION_CLIMBING_IN_PLACE:
-			# Play the "climbing" animation
-			player.animation_player.play(ANIMATION_CLIMBING_IN_PLACE)
+		if player.velocity.y > 0.0:
+			player.visuals_aux_scene.position.y = -0.4 # Adjust visuals for climbing up
+			if player.animation_player.current_animation != ANIMATION_CLIMBING_IN_PLACE:
+				player.animation_player.stop()
+				player.animation_player.play(ANIMATION_CLIMBING_IN_PLACE)
+			else:
+				player.animation_player.play()
+			return
+
+		if player.velocity.y < 0.0:
+			player.visuals_aux_scene.position.y = -0.4 # Adjust visuals for climbing down
+			if player.animation_player.current_animation != ANIMATION_CLIMBING_IN_PLACE:
+				player.animation_player.stop()
+				player.animation_player.play_backwards(ANIMATION_CLIMBING_IN_PLACE)
+			else:
+				player.animation_player.play_backwards()
+			return
 
 
 ## Start "climbing".
@@ -159,79 +169,30 @@ func start() -> void:
 	# Get the collision point
 	var collision_point = player.raycast_high.get_collision_point()
 
+	# [DEBUG] Draw a debug sphere at the collision point
+	#_draw_debug_sphere(collision_point, Color.RED)
+
 	# Calculate the direction from the player to collision point
 	var direction = (collision_point - player.position).normalized()
 
 	# Calculate new point by moving back from point along the direction by the given player radius
 	collision_point = collision_point - direction * player_width
 
+	# [DEBUG] Draw a debug sphere at the collision point
+	#_draw_debug_sphere(collision_point, Color.YELLOW)
+
 	# Adjust the point relative to the player's height
-	collision_point.y -= player_height * 0.875
+	collision_point = Vector3(collision_point.x, player.position.y, collision_point.z)
 
-	# Get the collision normal
-	var normal = player.raycast_high.get_collision_normal()
-
-	# Get the current player's forward direction
-	var current_forward = - player.transform.basis.z.normalized()
-
-	# Check if player is already facing the wall correctly
-	# If the dot product is close to 1, they're already facing the wall
-	var dot_product = current_forward.dot(normal)
-
-	# If player is already facing the wall well enough, don't change rotation
-	var target_rotation
-	if dot_product > 0.7: # Threshold for "close enough"
-		target_rotation = player.rotation
-	else:
-		# Calculate the rotation to align with the wall
-		# The player should face the wall (same direction as normal)
-		var forward = normal
-		var up = Vector3.UP
-		var right = up.cross(forward).normalized()
-
-		# Handle case where forward and up are parallel (shouldn't happen on walls)
-		if right.length_squared() < 0.001:
-			right = Vector3.RIGHT
-
-		# Create the target basis
-		var target_basis = Basis(right, up, forward)
-
-		# Ensure the basis is orthonormal
-		target_basis = target_basis.orthonormalized()
-
-		# Get rotation from the target basis
-		target_rotation = target_basis.get_euler()
-
-		# Get the current player rotation
-		var current_y_rotation = player.rotation.y
-
-		# Find the equivalent target rotation that's closest to current rotation
-		var target_y_rotation = target_rotation.y
-
-		var angle_options = [
-			target_y_rotation,
-			target_y_rotation + 2 * PI,
-			target_y_rotation - 2 * PI
-		]
-
-		# Choose the angle closest to current rotation
-		var best_angle = target_y_rotation
-		var min_diff = abs(current_y_rotation - target_y_rotation)
-
-		for angle in angle_options:
-			var diff = abs(current_y_rotation - angle)
-			if diff < min_diff:
-				min_diff = diff
-				best_angle = angle
-
-		# Use the best angle
-		target_rotation.y = best_angle
-
-	# Set the player's rotation
-	player.rotation = target_rotation
-
-	# Set the player's position to the new point
+	# Move center of player to the collision point
 	player.position = collision_point
+
+	# [Hack] Adjust player visuals for animation
+	player.visuals_aux_scene.position.y = -0.4
+	player.animation_player.play(ANIMATION_CLIMBING_IN_PLACE)
+
+	# [DEBUG] Draw a debug sphere at the collision point
+	#_draw_debug_sphere(collision_point, Color.GREEN)
 
 	# Flag the animation player as locked
 	player.is_animation_locked = true
@@ -253,3 +214,20 @@ func stop() -> void:
 
 	# Flag the player as not "climbing"
 	player.is_climbing = false
+
+	# [Hack] Adjust player visuals for animation
+	player.visuals_aux_scene.position.y = 0.0
+
+
+## Draws a debug sphere at the given position.
+func _draw_debug_sphere(pos: Vector3, color: Color) -> void:
+	var debug_sphere = MeshInstance3D.new()
+	player.get_tree().get_root().add_child(debug_sphere)
+	var sphere_mesh = SphereMesh.new()
+	sphere_mesh.radius = 0.1
+	sphere_mesh.height = 0.2
+	debug_sphere.mesh = sphere_mesh
+	var material = StandardMaterial3D.new()
+	material.albedo_color = color
+	debug_sphere.material_override = material
+	debug_sphere.global_position = pos
