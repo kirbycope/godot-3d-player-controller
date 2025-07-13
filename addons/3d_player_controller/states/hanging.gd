@@ -98,6 +98,9 @@ func move_character() -> void:
 func play_animation() -> void:
 	# Check if the animation player is not locked
 	if !player.is_animation_locked:
+		# Check if the player is shimmying
+		player.is_shimmying = Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right")
+
 		# If not moving, just pause current animation
 		if player.velocity == Vector3.ZERO:
 			player.visuals_aux_scene.position.y = -0.55 # Adjust visuals for hanging

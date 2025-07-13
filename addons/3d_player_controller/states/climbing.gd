@@ -102,11 +102,19 @@ func move_character() -> void:
 	# Apply movement
 	player.velocity = move_direction * player.speed_current
 	player.move_and_slide()
+	
+	# Ensure player stays upright during movement
+	# Lock X and Z rotation to prevent tilting
+	player.rotation.x = 0.0
+	player.rotation.z = 0.0
 
 
 ## Plays the appropriate animation based on player state.
 func play_animation() -> void:
 	if !player.is_animation_locked:
+		# Check if the player is shimmying
+		player.is_shimmying = Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right")
+
 		# If not moving, just pause current animation
 		if player.velocity == Vector3.ZERO:
 			player.animation_player.pause()
@@ -118,6 +126,7 @@ func play_animation() -> void:
 				player.animation_player.play(ANIMATION_HANGING_SHIMMY_LEFT)
 			else:
 				player.animation_player.play()
+			player.is_shimmying = true
 			return
 
 		if Input.is_action_pressed("move_right"):
@@ -126,7 +135,10 @@ func play_animation() -> void:
 				player.animation_player.play(ANIMATION_HANGING_SHIMMY_RIGHT)
 			else:
 				player.animation_player.play()
+			player.is_shimmying = true
 			return
+
+
 
 		if Input.is_action_pressed("move_up"):
 			player.visuals_aux_scene.position.y = -0.4 # Adjust visuals for climbing up
@@ -134,6 +146,7 @@ func play_animation() -> void:
 				player.animation_player.play(ANIMATION_CLIMBING_IN_PLACE)
 			else:
 				player.animation_player.play()
+			player.is_shimmying = false
 			return
 
 		if Input.is_action_pressed("move_down"):
@@ -142,6 +155,7 @@ func play_animation() -> void:
 				player.animation_player.play_backwards(ANIMATION_CLIMBING_IN_PLACE)
 			else:
 				player.animation_player.play_backwards()
+			player.is_shimmying = false
 			return
 
 
@@ -174,6 +188,12 @@ func start() -> void:
 	# Get the collision normal
 	var collision_normal = player.raycast_high.get_collision_normal()
 	var wall_direction = - collision_normal
+	
+	# Ensure the wall direction is horizontal (remove any vertical component)
+	wall_direction.y = 0.0
+	wall_direction = wall_direction.normalized()
+	
+	# Make the player face the wall while keeping upright
 	player.look_at(player.position + wall_direction, Vector3.UP)
 
 	# Calculate the direction from the player to collision point
@@ -221,8 +241,8 @@ func stop() -> void:
 	player.is_climbing = false
 
 	# [Hack] Reset player visuals for animation
-	player.visuals_aux_scene.position.y = 0.0
 	player.animation_player.playback_default_blend_time = 0.2
+	player.visuals_aux_scene.position.y = 0.0
 
 
 ## Draws a debug sphere at the given position.

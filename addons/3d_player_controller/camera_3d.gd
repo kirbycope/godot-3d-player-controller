@@ -170,6 +170,13 @@ func move_camera():
 		# Adjust the camera position to match the bone's relative position
 		camera_mount.position = Vector3(-bone_pose.origin.x, bone_pose.origin.y, -bone_pose.origin.z)
 
+		# [Hack] Adjust camera for first person
+		if player.perspective == 1:
+			if player.is_shimmying:
+				camera_mount.position.y -= 1.0 # Adjust visuals for shimmying
+			elif player.is_hanging:
+				camera_mount.position.y -= 0.55 # Adjust visuals for hanging
+
 
 ## Switches the player perspective to "first" person.
 func switch_to_first_person() -> void:
