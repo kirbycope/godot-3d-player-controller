@@ -98,7 +98,6 @@ visible = false
 
 [node name="ShapeCast3D" type="ShapeCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
-enabled = false
 shape = SubResource("CylinderShape3D_8pp8g")
 target_position = Vector3(0, -0.5, 0)
 
