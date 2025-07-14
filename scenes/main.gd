@@ -5,7 +5,8 @@ extends Node3D
 
 ## Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	# Rotate the Portal gun
+	$"PortalGun/AnimationPlayer".play("rotate")
 
 
 func _on_area_3d_fishing_rod_body_entered(body: Node3D) -> void:

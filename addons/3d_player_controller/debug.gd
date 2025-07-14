@@ -85,7 +85,8 @@ func _process(_delta: float) -> void:
 		$Panel2/GamePaused.button_pressed = player.game_paused
 
 		# Panel 3
-		$FPS/Label.text = "FPS: " + str(int(Engine.get_frames_per_second()))
+		$Statistics/Coordinates.text = "X:%.1f Y:%.1f Z:%.1f" % [player.global_position.x, player.global_position.y, player.global_position.z]
+		$Statistics/FPS.text = "FPS: " + str(int(Engine.get_frames_per_second()))
 
 
 ## Called when the "enable_chat" toggle option is changed.

@@ -153,4 +153,3 @@ transform = Transform3D(0.01905, 0, 0, 0, 0.01905, 0, 0, 0, 0.01905, -0.028575, 
 libraries = {
 &"": SubResource("AnimationLibrary_s584w")
 }
-autoplay = "rotate"
