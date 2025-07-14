@@ -85,7 +85,6 @@ transform = Transform3D(-1.4, 0, -1.22392e-07, 0, 1.4, 0, 1.22392e-07, 0, -1.4, 
 [node name="w_portalgun_ARM" type="Node3D" parent="."]
 
 [node name="Skeleton3D" type="Skeleton3D" parent="w_portalgun_ARM"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 bones/0/name = "weapon_bone"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
@@ -154,3 +153,4 @@ transform = Transform3D(0.01905, 0, 0, 0, 0.01905, 0, 0, 0, 0.01905, -0.028575, 
 libraries = {
 &"": SubResource("AnimationLibrary_s584w")
 }
+autoplay = "rotate"

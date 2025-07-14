@@ -26,7 +26,7 @@ const STATES = preload("res://addons/3d_player_controller/states/states.gd")
 
 # Note: `@export` variables are available for editing in the property editor.
 @export var current_state: STATES.State = STATES.State.STANDING
-@export var enable_chat: bool = false
+@export var enable_chat: bool = true
 @export var enable_emotes: bool = true
 @export var enable_climbing: bool = true
 @export var enable_crouching: bool = true
@@ -106,6 +106,7 @@ var virtual_velocity: Vector3 = Vector3.ZERO
 @onready var base_state: BaseState = $States/Base
 @onready var camera_mount = $CameraMount
 @onready var camera = $CameraMount/Camera3D
+@onready var chat_window = $CameraMount/Camera3D/ChatWindow
 @onready var collision_shape = $CollisionShape3D
 @onready var collision_height = $CollisionShape3D.shape.height
 @onready var collision_position = $CollisionShape3D.position
@@ -135,6 +136,7 @@ var virtual_velocity: Vector3 = Vector3.ZERO
 func _ready() -> void:
 	# Uncomment the next line if using GodotSteam
 	#camera.current = is_multiplayer_authority()
+
 	# Make sure the game is unpaused
 	game_paused = false
 
@@ -143,13 +145,17 @@ func _ready() -> void:
 
 	# Set the debug canvas layer behind all others
 	$Controls.layer = -1
+	
+	# Display chat if enabled
+	chat_window.visible = enable_chat
 
 
 ## Called each physics frame with the time since the last physics frame as argument (delta, in seconds).
 func _physics_process(delta) -> void:
 	# Uncomment the next line if using GodotSteam
 	#if !is_multiplayer_authority(): return
-	# If the game is not paused...
+
+	# Check if the game is not paused
 	if !game_paused:
 		# Check if no animation is playing
 		if !animation_player.is_playing():

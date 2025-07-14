@@ -38,6 +38,12 @@ func _ready():
 	input_container.hide()
 
 
+## Called every frame. '_delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+	# Show the chat window if chat is enabled
+	visible = player.enable_chat
+
+
 ## Called when there is an input event.
 func _input(event: InputEvent) -> void:
 	# [chat] button _released_
@@ -48,6 +54,25 @@ func _input(event: InputEvent) -> void:
 
 		# Show the chat input
 		input_container.show()
+
+		# Focus the input field
+		input_field.grab_focus()
+
+		# Disable player movement
+		player.game_paused = true
+
+	# [/] slash key _released_
+	if event is InputEventKey and event.is_released() and event.keycode == KEY_SLASH and !player.game_paused:
+
+		# Show the mouse
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+		# Show the chat input
+		input_container.show()
+
+		# Add the character '/' to the input field
+		input_field.text += "/"
+		input_field.caret_column = 1
 
 		# Focus the input field
 		input_field.grab_focus()
@@ -97,6 +122,7 @@ func _on_chat_display_mouse_exited() -> void:
 func _on_send_button_pressed() -> void:
 	send_message()
 
+
 ## Called when the input field text is submitted (e.g., by pressing Enter).
 func _on_message_input_text_submitted(_text: String) -> void:
 	send_message()
@@ -111,16 +137,26 @@ func send_message() -> void:
 	if message_text.is_empty():
 		return
 
-	var username = OS.get_environment("USERNAME")
-	if username.is_empty():
-		username = OS.get_environment("USER")
+	# Check if the message starts with a '/' character
+	if message_text.begins_with("/"):
+		# Handle command
+		handle_command(message_text)
 
-	# Always create message locally first for immediate feedback
-	#create_message_for_all.rpc(str(Steam.getPersonaName()), message_text)
-	create_message_for_all.rpc(username, message_text)
+	# The message must not be a command
+	else:
+		# Get the username from the OS environment (Windows)
+		var username = OS.get_environment("USERNAME")
+		# Check if the username is empty
+		if username.is_empty():
+			# Get the username from the OS environment (Linux/macOS)
+			username = OS.get_environment("USER")
 
-	# [Re]Set refocus on the input field
-	#input_field.grab_focus()
+		# Always create message locally first for immediate feedback
+		#create_message_for_all.rpc(str(Steam.getPersonaName()), message_text)
+		create_message_for_all.rpc(username, message_text)
+
+		# [Re]Set refocus on the input field
+		#input_field.grab_focus()
 
 	# Close the chat input
 	_on_cancel_button_pressed()
@@ -139,3 +175,39 @@ func create_message_for_all(sender: String, message_text: String) -> void:
 
 	# Scroll to bottom
 	scroll_container.scroll_vertical = scroll_container.get_v_scroll_bar().max_value
+
+
+## Handles commands sent by the player.
+func handle_command(message_text: String) -> void:
+	if message_text.begins_with("/"):
+		# Split the message at spaces to separate command and arguments
+		var parts = message_text.split(" ", true)
+		# Get the command (in lowercase)
+		var command = parts[0].to_lower()
+		# Get the arguments (if any)
+		var args = parts.slice(1)
+		# Handle specific commands
+		if command == "/help":
+			# Show help message
+			var commands = [
+				"Available commands:",
+				"/help - Show this help message",
+				"/teleport <x> <y> <z> - Teleport to coordinates",
+				"/tp <x> <y> <z> - Teleport to coordinates (short form)"
+			]
+			var help_text = "\n".join(commands)
+			create_message_for_all.rpc("System", help_text)
+		elif command == "/teleport" or command == "/tp":
+			# Check if there are enough arguments
+			if args.size() < 2:
+				create_message_for_all.rpc("System", "Usage: /teleport <x> <y> <z>")
+			# Try to parse the coordinates
+			var x = float(args[0])
+			var y = float(args[1])
+			var z = float(args[2])
+			# Teleport the player
+			player.position = Vector3(x, y, z)
+			# Announce the teleportation
+			create_message_for_all.rpc("System", "Teleported to: " + str(player.position))
+		else:
+			create_message_for_all.rpc("System", "Unknown command: " + command)

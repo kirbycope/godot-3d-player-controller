@@ -5,22 +5,7 @@ extends Node3D
 
 ## Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-
-	# Disable the mouse pointer and capture the motion
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-
-	# Make sure the game is unpaused
-	player.game_paused = false
-
-	# Rotate the Portal gun
-	$"PortalGun/AnimationPlayer".play("rotate")
-
-	# Show the debug control
-	#player.get_node("CameraMount/Camera3D/Debug").visible = true
-
-	# Show the controller
-	#player.get_node("Controls/Debug").show()
-	#player.get_node("Controls/Debug/MicrosoftController").show()
+	pass
 
 
 func _on_area_3d_fishing_rod_body_entered(body: Node3D) -> void:
