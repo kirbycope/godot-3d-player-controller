@@ -21,6 +21,8 @@ extends Control
 
 const MESSAGE_SCENE : PackedScene = preload("res://addons/3d_player_controller/message.tscn")
 
+var last_message_index := 0
+var last_message_text := []
 var should_show_messages: bool = false
 
 # Note: `@onready` variables are set when the scene is loaded.
@@ -80,6 +82,40 @@ func _input(event: InputEvent) -> void:
 		# Disable player movement
 		player.game_paused = true
 
+	# [↓] down key _released_
+	if event is InputEventKey and event.is_released() and event.keycode == KEY_DOWN and player.game_paused:
+		# Check if we can go forward in history (towards newer messages)
+		if last_message_index > 1:
+			last_message_index -= 1
+
+			# Set input field to message text
+			input_field.text = last_message_text[-last_message_index]
+			input_field.caret_column = last_message_text[-last_message_index].length()
+
+		# There must not be any more history
+		elif last_message_index == 1:
+			# Clear the input field when going past the newest message
+			last_message_index = 0
+			input_field.text = ""
+			input_field.caret_column = 0
+
+		# Focus the input field
+		input_field.grab_focus()
+
+	# [↑] up key _released_
+	if event is InputEventKey and event.is_released() and event.keycode == KEY_UP and player.game_paused:
+		# Check if there is history to display and we haven't reached the oldest message
+		if last_message_text.size() > 0 and last_message_index < last_message_text.size():
+			last_message_index += 1
+
+			# Set input field to message text
+			input_field.text = last_message_text[-last_message_index]
+			input_field.caret_column = last_message_text[-last_message_index].length()
+
+			# Focus the input field
+			input_field.grab_focus()
+
+
 	# [cancel] button _pressed_
 	if event.is_action_pressed("ui_cancel"):
 
@@ -130,17 +166,22 @@ func _on_message_input_text_submitted(_text: String) -> void:
 
 ## Sends a message to all peers.
 func send_message() -> void:
+
 	# Get the text from the input field
 	var message_text = input_field.text.strip_edges()
 
 	# Return early if the message is empty
 	if message_text.is_empty():
 		return
+	else:
+		# Store the last message text for history
+		last_message_text.append(message_text)
+		last_message_index = 0
 
 	# Check if the message starts with a '/' character
-	if message_text.begins_with("/"):
+	if last_message_text[-1].begins_with("/"):
 		# Handle command
-		handle_command(message_text)
+		handle_command(last_message_text[-1])
 
 	# The message must not be a command
 	else:
@@ -152,8 +193,8 @@ func send_message() -> void:
 			username = OS.get_environment("USER")
 
 		# Always create message locally first for immediate feedback
-		#create_message_for_all.rpc(str(Steam.getPersonaName()), message_text)
-		create_message_for_all.rpc(username, message_text)
+		#create_message_for_all.rpc(str(Steam.getPersonaName()), last_message_text[-1])
+		create_message_for_all.rpc(username, last_message_text[-1])
 
 		# [Re]Set refocus on the input field
 		#input_field.grab_focus()
@@ -199,8 +240,9 @@ func handle_command(message_text: String) -> void:
 			create_message_for_all.rpc("System", help_text)
 		elif command == "/teleport" or command == "/tp":
 			# Check if there are enough arguments
-			if args.size() < 2:
+			if args.size() != 3:
 				create_message_for_all.rpc("System", "Usage: /teleport <x> <y> <z>")
+				return
 			# Get X
 			var x = null
 			if args[0] == "~":
