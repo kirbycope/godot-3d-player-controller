@@ -201,10 +201,24 @@ func handle_command(message_text: String) -> void:
 			# Check if there are enough arguments
 			if args.size() < 2:
 				create_message_for_all.rpc("System", "Usage: /teleport <x> <y> <z>")
-			# Try to parse the coordinates
-			var x = float(args[0])
-			var y = float(args[1])
-			var z = float(args[2])
+			# Get X
+			var x = null
+			if args[0] == "~":
+				x = player.position.x
+			else:
+				x = float(args[0])
+			var y = null
+			# Get Y
+			if args[1] == "~":
+				y = player.position.y
+			else:
+				y = float(args[1])
+			# Get Z
+			var z = null
+			if args[2] == "~":
+				z = player.position.z
+			else:
+				z = float(args[2])
 			# Teleport the player
 			player.position = Vector3(x, y, z)
 			# Announce the teleportation

@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=45 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" uid="uid://c7agev1ouwnuu" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="Texture2D" uid="uid://e6rn4rs3cr0v" path="res://assets/kenney_nl/prototype_textures/PNG/Dark/texture_09.png" id="2_d2mly"]
@@ -16,6 +16,7 @@
 [ext_resource type="Shader" uid="uid://dtltd1rk71y13" path="res://scenes/water.gdshader" id="12_wmmbb"]
 [ext_resource type="PackedScene" uid="uid://cqwgvb8l36ahu" path="res://scenes/skateboard.tscn" id="14_5m2ip"]
 [ext_resource type="PackedScene" uid="uid://drj7qejya7pr0" path="res://scenes/honda_crv.tscn" id="15_5l67w"]
+[ext_resource type="Texture2D" uid="uid://bdtte10ghbme5" path="res://assets/kenney_nl/prototype_textures/PNG/Red/texture_01.png" id="17_muem4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yu8tv"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -111,6 +112,11 @@ material = SubResource("StandardMaterial3D_0ld40")
 top_radius = 0.1
 bottom_radius = 0.1
 height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dp3eg"]
+albedo_texture = ExtResource("17_muem4")
+uv1_offset = Vector3(0.5, 0.25, 0)
+uv1_triplanar = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jbj1t"]
 vertex_color_use_as_albedo = true
@@ -367,6 +373,7 @@ mesh = SubResource("CylinderMesh_gqmmt")
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.75, -8)
+material_override = SubResource("StandardMaterial3D_dp3eg")
 use_collision = true
 size = Vector3(3, 5.5, 1)
 material = SubResource("StandardMaterial3D_jbj1t")
