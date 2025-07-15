@@ -190,6 +190,27 @@ func _physics_process(delta) -> void:
 			move_player(delta)
 
 
+## Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+
+	# Uncomment the next line if using GodotSteam
+	#if !is_multiplayer_authority(): return
+
+	# Check if the game is not paused
+	if !game_paused:
+		# Check if the noclip mode is enabled
+		if enable_noclip:
+			# [Re]Set player's movement speed
+			speed_current = speed_flying_fast
+			# [crouch] button _pressed_
+			if Input.is_action_pressed("crouch"):
+				global_position = global_position - Vector3(0, delta * 10, 0)
+			# [jump] button _pressed_
+			if Input.is_action_pressed("jump"):
+				global_position = global_position + Vector3(0, delta * 10, 0)
+
+
+
 ## Check if the kick hits anything.
 func check_kick_collision() -> void:
 	# Check if the RayCast3D is colliding with something
