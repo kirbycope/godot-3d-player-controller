@@ -34,6 +34,7 @@ const STATES = preload("res://addons/3d_player_controller/states/states.gd")
 @export var enable_flying: bool = false
 @export var enable_jumping: bool = true
 @export var enable_kicking: bool = true
+@export var enable_noclip: bool = false
 @export var enable_punching: bool = true
 @export var enable_sprinting: bool = true
 @export var enable_vibration: bool = false
@@ -170,8 +171,8 @@ func _physics_process(delta) -> void:
 
 		# Check if the player is not climbing, not driving, and not hanging
 		if !is_climbing and !is_driving and !is_hanging:
-			# Check if the player is "swimming"
-			if is_swimming:
+			# Check if the player is "swimming" or noclip mode is enabled
+			if is_swimming or enable_noclip:
 				# Ignore the gravity
 				velocity.y = 0.0
 
@@ -335,8 +336,18 @@ func move_player(delta: float) -> void:
 		# Stop vertical movement by zeroing the Y velocity
 		velocity.y = 0.0
 
+	# Handle noclip mode
+	if enable_noclip:
+		velocity.y = 0.0
+
 	# Moves the body based on velocity.
 	move_and_slide()
+
+
+## Toggles the noclip mode.
+func toggle_noclip() -> void:
+	enable_noclip = !enable_noclip
+	collision_shape.disabled = enable_noclip
 
 
 ## Update the player's velocity based on input and status.

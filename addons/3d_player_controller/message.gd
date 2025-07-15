@@ -23,9 +23,9 @@ extends PanelContainer
 const HIDE_DELAY: float = 30.0
 
 # Note: `@onready` variables are set when the scene is loaded.
-@onready var content_label: Label = %ContentLabel
+@onready var content_label: RichTextLabel = %ContentLabel
 @onready var hide_timer: Timer = %HideTimer
-@onready var sender_label: Label = %SenderLabel
+@onready var sender_label: RichTextLabel = %SenderLabel
 
 
 ## Called when the node enters the scene tree for the first time.

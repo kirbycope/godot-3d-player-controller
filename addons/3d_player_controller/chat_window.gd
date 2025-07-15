@@ -19,7 +19,10 @@ extends Control
 #	└── AuxScene
 #		└── AnimationPlayer
 
-const MESSAGE_SCENE : PackedScene = preload("res://addons/3d_player_controller/message.tscn")
+const MESSAGE_SCENE: PackedScene = preload("res://addons/3d_player_controller/message.tscn")
+
+@export var time_node_path: String = "" # "Sky3D"
+@export var weather_node_path: String = "" # "HUD/BottomRight/Weather"
 
 var last_message_index := 0
 var last_message_text := []
@@ -50,7 +53,6 @@ func _process(_delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	# [chat] button _released_
 	if event.is_action_released("dpad_right") and !player.game_paused:
-
 		# Show the mouse
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
@@ -65,7 +67,6 @@ func _input(event: InputEvent) -> void:
 
 	# [/] slash key _released_
 	if event is InputEventKey and event.is_released() and event.keycode == KEY_SLASH and !player.game_paused:
-
 		# Show the mouse
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
@@ -118,7 +119,6 @@ func _input(event: InputEvent) -> void:
 
 	# [cancel] button _pressed_
 	if event.is_action_pressed("ui_cancel"):
-
 		# Clear input
 		input_field.text = ""
 
@@ -166,7 +166,6 @@ func _on_message_input_text_submitted(_text: String) -> void:
 
 ## Sends a message to all peers.
 func send_message() -> void:
-
 	# Get the text from the input field
 	var message_text = input_field.text.strip_edges()
 
@@ -179,9 +178,9 @@ func send_message() -> void:
 		last_message_index = 0
 
 	# Check if the message starts with a '/' character
-	if last_message_text[-1].begins_with("/"):
+	if message_text.begins_with("/"):
 		# Handle command
-		handle_command(last_message_text[-1])
+		handle_command(message_text)
 
 	# The message must not be a command
 	else:
@@ -192,9 +191,12 @@ func send_message() -> void:
 			# Get the username from the OS environment (Linux/macOS)
 			username = OS.get_environment("USER")
 
+		# Format the message text with italics
+		message_text = "[i]" + message_text
+
 		# Always create message locally first for immediate feedback
-		#create_message_for_all.rpc(str(Steam.getPersonaName()), last_message_text[-1])
-		create_message_for_all.rpc(username, last_message_text[-1])
+		#create_message_for_all.rpc(str(Steam.getPersonaName()), message_text)
+		create_message_for_all.rpc(username, message_text)
 
 		# [Re]Set refocus on the input field
 		#input_field.grab_focus()
@@ -227,22 +229,38 @@ func handle_command(message_text: String) -> void:
 		var command = parts[0].to_lower()
 		# Get the arguments (if any)
 		var args = parts.slice(1)
-		# Handle specific commands
+
+		# HELP
 		if command == "/help":
 			# Show help message
 			var commands = [
 				"Available commands:",
-				"/help - Show this help message",
-				"/teleport <x> <y> <z> - Teleport to coordinates",
-				"/tp <x> <y> <z> - Teleport to coordinates (short form)"
+				"/help - Show [i]this[/i] help message",
+				"/noclip - Toggle player collision",
+				"/teleport [color=gray]<x> <y> <z>[/color] - Teleport to coordinates",
+				"/time [color=gray]<time>[/color] - Change the time of day (between 0.0 and 23.99)",
+				"/tp [color=gray]<x> <y> <z>[/color] - Teleport to coordinates (short form)",
+				"/weather [color=gray]<condition>[/color] - Change the weather",
 			]
 			var help_text = "\n".join(commands)
 			create_message_for_all.rpc("System", help_text)
+
+		# NOCLIP
+		elif command == "/noclip":
+			# Toggle player collision
+			player.toggle_noclip()
+			if player.enable_noclip:
+				create_message_for_all.rpc("System", "Noclip enabled")
+			else:
+				create_message_for_all.rpc("System", "Noclip disabled")
+
+		# TELEPORT
 		elif command == "/teleport" or command == "/tp":
 			# Check if there are enough arguments
 			if args.size() != 3:
 				create_message_for_all.rpc("System", "Usage: /teleport <x> <y> <z>")
 				return
+
 			# Get X
 			var x = null
 			if args[0] == "~":
@@ -265,5 +283,62 @@ func handle_command(message_text: String) -> void:
 			player.position = Vector3(x, y, z)
 			# Announce the teleportation
 			create_message_for_all.rpc("System", "Teleported to: " + str(player.position))
+
+		# TIME
+		elif command == "/time":
+			# Check if there are enough arguments
+			if args.size() != 1:
+				create_message_for_all.rpc("System", "Usage: /time <time> (between 0.0 and 23.99)")
+				return
+
+			# Check if the current [root] scene contains a Time node
+			if get_tree().current_scene.has_node(time_node_path):
+				var time_value = float(args[0])
+				if time_value >= 0.0 and time_value <= 23.99:
+					get_tree().current_scene.get_node(time_node_path).current_time = time_value
+					create_message_for_all.rpc("System", "Time set to: " + str(time_value))
+				else:
+					create_message_for_all.rpc("System", "Time must be between 0.0 and 23.99")
+			else:
+				create_message_for_all.rpc("System", "Time node not found")
+
+		# WEATHER
+		elif command == "/weather":
+			# Check if there are enough arguments
+			if args.size() != 1:
+				create_message_for_all.rpc("System", "Usage: /weather <condition>")
+				return
+
+			# Check if the current [root] scene contains a Weather node
+			if get_tree().current_scene.has_node(weather_node_path):
+				var condition = args[0].to_lower()
+				if condition not in ["bluesky", "cloudy", "rain", "heavy_rain", "storm", "snow", "heavy_snow"]:
+					create_message_for_all.rpc("System", "Weather must be: bluesky, cloudy, rain, heavy_rain, storm, snow, or heavy_snow")
+					return
+				var weather_node = get_tree().current_scene.get_node(weather_node_path)
+				if weather_node.has_method("apply_weather_effects"):
+					# Set the weather condition
+					if condition == "bluesky":
+						weather_node.apply_weather_effects(0)
+					elif condition == "cloudy":
+						weather_node.apply_weather_effects(1)
+					elif condition == "rain":
+						weather_node.apply_weather_effects(2)
+					elif condition == "heavy_rain":
+						weather_node.apply_weather_effects(3)
+					elif condition == "storm":
+						weather_node.apply_weather_effects(4)
+					elif condition == "snow":
+						weather_node.apply_weather_effects(5)
+					elif condition == "heavy_snow":
+						weather_node.apply_weather_effects(6)
+					else:
+						create_message_for_all.rpc("System", "Unknown weather condition: " + condition)
+				else:
+					create_message_for_all.rpc("System", "Weather node does not have 'apply_weather_effects' method")
+			else:
+				create_message_for_all.rpc("System", "Weather node not found")
+
+		# UNKNOWN
 		else:
 			create_message_for_all.rpc("System", "Unknown command: " + command)

@@ -18,17 +18,21 @@ theme_override_constants/margin_bottom = 5
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="SenderLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="SenderLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
-theme_override_font_sizes/font_size = 14
+bbcode_enabled = true
 text = "Sender's Name"
+fit_content = true
 
-[node name="ContentLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="ContentLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(576, 24)
 layout_mode = 2
-text = "Message content."
+bbcode_enabled = true
+text = "[i]Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis lectus at leo viverra viverra pharetra eget purus.[/i]"
+fit_content = true
+scroll_active = false
 
 [node name="HideTimer" type="Timer" parent="."]
 unique_name_in_owner = true
