@@ -91,9 +91,6 @@ func _physics_process(delta) -> void:
 		if player.perspective == 1:
 			# Move the camera to player's head bone
 			move_camera_to_head()
-		else:
-			# Move the camera towrds the player position
-			camera_mount.global_position = lerp(camera_mount.global_position, player.global_position + Vector3(0.0, 1.5, 0.0), delta * 10)
 
 
 ## Rotate camera using the right-analog stick.

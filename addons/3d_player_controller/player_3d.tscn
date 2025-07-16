@@ -34,7 +34,7 @@ height = 1.8
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_8pp8g"]
 height = 0.1
-radius = 0.4
+radius = 0.3
 
 [node name="Player" type="CharacterBody3D" groups=["Player"]]
 script = ExtResource("1_f3dlg")
