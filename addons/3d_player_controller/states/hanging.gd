@@ -175,8 +175,6 @@ func start() -> void:
 	collision_point = collision_point - direction * player_width
 
 	# [Hack] Adjust player visuals for animation
-	#player.visuals_aux_scene.position.y = -0.55
-	#player.animation_player.play(ANIMATION_HANGING)
 	player.animation_player.playback_default_blend_time = 0.0
 
 	# [DEBUG] Draw a debug sphere at the collision point

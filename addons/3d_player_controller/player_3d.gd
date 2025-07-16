@@ -210,7 +210,6 @@ func _process(delta: float) -> void:
 				global_position = global_position + Vector3(0, delta * 10, 0)
 
 
-
 ## Check if the kick hits anything.
 func check_kick_collision() -> void:
 	# Check if the RayCast3D is colliding with something

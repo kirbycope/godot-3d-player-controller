@@ -87,8 +87,13 @@ func _physics_process(delta) -> void:
 				# Rotate camera based on controller movement
 				camera_rotate_by_controller(delta)
 
-		# Move the camera to player
-		move_camera()
+		# Check if in "first person" perspective
+		if player.perspective == 1:
+			# Move the camera to player's head bone
+			move_camera_to_head()
+		else:
+			# Move the camera towrds the player position
+			camera_mount.global_position = lerp(camera_mount.global_position, player.global_position + Vector3(0.0, 1.5, 0.0), delta * 10)
 
 
 ## Rotate camera using the right-analog stick.
@@ -158,24 +163,23 @@ func camera_rotate_by_mouse(event: InputEvent) -> void:
 
 
 ## Update the camera to follow the character head's position (while in "first person").
-func move_camera():
-	# Check if in "first person" perspective
+func move_camera_to_head():
+	# Get the index of the bone in the player's skeleton
+	var bone_index = player.player_skeleton.find_bone(player.BONE_NAME_HEAD)
+
+	# Get the overall transform of the specified bone, with respect to the player's skeleton
+	var bone_pose = player.player_skeleton.get_bone_global_pose(bone_index)
+
+	# Convert the bone's local position to world space, then back to camera mount's local space
+	var bone_world_pos = player.player_skeleton.global_transform * bone_pose.origin
+	camera_mount.global_position = bone_world_pos
+
+	# [Hack] Adjust camera for first person
 	if player.perspective == 1:
-		# Get the index of the bone in the player's skeleton
-		var bone_index = player.player_skeleton.find_bone(player.BONE_NAME_HEAD)
-
-		# Get the overall transform of the specified bone, with respect to the player's skeleton
-		var bone_pose = player.player_skeleton.get_bone_global_pose(bone_index)
-
-		# Adjust the camera position to match the bone's relative position
-		camera_mount.position = Vector3(-bone_pose.origin.x, bone_pose.origin.y, -bone_pose.origin.z)
-
-		# [Hack] Adjust camera for first person
-		if player.perspective == 1:
-			if player.is_shimmying:
-				camera_mount.position.y -= 1.0 # Adjust visuals for shimmying
-			elif player.is_hanging:
-				camera_mount.position.y -= 0.55 # Adjust visuals for hanging
+		if player.is_shimmying:
+			camera_mount.global_position.y -= 1.0 # Adjust visuals for shimmying
+		elif player.is_hanging:
+			camera_mount.global_position.y -= 0.55 # Adjust visuals for hanging
 
 
 ## Switches the player perspective to "first" person.
