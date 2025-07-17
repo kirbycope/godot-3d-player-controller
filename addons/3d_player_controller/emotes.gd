@@ -30,31 +30,19 @@ const ANIMATION_WAVING := "Waving" + "/mixamo_com"
 
 ## Called once for every event before _unhandled_input(), allowing you to consume some events.
 func _input(event) -> void:
-	# Check if the game is not paused
-	if !player.game_paused:
+	# Check if the game is paused
+	if player.game_paused:
+		# Disable visibility
+		visible = false
+	# The game must not be paused
+	else:
 		# Check if emotes are enabled
 		if player.enable_emotes:
 			# Check if the control is visible
 			if visible:
-				# Check if the menu was opened using controller based input
-				if Input.is_joy_button_pressed(0, JOY_BUTTON_DPAD_LEFT):
-					# Show the dpad emote controls
-					$DPad.visible = true
-
-					# Hide the keyboard emote controls
-					$Keyboard.visible = false
-
-				# Check if the menu was opened using keyboard based input
-				elif Input.is_key_pressed(KEY_B):
-					# Hide the dpad emote controls
-					$DPad.visible = false
-
-					# Show the keyboard emote controls
-					$Keyboard.visible = true
-
-				# Check if the [start] action _pressed_
-				if event.is_action_pressed("start"):
-					# Hide the emote menu
+				# Check if the player is not on the floor
+				if !player.is_on_floor():
+					# Disable visibility
 					visible = false
 
 				# Check if the [dpad_down] action _pressed_
@@ -78,23 +66,35 @@ func _input(event) -> void:
 					emote1()
 
 			# The control must not be visible
-			else:
+			if !visible:
+				if player.animation_player.current_animation in [
+					ANIMATION_WAVING,
+					ANIMATION_CLAPPING,
+					ANIMATION_CRYING,
+					ANIMATION_QUICK_INFORMAL_BOW,
+				]:
+					return
+
 				# Check if the [dpad_left] action _pressed_
 				if event.is_action_pressed("dpad_left"):
-					# Toggle visibility
-					toggle_visibility()
+					# Enable visibility
+					visible = true
+
+				# Check if the menu was opened using controller based input
+				if Input.is_joy_button_pressed(0, JOY_BUTTON_DPAD_LEFT):
+					# Show the dpad emote controls
+					$DPad.visible = true
+					# Hide the keyboard emote controls
+					$Keyboard.visible = false
+
+				# Check if the menu was opened using keyboard based input
+				elif Input.is_key_pressed(KEY_B):
+					# Hide the dpad emote controls
+					$DPad.visible = false
+					# Show the keyboard emote controls
+					$Keyboard.visible = true
 
 
-## Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	# Hide the emote menu
-	visible = false
-
-	# Hide the dpad emote controls
-	$DPad.visible = false
-
-	# Hide the keyboard emote controls
-	$Keyboard.visible = false
 
 
 ## Called when the emote 1 button is pressed.
@@ -129,8 +129,8 @@ func emote1() -> void:
 	# Flag the animation player as locked
 	player.is_animation_locked = true
 
-	# Toggle the emote menu's visibility
-	toggle_visibility()
+	# Disable the emote menu's visibility
+	visible = false
 
 
 ## Performs emote 2.
@@ -141,8 +141,8 @@ func emote2() -> void:
 	# Flag the animation player as locked
 	player.is_animation_locked = true
 
-	# Toggle the emote menu's visibility
-	toggle_visibility()
+	# Disable the emote menu's visibility
+	visible = false
 
 
 ## Performs emote 3.
@@ -153,8 +153,8 @@ func emote3() -> void:
 	# Flag the animation player as locked
 	player.is_animation_locked = true
 
-	# Toggle the emote menu's visibility
-	toggle_visibility()
+	# Disable the emote menu's visibility
+	visible = false
 
 
 ## Performs emote 4.
@@ -165,14 +165,5 @@ func emote4() -> void:
 	# Flag the animation player as locked
 	player.is_animation_locked = true
 
-	# Toggle the emote menu's visibility
-	toggle_visibility()
-
-
-## Toggles the Emote menu on/off (including the cursor).
-func toggle_visibility() -> void:
-	# Toggle visibility
-	visible = !visible
-
-	# Toggle mouse capture
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE if visible else Input.MOUSE_MODE_CAPTURED)
+	# Disable the emote menu's visibility
+	visible = false

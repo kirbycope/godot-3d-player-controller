@@ -38,8 +38,8 @@ func _input(event) -> void:
 	# Get the emotes node
 	var emotes = get_parent().get_node("Emotes")
 
-	# Check if the [pause] action _pressed_ and the emotes node is not visible
-	if event.is_action_pressed("start") and !emotes.visible:
+	# Check if the [pause] action _pressed_
+	if event.is_action_pressed("start"):
 		# Toggle game paused
 		toggle_pause()
 
