@@ -174,6 +174,15 @@ func start() -> void:
 	# Calculate new point by moving back from point along the direction by the given player radius
 	collision_point = collision_point - direction * player_width
 
+	# [DEBUG] Draw a debug sphere at the collision point
+	#_draw_debug_sphere(collision_point, Color.YELLOW)
+
+	# Adjust the point relative to the player's height
+	collision_point = Vector3(collision_point.x, player.position.y, collision_point.z)
+
+	# Move center of player to the collision point
+	player.position = collision_point
+
 	# [Hack] Adjust player visuals for animation
 	player.animation_player.playback_default_blend_time = 0.0
 
