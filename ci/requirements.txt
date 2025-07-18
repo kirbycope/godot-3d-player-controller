@@ -1,9 +1,4 @@
 # Godot Addon Requirements
 # Format: <addon_directory_name> <repository_url> [branch]
 # Lines starting with # are comments
-#3d_player_controller https://github.com/kirbycope/godot-3d-player-controller.git main
-#sky_3d https://github.com/TokisanGames/Sky3D.git main
-#SunshineClouds2 https://github.com/Bonkahe/SunshineClouds2.git main
-#terrain_3d https://github.com/TokisanGames/Terrain3D.git main
-#zylann.hterrain https://github.com/Zylann/godot_heightmap_plugin.git main
 virtual_controller https://github.com/kirbycope/godot-virtual-controller.git main

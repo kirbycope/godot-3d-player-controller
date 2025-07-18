@@ -33,6 +33,63 @@ install_addon() {
     echo "Branch: $branch"
     echo "----------------------------------------"
     
+    # Extract repository name from URL
+    local repo_name=$(basename "$repo_url" .git)
+    local local_repo_path="C:/GitHub/$repo_name"
+    
+    # Check if repository exists locally first
+    if [ -d "$local_repo_path" ]; then
+        echo "Found local repository at: $local_repo_path"
+        
+        # Check if local repo is up to date with remote
+        cd "$local_repo_path"
+        
+        # Fetch latest from remote to compare
+        echo "Checking if local repository is up to date..."
+        if git fetch origin "$branch" 2>/dev/null; then
+            local local_commit=$(git rev-parse HEAD 2>/dev/null)
+            local remote_commit=$(git rev-parse "origin/$branch" 2>/dev/null)
+            
+            if [ "$local_commit" = "$remote_commit" ]; then
+                echo "Local repository is up to date with remote"
+                echo "Using local copy instead of cloning..."
+                
+                # Check if the addon directory exists in the local repo
+                local local_addon_path="$local_repo_path/addons/$addon_name"
+                if [ -d "$local_addon_path" ]; then
+                    # Define and clear the target directory
+                    TARGET_DIR="$PROJECT_DIR/addons/$addon_name"
+                    if [ -d "$TARGET_DIR" ]; then
+                        echo "Removing existing $addon_name..."
+                        rm -rf "$TARGET_DIR"
+                    fi
+                    mkdir -p "$TARGET_DIR"
+                    
+                    # Copy from local repository
+                    cp -rf "$local_addon_path"/* "$TARGET_DIR/"
+                    echo "✓ $addon_name installed successfully from local repository"
+                    cd "$PROJECT_DIR"
+                    return 0
+                else
+                    echo "Warning: Addon directory 'addons/$addon_name' not found in local repository"
+                    echo "Falling back to cloning from origin..."
+                fi
+            else
+                echo "Local repository is not up to date with remote"
+                echo "Local commit: $local_commit"
+                echo "Remote commit: $remote_commit"
+                echo "Falling back to cloning from origin..."
+            fi
+        else
+            echo "Unable to fetch from remote, falling back to cloning from origin..."
+        fi
+        
+        cd "$PROJECT_DIR"
+    else
+        echo "Local repository not found at: $local_repo_path"
+        echo "Cloning from origin..."
+    fi
+    
     # Create a temporary directory for cloning
     TEMP_DIR=$(mktemp -d)
     cd "$TEMP_DIR"
@@ -82,7 +139,7 @@ install_addon() {
         # Check if the addon directory exists in the cloned repo
         if [ -d "addons/$addon_name" ]; then
             # Force copy with verbose output
-            cp -rfv "addons/$addon_name"/* "$TARGET_DIR/"
+            cp -rf "addons/$addon_name"/* "$TARGET_DIR/"
             echo "✓ $addon_name installed successfully"
         else
             echo "✗ Addon directory 'addons/$addon_name' not found in repository"
