@@ -1,10 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://b4e68syey7fke"]
+[gd_scene load_steps=3 format=3 uid="uid://b4e68syey7fke"]
 
 [ext_resource type="Script" uid="uid://jbgi85ivvf27" path="res://addons/3d_player_controller/settings.gd" id="1_famuw"]
 [ext_resource type="Texture2D" uid="uid://dhbfxkfnc4auv" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/2x/cross.png" id="2_iuyi1"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_iuyi1"]
-size = Vector2(200, 40)
 
 [node name="Settings" type="Control"]
 layout_mode = 3
@@ -188,10 +185,6 @@ offset_bottom = 37.0
 theme_override_font_sizes/font_size = 24
 text = "BACK"
 
-[node name="BackTouchButton" type="TouchScreenButton" parent="Container/VBoxContainer/BackButton"]
-position = Vector2(100, 20)
-shape = SubResource("RectangleShape2D_iuyi1")
-
 [connection signal="toggled" from="Container/VBoxContainer/VSYNC" to="." method="_on_vsync_toggled"]
 [connection signal="item_selected" from="Container/VBoxContainer/MSAA" to="." method="_on_msaa_item_selected"]
 [connection signal="item_selected" from="Container/VBoxContainer/SSAA" to="." method="_on_ssaa_item_selected"]
@@ -200,4 +193,3 @@ shape = SubResource("RectangleShape2D_iuyi1")
 [connection signal="toggled" from="Container/VBoxContainer/TAA" to="." method="_on_taa_toggled"]
 [connection signal="item_selected" from="Container/VBoxContainer/FSR" to="." method="_on_fsr_item_selected"]
 [connection signal="pressed" from="Container/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
-[connection signal="pressed" from="Container/VBoxContainer/BackButton/BackTouchButton" to="." method="_on_back_button_pressed"]

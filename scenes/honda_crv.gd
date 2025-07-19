@@ -1,6 +1,6 @@
 extends VehicleBody3D
 
-const DRIVING = preload("res://addons/3d_player_controller/states/DRIVING.gd")
+const DRIVING = preload("res://addons/3d_player_controller/states/driving.gd")
 
 # Note: `@export` variables are available for editing in the property editor.
 @export var final_drive_ratio: float = 3.9

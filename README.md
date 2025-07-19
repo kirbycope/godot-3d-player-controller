@@ -4,72 +4,91 @@
 A 3D Player Controller for the Godot game engine.
 
 ## Getting Started
-Include this addon with your project. No need to "activate" as the intended usage is to copy the controller files to the `/addons` folder and for you to then copy it to your scene/script folder and modify as need. This way if/when you pull down the latest, it will not overwrite your changes.
+Copy the contents of this repo's `/addons` folder to the `/addons` folder of your project. No need to "activate" it in Godot > Project Settings... > Plugins.
 
-<details>
-<summary>Using Addons</summary>
+### Updating Dependencies
+Note: You can add this repo and any others to [/ci/requirements.txt](/ci/requirements.txt) to help keep things up to date in your project.
+1. Open a terminal window
+1. Run `./ci/install-requirements.sh`
 
-### Installing this Addon
-1. Download [install-3d-player-controller.sh](ci/install-3d-player-controller.sh)
-1. Move the file to a folder named `ci` in your project
-1. Open your project in VS Code
-1. Open the "Git Bash" terminal
-1. Run `bash ci/install-3d-player-controller.sh`
-	- This script will download the [3d_player_controller](/addons/3d_player_controller) folder from _this_ repo and then cleanup the `.git` files/folders.
+## Player Structure
+![CharacterBody3D](https://raw.githubusercontent.com/godotengine/godot/refs/heads/master/editor/icons/CharacterBody3D.svg)
+[CharacterBody3D](https://docs.godotengine.org/en/stable/classes/class_characterbody3d.html) `Player` - ([player_3d.gd](/addons/3d_player_controller/player_3d.gd))<br/>
+├── ![AudioStreamPlayer3D](https://raw.githubusercontent.com/godotengine/godot/refs/heads/master/editor/icons/AudioStreamPlayer3D.svg)
+	[AudioStreamPlayer3D](https://docs.godotengine.org/en/stable/classes/class_audiostreamplayer3d.html) `AudioStreamPlayer3D`<br/>
+├── ![Node3D](https://raw.githubusercontent.com/godotengine/godot/refs/heads/master/editor/icons/Node3D.svg)
+	[Node3D](https://docs.godotengine.org/en/stable/classes/class_node.html) `CameraMount`<br/>
+│  └── ![Camera3D](https://raw.githubusercontent.com/godotengine/godot/refs/heads/master/editor/icons/Camera3D.svg)
+		[Camera3D]() Camera3D (<a href="/addons/3d_player_controller/camera_3d.gd">camera_3d.gd</a>)<br/>
+│  └── ![Control](https://raw.githubusercontent.com/godotengine/godot/refs/heads/master/editor/icons/Control.svg)
+		[Control](https://docs.godotengine.org/en/stable/classes/class_control.html) `ChatWindow` (<a href="/addons/3d_player_controller/chat_window.gd">chat_window.gd</a>)<br/>
+│    └── ![Control](https://raw.githubusercontent.com/godotengine/godot/refs/heads/master/editor/icons/Control.svg)
+			[Control](https://docs.godotengine.org/en/stable/classes/class_control.html) `Message` (<a href="/addons/3d_player_controller/message.gd">message.gd</a>)<br/>
+│  └── ![Control](https://raw.githubusercontent.com/godotengine/godot/refs/heads/master/editor/icons/Control.svg)
+		[Control](https://docs.godotengine.org/en/stable/classes/class_control.html) `Debug` (<a href="/addons/3d_player_controller/debug.gd">debug.gd</a>)<br/>
+│  └── ![Control](https://raw.githubusercontent.com/godotengine/godot/refs/heads/master/editor/icons/Control.svg)
+		[Control](https://docs.godotengine.org/en/stable/classes/class_control.html) `Emotes` (<a href="/addons/3d_player_controller/emotes.gd">emotes.gd</a>)<br/>
+│  └── ![Control](https://raw.githubusercontent.com/godotengine/godot/refs/heads/master/editor/icons/Control.svg)
+		[Control](https://docs.godotengine.org/en/stable/classes/class_control.html) `Pause` (<a href="/addons/3d_player_controller/pause.gd">pause.gd</a>)<br/>
+│  └── ![Control](https://raw.githubusercontent.com/godotengine/godot/refs/heads/master/editor/icons/Control.svg)
+		[Control](https://docs.godotengine.org/en/stable/classes/class_control.html) `Retical`</br>
+│  └── ![Control](https://raw.githubusercontent.com/godotengine/godot/refs/heads/master/editor/icons/Control.svg)
+		[Control](https://docs.godotengine.org/en/stable/classes/class_control.html) `Settings` (<a href="/addons/3d_player_controller/settings.gd">settings.gd</a>)<br/>
+├── ![CollisionShape3D](https://raw.githubusercontent.com/godotengine/godot/refs/heads/master/editor/icons/CollisionShape3D.svg)
+	`CollisionShape3D` CollisionShape3D<br/>
+├── ![CanvasLayer](https://raw.githubusercontent.com/godotengine/godot/refs/heads/master/editor/icons/CanvasLayer.svg)
+	`CanvasLayer` Controls (<a href="/addons/virtual_controller/scripts/controls.gd">controls.gd</a>)<br/>
+├── ![ShapeCast3D](https://raw.githubusercontent.com/godotengine/godot/refs/heads/master/editor/icons/ShapeCast3D.svg)
+	`ShapeCast3D` ShapeCast3D<br/>
+├── ![Node](https://raw.githubusercontent.com/godotengine/godot/refs/heads/master/editor/icons/Node.svg)
+	`Node` States<br/>
+└── ![Node3D](https://raw.githubusercontent.com/godotengine/godot/refs/heads/master/editor/icons/Node3D.svg)
+	`Node3D` Visuals<br/>
+  └── ![Node3D](https://raw.githubusercontent.com/godotengine/godot/refs/heads/master/editor/icons/Node3D.svg)
+		`Node3D` AuxScene<br/>
+    └── ![AnimationPlayer](https://raw.githubusercontent.com/godotengine/godot/refs/heads/master/editor/icons/AnimationPlayer.svg)
+		`AnimationPlayer` AnimationPlayer<br/>
 
-### Installing the Virtual Controller Sub-Module
-1. Download [install-virtual-controller.sh](ci/install-virtual-controller.sh)
-1. Move the file to a folder named `ci` in your project
-1. Open your project in VS Code
-1. Open the "Git Bash" terminal
-1. Run `bash ci/install-virtual-controller.sh`
-	- This script will download the [virtual_controller](/addons/virtual_controller) folder from _its_ repo and then cleanup the `.git` files/folders.
+- `$CameraMount` shares its origin with _Lukky_'s [Godot 4.0 Third Person Controller Tutorial (2023)](https://www.youtube.com/watch?v=EP5AYllgHy8)
+- `$Controls` is as imported scene from the [Virtual Controller](https://github.com/kirbycope/godot-virtual-controller) addon
+	- [controls.gd](/addons/virtual_controller/scripts/controls.gd) Handles defining default control scheme for Controllers, Keyboard+Mouse, and Touchsceen devices.
+	- [canvas_layer.tscn](/addons/virtual_controller/scenes/canvas_layer.tscn) Displays the virtual controller when a touchscreen device is in use.
+- `$ShapeCast3D` comes from _Peter Clark_'s [Godot 4.3 Fast Simple Stairs Tutorial 3D](https://www.youtube.com/watch?v=38BN96kQANc)
+- `$States` was inspired by _softgripper_'s [take on the StateMachine pattern](https://www.reddit.com/r/godot/comments/1hg0c7g/my_take_on_the_statemachine_pattern/)
 
-</details>
+## Player Changing the Player's Model
+The player's appearance comes from the imported scene, `$Visuals/AuxScene`. [Retargetting](https://docs.godotengine.org/en/stable/tutorials/assets_pipeline/retargeting_3d_skeletons.html) the skeleton will allow you to use the provided animations and sets you up to use other like _Quaternius's_ [Universal Animation Library](https://quaternius.com/packs/universalanimationlibrary.html).
+1. Open the Godot Editor
+1. Click the character model in the FileSystem
+1. Click the "Import" tab (at the top-right of the editor)
+1. Click the "Advanced..." button
+1. In the Scene tree, select the ![Skeleton3D](https://raw.githubusercontent.com/godotengine/godot/refs/heads/master/editor/icons/Skeleton3D.svg) Skeleton3D
+1. Click "Retarget" > "Bone Map" > "<empty>" and then select "New" > "BoneMap"
+1. Click the new BoneMap
+1. Click "Profile" > "⏷" and then select "SkeletonProfileHumanoid"
+1. Click the "Reimport" button to apply changes
+1. Click the "Scene" tab (at the top-right of the editor)
+1. Create a new ![Node3D](https://raw.githubusercontent.com/godotengine/godot/refs/heads/master/editor/icons/Node3D.svg) 3D Scene
+1. Drag your model into the new Scene tree
+1. Right-click the model and select "Make Local"
+1. Right-click the model and then select "Make Scene Root"
+1. Delete the Node3D now at the bottom of the Scene tree
+1. Select the scene root and set the "Transform" > "Rotation" > "y" to `180`
+	- Godot's "forward" direction is -Z ([source](https://docs.godotengine.org/en/stable/tutorials/3d/introduction_to_3d.html#coordinate-system))
+1. Add a child ![AnimationPlayer](https://raw.githubusercontent.com/godotengine/godot/refs/heads/master/editor/icons/AnimationPlayer.svg) AnimationPlayer if one is not already present
+1. In the Scene tree, click the AnimationPlayer
+1. In the Animation Panel, click the "Animation" button and then select "Manage Animations..."
+1. Click the "Load Library" button
+1. Navigate to `./addons/3d_player_controller/assets/animations
+1. Select all and the click the "Open" button
+1. Save the scene
+1. Open the Player scene and expand "Player" > "Visuals"
+1. Delete the "AuxScene"
+1. From the FileSystem, drag your new scene into the Player scene tree under "Visuals"
+1. Rename it to `AuxScene` so the existing scripts don't break
+	- Or change the path `@onready var visuals_aux_scene = ...` in the [player.gd](/addons/3d_player_controller/player_3d.gd) script.
 
-<details>
-<summary>Export Game as Pack</summary>
-
-## Game Pack
-This game can be [exported](https://docs.godotengine.org/en/stable/tutorials/export/exporting_pcks.html#generating-pck-files) as a `.pck` and [imported](https://docs.godotengine.org/en/stable/tutorials/export/exporting_pcks.html#opening-pck-files-at-runtime) into another Godot game client, like the [Godot Game Client](https://github.com/kirbycope/godot-game-client).
-
-### Export Game as Pack Using Godot
-1. Select "Project" > "Export.."
-	1. Download the Presets, if prompted
-1. Select "Add..."
-1. Select "Web"
-1. Select "Export PCK/ZIP..."
-1. Change the type to "Godot Project Pack (*.pck)"
-1. Select "Save"
-
-### Export Game as Pack Using Bash
-1. Open the root folder using [VS Code](https://code.visualstudio.com/)
-	- If you use GitHub Desktop, select the "Open in Visual Studio" button
-1. Open the [integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal) using the "Git Bash" profile
-1. Run the following command, `bash ci/export-pack.sh`
-
-</details>
-
-<details>
-<summary>Web Export</summary>
-
-### Export Game as Web App
-1. Select "Project" > "Export..."
-1. Select the preset "Web (Runnable)"
-1. Select "Export Project..."
-1. Select the "docs" folder
-	- The GitHub Pages config points to the `main` branch and `/docs` directory
-1. Enter `index.html`
-1. Select "Save"
-1. Commit the code to trigger a GitHub Pages deployment (above)
-
-### Export Game as Web App Using Bash
-1. Open the root folder using [VS Code](https://code.visualstudio.com/)
-	- If you use GitHub Desktop, select the "Open in Visual Studio" button
-1. Open the [integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal) using the "Git Bash" profile
-1. Run the following command, `bash ci/export-web.sh`
-
-</details>
+----
 
 <details>
 <summary>Web Hosting with localhost</summary>

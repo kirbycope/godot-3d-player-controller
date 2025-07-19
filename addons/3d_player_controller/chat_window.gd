@@ -53,8 +53,6 @@ func _process(_delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	# [chat] button _released_
 	if event.is_action_released("dpad_right") and !player.game_paused:
-		# Show the mouse
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 		# Show the chat input
 		input_container.show()
@@ -67,8 +65,6 @@ func _input(event: InputEvent) -> void:
 
 	# [/] slash key _released_
 	if event is InputEventKey and event.is_released() and event.keycode == KEY_SLASH and !player.game_paused:
-		# Show the mouse
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 		# Show the chat input
 		input_container.show()

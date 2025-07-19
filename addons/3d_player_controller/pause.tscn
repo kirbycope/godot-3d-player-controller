@@ -1,13 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bf6dhhwfpuau6"]
+[gd_scene load_steps=6 format=3 uid="uid://bf6dhhwfpuau6"]
 
 [ext_resource type="Script" uid="uid://br0qym2354jy2" path="res://addons/3d_player_controller/pause.gd" id="1_ef46y"]
 [ext_resource type="Texture2D" uid="uid://62prm5gy7ehu" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/1x/cross.png" id="2_1s3bm"]
 [ext_resource type="Texture2D" uid="uid://cmqsc78wj18cx" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/2x/home.png" id="3_hblcw"]
 [ext_resource type="Texture2D" uid="uid://p7vujqgkgo3v" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/1x/exitLeft.png" id="3_ymsbp"]
 [ext_resource type="Texture2D" uid="uid://b2gt6xlau67im" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/2x/gear.png" id="4_7k071"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7k071"]
-size = Vector2(200, 40)
 
 [node name="Pause" type="Control"]
 layout_mode = 3
@@ -86,10 +83,6 @@ scroll_active = false
 scroll_following = true
 autowrap_mode = 0
 
-[node name="BackToGameTouchButton" type="TouchScreenButton" parent="Panel/VBoxContainer/BackToGameButton"]
-position = Vector2(100, 20)
-shape = SubResource("RectangleShape2D_7k071")
-
 [node name="ReturnHomeButton" type="TextureButton" parent="Panel/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
@@ -116,10 +109,6 @@ fit_content = true
 scroll_active = false
 scroll_following = true
 autowrap_mode = 0
-
-[node name="ReturnHomeTouchButton" type="TouchScreenButton" parent="Panel/VBoxContainer/ReturnHomeButton"]
-position = Vector2(100, 20)
-shape = SubResource("RectangleShape2D_7k071")
 
 [node name="SettingsButton" type="TextureButton" parent="Panel/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
@@ -148,10 +137,6 @@ scroll_active = false
 scroll_following = true
 autowrap_mode = 0
 
-[node name="SettingsTouchButton" type="TouchScreenButton" parent="Panel/VBoxContainer/SettingsButton"]
-position = Vector2(100, 20)
-shape = SubResource("RectangleShape2D_7k071")
-
 [node name="LeaveGameButton" type="TextureButton" parent="Panel/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
@@ -178,10 +163,6 @@ fit_content = true
 scroll_active = false
 scroll_following = true
 autowrap_mode = 0
-
-[node name="LeaveGameButton" type="TouchScreenButton" parent="Panel/VBoxContainer/LeaveGameButton"]
-position = Vector2(100, 20)
-shape = SubResource("RectangleShape2D_7k071")
 
 [node name="Quit" type="ColorRect" parent="."]
 visible = false
@@ -213,10 +194,6 @@ Refresh to restart."
 horizontal_alignment = 1
 
 [connection signal="pressed" from="Panel/VBoxContainer/BackToGameButton" to="." method="_on_back_to_game_button_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/BackToGameButton/BackToGameTouchButton" to="." method="_on_back_to_game_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/ReturnHomeButton" to="." method="_on_return_home_button_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/ReturnHomeButton/ReturnHomeTouchButton" to="." method="_on_return_home_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/SettingsButton/SettingsTouchButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/LeaveGameButton" to="." method="_on_leave_game_button_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/LeaveGameButton/LeaveGameButton" to="." method="_on_leave_game_button_pressed"]
