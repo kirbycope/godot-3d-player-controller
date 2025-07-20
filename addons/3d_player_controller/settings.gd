@@ -193,6 +193,54 @@ func _on_fsr_item_selected(index: int) -> void:
 	viewport.scaling_3d_mode = index
 
 
+## Handle touch input for VSYNC CheckButton.
+func _on_vsync_touch_pressed() -> void:
+	option_vsync.button_pressed = !option_vsync.button_pressed
+	_on_vsync_toggled(option_vsync.button_pressed)
+
+
+## Handle touch input for FXAA CheckButton.
+func _on_fxaa_touch_pressed() -> void:
+	option_fxaa.button_pressed = !option_fxaa.button_pressed
+	_on_fxaa_toggled(option_fxaa.button_pressed)
+
+
+## Handle touch input for SSRL CheckButton.
+func _on_ssrl_touch_pressed() -> void:
+	option_ssrl.button_pressed = !option_ssrl.button_pressed
+	_on_ssrl_toggled(option_ssrl.button_pressed)
+
+
+## Handle touch input for TAA CheckButton.
+func _on_taa_touch_pressed() -> void:
+	option_taa.button_pressed = !option_taa.button_pressed
+	_on_taa_toggled(option_taa.button_pressed)
+
+
+## Handle touch input for MSAA OptionButton.
+func _on_msaa_touch_pressed() -> void:
+	# Cycle to the next option (0 -> 1 -> 2 -> 3 -> 0)
+	var next_index = (option_msaa.selected + 1) % option_msaa.get_item_count()
+	option_msaa.selected = next_index
+	_on_msaa_item_selected(next_index)
+
+
+## Handle touch input for SSAA OptionButton.
+func _on_ssaa_touch_pressed() -> void:
+	# Cycle to the next option (0 -> 1 -> 2 -> 0)
+	var next_index = (option_ssaa.selected + 1) % option_ssaa.get_item_count()
+	option_ssaa.selected = next_index
+	_on_ssaa_item_selected(next_index)
+
+
+## Handle touch input for FSR OptionButton.
+func _on_fsr_touch_pressed() -> void:
+	# Cycle to the next option (0 -> 1 -> 2 -> 0)
+	var next_index = (option_fsr.selected + 1) % option_fsr.get_item_count()
+	option_fsr.selected = next_index
+	_on_fsr_item_selected(next_index)
+
+
 ## Close the settings menu.
 func _on_back_button_pressed() -> void:
 	# Hide the settings menu

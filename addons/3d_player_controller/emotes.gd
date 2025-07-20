@@ -95,8 +95,6 @@ func _input(event) -> void:
 					$Keyboard.visible = true
 
 
-
-
 ## Called when the emote 1 button is pressed.
 func _on_emote_1_button_button_down() -> void:
 	# Perform emote 1
