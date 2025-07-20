@@ -3,6 +3,17 @@ extends CanvasLayer
 # Script is used to set up the input controls for the game and to handle different input types such as keyboard, mouse, and game controllers.
 # This script is part of the Virtual Controller add-on for Godot Engine.
 
+enum InputType {
+	KEYBOARD_MOUSE,
+	MICROSOFT,
+	NINTENDO,
+	SONY,
+	TOUCH,
+}
+
+@export var hide_touch_controls := true
+@export var input_deadzone := 0.15
+
 var button_0 = "jump" 			# Key: Space, 							Controller: Ⓐ (Microsoft), Ⓑ (Nintendo), ⮾ (Sony)
 var button_1 = "sprint" 		# Key: Shift, 							Controller: Ⓑ (Microsoft), Ⓐ (Nintendo), 🄋 (Sony)
 var button_2 = "use" 			# Key: E, 								Controller: Ⓧ (Microsoft), Ⓨ (Nintendo), 🟗 (Sony)
@@ -19,44 +30,16 @@ var button_12 = "dpad_up"		# Key: Tab, 							Controller: D-Pad Up
 var button_13 = "dpad_down"		# Key: Q, 								Controller: D-Pad Down
 var button_14 = "dpad_left"		# Key: B, 								Controller: D-Pad Left
 var button_15 = "dpad_right"	# Key: T, 								Controller: D-Pad Right
-
-enum InputType {
-	KEYBOARD_MOUSE,
-	MICROSOFT,
-	NINTENDO,
-	SONY,
-	TOUCH,
-}
-
 var current_input_type = InputType.KEYBOARD_MOUSE
 
-## Analog stick deadzone
-@export var input_deadzone := 0.15
-## Hide if input is not a touch event
-@export var hide_touch_controls := true
-
+# Note: `@onready` variables are set when the scene is loaded.
 @onready var virtual_buttons: Control = $VirtualButtons
-
-
-## Called when there is an input event.
-func _input(event: InputEvent) -> void:
-
-	# Set the current input type
-	set_current_input_type(event)
-
-	# Check if the touch controls should be hidden if the input type is not touch
-	if hide_touch_controls:
-
-		# Show the virtual touch controls as needed
-		virtual_buttons.visible = (current_input_type == InputType.TOUCH)
 
 
 ## Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-
 	# Check if [debug] action is not in the Input Map
 	if not InputMap.has_action("debug"):
-
 		# Add the [debug] action to the Input Map
 		InputMap.add_action("debug")
 
@@ -67,7 +50,6 @@ func _ready() -> void:
 
 	# Check if [dpad_up] action is not in the Input Map
 	if not InputMap.has_action(button_12):
-
 		# Add the [dpad_up] action to the Input Map
 		InputMap.add_action(button_12)
 
@@ -83,7 +65,6 @@ func _ready() -> void:
 
 	# Check if [dpad_left] action is not in the Input Map
 	if not InputMap.has_action(button_14):
-
 		# Add the [dpad_left] action to the Input Map
 		InputMap.add_action(button_14)
 
@@ -99,7 +80,6 @@ func _ready() -> void:
 
 	# Check if [dpad_down] action is not in the Input Map
 	if not InputMap.has_action(button_13):
-
 		# Add the [dpad_down] action to the Input Map
 		InputMap.add_action(button_13)
 
@@ -115,7 +95,6 @@ func _ready() -> void:
 
 	# Check if [dpad, right] action is not in the Input Map
 	if not InputMap.has_action(button_15):
-
 		# Add the [dpad_down] action to the Input Map
 		InputMap.add_action(button_15)
 
@@ -131,7 +110,6 @@ func _ready() -> void:
 
 	# Check if [move_up] action is not in the Input Map
 	if not InputMap.has_action("move_up"):
-
 		# Add the [move_up] action to the Input Map
 		InputMap.add_action("move_up")
 
@@ -148,7 +126,6 @@ func _ready() -> void:
 
 	# Check if [move_left] action is not in the Input Map
 	if not InputMap.has_action("move_left"):
-
 		# Add the [move_left] action to the Input Map
 		InputMap.add_action("move_left")
 
@@ -165,7 +142,6 @@ func _ready() -> void:
 
 	# Check if [move_down] action is not in the Input Map
 	if not InputMap.has_action("move_down"):
-
 		# Add the [move_down] action to the Input Map
 		InputMap.add_action("move_down")
 
@@ -182,7 +158,6 @@ func _ready() -> void:
 
 	# Check if [move_right] action is not in the Input Map
 	if not InputMap.has_action("move_right"):
-
 		# Add the [move_right] action to the Input Map
 		InputMap.add_action("move_right")
 
@@ -199,7 +174,6 @@ func _ready() -> void:
 
 	# Check if [button_8] action is not in the Input Map
 	if not InputMap.has_action(button_8):
-		
 		# Add the [button_8] action to the Input Map
 		InputMap.add_action(button_8)
 
@@ -215,7 +189,6 @@ func _ready() -> void:
 
 	# Check if [start] action is not in the Input Map
 	if not InputMap.has_action(button_9):
-		
 		# Add the [start] action to the Input Map
 		InputMap.add_action(button_9)
 
@@ -231,7 +204,6 @@ func _ready() -> void:
 
 	# Check if [look_up] action is not in the Input Map
 	if not InputMap.has_action("look_up"):
-
 		# Add the [look_up] action to the Input Map
 		InputMap.add_action("look_up")
 
@@ -248,7 +220,6 @@ func _ready() -> void:
 
 	# Check if [look_left] action is not in the Input Map
 	if not InputMap.has_action("look_left"):
-
 		# Add the [look_left] action to the Input Map
 		InputMap.add_action("look_left")
 
@@ -265,7 +236,6 @@ func _ready() -> void:
 
 	# Check if [look_down] action is not in the Input Map
 	if not InputMap.has_action("look_down"):
-
 		# Add the [look_down] action to the Input Map
 		InputMap.add_action("look_down")
 
@@ -282,7 +252,6 @@ func _ready() -> void:
 
 	# Check if [look_right] action is not in the Input Map
 	if not InputMap.has_action("look_right"):
-
 		# Add the [look_right] action to the Input Map
 		InputMap.add_action("look_right")
 
@@ -299,7 +268,6 @@ func _ready() -> void:
 
 	# Ⓐ Check if [jump] action is not in the Input Map
 	if not InputMap.has_action(button_0):
-
 		# Add the [jump] action to the Input Map
 		InputMap.add_action(button_0)
 
@@ -317,7 +285,6 @@ func _ready() -> void:
 
 	# Ⓑ Check if [sprint] action is not in the Input Map
 	if not InputMap.has_action(button_1):
-
 		# Add the [sprint] action to the Input Map
 		InputMap.add_action(button_1)
 
@@ -335,7 +302,6 @@ func _ready() -> void:
 
 	# Ⓧ Check if [use] action is not in the Input Map
 	if not InputMap.has_action(button_2):
-
 		# Add the [use] action to the Input Map
 		InputMap.add_action(button_2)
 
@@ -351,7 +317,6 @@ func _ready() -> void:
 
 	# Ⓨ Check if [crouch] action is not in the Input Map
 	if not InputMap.has_action(button_3):
-
 		# Add the [crouch] action to the Input Map
 		InputMap.add_action(button_3)
 
@@ -367,13 +332,12 @@ func _ready() -> void:
 
 	# 🄻1 Check if [left_punch] action is not in the Input Map
 	if not InputMap.has_action("left_punch"):
-
 		# Add the [left_punch] action to the Input Map
 		InputMap.add_action("left_punch")
 
 		# Mouse [left-click]
 		var mouse_button_event = InputEventMouseButton.new()
-		mouse_button_event.button_index  = MOUSE_BUTTON_LEFT
+		mouse_button_event.button_index = MOUSE_BUTTON_LEFT
 		mouse_button_event.pressed = true
 		InputMap.action_add_event("left_punch", mouse_button_event)
 
@@ -384,13 +348,12 @@ func _ready() -> void:
 
 	# 🄻2 Check if [left_kick] action is not in the Input Map
 	if not InputMap.has_action("left_kick"):
-
 		# Add the [left_kick] action to the Input Map
 		InputMap.add_action("left_kick")
 
 		# Mouse [forward-click]
 		var mouse_button_event = InputEventMouseButton.new()
-		mouse_button_event.button_index  = MOUSE_BUTTON_XBUTTON2
+		mouse_button_event.button_index = MOUSE_BUTTON_XBUTTON2
 		mouse_button_event.pressed = true
 		InputMap.action_add_event("left_kick", mouse_button_event)
 
@@ -402,13 +365,12 @@ func _ready() -> void:
 
 	# 🄻2 Check if [aim] action is not in the Input Map
 	if not InputMap.has_action("aim"):
-
 		# Add the [aim] action to the Input Map
 		InputMap.add_action("aim")
 
 		# Mouse [right-click]
 		var mouse_button_event = InputEventMouseButton.new()
-		mouse_button_event.button_index  = MOUSE_BUTTON_RIGHT
+		mouse_button_event.button_index = MOUSE_BUTTON_RIGHT
 		mouse_button_event.pressed = true
 		InputMap.action_add_event("aim", mouse_button_event)
 
@@ -420,13 +382,12 @@ func _ready() -> void:
 
 	# Ⓛ3 Check if [zoom_in] action
 	if not InputMap.has_action(button_10):
-
 		# Add the [zoom_in] action to the Input Map
 		InputMap.add_action(button_10)
 
 		# Mouse [scroll-up]
 		var mouse_button_event = InputEventMouseButton.new()
-		mouse_button_event.button_index  = MOUSE_BUTTON_WHEEL_DOWN
+		mouse_button_event.button_index = MOUSE_BUTTON_WHEEL_DOWN
 		mouse_button_event.pressed = true
 		InputMap.action_add_event(button_10, mouse_button_event)
 		
@@ -437,7 +398,6 @@ func _ready() -> void:
 
 	# 🅁1 Check if [right_punch] action is not in the Input Map
 	if not InputMap.has_action("right_punch"):
-
 		# Add the [right_punch] action to the Input Map
 		InputMap.add_action("right_punch")
 
@@ -455,7 +415,6 @@ func _ready() -> void:
 
 	# 🅁2 Check if [right_kick] action is not in the Input Map
 	if not InputMap.has_action("right_kick"):
-
 		# Add the [right_kick] action to the Input Map
 		InputMap.add_action("right_kick")
 
@@ -473,7 +432,6 @@ func _ready() -> void:
 
 	# 🅁2 Check if [shoot] action is not in the Input Map
 	if not InputMap.has_action("shoot"):
-
 		# Add the [shoot] action to the Input Map
 		InputMap.add_action("shoot")
 
@@ -491,13 +449,12 @@ func _ready() -> void:
 
 	# Ⓡ3 Check if [zoom_out] action
 	if not InputMap.has_action(button_11):
-		
 		# Add the [zoom_out] action to the Input Map
 		InputMap.add_action(button_11)
 
 		# Mouse [scroll-up]
 		var mouse_button_event = InputEventMouseButton.new()
-		mouse_button_event.button_index  = MOUSE_BUTTON_WHEEL_UP
+		mouse_button_event.button_index = MOUSE_BUTTON_WHEEL_UP
 		mouse_button_event.pressed = true
 		InputMap.action_add_event(button_11, mouse_button_event)
 
@@ -507,27 +464,32 @@ func _ready() -> void:
 		InputMap.action_add_event(button_11, joypad_button_event)
 
 
+## Called when there is an input event.
+func _input(event: InputEvent) -> void:
+	# Set the current input type
+	set_current_input_type(event)
+
+	# Check if the touch controls should be hidden if the input type is not touch
+	if hide_touch_controls:
+		# Show the virtual touch controls as needed
+		virtual_buttons.visible = (current_input_type == InputType.TOUCH)
+
+
 ## Set the current input type.
 func set_current_input_type(event: InputEvent) -> void:
-
 	# Check if the input is a keyboard or mouse event
 	if event is InputEventKey or event is InputEventMouse:
-
 		# Set the current input type to Keyboard and Mouse
 		current_input_type = InputType.KEYBOARD_MOUSE
 
 	# Check if the input is a controller event
 	elif event is InputEventJoypadButton or event is InputEventJoypadMotion:
-
 		# Check if the input is a joypad event
 		if event is InputEventJoypadButton or event is InputEventJoypadMotion:
-
 			# Check if the input is a joystick event
 			if event is InputEventJoypadMotion:
-
 				# Check if the motion is within the deadzone
 				if abs(event.axis_value) < input_deadzone:
-
 					# Ignore the input event
 					return
 
@@ -536,24 +498,20 @@ func set_current_input_type(event: InputEvent) -> void:
 
 			# Check if the device name indicates it is a Microsoft [XBox] controller
 			if device_name.contains("xinput") or device_name.contains("standard"):
-
 				# Set the current input type to Mircosoft
 				current_input_type = InputType.MICROSOFT
 
 			# Check if the device name indicates it is a Nintendo [Switch] controller
 			elif device_name.contains("nintendo"):
-
 				# Set the current input type to Nintendo
 				current_input_type = InputType.NINTENDO
 
 			# Check if the device name indicates it is a Sony [PlayStation] controller
 			elif device_name.contains("ps5"):
-
 				# Set the current input type to Sony
 				current_input_type = InputType.SONY
 
 	# Check if the input is a touch event
 	elif event is InputEventScreenTouch or event is InputEventScreenDrag:
-
 		# Set the current input type to Touch
 		current_input_type = InputType.TOUCH

@@ -18,12 +18,12 @@ enum theme {
 const ALERT_WARNING = "#856404"			# YELLOW, DARK .alert-warning
 const BD_NAVBAR = "#563d7c"				# PURPLE, LIGHT .bd-navbar
 const BOOTSTRAP_RED = "#dc3545"			# RED .btn-danger :root{--red: #dc3545;}
-const BOOTSTRAP_GRAY_DARK = "#343a40"	# GRAY, DARK .btn-dark :root{--gray-dark: #343a40;}
-const BOOTSTRAP_BLUE = "#007bff" 		# BLUE .btn-primary :root{--blue: #007bff;}
-const BOOTSTRAP_GRAY = "#6c757d"		# GRAY .btn-secondary :root{--gray: #6c757d;}
-const BOOTSTRAP_GREEN = "#28a745"		# GREEN .btn-success :root{--green: #28a745;}
-const BOOTSTRAP_YELLOW = "#ffc107"		# YELLOW .btn-warning :root{--yellow: #ffc107;}
-const OLD_BV = "#322348"				# PURPLE, DARK .old-bv
+const BOOTSTRAP_GRAY_DARK = "#343a40"		# GRAY, DARK .btn-dark :root{--gray-dark: #343a40;}
+const BOOTSTRAP_BLUE = "#007bff" 			# BLUE .btn-primary :root{--blue: #007bff;}
+const BOOTSTRAP_GRAY = "#6c757d"			# GRAY .btn-secondary :root{--gray: #6c757d;}
+const BOOTSTRAP_GREEN = "#28a745"			# GREEN .btn-success :root{--green: #28a745;}
+const BOOTSTRAP_YELLOW = "#ffc107"			# YELLOW .btn-warning :root{--yellow: #ffc107;}
+const OLD_BV = "#322348"					# PURPLE, DARK .old-bv
 const MAX_DISTANCE := 64
 const SWIPE_DEADZONE := 8
 
@@ -45,6 +45,7 @@ const WHITE_PLAYSTATION_BUTTON_CROSS = preload("res://addons/virtual_controller/
 const WHITE_PLAYSTATION_BUTTON_SQUARE = preload("res://addons/virtual_controller/assets/textures/playstation_series/Double/white_playstation_button_square.png")
 const WHITE_PLAYSTATION_BUTTON_TRIANGLE = preload("res://addons/virtual_controller/assets/textures/playstation_series/Double/white_playstation_button_triangle.png")
 
+# Note: `@export` variables are available for editing in the property editor.
 @export var current_theme = theme.DEFAULT
 @export var enable_analog_stick_left := true
 @export var enable_analog_stick_right := true
@@ -61,107 +62,47 @@ var right_touch_initial_time = null
 var tap_event_index = null
 var tap_initial_position = null
 
+# Note: `@onready` variables are set when the scene is loaded.
 @onready var player = get_parent().get_parent()
-@onready var touch_screen_button_down: TouchScreenButton = $"../VirtualButtons/VirtualButtonsBottomLeft/TouchScreenButtonDown"
-@onready var touch_screen_button_left: TouchScreenButton = $"../VirtualButtons/VirtualButtonsBottomLeft/TouchScreenButtonLeft"
-@onready var touch_screen_button_right: TouchScreenButton = $"../VirtualButtons/VirtualButtonsBottomLeft/TouchScreenButtonRight"
-@onready var touch_screen_button_up: TouchScreenButton = $"../VirtualButtons/VirtualButtonsBottomLeft/TouchScreenButtonUp"
-@onready var touch_screen_button_select: TouchScreenButton = $"../VirtualButtons/VirtualButtonsBottomLeft/TouchScreenButtonSelect"
-@onready var touch_screen_button_a: TouchScreenButton = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonA"
-@onready var touch_screen_button_a_background: Sprite2D = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonA/Background"
+@onready var virtual_buttons_bottom_left: Control = $"../VirtualButtons/VirtualButtonsBottomLeft"
+@onready var touch_screen_button_down: TouchScreenButton = virtual_buttons_bottom_left.get_node("TouchScreenButtonDown")
+@onready var touch_screen_button_left: TouchScreenButton = virtual_buttons_bottom_left.get_node("TouchScreenButtonLeft")
+@onready var touch_screen_button_right: TouchScreenButton = virtual_buttons_bottom_left.get_node("TouchScreenButtonRight")
+@onready var touch_screen_button_up: TouchScreenButton = virtual_buttons_bottom_left.get_node("TouchScreenButtonUp")
+@onready var touch_screen_button_select: TouchScreenButton = virtual_buttons_bottom_left.get_node("TouchScreenButtonSelect")
+@onready var virtual_buttons_bottom_right: Control = $"../VirtualButtons/VirtualButtonsBottomRight"
+@onready var touch_screen_button_a: TouchScreenButton = virtual_buttons_bottom_right.get_node("TouchScreenButtonA")
+@onready var touch_screen_button_a_background: Sprite2D = virtual_buttons_bottom_right.get_node("TouchScreenButtonA/Background")
 @onready var touch_screen_button_a_initial_position := touch_screen_button_a.position
-@onready var touch_screen_button_b: TouchScreenButton = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonB"
-@onready var touch_screen_button_b_background: Sprite2D = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonB/Background"
+@onready var touch_screen_button_b: TouchScreenButton = virtual_buttons_bottom_right.get_node("TouchScreenButtonB")
+@onready var touch_screen_button_b_background: Sprite2D = virtual_buttons_bottom_right.get_node("TouchScreenButtonB/Background")
 @onready var touch_screen_button_b_initial_position := touch_screen_button_b.position
-@onready var touch_screen_button_c_up: TouchScreenButton = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonCUp"
-@onready var touch_screen_button_c_up_background: Sprite2D = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonCUp/Background"
-@onready var touch_screen_button_c_down: TouchScreenButton = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonCDown"
-@onready var touch_screen_button_c_down_background: Sprite2D = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonCDown/Background"
-@onready var touch_screen_button_c_left: TouchScreenButton = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonCLeft"
-@onready var touch_screen_button_c_left_background: Sprite2D = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonCLeft/Background"
-@onready var touch_screen_button_c_right: TouchScreenButton = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonCRight"
-@onready var touch_screen_button_c_right_background: Sprite2D = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonCRight/Background"
-@onready var touch_screen_button_x: TouchScreenButton = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonX"
-@onready var touch_screen_button_x_background: Sprite2D = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonX/Background"
+@onready var touch_screen_button_c_up: TouchScreenButton = virtual_buttons_bottom_right.get_node("TouchScreenButtonCUp")
+@onready var touch_screen_button_c_up_background: Sprite2D = virtual_buttons_bottom_right.get_node("TouchScreenButtonCUp/Background")
+@onready var touch_screen_button_c_down: TouchScreenButton = virtual_buttons_bottom_right.get_node("TouchScreenButtonCDown")
+@onready var touch_screen_button_c_down_background: Sprite2D = virtual_buttons_bottom_right.get_node("TouchScreenButtonCDown/Background")
+@onready var touch_screen_button_c_left: TouchScreenButton = virtual_buttons_bottom_right.get_node("TouchScreenButtonCLeft")
+@onready var touch_screen_button_c_left_background: Sprite2D = virtual_buttons_bottom_right.get_node("TouchScreenButtonCLeft/Background")
+@onready var touch_screen_button_c_right: TouchScreenButton = virtual_buttons_bottom_right.get_node("TouchScreenButtonCRight")
+@onready var touch_screen_button_c_right_background: Sprite2D = virtual_buttons_bottom_right.get_node("TouchScreenButtonCRight/Background")
+@onready var touch_screen_button_x: TouchScreenButton = virtual_buttons_bottom_right.get_node("TouchScreenButtonX")
+@onready var touch_screen_button_x_background: Sprite2D = virtual_buttons_bottom_right.get_node("TouchScreenButtonX/Background")
 @onready var touch_screen_button_x_initial_position := touch_screen_button_x.position
-@onready var touch_screen_button_y: TouchScreenButton = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonY"
-@onready var touch_screen_button_y_background: Sprite2D = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonY/Background"
+@onready var touch_screen_button_y: TouchScreenButton = virtual_buttons_bottom_right.get_node("TouchScreenButtonY")
+@onready var touch_screen_button_y_background: Sprite2D = virtual_buttons_bottom_right.get_node("TouchScreenButtonY/Background")
 @onready var touch_screen_button_y_initial_position := touch_screen_button_y.position
-@onready var touch_screen_button_start: TouchScreenButton = $"../VirtualButtons/VirtualButtonsBottomRight/TouchScreenButtonStart"
-@onready var touch_screen_button_l_1: TouchScreenButton = $"../VirtualButtons/VirtualButtonsTopLeft/TouchScreenButtonL1"
-@onready var touch_screen_button_l_2: TouchScreenButton = $"../VirtualButtons/VirtualButtonsTopLeft/TouchScreenButtonL2"
-@onready var touch_screen_button_r_1: TouchScreenButton = $"../VirtualButtons/VirtualButtonsTopRight/TouchScreenButtonR1"
-@onready var touch_screen_button_r_2: TouchScreenButton = $"../VirtualButtons/VirtualButtonsTopRight/TouchScreenButtonR2"
+@onready var touch_screen_button_start: TouchScreenButton = virtual_buttons_bottom_right.get_node("TouchScreenButtonStart")
+@onready var virtual_buttons_top_left: Control = $"../VirtualButtons/VirtualButtonsTopLeft"
+@onready var touch_screen_button_l_1: TouchScreenButton = virtual_buttons_top_left.get_node("TouchScreenButtonL1")
+@onready var touch_screen_button_l_2: TouchScreenButton = virtual_buttons_top_left.get_node("TouchScreenButtonL2")
+@onready var virtual_buttons_top_right: Control = $"../VirtualButtons/VirtualButtonsTopRight"
+@onready var touch_screen_button_r_1: TouchScreenButton = virtual_buttons_top_right.get_node("TouchScreenButtonR1")
+@onready var touch_screen_button_r_2: TouchScreenButton = virtual_buttons_top_right.get_node("TouchScreenButtonR2")
 
 
-## Called when CanvasItem has been requested to redraw (after queue_redraw is called, either manually or by the engine).
-func _draw() -> void:
-
-	# Check if there is a left-swipe event
-	if left_swipe_event_index != null:
-
-		# Define the position to draw the gray circle
-		var draw_position_gray =  left_swipe_initial_position
-
-		# Draw a gray circle at the event origin
-		draw_circle(draw_position_gray, 64, Color(0.502, 0.502, 0.502, 0.5))
-
-		# Check if for drag motion
-		if left_swipe_current_position != null:
-
-			# Check if the swipe delta is more than the maximum distance
-			if left_swipe_delta.length() > MAX_DISTANCE:
-
-				# Clamp the offset vector's length
-				left_swipe_delta = left_swipe_delta.normalized() * MAX_DISTANCE
-
-			# Define the position to draw the white circle
-			var draw_position_white = left_swipe_initial_position + left_swipe_delta
-
-			# Draw a white circle at the event location
-			draw_circle(draw_position_white, 48, Color(1.0, 1.0, 1.0, 0.5))
-
-	# Check if there is a right-swipe event
-	if right_swipe_event_index != null:
-
-		# Define the position to draw the gray circle
-		var draw_position_gray =  right_swipe_initial_position
-
-		# Check if the theme is Nintendo GameCube
-		if current_theme == theme.NintendoGameCube:
-
-			# Draw a dark yellow circle at the event origin
-			draw_circle(draw_position_gray, 64, Color(ALERT_WARNING, 0.5))
-
-		# The theme must not be Nintendo GameCube
-		else:
-
-			# Draw a gray circle at the event origin
-			draw_circle(draw_position_gray, 64, Color(0.502, 0.502, 0.502, 0.5))
-
-		# Check if for drag motion
-		if right_swipe_current_position != null:
-
-			# Check if the swipe delta is more than the maximum distance
-			if right_swipe_delta.length() > MAX_DISTANCE:
-
-				# Clamp the offset vector's length
-				right_swipe_delta = right_swipe_delta.normalized() * MAX_DISTANCE
-
-			# Define the position to draw the white circle
-			var draw_position_white = right_swipe_initial_position + right_swipe_delta
-
-			# Check if the theme is Nintendo GameCube
-			if current_theme == theme.NintendoGameCube:
-
-				# Draw a yellow circle at the event location
-				draw_circle(draw_position_white, 48, Color(BOOTSTRAP_YELLOW, 0.5))
-
-			# The theme must not be Nintendo GameCube
-			else:
-
-				# Draw a white circle at the event location
-				draw_circle(draw_position_white, 48, Color(1.0, 1.0, 1.0, 0.5))
+## Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	update_theme(current_theme)
 
 
 ## Called when there is an input event.
@@ -344,9 +285,74 @@ func _input(event: InputEvent) -> void:
 	queue_redraw()
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	update_theme(current_theme)
+## Called when CanvasItem has been requested to redraw (after queue_redraw is called, either manually or by the engine).
+func _draw() -> void:
+
+	# Check if there is a left-swipe event
+	if left_swipe_event_index != null:
+
+		# Define the position to draw the gray circle
+		var draw_position_gray =  left_swipe_initial_position
+
+		# Draw a gray circle at the event origin
+		draw_circle(draw_position_gray, 64, Color(0.502, 0.502, 0.502, 0.5))
+
+		# Check if for drag motion
+		if left_swipe_current_position != null:
+
+			# Check if the swipe delta is more than the maximum distance
+			if left_swipe_delta.length() > MAX_DISTANCE:
+
+				# Clamp the offset vector's length
+				left_swipe_delta = left_swipe_delta.normalized() * MAX_DISTANCE
+
+			# Define the position to draw the white circle
+			var draw_position_white = left_swipe_initial_position + left_swipe_delta
+
+			# Draw a white circle at the event location
+			draw_circle(draw_position_white, 48, Color(1.0, 1.0, 1.0, 0.5))
+
+	# Check if there is a right-swipe event
+	if right_swipe_event_index != null:
+
+		# Define the position to draw the gray circle
+		var draw_position_gray =  right_swipe_initial_position
+
+		# Check if the theme is Nintendo GameCube
+		if current_theme == theme.NintendoGameCube:
+
+			# Draw a dark yellow circle at the event origin
+			draw_circle(draw_position_gray, 64, Color(ALERT_WARNING, 0.5))
+
+		# The theme must not be Nintendo GameCube
+		else:
+
+			# Draw a gray circle at the event origin
+			draw_circle(draw_position_gray, 64, Color(0.502, 0.502, 0.502, 0.5))
+
+		# Check if for drag motion
+		if right_swipe_current_position != null:
+
+			# Check if the swipe delta is more than the maximum distance
+			if right_swipe_delta.length() > MAX_DISTANCE:
+
+				# Clamp the offset vector's length
+				right_swipe_delta = right_swipe_delta.normalized() * MAX_DISTANCE
+
+			# Define the position to draw the white circle
+			var draw_position_white = right_swipe_initial_position + right_swipe_delta
+
+			# Check if the theme is Nintendo GameCube
+			if current_theme == theme.NintendoGameCube:
+
+				# Draw a yellow circle at the event location
+				draw_circle(draw_position_white, 48, Color(BOOTSTRAP_YELLOW, 0.5))
+
+			# The theme must not be Nintendo GameCube
+			else:
+
+				# Draw a white circle at the event location
+				draw_circle(draw_position_white, 48, Color(1.0, 1.0, 1.0, 0.5))
 
 
 ## Checks if a given position is within any TouchScreenButton.

@@ -3,33 +3,39 @@ extends Control
 # Script for the debug UI to display controller input events.
 # This script is part of the Virtual Controller add-on for Godot Engine.
 
-@onready var controls: CanvasLayer = $".."
+# Note: `@onready` variables are set when the scene is loaded.
+@onready var controls: CanvasLayer = get_parent()
 @onready var microsoft_controller: Control = $MicrosoftController
-@onready var microsoft_stick_l_origin: Vector2 = $MicrosoftController/White/StickL.position
-@onready var microsoft_stick_r_origin: Vector2 = $MicrosoftController/White/StickR.position
+@onready var microsoft_stick_l_origin: Vector2 = microsoft_controller.get_node("White/StickL").position
+@onready var microsoft_stick_r_origin: Vector2 = microsoft_controller.get_node("White/StickR").position
 @onready var nintendo_controller: Control = $NintendoController
-@onready var nintendo_stick_l_origin: Vector2 = $NintendoController/White/StickL.position
-@onready var nintendo_stick_r_origin: Vector2 = $NintendoController/White/StickR.position
+@onready var nintendo_stick_l_origin: Vector2 = nintendo_controller.get_node("White/StickL").position
+@onready var nintendo_stick_r_origin: Vector2 = nintendo_controller.get_node("White/StickR").position
 @onready var sony_controller: Control = $SonyController
-@onready var sony_stick_l_origin: Vector2 = $SonyController/White/StickL.position
-@onready var sony_stick_r_origin: Vector2 = $SonyController/White/StickR.position
+@onready var sony_stick_l_origin: Vector2 = sony_controller.get_node("White/StickL").position
+@onready var sony_stick_r_origin: Vector2 = sony_controller.get_node("White/StickR").position
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	# By default, hide the debug controllers
+	hide()
+	microsoft_controller.hide()
+	nintendo_controller.hide()
+	sony_controller.hide()
 
 
 ## Called when there is an input event.
 func _input(event: InputEvent) -> void:
-
 	# [debug] button _pressed_
 	if event.is_action_pressed("debug"):
-
 		# Toggle "debug" visibility
 		visible = !visible
 
 	# Check if the Debug UI is currently displayed
 	if visible:
-
 		# Check if the current Input Event was triggered by a Microsoft joypad
 		if controls.current_input_type == controls.InputType.MICROSOFT:
-
 			# Show the proper controller
 			$MicrosoftController.visible = true
 			$NintendoController.visible = false
@@ -108,7 +114,6 @@ func _input(event: InputEvent) -> void:
 
 		# Check if the current Input Event was triggered by a Nintendo joypad
 		if controls.current_input_type == controls.InputType.NINTENDO:
-
 			# Show the controller
 			$MicrosoftController.visible = false
 			$NintendoController.visible = true
@@ -187,7 +192,6 @@ func _input(event: InputEvent) -> void:
 
 		# Check if the current Input Event was triggered by a Sony joypad
 		if controls.current_input_type == controls.InputType.SONY:
-
 			# Show the controller
 			$MicrosoftController.visible = false
 			$NintendoController.visible = false
@@ -265,24 +269,12 @@ func _input(event: InputEvent) -> void:
 				$SonyController/White/Button7.visible = true
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-
-	# By default, hide the debug controllers
-	hide()
-	microsoft_controller.hide()
-	nintendo_controller.hide()
-	sony_controller.hide()
-
-
 # Called every frame. '_delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-
 	# Check is the current Input Event was triggered by a controller
 	if (controls.current_input_type == controls.InputType.MICROSOFT) \
 		or (controls.current_input_type == controls.InputType.NINTENDO) \
 		or (controls.current_input_type == controls.InputType.SONY):
-
 		# Get Left-stick magnitude
 		var left_stick_input = Vector2(
 			Input.get_axis("move_left", "move_right"),
