@@ -35,14 +35,9 @@ func _input(event: InputEvent) -> void:
 			transition(NODE_NAME, "Falling")
 			return
 
-		# [jump] button just _pressed_
+		# [jump] button _pressed_
 		if event.is_action_pressed("jump") and player.enable_jumping:
 			# ToDo: Jump up and climb higher
-			pass
-
-		# [sprint] button just _pressed_
-		if event.is_action_pressed("sprint"):
-			# ToDo: Climb faster
 			pass
 
 
@@ -50,27 +45,43 @@ func _input(event: InputEvent) -> void:
 func _process(_delta: float) -> void:
 	# Uncomment the next line if using GodotSteam
 	#if !is_multiplayer_authority(): return
-	# Check if the game is not paused
-	if !player.game_paused:
-		# Check the eyeline for a ledge to grab.
-		if !player.raycast_top.is_colliding() and player.raycast_high.is_colliding():
-			# Get the collision object
-			var collision_object = player.raycast_high.get_collider()
-
-			# Only proceed if the collision object is not in the "held" group and not a player
-			if !collision_object.is_in_group("held") and !collision_object is CharacterBody3D:
-				# Start "hanging"
-				transition(NODE_NAME, "Hanging")
-				return
-
-		# Check if the player is on the ground (and has no vertical velocity)
-		if player.is_on_floor() and player.velocity.y == 0.0:
-			# Start "standing"
-			transition(NODE_NAME, "Standing")
+	# Check if the player is "climbing"
+	if player.is_climbing:
+		# Check if the player has no raycast collision
+		if !player.raycast_high.is_colliding():
+			# Start falling
+			transition(NODE_NAME, "Falling")
 			return
 
-		# Move the player in the current direction
-		move_character()
+	# Check if the player is on the ground (and has no vertical velocity)
+	if player.is_on_floor() and player.velocity.y == 0.0:
+		# Start "standing"
+		transition(NODE_NAME, "Standing")
+		return
+
+	# Check the eyeline for a ledge to grab.
+	if !player.raycast_top.is_colliding() and player.raycast_high.is_colliding():
+		# Get the collision object
+		var collision_object = player.raycast_high.get_collider()
+
+		# Only proceed if the collision object is not in the "held" group and not a player
+		if !collision_object.is_in_group("held") and !collision_object is CharacterBody3D:
+			# Start "hanging"
+			transition(NODE_NAME, "Hanging")
+			return
+
+	# [sprint] button _pressed_
+	if Input.is_action_pressed("sprint"):
+		# Make the player climb faster
+		player.speed_current = player.speed_crawling
+
+	# [sprint] button just _released_
+	if Input.is_action_just_released("sprint"):
+		# Make the player climb normal speed
+		player.speed_current = player.speed_climbing
+
+	# Move the player in the current direction
+	move_character()
 
 	# Check if the player is "climbing"
 	if player.is_climbing:
@@ -116,6 +127,12 @@ func play_animation() -> void:
 		if player.velocity == Vector3.ZERO:
 			player.animation_player.pause()
 			return
+		
+		# Set animation playback speed according to player movement speed
+		if player.speed_current == player.speed_crawling:
+			player.animation_player.speed_scale = 2.25
+		else:
+			player.animation_player.speed_scale = 1.5
 
 		if Input.is_action_pressed("move_left"):
 			player.visuals_aux_scene.position.y = -1.0 # Adjust visuals for left shimmy
@@ -183,9 +200,6 @@ func start() -> void:
 	# Ensure the wall direction is horizontal (remove any vertical component)
 	wall_direction.y = 0.0
 	wall_direction = wall_direction.normalized()
-	
-	# Make the player face the wall while keeping upright
-	player.look_at(player.position + wall_direction, Vector3.UP)
 
 	# Calculate the direction from the player to collision point
 	var direction = (collision_point - player.position).normalized()
@@ -199,23 +213,26 @@ func start() -> void:
 	# Adjust the point relative to the player's height
 	collision_point = Vector3(collision_point.x, player.position.y, collision_point.z)
 
-	# Reset velocity and virtual velocity before setting position to prevent mobile input interference
+	# Reset velocity and virtual velocity before setting position to prevent input interference
 	player.velocity = Vector3.ZERO
 	player.virtual_velocity = Vector3.ZERO
 
 	# Move center of player to the collision point
 	player.global_position = collision_point
+
+	# [DEBUG] Draw a debug sphere at the collision point
+	#_draw_debug_sphere(collision_point, Color.GREEN)
 	
 	# Wait one frame to ensure position is set before continuing
 	await get_tree().process_frame
+
+	# Make the player face the wall while keeping upright
+	player.visuals.look_at(player.position + wall_direction, Vector3.UP)
 
 	# [Hack] Adjust player visuals for animation
 	player.visuals_aux_scene.position.y = -0.4
 	player.animation_player.play(ANIMATION_CLIMBING_IN_PLACE)
 	player.animation_player.playback_default_blend_time = 0.0
-
-	# [DEBUG] Draw a debug sphere at the collision point
-	#_draw_debug_sphere(collision_point, Color.GREEN)
 
 	# Flag the animation player as locked
 	player.is_animation_locked = true
@@ -236,6 +253,7 @@ func stop() -> void:
 	player.is_climbing = false
 
 	# [Hack] Reset player visuals for animation
+	player.animation_player.speed_scale = 1.0
 	player.animation_player.playback_default_blend_time = 0.2
 	player.visuals_aux_scene.position.y = 0.0
 

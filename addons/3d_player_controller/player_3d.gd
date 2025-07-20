@@ -389,8 +389,8 @@ func update_velocity() -> void:
 	if direction:
 		# Check if the animation player is unlocked
 		if !is_animation_locked:
-			# Check if the player is not in "third person" perspective
-			if perspective == 0:
+			# Check if the player is not in "third person" perspective and not climbing/hanging
+			if perspective == 0 and !is_climbing and !is_hanging:
 				# Update the camera to look in the direction based on player input
 				visuals.look_at(position + direction)
 

@@ -57,16 +57,6 @@ func _input(event: InputEvent) -> void:
 				# Set the player's vertical velocity
 				player.velocity.y = player.jump_velocity
 
-		# [sprint] button _pressed_
-		if event.is_action_pressed("sprint"):
-			# Set the player's speed
-			player.speed_current = player.speed_sprinting
-		
-		# [sprint] button _release_
-		if event.is_action_released("sprint"):
-			# Set the player's speed
-			player.speed_current = player.speed_running
-
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -76,6 +66,16 @@ func _process(_delta: float) -> void:
 	if !player.is_skateboarding:
 		# Start "standing"
 		transition(NODE_NAME, "Standing")
+
+	# [sprint] button _pressed_
+	if Input.is_action_pressed("sprint"):
+		# Set the player's speed
+		player.speed_current = player.speed_sprinting
+	
+	# [sprint] button _release_
+	if Input.is_action_just_released("sprint"):
+		# Set the player's speed
+		player.speed_current = player.speed_running
 
 	# Check if the player is "skateboarding"
 	if player.is_skateboarding:

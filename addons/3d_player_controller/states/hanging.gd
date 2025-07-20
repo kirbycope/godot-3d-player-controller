@@ -64,7 +64,13 @@ func _process(_delta: float) -> void:
 			# Start falling
 			transition(NODE_NAME, "Falling")
 			return
-	
+
+	# Check if the player is on the ground (and has no vertical velocity)
+	if player.is_on_floor() and player.velocity.y == 0.0:
+		# Start "standing"
+		transition(NODE_NAME, "Standing")
+		return
+
 	# Move the player in the current direction
 	move_character()
 
@@ -164,9 +170,7 @@ func start() -> void:
 	# Ensure the wall direction is horizontal (remove any vertical component)
 	wall_direction.y = 0.0
 	wall_direction = wall_direction.normalized()
-	
-	# Make the player face the wall while keeping upright
-	player.look_at(player.position + wall_direction, Vector3.UP)
+
 
 	# Calculate the direction from the player to collision point
 	var direction = (collision_point - player.position).normalized()
@@ -180,21 +184,24 @@ func start() -> void:
 	# Adjust the point relative to the player's height
 	collision_point = Vector3(collision_point.x, player.position.y, collision_point.z)
 
-	# Reset velocity and virtual velocity before setting position to prevent mobile input interference
+	# Reset velocity and virtual velocity before setting position to prevent input interference
 	player.velocity = Vector3.ZERO
 	player.virtual_velocity = Vector3.ZERO
 
 	# Move center of player to the collision point
 	player.global_position = collision_point
-	
-	# Wait one frame to ensure position is set before continuing
-	await get_tree().process_frame
-
-	# [Hack] Adjust player visuals for animation
-	player.animation_player.playback_default_blend_time = 0.0
 
 	# [DEBUG] Draw a debug sphere at the collision point
 	#_draw_debug_sphere(collision_point, Color.GREEN)
+
+	# Wait one frame to ensure position is set before continuing
+	await get_tree().process_frame
+
+	# Make the player face the wall while keeping upright
+	player.visuals.look_at(player.position + wall_direction, Vector3.UP)
+
+	# [Hack] Adjust player visuals for animation
+	player.animation_player.playback_default_blend_time = 0.0
 
 	# Flag the animation player as locked
 	player.is_animation_locked = true
