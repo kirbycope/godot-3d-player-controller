@@ -199,8 +199,15 @@ func start() -> void:
 	# Adjust the point relative to the player's height
 	collision_point = Vector3(collision_point.x, player.position.y, collision_point.z)
 
+	# Reset velocity and virtual velocity before setting position to prevent mobile input interference
+	player.velocity = Vector3.ZERO
+	player.virtual_velocity = Vector3.ZERO
+
 	# Move center of player to the collision point
-	player.position = collision_point
+	player.global_position = collision_point
+	
+	# Wait one frame to ensure position is set before continuing
+	await get_tree().process_frame
 
 	# [Hack] Adjust player visuals for animation
 	player.visuals_aux_scene.position.y = -0.4
@@ -213,10 +220,7 @@ func start() -> void:
 	# Flag the animation player as locked
 	player.is_animation_locked = true
 
-	# Reset velocity to prevent any movement
-	player.velocity = Vector3.ZERO
-
-	# Delay execution
+	# Delay execution to ensure position is properly set and no input interference
 	await get_tree().create_timer(0.2).timeout
 
 	# Flag the animation player no longer locked
