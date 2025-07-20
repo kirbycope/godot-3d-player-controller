@@ -57,7 +57,7 @@ Note: You can add this repo and any others to [/ci/requirements.txt](/ci/require
 - `$States` was inspired by _softgripper_'s [take on the StateMachine pattern](https://www.reddit.com/r/godot/comments/1hg0c7g/my_take_on_the_statemachine_pattern/)
 
 ## Changing the Player's Model
-The player's appearance comes from the imported scene, `$Visuals/AuxScene`. [Retargetting](https://docs.godotengine.org/en/stable/tutorials/assets_pipeline/retargeting_3d_skeletons.html) the skeleton will allow you to use the provided animations and sets you up to use other like _Quaternius's_ [Universal Animation Library](https://quaternius.com/packs/universalanimationlibrary.html).
+The player's appearance comes from the imported scene, `$Visuals/AuxScene`. [Retargetting](https://docs.godotengine.org/en/stable/tutorials/assets_pipeline/retargeting_3d_skeletons.html) the skeleton will allow you to use the provided animations and sets you up to use others like _Quaternius's_ [Universal Animation Library](https://quaternius.com/packs/universalanimationlibrary.html).
 1. Open the Godot Editor
 1. Click the character model in the FileSystem
 1. Click the "Import" tab (at the top-right of the editor)
