@@ -129,17 +129,19 @@ func _input(event: InputEvent) -> void:
 func _process(_delta: float) -> void:
 	# Uncomment the next line if using GodotSteam
 	#if !is_multiplayer_authority(): return
-	# Check if the player is moving
-	if player.velocity != Vector3.ZERO or player.virtual_velocity != Vector3.ZERO:
-		# Start "crawling"
-		transition(NODE_NAME, "Crawling")
+	# Check if the game is not paused
+	if !player.game_paused:
+		# Check if the player is moving
+		if player.velocity != Vector3.ZERO or player.virtual_velocity != Vector3.ZERO:
+			# Start "crawling"
+			transition(NODE_NAME, "Crawling")
 
-	# [crouch] button not _pressed_
-	if !Input.is_action_pressed("crouch"):
-		# Check if the animation player is not locked
-		if !player.is_animation_locked:
-			# Stop "crouching"
-			transition(NODE_NAME, "Standing")
+		# [crouch] button not _pressed_
+		if !Input.is_action_pressed("crouch"):
+			# Check if the animation player is not locked
+			if !player.is_animation_locked:
+				# Stop "crouching"
+				transition(NODE_NAME, "Standing")
 
 	# Check if the player is "crouching"
 	if player.is_crouching:

@@ -211,31 +211,33 @@ func _input(event: InputEvent) -> void:
 func _process(_delta: float) -> void:
 	# Uncomment the next line if using GodotSteam
 	#if !is_multiplayer_authority(): return
-	# [crouch] button _pressed_, crouching is enabled, and not already "crouching"
-	if Input.is_action_pressed("crouch") and player.enable_crouching and !player.is_crouching:
-		# Check if the animation player is not locked
-		if !player.is_animation_locked:
-			# Start "crouching"
-			transition(NODE_NAME, "Crouching")
+	# Check if the game is not paused
+	if !player.game_paused:
+		# [crouch] button _pressed_, crouching is enabled, and not already "crouching"
+		if Input.is_action_pressed("crouch") and player.enable_crouching and !player.is_crouching:
+			# Check if the animation player is not locked
+			if !player.is_animation_locked:
+				# Start "crouching"
+				transition(NODE_NAME, "Crouching")
 
-	# Check if the player is moving
-	if player.velocity != Vector3.ZERO or player.virtual_velocity != Vector3.ZERO:
-		# Check if the player is slower than or equal to "walking"
-		if 0.0 < player.speed_current and player.speed_current <= player.speed_walking:
-			# Start "walking"
-			transition(NODE_NAME, "Walking")
+		# Check if the player is moving
+		if player.velocity != Vector3.ZERO or player.virtual_velocity != Vector3.ZERO:
+			# Check if the player is slower than or equal to "walking"
+			if 0.0 < player.speed_current and player.speed_current <= player.speed_walking:
+				# Start "walking"
+				transition(NODE_NAME, "Walking")
 
-		# Check if the player speed is faster than "walking" but slower than or equal to "running"
-		elif player.speed_walking < player.speed_current and player.speed_current <= player.speed_running:
-			# Start "running"
-			transition(NODE_NAME, "Running")
+			# Check if the player speed is faster than "walking" but slower than or equal to "running"
+			elif player.speed_walking < player.speed_current and player.speed_current <= player.speed_running:
+				# Start "running"
+				transition(NODE_NAME, "Running")
 
-		# Check if the player speed is faster than "running" but slower than or equal to "sprinting"
-		elif player.speed_running < player.speed_current and player.speed_current <= player.speed_sprinting:
-			# Check if sprinting is enabled
-			if player.enable_sprinting:
-				# Start "sprinting"
-				transition(NODE_NAME, "Sprinting")
+			# Check if the player speed is faster than "running" but slower than or equal to "sprinting"
+			elif player.speed_running < player.speed_current and player.speed_current <= player.speed_sprinting:
+				# Check if sprinting is enabled
+				if player.enable_sprinting:
+					# Start "sprinting"
+					transition(NODE_NAME, "Sprinting")
 
 	# Check if the player is "standing"
 	if player.is_standing:

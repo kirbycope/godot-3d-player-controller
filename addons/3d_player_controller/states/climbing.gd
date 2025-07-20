@@ -50,25 +50,27 @@ func _input(event: InputEvent) -> void:
 func _process(_delta: float) -> void:
 	# Uncomment the next line if using GodotSteam
 	#if !is_multiplayer_authority(): return
-	# Check the eyeline for a ledge to grab.
-	if !player.raycast_top.is_colliding() and player.raycast_high.is_colliding():
-		# Get the collision object
-		var collision_object = player.raycast_high.get_collider()
+	# Check if the game is not paused
+	if !player.game_paused:
+		# Check the eyeline for a ledge to grab.
+		if !player.raycast_top.is_colliding() and player.raycast_high.is_colliding():
+			# Get the collision object
+			var collision_object = player.raycast_high.get_collider()
 
-		# Only proceed if the collision object is not in the "held" group and not a player
-		if !collision_object.is_in_group("held") and !collision_object is CharacterBody3D:
-			# Start "hanging"
-			transition(NODE_NAME, "Hanging")
+			# Only proceed if the collision object is not in the "held" group and not a player
+			if !collision_object.is_in_group("held") and !collision_object is CharacterBody3D:
+				# Start "hanging"
+				transition(NODE_NAME, "Hanging")
+				return
+
+		# Check if the player is on the ground (and has no vertical velocity)
+		if player.is_on_floor() and player.velocity.y == 0.0:
+			# Start "standing"
+			transition(NODE_NAME, "Standing")
 			return
 
-	# Check if the player is on the ground (and has no vertical velocity)
-	if player.is_on_floor() and player.velocity.y == 0.0:
-		# Start "standing"
-		transition(NODE_NAME, "Standing")
-		return
-
-	# Move the player in the current direction
-	move_character()
+		# Move the player in the current direction
+		move_character()
 
 	# Check if the player is "climbing"
 	if player.is_climbing:

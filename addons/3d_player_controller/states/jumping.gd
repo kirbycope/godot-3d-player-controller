@@ -53,17 +53,19 @@ func _input(event: InputEvent) -> void:
 func _process(_delta: float) -> void:
 	# Uncomment the next line if using GodotSteam
 	#if !is_multiplayer_authority(): return
-	# Check if the player is not canceling a climb or hang
-	if !Input.is_action_pressed("crouch"):
-		# Check the eyeline for a ledge to grab.
-		if !player.raycast_top.is_colliding() and player.raycast_high.is_colliding():
-			# Get the collision object
-			var collision_object = player.raycast_high.get_collider()
+	# Check if the game is not paused
+	if !player.game_paused:
+		# Check if the player is not canceling a climb or hang
+		if !Input.is_action_pressed("crouch"):
+			# Check the eyeline for a ledge to grab.
+			if !player.raycast_top.is_colliding() and player.raycast_high.is_colliding():
+				# Get the collision object
+				var collision_object = player.raycast_high.get_collider()
 
-			# Only proceed if the collision object is not in the "held" group and not a player
-			if !collision_object.is_in_group("held") and !collision_object is CharacterBody3D:
-				# Start "hanging"
-				transition(NODE_NAME, "Hanging")
+				# Only proceed if the collision object is not in the "held" group and not a player
+				if !collision_object.is_in_group("held") and !collision_object is CharacterBody3D:
+					# Start "hanging"
+					transition(NODE_NAME, "Hanging")
 
 	# Check if the player is falling
 	if player.velocity.y < 0.0:

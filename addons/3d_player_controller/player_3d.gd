@@ -154,6 +154,19 @@ func _ready() -> void:
 func _physics_process(delta) -> void:
 	# Uncomment the next line if using GodotSteam
 	#if !is_multiplayer_authority(): return
+	
+	# Apply gravity regardless of pause state (but not if climbing, driving, hanging, swimming, or noclip)
+	if !is_climbing and !is_driving and !is_hanging:
+		# Check if the player is "swimming" or noclip mode is enabled
+		if is_swimming or enable_noclip:
+			# Ignore the gravity
+			velocity.y = 0.0
+
+		# The player must not be "swimming"
+		else:
+			# Add the gravity
+			velocity.y -= gravity * delta
+
 	# Check if the game is not paused
 	if !game_paused:
 		# Check if no animation is playing
@@ -167,25 +180,13 @@ func _physics_process(delta) -> void:
 			is_punching_left = false
 			is_punching_right = false
 
-		# Check if the player is not climbing, not driving, and not hanging
-		if !is_climbing and !is_driving and !is_hanging:
-			# Check if the player is "swimming" or noclip mode is enabled
-			if is_swimming or enable_noclip:
-				# Ignore the gravity
-				velocity.y = 0.0
+		# Handle player movement (input-based movement)
+		update_velocity()
 
-			# The player must not be "swimming"
-			else:
-				# Add the gravity
-				velocity.y -= gravity * delta
-
-			# Handle player movement
-			update_velocity()
-
-		# Check if the animation player is unlocked
-		if !is_animation_locked:
-			# Move player
-			move_player(delta)
+	# Check if the animation player is unlocked
+	if !is_animation_locked:
+		# Move player (physics movement)
+		move_player(delta)
 
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
