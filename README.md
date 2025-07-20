@@ -56,7 +56,7 @@ Note: You can add this repo and any others to [/ci/requirements.txt](/ci/require
 - `$ShapeCast3D` comes from _Peter Clark_'s [Godot 4.3 Fast Simple Stairs Tutorial 3D](https://www.youtube.com/watch?v=38BN96kQANc)
 - `$States` was inspired by _softgripper_'s [take on the StateMachine pattern](https://www.reddit.com/r/godot/comments/1hg0c7g/my_take_on_the_statemachine_pattern/)
 
-## Player Changing the Player's Model
+## Changing the Player's Model
 The player's appearance comes from the imported scene, `$Visuals/AuxScene`. [Retargetting](https://docs.godotengine.org/en/stable/tutorials/assets_pipeline/retargeting_3d_skeletons.html) the skeleton will allow you to use the provided animations and sets you up to use other like _Quaternius's_ [Universal Animation Library](https://quaternius.com/packs/universalanimationlibrary.html).
 1. Open the Godot Editor
 1. Click the character model in the FileSystem
