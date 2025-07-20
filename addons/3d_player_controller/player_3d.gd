@@ -180,8 +180,10 @@ func _physics_process(delta) -> void:
 			is_punching_left = false
 			is_punching_right = false
 
-		# Handle player movement (input-based movement)
-		update_velocity()
+		# Check if player is not if hanging or climbing (these states handle their own movement)
+		if !is_hanging and !is_climbing:
+			# Handle player movement (input-based movement)
+			update_velocity()
 
 	# Check if the animation player is unlocked
 	if !is_animation_locked:
