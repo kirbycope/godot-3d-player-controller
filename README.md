@@ -79,7 +79,7 @@ The player's appearance comes from the imported scene, `$Visuals/AuxScene`. [Ret
 1. In the Scene tree, click the AnimationPlayer
 1. In the Animation Panel, click the "Animation" button and then select "Manage Animations..."
 1. Click the "Load Library" button
-1. Navigate to `./addons/3d_player_controller/assets/animations
+1. Navigate to `./addons/3d_player_controller/assets/animations`
 1. Select all and the click the "Open" button
 1. Save the scene
 1. Open the Player scene and expand "Player" > "Visuals"
