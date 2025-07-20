@@ -150,14 +150,6 @@ func _ready() -> void:
 	$Controls.layer = -1
 
 
-## Called when there is an input event.
-func _input(event: InputEvent) -> void:
-	# Check if the game is not paused
-	if !game_paused:
-		# Web fix - Input is required before the mouse can be captured so onready wont work
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
-
 ## Called each physics frame with the time since the last physics frame as argument (delta, in seconds).
 func _physics_process(delta) -> void:
 	# Uncomment the next line if using GodotSteam
