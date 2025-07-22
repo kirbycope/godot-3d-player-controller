@@ -143,7 +143,7 @@ material = SubResource("StandardMaterial3D_j64gc")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="ControlsOnFootController" parent="." instance=ExtResource("4_dp3eg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
 
 [node name="TitleLabel" type="Label3D" parent="ControlsOnFootController"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.93, 0.056)
@@ -153,41 +153,41 @@ autowrap_mode = 3
 width = 350.0
 
 [node name="BodyLabel" type="Label3D" parent="ControlsOnFootController"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85, 1.234, 0.056)
-text = "(L2) Left Kick
-(L1) Left Punch
-(L) Zoom In
-(L-Stick) Move
-(Select) View
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, 1.234, 0.056)
+text = "(L2)          Left Kick
+(L1)          Left Punch
+(L)            Zoom In
+(L-Stick)  Move
+(Select)   View
 
 
-(D-Left) Emotes
+(D-Left)    Emotes
 (D-Right) Chat"
-font_size = 18
+font_size = 20
 horizontal_alignment = 0
 line_spacing = -5.0
 autowrap_mode = 3
-width = 175.0
+width = 220.0
 
 [node name="BodyLabel2" type="Label3D" parent="ControlsOnFootController"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.049999975, 1.234, 0.056)
-text = "(R2) Right Kick
-(R1) Right Punch
-(R) Zoom Out
-(R-Stick) Look
-(Start) Pause
- (Y) Crouch
- (A) Jump
- (X) Use
- (B) Sprint"
-font_size = 18
+text = "(R2)           Right Kick
+(R1)           Right Punch
+(R)             Zoom Out
+(R-Stick)   Look
+(Start)      Pause
+ (Y)             Crouch
+ (A)             Jump
+ (X)             Use
+ (B)             Sprint"
+font_size = 20
 horizontal_alignment = 0
 line_spacing = -5.0
 autowrap_mode = 3
-width = 175.0
+width = 220.0
 
 [node name="ControlsOnFootKeyboard" parent="." instance=ExtResource("4_dp3eg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, -3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -2)
 
 [node name="TitleLabel" type="Label3D" parent="ControlsOnFootKeyboard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.93, 0.056)
@@ -197,38 +197,38 @@ autowrap_mode = 3
 width = 350.0
 
 [node name="BodyLabel" type="Label3D" parent="ControlsOnFootKeyboard"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85, 1.234, 0.056)
-text = "(MB3) Left Kick
-(R-Clk) Left Punch
-(Scr-Up) Zoom In
-(WASD) Move
-(F3) Debug
-(F5) View
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, 1.234, 0.056)
+text = "(MB3)       Left Kick
+(R-Clk)      Left Punch
+(Scr-Up)   Zoom In
+(WASD)    Move
+(F3)           Debug
+(F5)           View
 
-(B) Emotes
-(T) Chat"
-font_size = 18
+(B)            Emotes
+(T)            Chat"
+font_size = 20
 horizontal_alignment = 0
 line_spacing = -5.0
 autowrap_mode = 3
-width = 175.0
+width = 220.0
 
 [node name="BodyLabel2" type="Label3D" parent="ControlsOnFootKeyboard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.049999975, 1.234, 0.056)
-text = "(MB4) Right Kick
-(L-Clk) Right Punch
-(Scr-Dn) Zoom Out
-(Arrows) Look
-(Esc) Pause
- (Ctrl) Crouch
- (Space) Jump
- (X) Use
- (Shift) Sprint"
-font_size = 18
+text = "(MB4)       Right Kick
+(L-Clk)       Right Punch
+(Scr-Dn)    Zoom Out
+(Arrows)   Look
+(Esc)          Pause
+ (Ctrl)         Crouch
+ (Space)      Jump
+ (X)              Use
+ (Shift)        Sprint"
+font_size = 20
 horizontal_alignment = 0
 line_spacing = -5.0
 autowrap_mode = 3
-width = 175.0
+width = 220.0
 
 [node name="ButtonLabel" type="Label3D" parent="."]
 transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5.25, 0.01, -2)
