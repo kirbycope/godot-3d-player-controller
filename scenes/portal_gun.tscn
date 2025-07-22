@@ -1,5 +1,6 @@
-[gd_scene load_steps=10 format=4 uid="uid://cog5lww47pkyv"]
+[gd_scene load_steps=12 format=4 uid="uid://cog5lww47pkyv"]
 
+[ext_resource type="Script" uid="uid://kd1w32v1rn77" path="res://scenes/portal_gun.gd" id="1_bwwmu"]
 [ext_resource type="Texture2D" uid="uid://cd45qrj5wlbfn" path="res://assets/valve/portal_gun_w_portalgun.png" id="1_h7o6n"]
 [ext_resource type="Texture2D" uid="uid://dj6xur76xh47" path="res://assets/valve/portal_gun_w_portalgun_exponent.png" id="2_xldby"]
 [ext_resource type="Texture2D" uid="uid://dw2w4uik4bfcu" path="res://assets/valve/portal_gun_w_portalgun_normal.png" id="3_rmgd5"]
@@ -79,8 +80,12 @@ _data = {
 &"rotate": SubResource("Animation_34tsl")
 }
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_kkt4m"]
+size = Vector3(0.5, 0.5, 0.5)
+
 [node name="PortalGun" type="Node3D"]
 transform = Transform3D(-1.4, 0, -1.22392e-07, 0, 1.4, 0, 1.22392e-07, 0, -1.4, 0, 0, 0)
+script = ExtResource("1_bwwmu")
 
 [node name="w_portalgun_ARM" type="Node3D" parent="."]
 
@@ -153,3 +158,11 @@ transform = Transform3D(0.01905, 0, 0, 0, 0.01905, 0, 0, 0, 0.01905, -0.028575, 
 libraries = {
 &"": SubResource("AnimationLibrary_s584w")
 }
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_kkt4m")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

@@ -45,21 +45,16 @@ func _input(event: InputEvent) -> void:
 		if event.is_action_pressed("use") and player.is_holding:
 			# Get the nodes in the "held" group
 			var held_nodes = get_tree().get_nodes_in_group("held")
-
 			# Check if nodes were found in the group
 			if not held_nodes.is_empty():
 				# Get the first node in the "held" group
 				var held_node = held_nodes[0]
-
 				# Flag the node as no longer "held"
 				held_node.remove_from_group("held")
-
 				# Move the collider to Layer 2
 				held_node.collision_layer = 1
-
 				# Flag the player as "holding" something
 				player.is_holding = false
-
 				# Return so that no other input is handled
 				return
 
@@ -69,17 +64,40 @@ func _input(event: InputEvent) -> void:
 			if player.raycast_lookat.is_colliding():
 				# Get the object the RayCast is colliding with
 				var collider = player.raycast_lookat.get_collider()
-
 				# Check if the collider is a RigidBody3D
 				if collider is RigidBody3D and collider is not VehicleBody3D:
 					# Flag the RigidBody3D as being "held"
 					collider.add_to_group("held")
-
 					# Move the collider to Layer 2
 					collider.collision_layer = 2
-
 					# Flag the player as "holding" something
 					player.is_holding = true
+
+		# [use] button _pressed_ (and holding a fishing rod)
+		if event.is_action_pressed("use") and player.is_holding_fishing_rod:
+			# Remove the fishing rod from the player
+			player.visuals.get_node("HeldItemMount").remove_child(player.is_holding_onto)
+			# Reparent the fishing rod to the main scene
+			get_tree().current_scene.add_child(player.is_holding_onto)
+			# Reset the name so it can be found by main.gd
+			player.is_holding_onto.name = "FishingRod"
+			# Stop holding "fishing rod"
+			player.is_holding_fishing_rod = false
+			# Clear the reference
+			player.is_holding_onto = null
+
+		# [use] button _pressed_ (and holding a rifle)
+		if event.is_action_pressed("use") and player.is_holding_rifle:
+			# Remove the rifle from the player
+			player.visuals.get_node("HeldItemMount").remove_child(player.is_holding_onto)
+			# Reparent the rifle to the main scene
+			get_tree().current_scene.add_child(player.is_holding_onto)
+			# Reset the name so it can be found by main.gd
+			player.is_holding_onto.name = "PortalGun"
+			# Stop holding "rifle"
+			player.is_holding_rifle = false
+			# Clear the reference
+			player.is_holding_onto = null
 
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.

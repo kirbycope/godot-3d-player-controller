@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=47 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" uid="uid://c7agev1ouwnuu" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="Texture2D" uid="uid://e6rn4rs3cr0v" path="res://assets/kenney_nl/prototype_textures/PNG/Dark/texture_09.png" id="2_d2mly"]
@@ -78,15 +78,6 @@ uv1_triplanar = true
 material = SubResource("StandardMaterial3D_y8jba")
 size = Vector3(0.69, 0.69, 0.69)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_hm17w"]
-size = Vector3(0.5, 0.5, 0.5)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_3eb0q"]
-size = Vector3(1.4, 1, 0.6)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_k6ut6"]
-size = Vector3(0.75, 0.75, 0.75)
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2h6p8"]
 render_priority = 0
 shader = ExtResource("12_wmmbb")
@@ -158,7 +149,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 script = ExtResource("4_0ld40")
 
 [node name="Climbing" type="Label" parent="ControlsOverlay"]
-visible = false
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
@@ -169,7 +159,8 @@ offset_top = -11.5
 offset_bottom = 11.5
 grow_horizontal = 0
 grow_vertical = 2
-text = "(Y)/[Ctrl]                       Drop"
+text = "(B)/[Shift]            Speed Up
+(Y)/[Ctrl]                       Drop"
 label_settings = SubResource("LabelSettings_gqmmt")
 
 [node name="Driving" type="Label" parent="ControlsOverlay"]
@@ -200,7 +191,8 @@ offset_bottom = 24.5
 grow_horizontal = 0
 grow_vertical = 2
 text = "(L1)/[L-Click]                 Reel
-(R1)/[R-Click]                Cast"
+(R1)/[R-Click]                Cast
+(X)/[E]                           Drop"
 label_settings = SubResource("LabelSettings_gqmmt")
 
 [node name="Flying" type="Label" parent="ControlsOverlay"]
@@ -237,6 +229,22 @@ text = "(A)/[Space]               Mantle
 (Y)/[Ctrl]                       Drop"
 label_settings = SubResource("LabelSettings_gqmmt")
 
+[node name="Holding" type="Label" parent="ControlsOverlay"]
+visible = false
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -24.5
+offset_bottom = 24.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "(L1)/[R-Clk]               	Throw
+(X)/[E]                           Drop"
+label_settings = SubResource("LabelSettings_gqmmt")
+
 [node name="Rifling" type="Label" parent="ControlsOverlay"]
 visible = false
 anchors_preset = 6
@@ -250,7 +258,8 @@ offset_bottom = 24.5
 grow_horizontal = 0
 grow_vertical = 2
 text = "(L2)/[R-Click]                  Aim
-(R2)/[L-Click]             Shoot"
+(R2)/[L-Click]             Shoot
+(X)/[E]                           Drop"
 label_settings = SubResource("LabelSettings_gqmmt")
 
 [node name="Skateboarding" type="Label" parent="ControlsOverlay"]
@@ -425,12 +434,6 @@ to \"equip\""
 [node name="PortalGun" parent="." instance=ExtResource("5_k8xrp")]
 transform = Transform3D(-6.11959e-08, 1.4, 0, -1.4, -6.11959e-08, 0, 0, 0, 1.4, -6.06, 0.5000002, 2.06)
 
-[node name="Area3D" type="Area3D" parent="PortalGun"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PortalGun/Area3D"]
-shape = SubResource("BoxShape3D_hm17w")
-
 [node name="SkateboardLabel" type="Label3D" parent="."]
 transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5, 0.01, 4)
 text = "Walk into to
@@ -439,12 +442,6 @@ text = "Walk into to
 [node name="Skateboard" parent="." instance=ExtResource("14_5m2ip")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 4)
 
-[node name="Area3D2" type="Area3D" parent="Skateboard"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Skateboard/Area3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.96046e-08)
-shape = SubResource("BoxShape3D_3eb0q")
-
 [node name="FishingRodlabel" type="Label3D" parent="."]
 transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5, 0.01, 6)
 text = "Walk into
@@ -452,12 +449,6 @@ to \"equip\""
 
 [node name="FishingRod" parent="." instance=ExtResource("6_byq53")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.5, 6)
-
-[node name="Area3D" type="Area3D" parent="FishingRod"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FishingRod/Area3D"]
-transform = Transform3D(0.5, -0.866025, 0, 0.866025, 0.5, 0, 0, 0, 1, 0, 0, 0)
-shape = SubResource("BoxShape3D_k6ut6")
 
 [node name="PoolLabel" type="Label3D" parent="."]
 transform = Transform3D(-1, 8.742278e-08, 0, 0, 4.371138e-08, 1, 8.742278e-08, 1, -4.371138e-08, 0, 0.01, 7.25)
@@ -692,7 +683,3 @@ material_override = SubResource("StandardMaterial3D_dp3eg")
 use_collision = true
 size = Vector3(3, 5.5, 1)
 material = SubResource("StandardMaterial3D_jbj1t")
-
-[connection signal="body_entered" from="PortalGun/Area3D" to="." method="_on_area_3d_portal_gun_body_entered"]
-[connection signal="body_entered" from="Skateboard/Area3D2" to="." method="_on_area_3d_2_body_entered"]
-[connection signal="body_entered" from="FishingRod/Area3D" to="." method="_on_area_3d_fishing_rod_body_entered"]

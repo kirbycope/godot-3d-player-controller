@@ -1,6 +1,7 @@
 extends Node3D
 
 var player: CharacterBody3D
+var stored_horizontal_velocity: Vector3 = Vector3.ZERO
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var audio_player: AudioStreamPlayer3D = $AudioStreamPlayer3D
@@ -26,6 +27,9 @@ func _input(event: InputEvent) -> void:
 				# Check if the player is on the ground
 				if player.is_on_floor():
 
+					# Store the current horizontal velocity for momentum
+					stored_horizontal_velocity = Vector3(player.velocity.x, 0, player.velocity.z)
+
 					# Set the audio player's stream to the "ollie start" sound effect
 					audio_player.stream = ollie_start_sound
 
@@ -38,6 +42,12 @@ func _process(_delta: float) -> void:
 
 	# Check if the player is not null
 	if player:
+
+		# Check if the player is still the parent of this node
+		if get_parent() != player.visuals.get_node("SkateboardMount"):
+			# Reset the player reference
+			player = null
+			return
 
 		# Check if the player is on the ground and flagged as "jumping"
 		if player.velocity.y == 0 and player.is_jumping:
@@ -126,17 +136,25 @@ func _process(_delta: float) -> void:
 
 ## Called when a Node3D enters the Area3D.
 func _on_area_3d_body_entered(body: Node3D) -> void:
-
-	# Check if the body is a Player
-	if body.is_in_group("Player"):
-
-		player = body
-
-
-## Called when a Node3D exits the Area3D.
-func _on_area_3d_body_exited(body: Node3D) -> void:
-
-	# Check if the body is a Player
-	if body.is_in_group("Player"):
-
-		player = null
+	# Check if collider is the player
+	if body is CharacterBody3D and body.is_in_group("Player"):
+		# Reparent the held item (if any)
+		body.get_parent().reparent_held_item()
+		# Load the scene
+		var scene = load("res://scenes/skateboard.tscn")
+		# Instantiate the scene
+		var instance = scene.instantiate()
+		# Set the player reference for the new skateboard instance
+		instance.player = body
+		# Disable the skateboard's "pickup" collision
+		instance.get_node("Area3D/CollisionShape3D").disabled = true
+		# Add the instance to the player scene
+		body.visuals.get_node("SkateboardMount").add_child(instance)
+		# Save the skateboard instance to the player
+		body.is_skateboarding_on = instance
+		# Remove _this_ instance
+		queue_free()
+		# Get the string name of the player's current state
+		var current_state = body.base_state.get_state_name(body.current_state)
+		# Start "skateboarding"
+		body.base_state.transition(current_state, "Skateboarding")

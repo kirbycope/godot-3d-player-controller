@@ -35,7 +35,6 @@ func _input(event: InputEvent) -> void:
 			if player.is_on_floor():
 				# Flag the player as "crouching"
 				player.is_crouching = true
-
 				# Set the player's speed
 				player.speed_current = player.speed_crawling
 
@@ -43,7 +42,6 @@ func _input(event: InputEvent) -> void:
 		if event.is_action_released("crouch"):
 			# Flag the player as not "crouching"
 			player.is_crouching = false
-
 			# Set the player's speed
 			player.speed_current = player.speed_running
 
@@ -53,7 +51,6 @@ func _input(event: InputEvent) -> void:
 			if player.is_on_floor():
 				# Flag the player as "jumping"
 				player.is_jumping = true
-
 				# Set the player's vertical velocity
 				player.velocity.y = player.jump_velocity
 
@@ -61,15 +58,20 @@ func _input(event: InputEvent) -> void:
 		if event.is_action_pressed("use"):
 			# Slow to a stop
 			player.velocity = Vector3.ZERO
-
 			# Remove the skateboard from the player
 			player.visuals.get_node("SkateboardMount").remove_child(player.is_skateboarding_on)
-
-			# Reparent the skateboard to the root of the scene tree
-			get_tree().get_root().add_child(player.is_skateboarding_on)
-
-			# Start standing
-			transition(NODE_NAME, "Standing")
+			# Reparent the skateboard to the main scene
+			get_tree().current_scene.add_child(player.is_skateboarding_on)
+			# Clear the reference
+			player.is_skateboarding_on = null
+			# Check if the player is on the ground
+			if player.is_on_floor():
+				# Start standing
+				transition(NODE_NAME, "Standing")
+			# The player must not be on the ground
+			else:
+				# Start Falling
+				transition(NODE_NAME, "Falling")
 
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.

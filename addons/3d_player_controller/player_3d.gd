@@ -74,12 +74,13 @@ var is_crawling: bool = false
 var is_crouching: bool = false
 var is_double_jumping: bool = false
 var is_driving: bool = false
-var is_driving_in
+var is_driving_in ## The Node the player is driving
 var is_falling: bool = false
 var is_firing: bool = false
 var is_flying: bool = false
 var is_hanging: bool = false
 var is_holding: bool = false
+var is_holding_onto ## The Node held in a player's hand
 var is_holding_fishing_rod: bool = false
 var is_holding_rifle: bool = false
 var is_holding_tool: bool = false
@@ -92,10 +93,10 @@ var is_reeling: bool = false
 var is_running: bool = false
 var is_shimmying: bool = false
 var is_skateboarding: bool = false
-var is_skateboarding_on
+var is_skateboarding_on ## The Node the player is skateboarding on
 var is_sprinting: bool = false
 var is_standing: bool = false
-var is_swimming_in
+var is_swimming_in ## The Node the player is swimming in
 var is_swimming: bool = false
 var is_using: bool = false
 var is_walking: bool = false
