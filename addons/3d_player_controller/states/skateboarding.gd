@@ -47,7 +47,7 @@ func _input(event: InputEvent) -> void:
 			# Set the player's speed
 			player.speed_current = player.speed_running
 
-		# [jump] button just _pressed_
+		# [jump] button _pressed_
 		if event.is_action_pressed("jump"):
 			# Check if the player is on the ground
 			if player.is_on_floor():
@@ -56,6 +56,20 @@ func _input(event: InputEvent) -> void:
 
 				# Set the player's vertical velocity
 				player.velocity.y = player.jump_velocity
+
+		# [use] button _pressed_
+		if event.is_action_pressed("use"):
+			# Slow to a stop
+			player.velocity = Vector3.ZERO
+
+			# Remove the skateboard from the player
+			player.visuals.get_node("SkateboardMount").remove_child(player.is_skateboarding_on)
+
+			# Reparent the skateboard to the root of the scene tree
+			get_tree().get_root().add_child(player.is_skateboarding_on)
+
+			# Start standing
+			transition(NODE_NAME, "Standing")
 
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
@@ -145,6 +159,12 @@ func start() -> void:
 func stop() -> void:
 	# Disable _this_ state node
 	process_mode = PROCESS_MODE_DISABLED
+
+	# [Re]Set the player animation speed
+	player.animation_player.speed_scale = 1.0
+
+	# [Re]Set audio player pitch
+	player.audio_player.pitch_scale = 1.0
 
 	# Flag the player as not "skateboarding"
 	player.is_skateboarding = false

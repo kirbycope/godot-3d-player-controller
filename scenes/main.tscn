@@ -1,8 +1,9 @@
-[gd_scene load_steps=46 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=50 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" uid="uid://c7agev1ouwnuu" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="Texture2D" uid="uid://e6rn4rs3cr0v" path="res://assets/kenney_nl/prototype_textures/PNG/Dark/texture_09.png" id="2_d2mly"]
 [ext_resource type="PackedScene" uid="uid://ujh51l2wv1vk" path="res://addons/3d_player_controller/player_3d.tscn" id="3_wj83s"]
+[ext_resource type="Script" uid="uid://bcedn2vqgdbge" path="res://scenes/controls_overlay.gd" id="4_0ld40"]
 [ext_resource type="PackedScene" uid="uid://b23jvnkvbvg1b" path="res://scenes/cat.tscn" id="4_7pvfh"]
 [ext_resource type="Texture2D" uid="uid://yjfepubkyyyr" path="res://assets/kenney_nl/prototype_textures/PNG/Light/texture_08.png" id="4_bf4q0"]
 [ext_resource type="PackedScene" uid="uid://b00vkv565tcmq" path="res://scenes/information_sign.tscn" id="4_dp3eg"]
@@ -35,6 +36,10 @@ tonemap_mode = 2
 albedo_texture = ExtResource("2_d2mly")
 uv1_triplanar = true
 
+[sub_resource type="LabelSettings" id="LabelSettings_gqmmt"]
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_jbj1t"]
 size = Vector3(0.2, 1.1, 0.2)
 
@@ -53,6 +58,13 @@ material = SubResource("StandardMaterial3D_0ld40")
 top_radius = 0.1
 bottom_radius = 0.1
 height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gqmmt"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_yc10j"]
+material = SubResource("StandardMaterial3D_gqmmt")
+height = 0.001
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3tkmj"]
 size = Vector3(0.69, 0.69, 0.69)
@@ -142,6 +154,138 @@ material = SubResource("StandardMaterial3D_j64gc")
 [node name="Player" parent="." instance=ExtResource("3_wj83s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
+[node name="ControlsOverlay" type="CanvasLayer" parent="."]
+script = ExtResource("4_0ld40")
+
+[node name="Climbing" type="Label" parent="ControlsOverlay"]
+visible = false
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "(Y)/[Ctrl]                       Drop"
+label_settings = SubResource("LabelSettings_gqmmt")
+
+[node name="Driving" type="Label" parent="ControlsOverlay"]
+visible = false
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "(Y)/[Ctrl]                         Exit"
+label_settings = SubResource("LabelSettings_gqmmt")
+
+[node name="Fishing" type="Label" parent="ControlsOverlay"]
+visible = false
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -24.5
+offset_bottom = 24.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "(L1)/[L-Click]                 Reel
+(R1)/[R-Click]                Cast"
+label_settings = SubResource("LabelSettings_gqmmt")
+
+[node name="Flying" type="Label" parent="ControlsOverlay"]
+visible = false
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -50.5
+offset_bottom = 50.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "(A)/[Space]                 Fly Up
+(B)/[Shift]              Flay Fast
+(Y)/[Ctrl]*              Fly Down
+    *Double-jump to land"
+label_settings = SubResource("LabelSettings_gqmmt")
+
+[node name="Hanging" type="Label" parent="ControlsOverlay"]
+visible = false
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -24.5
+offset_bottom = 24.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "(A)/[Space]               Mantle
+(Y)/[Ctrl]                       Drop"
+label_settings = SubResource("LabelSettings_gqmmt")
+
+[node name="Rifling" type="Label" parent="ControlsOverlay"]
+visible = false
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -202.0
+offset_top = -24.5
+offset_bottom = 24.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "(L2)/[R-Click]                  Aim
+(R2)/[L-Click]             Shoot"
+label_settings = SubResource("LabelSettings_gqmmt")
+
+[node name="Skateboarding" type="Label" parent="ControlsOverlay"]
+visible = false
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -24.5
+offset_bottom = 24.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "(B)/[Shift]            Speed Up
+(X)/[E]                   Dismount
+(Y)/[Ctrl]            Slow Down"
+label_settings = SubResource("LabelSettings_gqmmt")
+
+[node name="Swimming" type="Label" parent="ControlsOverlay"]
+visible = false
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -24.5
+offset_bottom = 24.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "(A)/[Space]           Swim Up
+(Y)/[Ctrl]          Swim Down"
+label_settings = SubResource("LabelSettings_gqmmt")
+
 [node name="ControlsOnFootController" parent="." instance=ExtResource("4_dp3eg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
 
@@ -218,7 +362,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.049999975, 1.234, 0.056)
 text = "(MB4)       Right Kick
 (L-Clk)       Right Punch
 (Scr-Dn)    Zoom Out
-(Arrows)   Look
+(Mouse)    Look
 (Esc)          Pause
  (Ctrl)         Crouch
  (Space)      Jump
@@ -231,8 +375,10 @@ autowrap_mode = 3
 width = 220.0
 
 [node name="ButtonLabel" type="Label3D" parent="."]
-transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5.25, 0.01, -2)
-text = "Press (use)
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5, 0.01, -2)
+text = "Stand in circle
+and face button.
+Press (use)
 to \"interact\""
 
 [node name="Button" type="StaticBody3D" parent="." groups=["Usable"]]
@@ -249,9 +395,15 @@ mesh = SubResource("BoxMesh_dp3eg")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("CylinderMesh_gqmmt")
 
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Button"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.49, 0)
+mesh = SubResource("CylinderMesh_yc10j")
+
 [node name="MetalBoxLabel" type="Label3D" parent="."]
-transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5.25, 0.01, 0)
-text = "Press (use)
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5, 0.01, 0)
+text = "Face and look
+at the cube.
+Press (use)
 to \"hold\""
 
 [node name="MetalBox" type="RigidBody3D" parent="."]
@@ -266,7 +418,7 @@ shape = SubResource("BoxShape3D_3tkmj")
 mesh = SubResource("BoxMesh_egegn")
 
 [node name="PortalGunLabel" type="Label3D" parent="."]
-transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5.25, 0.01, 2)
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5, 0.01, 2)
 text = "Walk into
 to \"equip\""
 
@@ -280,7 +432,7 @@ transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 
 shape = SubResource("BoxShape3D_hm17w")
 
 [node name="SkateboardLabel" type="Label3D" parent="."]
-transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5.25, 0.01, 4)
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5, 0.01, 4)
 text = "Walk into to
 \"skateboard\""
 
@@ -294,7 +446,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.96046e-08)
 shape = SubResource("BoxShape3D_3eb0q")
 
 [node name="FishingRodlabel" type="Label3D" parent="."]
-transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5.25, 0.01, 6)
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5, 0.01, 6)
 text = "Walk into
 to \"equip\""
 
@@ -524,7 +676,7 @@ text = "Press [jump]
 to \"climb\""
 
 [node name="ClimbingWallLabel2" type="Label3D" parent="."]
-transform = Transform3D(1, -3.5527137e-15, 3.5527135e-15, 3.5527135e-15, 1, -1.4210855e-14, 0, 7.1054274e-15, 1, -4, 3, -6.49)
+transform = Transform3D(1, -3.5527137e-15, 3.5527135e-15, 3.5527135e-15, 1, -1.4210855e-14, 0, 7.1054274e-15, 1, -4, 4.5, -6.49)
 text = "You will start
 to \"hang\" when
 you reach a ledge"

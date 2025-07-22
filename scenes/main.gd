@@ -67,6 +67,9 @@ func pick_up_skateboard() -> void:
 	# Add the instance to the player scene
 	$"Player/Visuals/SkateboardMount".add_child(instance)
 
+	# Save the skateboard instance to the player
+	player.is_skateboarding_on = instance
+
 	# Get the string name of the player's current state
 	var current_state = player.base_state.get_state_name(player.current_state)
 
