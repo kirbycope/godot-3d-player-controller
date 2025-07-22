@@ -1,10 +1,11 @@
-[gd_scene load_steps=45 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=46 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" uid="uid://c7agev1ouwnuu" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="Texture2D" uid="uid://e6rn4rs3cr0v" path="res://assets/kenney_nl/prototype_textures/PNG/Dark/texture_09.png" id="2_d2mly"]
 [ext_resource type="PackedScene" uid="uid://ujh51l2wv1vk" path="res://addons/3d_player_controller/player_3d.tscn" id="3_wj83s"]
 [ext_resource type="PackedScene" uid="uid://b23jvnkvbvg1b" path="res://scenes/cat.tscn" id="4_7pvfh"]
 [ext_resource type="Texture2D" uid="uid://yjfepubkyyyr" path="res://assets/kenney_nl/prototype_textures/PNG/Light/texture_08.png" id="4_bf4q0"]
+[ext_resource type="PackedScene" uid="uid://b00vkv565tcmq" path="res://scenes/information_sign.tscn" id="4_dp3eg"]
 [ext_resource type="PackedScene" uid="uid://cog5lww47pkyv" path="res://scenes/portal_gun.tscn" id="5_k8xrp"]
 [ext_resource type="PackedScene" uid="uid://pjs50x7keevf" path="res://scenes/fishing_rod.tscn" id="6_byq53"]
 [ext_resource type="Texture2D" uid="uid://b0v08nrfse8c5" path="res://assets/kenney_nl/prototype_textures/PNG/Purple/texture_02.png" id="6_moi5b"]
@@ -34,6 +35,25 @@ tonemap_mode = 2
 albedo_texture = ExtResource("2_d2mly")
 uv1_triplanar = true
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_jbj1t"]
+size = Vector3(0.2, 1.1, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_muem4"]
+albedo_color = Color(0.443137, 0.443137, 0.443137, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dp3eg"]
+material = SubResource("StandardMaterial3D_muem4")
+size = Vector3(0.2, 1, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0ld40"]
+albedo_color = Color(0.788235, 0, 0.145098, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_gqmmt"]
+material = SubResource("StandardMaterial3D_0ld40")
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.1
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_3tkmj"]
 size = Vector3(0.69, 0.69, 0.69)
 
@@ -49,23 +69,11 @@ size = Vector3(0.69, 0.69, 0.69)
 [sub_resource type="BoxShape3D" id="BoxShape3D_hm17w"]
 size = Vector3(0.5, 0.5, 0.5)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_3eb0q"]
+size = Vector3(1.4, 1, 0.6)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_k6ut6"]
 size = Vector3(0.75, 0.75, 0.75)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o5lsk"]
-albedo_texture = ExtResource("6_moi5b")
-uv1_triplanar = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qkbxv"]
-albedo_texture = ExtResource("7_uwbdk")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1jjce"]
-albedo_texture = ExtResource("8_px2wr")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f0ihw"]
-albedo_color = Color(0.490196, 0.490196, 0.490196, 1)
-albedo_texture = ExtResource("11_h4p86")
-uv1_triplanar = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2h6p8"]
 render_priority = 0
@@ -91,27 +99,20 @@ size = Vector3(5, 2, 0.1)
 [sub_resource type="BoxMesh" id="BoxMesh_ws3r6"]
 size = Vector3(10.2, 2, 0.1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_3eb0q"]
-size = Vector3(1.4, 1, 0.6)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qkbxv"]
+albedo_texture = ExtResource("7_uwbdk")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_jbj1t"]
-size = Vector3(0.2, 1.1, 0.2)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1jjce"]
+albedo_texture = ExtResource("8_px2wr")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_muem4"]
-albedo_color = Color(0.443137, 0.443137, 0.443137, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o5lsk"]
+albedo_texture = ExtResource("6_moi5b")
+uv1_triplanar = true
 
-[sub_resource type="BoxMesh" id="BoxMesh_dp3eg"]
-material = SubResource("StandardMaterial3D_muem4")
-size = Vector3(0.2, 1, 0.2)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0ld40"]
-albedo_color = Color(0.788235, 0, 0.145098, 1)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_gqmmt"]
-material = SubResource("StandardMaterial3D_0ld40")
-top_radius = 0.1
-bottom_radius = 0.1
-height = 0.1
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f0ihw"]
+albedo_color = Color(0.490196, 0.490196, 0.490196, 1)
+albedo_texture = ExtResource("11_h4p86")
+uv1_triplanar = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dp3eg"]
 albedo_texture = ExtResource("17_muem4")
@@ -139,9 +140,122 @@ size = Vector3(128, 0.01, 128)
 material = SubResource("StandardMaterial3D_j64gc")
 
 [node name="Player" parent="." instance=ExtResource("3_wj83s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="ControlsOnFootController" parent="." instance=ExtResource("4_dp3eg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -3)
+
+[node name="TitleLabel" type="Label3D" parent="ControlsOnFootController"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.93, 0.056)
+double_sided = false
+text = "Controller - On Foot"
+autowrap_mode = 3
+width = 350.0
+
+[node name="BodyLabel" type="Label3D" parent="ControlsOnFootController"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85, 1.234, 0.056)
+text = "(L2) Left Kick
+(L1) Left Punch
+(L) Zoom In
+(L-Stick) Move
+(Select) View
+
+
+(D-Left) Emotes
+(D-Right) Chat"
+font_size = 18
+horizontal_alignment = 0
+line_spacing = -5.0
+autowrap_mode = 3
+width = 175.0
+
+[node name="BodyLabel2" type="Label3D" parent="ControlsOnFootController"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.049999975, 1.234, 0.056)
+text = "(R2) Right Kick
+(R1) Right Punch
+(R) Zoom Out
+(R-Stick) Look
+(Start) Pause
+ (Y) Crouch
+ (A) Jump
+ (X) Use
+ (B) Sprint"
+font_size = 18
+horizontal_alignment = 0
+line_spacing = -5.0
+autowrap_mode = 3
+width = 175.0
+
+[node name="ControlsOnFootKeyboard" parent="." instance=ExtResource("4_dp3eg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, -3)
+
+[node name="TitleLabel" type="Label3D" parent="ControlsOnFootKeyboard"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.93, 0.056)
+double_sided = false
+text = "Keyboard - On Foot"
+autowrap_mode = 3
+width = 350.0
+
+[node name="BodyLabel" type="Label3D" parent="ControlsOnFootKeyboard"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85, 1.234, 0.056)
+text = "(MB3) Left Kick
+(R-Clk) Left Punch
+(Scr-Up) Zoom In
+(WASD) Move
+(F3) Debug
+(F5) View
+
+(B) Emotes
+(T) Chat"
+font_size = 18
+horizontal_alignment = 0
+line_spacing = -5.0
+autowrap_mode = 3
+width = 175.0
+
+[node name="BodyLabel2" type="Label3D" parent="ControlsOnFootKeyboard"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.049999975, 1.234, 0.056)
+text = "(MB4) Right Kick
+(L-Clk) Right Punch
+(Scr-Dn) Zoom Out
+(Arrows) Look
+(Esc) Pause
+ (Ctrl) Crouch
+ (Space) Jump
+ (X) Use
+ (Shift) Sprint"
+font_size = 18
+horizontal_alignment = 0
+line_spacing = -5.0
+autowrap_mode = 3
+width = 175.0
+
+[node name="ButtonLabel" type="Label3D" parent="."]
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5.25, 0.01, -2)
+text = "Press (use)
+to \"interact\""
+
+[node name="Button" type="StaticBody3D" parent="." groups=["Usable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.5, -2)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Button"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+shape = SubResource("BoxShape3D_jbj1t")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Button"]
+mesh = SubResource("BoxMesh_dp3eg")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Button"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("CylinderMesh_gqmmt")
+
+[node name="MetalBoxLabel" type="Label3D" parent="."]
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5.25, 0.01, 0)
+text = "Press (use)
+to \"hold\""
 
 [node name="MetalBox" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.445, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.445, 0)
 contact_monitor = true
 max_contacts_reported = 1
 
@@ -151,8 +265,13 @@ shape = SubResource("BoxShape3D_3tkmj")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MetalBox"]
 mesh = SubResource("BoxMesh_egegn")
 
+[node name="PortalGunLabel" type="Label3D" parent="."]
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5.25, 0.01, 2)
+text = "Walk into
+to \"equip\""
+
 [node name="PortalGun" parent="." instance=ExtResource("5_k8xrp")]
-transform = Transform3D(-6.11959e-08, 1.4, 0, -1.4, -6.11959e-08, 0, 0, 0, 1.4, -2, 0.5, -2)
+transform = Transform3D(-6.11959e-08, 1.4, 0, -1.4, -6.11959e-08, 0, 0, 0, 1.4, -6.06, 0.5000002, 2.06)
 
 [node name="Area3D" type="Area3D" parent="PortalGun"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
@@ -160,8 +279,27 @@ transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PortalGun/Area3D"]
 shape = SubResource("BoxShape3D_hm17w")
 
+[node name="SkateboardLabel" type="Label3D" parent="."]
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5.25, 0.01, 4)
+text = "Walk into to
+\"skateboard\""
+
+[node name="Skateboard" parent="." instance=ExtResource("14_5m2ip")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 4)
+
+[node name="Area3D2" type="Area3D" parent="Skateboard"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Skateboard/Area3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.96046e-08)
+shape = SubResource("BoxShape3D_3eb0q")
+
+[node name="FishingRodlabel" type="Label3D" parent="."]
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5.25, 0.01, 6)
+text = "Walk into
+to \"equip\""
+
 [node name="FishingRod" parent="." instance=ExtResource("6_byq53")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0.5, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.5, 6)
 
 [node name="Area3D" type="Area3D" parent="FishingRod"]
 
@@ -169,13 +307,53 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0.5, -2)
 transform = Transform3D(0.5, -0.866025, 0, 0.866025, 0.5, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_k6ut6")
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, -4)
-use_collision = true
-size = Vector3(2, 2, 2)
-material = SubResource("StandardMaterial3D_o5lsk")
+[node name="PoolLabel" type="Label3D" parent="."]
+transform = Transform3D(-1, 8.742278e-08, 0, 0, 4.371138e-08, 1, 8.742278e-08, 1, -4.371138e-08, 0, 0.01, 7.25)
+text = "Walk into
+to \"swim\""
+
+[node name="Pool" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.1)
+script = ExtResource("12_71twb")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pool"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 7.9)
+material_override = SubResource("ShaderMaterial_2h6p8")
+mesh = SubResource("BoxMesh_y86t8")
+
+[node name="Area3D" type="Area3D" parent="Pool/MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pool/MeshInstance3D/Area3D"]
+shape = SubResource("BoxShape3D_ku3gi")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Pool"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2.85038)
+mesh = SubResource("BoxMesh_0silw")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Pool"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 12.95)
+mesh = SubResource("BoxMesh_0silw")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Pool"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.55, 1, 7.9)
+mesh = SubResource("BoxMesh_ws3r6")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Pool"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.54955, 1, 7.9)
+mesh = SubResource("BoxMesh_ws3r6")
+
+[node name="StairsLabel" type="Label3D" parent="."]
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371137e-08, -7.1054274e-15, 1, -1, 4.371139e-08, -4.371137e-08, 6.25, 0.01, -7)
+text = "Press [jump]
+to \"hang\""
+
+[node name="StairsLabel2" type="Label3D" parent="."]
+transform = Transform3D(-4.3711385e-08, -1, -4.3711385e-08, 7.1054274e-15, -4.3711392e-08, 1, -1, 4.371139e-08, 3.5527137e-15, 5.75, 2.01, -7)
+text = "Press [jump]
+to \"mantle\""
 
 [node name="Stairs" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -3)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Stairs"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.788086, 0.111139, -3.99806)
@@ -297,87 +475,72 @@ use_collision = true
 size = Vector3(1, 0.019, 0.254)
 material = SubResource("StandardMaterial3D_1jjce")
 
-[node name="Cat" parent="." instance=ExtResource("4_7pvfh")]
-transform = Transform3D(0.883883, 0, -0.883883, 0, 1.25, 0, 0.883883, 0, 0.883883, 4, 1.101, -2)
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, -7)
+use_collision = true
+size = Vector3(2, 2, 2)
+material = SubResource("StandardMaterial3D_o5lsk")
 
-[node name="Duck" parent="." instance=ExtResource("11_11ve4")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -4.27738, 3.26335e-05, -5.2671)
+[node name="CatLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, -3.8213705e-15, -4.371138e-08, 1, 0, -1, -4.371138e-08, 4.999999, 0.01, -4.4500003)
+text = "Press (use)
+to \"interact\""
+
+[node name="Cat" parent="." instance=ExtResource("4_7pvfh")]
+transform = Transform3D(0.883883, 0, -0.883883, 0, 1.25, 0, 0.883883, 0, 0.883883, 5, 1.1, -5.3)
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.55, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.55, -5.3)
 use_collision = true
 height = 1.1
 material = SubResource("StandardMaterial3D_f0ihw")
 
 [node name="CSGCylinder3D2" type="CSGCylinder3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.951, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.951, -5.3)
 use_collision = true
 radius = 0.6
 height = 0.3
 material = SubResource("StandardMaterial3D_f0ihw")
 
-[node name="Pool" type="Node3D" parent="."]
-script = ExtResource("12_71twb")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Pool"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 7.9)
-material_override = SubResource("ShaderMaterial_2h6p8")
-mesh = SubResource("BoxMesh_y86t8")
-
-[node name="Area3D" type="Area3D" parent="Pool/MeshInstance3D"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Pool/MeshInstance3D/Area3D"]
-shape = SubResource("BoxShape3D_ku3gi")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Pool"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2.85038)
-mesh = SubResource("BoxMesh_0silw")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Pool"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 12.95)
-mesh = SubResource("BoxMesh_0silw")
-
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="Pool"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.55, 1, 7.9)
-mesh = SubResource("BoxMesh_ws3r6")
-
-[node name="MeshInstance3D5" type="MeshInstance3D" parent="Pool"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.54955, 1, 7.9)
-mesh = SubResource("BoxMesh_ws3r6")
-
-[node name="Skateboard" parent="." instance=ExtResource("14_5m2ip")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 1)
-
-[node name="Area3D2" type="Area3D" parent="Skateboard"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Skateboard/Area3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.96046e-08)
-shape = SubResource("BoxShape3D_3eb0q")
+[node name="CarLabel" type="Label3D" parent="."]
+transform = Transform3D(-4.371139e-08, 1, 0, 4.3711378e-08, 0, 1, 1, 4.371139e-08, -4.3711378e-08, 6.762807, 0.01, -0.3500002)
+text = "Press (use)
+to \"drive\""
 
 [node name="Honda_CRV_2023" parent="." instance=ExtResource("15_5l67w")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 8, 0, 0)
 
-[node name="Button" type="StaticBody3D" parent="." groups=["Usable"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, 0)
+[node name="DuckLabel" type="Label3D" parent="."]
+transform = Transform3D(-4.371139e-08, 1, 0, 4.3711378e-08, 0, 1, 1, 4.371139e-08, -4.3711378e-08, 7, 0.01, 6)
+text = "Get in range
+to be followed"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Button"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
-shape = SubResource("BoxShape3D_jbj1t")
+[node name="Duck" parent="." instance=ExtResource("11_11ve4")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 8.022619, 3.26335e-05, 5.9329014)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Button"]
-mesh = SubResource("BoxMesh_dp3eg")
+[node name="ClimbingWallLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 3.5527137e-15, -4.371138e-08, 1, 0, -1, -4.3711374e-08, -3.9999995, 0.009999475, -6.0000005)
+text = "Press [jump]
+to \"climb\""
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Button"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("CylinderMesh_gqmmt")
+[node name="ClimbingWallLabel2" type="Label3D" parent="."]
+transform = Transform3D(1, -3.5527137e-15, 3.5527135e-15, 3.5527135e-15, 1, -1.4210855e-14, 0, 7.1054274e-15, 1, -4, 3, -6.49)
+text = "You will start
+to \"hang\" when
+you reach a ledge"
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.75, -8)
+[node name="ClimbingWallLabel3" type="Label3D" parent="."]
+transform = Transform3D(1, -2.1175826e-22, 0, 3.5527133e-15, -4.371138e-08, 1, 0, -1, -4.3711374e-08, -4, 5.51, -6.75)
+text = "Press [jump]
+to \"mantle\""
+
+[node name="ClimbingWall" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2.75, -7)
 material_override = SubResource("StandardMaterial3D_dp3eg")
 use_collision = true
 size = Vector3(3, 5.5, 1)
 material = SubResource("StandardMaterial3D_jbj1t")
 
 [connection signal="body_entered" from="PortalGun/Area3D" to="." method="_on_area_3d_portal_gun_body_entered"]
-[connection signal="body_entered" from="FishingRod/Area3D" to="." method="_on_area_3d_fishing_rod_body_entered"]
 [connection signal="body_entered" from="Skateboard/Area3D2" to="." method="_on_area_3d_2_body_entered"]
+[connection signal="body_entered" from="FishingRod/Area3D" to="." method="_on_area_3d_fishing_rod_body_entered"]

@@ -1,0 +1,74 @@
+[gd_scene load_steps=7 format=3 uid="uid://b00vkv565tcmq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fhs6r"]
+albedo_color = Color(0.52156866, 0.36862746, 0.25882354, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pxrip"]
+size = Vector3(1.85, 1.5, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hoc6u"]
+albedo_color = Color(0.6431373, 0.45490196, 0.28627452, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6ec1j"]
+size = Vector3(1.75, 1.4, 0.01)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_khj1r"]
+albedo_color = Color(1, 1, 0.93333334, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pxrip"]
+albedo_color = Color(0.32156864, 0.32156864, 0.34117648, 1)
+
+[node name="InformationSign" type="Node3D"]
+
+[node name="PostL" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.125, 0)
+radius = 0.1
+height = 2.25
+material = SubResource("StandardMaterial3D_fhs6r")
+
+[node name="PostR" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.125, 0)
+radius = 0.1
+height = 2.25
+material = SubResource("StandardMaterial3D_fhs6r")
+
+[node name="BackerBoard" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 0)
+mesh = SubResource("BoxMesh_pxrip")
+material = SubResource("StandardMaterial3D_hoc6u")
+
+[node name="BulletinBoard" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 0.05)
+mesh = SubResource("BoxMesh_6ec1j")
+material = SubResource("StandardMaterial3D_khj1r")
+
+[node name="Roof" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.9659258, -0.25881904, 0, 0.25881904, 0.9659258, 0, 2.25, 0)
+size = Vector3(2.2, 0.052, 1)
+material = SubResource("StandardMaterial3D_pxrip")
+
+[node name="Title" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.93, 0.056)
+visible = false
+double_sided = false
+text = "Title"
+autowrap_mode = 3
+width = 350.0
+
+[node name="Body" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.234, 0.056)
+visible = false
+text = "1
+2
+3
+4
+5
+6
+7
+8
+9
+0"
+font_size = 20
+line_spacing = -5.0
+autowrap_mode = 3
+width = 350.0
