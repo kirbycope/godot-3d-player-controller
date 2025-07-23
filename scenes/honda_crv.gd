@@ -46,11 +46,25 @@ func _input(event: InputEvent) -> void:
 			if event.is_action_pressed("crouch"):
 				# Check if the player is DRIVING
 				if player.is_driving:
+					# Stop the car immediately
+					engine_force = 0
+					brake = 1.0
+					
+					# Stop all audio when exiting
+					audio_player.stop()
+					audio_player2.stop()
+					
 					player.is_driving = false
 					player.is_animation_locked = true
 					# Transition animation
 					player.global_position.y -= 0.15
 					player.animation_player.play("Exiting_Car" + "/mixamo_com")
+					
+					# Create a tween to synchronize player with car during exit animation
+					var sync_tween = create_tween()
+					sync_tween.set_loops()
+					sync_tween.tween_method(_sync_player_to_car, 0.0, 1.0, 0.016)  # ~60fps updates
+
 					await get_tree().create_timer(1.0).timeout
 					animation_player.play("door_front_driver_open")
 					audio_player2.stream = player.is_driving_in.sound_door_open
@@ -62,12 +76,18 @@ func _input(event: InputEvent) -> void:
 					audio_player2.play()
 					await get_tree().create_timer(0.2).timeout
 					player.animation_player.stop()
+					sync_tween.kill() # Stop the synchronization tween
 					player.animation_player.play("Standing_Idle" + "/mixamo_com")
 					player.global_position = exit_driver_door.global_position
 					player.rotation = exit_driver_door.rotation
 					player.visuals.rotation = exit_driver_door.rotation
 					player.camera_mount.rotation = exit_driver_door.rotation
 					player.is_animation_locked = false
+
+					# Reset car controls after exiting
+					engine_force = 0
+					brake = 0
+					steering = 0
 
 					# Start "standing"
 					player.base_state.transition("Driving", "Standing")
@@ -92,8 +112,13 @@ func _input(event: InputEvent) -> void:
 					player.collision_shape.disabled = true
 					player.is_animation_locked = true
 					player.global_position = open_driver_door.global_position
-					player.rotation = open_driver_door.rotation
-					player.visuals.rotation = open_driver_door.rotation + Vector3( 0.0, deg_to_rad(-90.0), 0.0)
+					
+					# Make the player look at the car (similar to climbing system)
+					var car_direction = drivers_seat.global_position - player.global_position
+					car_direction.y = 0.0  # Keep horizontal only
+					var look_at_target = player.global_position + car_direction.normalized()
+					player.visuals.look_at(look_at_target, Vector3.UP)
+					
 					player.animation_player.play("Entering_Car" + "/mixamo_com")
 					await get_tree().create_timer(1.0).timeout
 					animation_player.play("door_front_driver_open")
@@ -208,3 +233,10 @@ func _on_area_3d_body_exited(body: Node3D) -> void:
 	if body.is_in_group("Player"):
 		# Flag the player as not near the driver's door
 		near_driver_door = false
+
+
+## Helper method to sync player position with car during exit animation
+func _sync_player_to_car(_value: float) -> void:
+	if player and player.animation_player.current_animation == "Exiting_Car" + "/mixamo_com":
+		player.global_position = drivers_seat.global_position
+		player.global_position.y -= 0.15  # Maintain the offset
