@@ -82,13 +82,9 @@ func handle_collisions() -> void:
 		var collider = collision.get_collider()
 		if collider:
 			var push_force = Vector3.ZERO
-			
-			# If collided with player, get pushed away
-			if collider.is_in_group("Player"):
-				push_force = collision.get_normal() * -2.0  # Push away from player
 
-			# If collided with a vehicle (like Honda CRV), get pushed much harder
-			elif collider is VehicleBody3D:
+			# If collided with a vehicle (like the Honda CRV), get pushed much harder
+			if collider is VehicleBody3D:
 				# Cooldown to prevent multiple rapid hits
 				var time_since_last_hit = Time.get_ticks_msec() / 1000.0 - last_vehicle_hit_time
 				
@@ -104,10 +100,7 @@ func handle_collisions() -> void:
 					push_force.y += impact_speed * 0.5
 					
 					last_vehicle_hit_time = Time.get_ticks_msec() / 1000.0
-					
-					# Simple debug confirmation
-					print("Duck hit by vehicle! Push force: ", push_force.length())
-			
+
 			# Apply the calculated push force
 			if push_force.length() > 0:
 				velocity.x += push_force.x
