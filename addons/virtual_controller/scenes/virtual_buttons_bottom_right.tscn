@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://d1yeyb0luu5cy"]
+[gd_scene load_steps=31 format=3 uid="uid://d1yeyb0luu5cy"]
 
 [ext_resource type="Texture2D" uid="uid://bf7ao2r1en2cq" path="res://addons/virtual_controller/assets/textures/game_icons/PNG/White/2x/buttonA.png" id="1_dyvab"]
 [ext_resource type="Texture2D" uid="uid://gq6lwxhonocy" path="res://addons/virtual_controller/assets/textures/game_icons/PNG/Black/2x/buttonA.png" id="2_k0k70"]
@@ -29,6 +29,16 @@
 [ext_resource type="Texture2D" uid="uid://c0rilaeqj1cox" path="res://addons/virtual_controller/assets/textures/playstation_series/Double/black_playstation_button_triangle.png" id="17_iq1u3"]
 [ext_resource type="Texture2D" uid="uid://dfekelui7hmee" path="res://addons/virtual_controller/assets/textures/switch_2/Default/black_switch_right.png" id="19_13uvn"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_2hqlr"]
+font_size = 20
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2x4f6"]
+font_size = 20
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
 [node name="VirtualButtonsBottomRight" type="Control"]
 layout_mode = 3
 anchors_preset = 3
@@ -57,6 +67,20 @@ z_index = -1
 position = Vector2(52, 50)
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("12_pcoid")
+
+[node name="Label" type="Label" parent="TouchScreenButtonA"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -25.5
+offset_top = -28.0
+offset_right = 25.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Jump"
+label_settings = SubResource("LabelSettings_2hqlr")
 
 [node name="TouchScreenButtonCross" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
 visible = false
@@ -88,6 +112,20 @@ position = Vector2(52, 50)
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("12_pcoid")
 
+[node name="Label" type="Label" parent="TouchScreenButtonB"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -29.5
+offset_top = -28.0
+offset_right = 29.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Sprint"
+label_settings = SubResource("LabelSettings_2hqlr")
+
 [node name="TouchScreenButtonCircle" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
 visible = false
 position = Vector2(-105, -249)
@@ -116,6 +154,20 @@ z_index = -1
 position = Vector2(52, 50)
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("12_pcoid")
+
+[node name="Label" type="Label" parent="TouchScreenButtonX"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -18.5
+offset_top = -28.0
+offset_right = 18.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Use"
+label_settings = SubResource("LabelSettings_2hqlr")
 
 [node name="TouchScreenButtonSquare" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
 visible = false
@@ -146,6 +198,20 @@ position = Vector2(52, 50)
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("12_pcoid")
 
+[node name="Label" type="Label" parent="TouchScreenButtonY"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -34.5
+offset_top = -28.0
+offset_right = 34.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Crouch"
+label_settings = SubResource("LabelSettings_2hqlr")
+
 [node name="TouchScreenButtonTriangle" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
 visible = false
 position = Vector2(-185, -329)
@@ -166,6 +232,18 @@ position = Vector2(-100, -84)
 texture_normal = ExtResource("7_o7vf7")
 texture_pressed = ExtResource("8_vh2ts")
 action = "start"
+
+[node name="Label" type="Label" parent="TouchScreenButtonStart"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 22.0
+offset_top = -44.0
+offset_right = 78.0
+offset_bottom = -16.0
+grow_vertical = 0
+text = "Menu"
+label_settings = SubResource("LabelSettings_2x4f6")
 
 [node name="TouchScreenButtonCUp" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
 visible = false

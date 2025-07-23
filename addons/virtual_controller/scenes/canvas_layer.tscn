@@ -432,7 +432,6 @@ grow_horizontal = 0
 grow_vertical = 0
 
 [node name="Black" type="Control" parent="Debug/NintendoController"]
-layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -554,7 +553,6 @@ offset_bottom = 30.0
 texture = ExtResource("18_eco06")
 
 [node name="White" type="Control" parent="Debug/NintendoController"]
-layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -719,7 +717,6 @@ grow_horizontal = 0
 grow_vertical = 0
 
 [node name="Black" type="Control" parent="Debug/SonyController"]
-layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -841,7 +838,6 @@ offset_bottom = -18.0
 texture = ExtResource("18_eco06")
 
 [node name="White" type="Control" parent="Debug/SonyController"]
-layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0

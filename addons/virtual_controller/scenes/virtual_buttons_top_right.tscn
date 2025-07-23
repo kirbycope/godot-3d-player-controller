@@ -1,9 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://gpoak7bsf1wf"]
+[gd_scene load_steps=6 format=3 uid="uid://gpoak7bsf1wf"]
 
 [ext_resource type="Texture2D" uid="uid://yyo58jhoeyrk" path="res://addons/virtual_controller/assets/textures/game_icons/PNG/White/2x/buttonR1.png" id="1_x1l36"]
 [ext_resource type="Texture2D" uid="uid://c30r1l3sf2c5d" path="res://addons/virtual_controller/assets/textures/game_icons/PNG/Black/2x/buttonR1.png" id="2_13km2"]
 [ext_resource type="Texture2D" uid="uid://0rxctybw5b3b" path="res://addons/virtual_controller/assets/textures/game_icons/PNG/White/2x/buttonR2.png" id="3_qp1ot"]
 [ext_resource type="Texture2D" uid="uid://c0nsdyvm0vms5" path="res://addons/virtual_controller/assets/textures/game_icons/PNG/Black/2x/buttonR2.png" id="4_mihub"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_esij4"]
+font_size = 20
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
 
 [node name="VirtualButtonsTopRight" type="Control"]
 layout_mode = 3
@@ -20,9 +25,37 @@ texture_pressed = ExtResource("2_13km2")
 passby_press = true
 action = "right_punch"
 
+[node name="Label" type="Label" parent="TouchScreenButtonR1"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -28.0
+offset_right = 40.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "R-Punch"
+label_settings = SubResource("LabelSettings_esij4")
+
 [node name="TouchScreenButtonR2" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
 position = Vector2(-100, -16)
 texture_normal = ExtResource("3_qp1ot")
 texture_pressed = ExtResource("4_mihub")
 passby_press = true
 action = "right_kick"
+
+[node name="Label" type="Label" parent="TouchScreenButtonR2"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -29.5
+offset_top = -28.0
+offset_right = 29.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "R-Kick"
+label_settings = SubResource("LabelSettings_esij4")

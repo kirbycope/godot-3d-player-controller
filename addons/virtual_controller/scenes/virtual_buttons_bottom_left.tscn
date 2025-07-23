@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c5lir3jkw3qk"]
+[gd_scene load_steps=12 format=3 uid="uid://c5lir3jkw3qk"]
 
 [ext_resource type="Texture2D" uid="uid://dusktsyyxoavo" path="res://addons/virtual_controller/assets/textures/game_icons/PNG/White/2x/down.png" id="1_qe86t"]
 [ext_resource type="Texture2D" uid="uid://cet6nk1v4lprw" path="res://addons/virtual_controller/assets/textures/game_icons/PNG/Black/2x/down.png" id="2_1apt6"]
@@ -11,6 +11,11 @@
 [ext_resource type="Texture2D" uid="uid://bfl81yth34bak" path="res://addons/virtual_controller/assets/textures/game_icons/PNG/White/2x/buttonSelect.png" id="9_hk5if"]
 [ext_resource type="Texture2D" uid="uid://bartqmihktak7" path="res://addons/virtual_controller/assets/textures/game_icons/PNG/Black/2x/buttonSelect.png" id="10_qnl86"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_fw2cq"]
+font_size = 20
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
 [node name="VirtualButtonsBottomLeft" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -20,6 +25,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TouchScreenButtonDown" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
+visible = false
 position = Vector2(85, -169)
 texture_normal = ExtResource("1_qe86t")
 texture_pressed = ExtResource("2_1apt6")
@@ -33,6 +39,21 @@ texture_pressed = ExtResource("4_6wd1c")
 passby_press = true
 action = "dpad_left"
 
+[node name="Label" type="Label" parent="TouchScreenButtonLeft"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -14.0
+offset_right = 36.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Emotes"
+label_settings = SubResource("LabelSettings_fw2cq")
+
 [node name="TouchScreenButtonRight" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
 position = Vector2(165, -249)
 texture_normal = ExtResource("5_fgvu8")
@@ -40,7 +61,23 @@ texture_pressed = ExtResource("6_ylfrq")
 passby_press = true
 action = "dpad_right"
 
+[node name="Label" type="Label" parent="TouchScreenButtonRight"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.5
+offset_top = -14.0
+offset_right = 22.5
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Chat"
+label_settings = SubResource("LabelSettings_fw2cq")
+
 [node name="TouchScreenButtonUp" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
+visible = false
 position = Vector2(85, -329)
 texture_normal = ExtResource("7_8lj22")
 texture_pressed = ExtResource("8_k7pkl")
@@ -52,3 +89,18 @@ position = Vector2(0, -84)
 texture_normal = ExtResource("9_hk5if")
 texture_pressed = ExtResource("10_qnl86")
 action = "select"
+
+[node name="Label" type="Label" parent="TouchScreenButtonSelect"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -23.0
+offset_top = -44.0
+offset_right = 23.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "View"
+label_settings = SubResource("LabelSettings_fw2cq")
