@@ -25,12 +25,26 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TouchScreenButtonDown" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
-visible = false
 position = Vector2(85, -169)
 texture_normal = ExtResource("1_qe86t")
 texture_pressed = ExtResource("2_1apt6")
 passby_press = true
 action = "dpad_down"
+
+[node name="Label" type="Label" parent="TouchScreenButtonDown"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -21.0
+offset_top = -14.0
+offset_right = 21.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Bow"
+label_settings = SubResource("LabelSettings_fw2cq")
 
 [node name="TouchScreenButtonLeft" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
 position = Vector2(5, -249)
@@ -77,12 +91,26 @@ text = "Chat"
 label_settings = SubResource("LabelSettings_fw2cq")
 
 [node name="TouchScreenButtonUp" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
-visible = false
 position = Vector2(85, -329)
 texture_normal = ExtResource("7_8lj22")
 texture_pressed = ExtResource("8_k7pkl")
 passby_press = true
 action = "dpad_up"
+
+[node name="Label" type="Label" parent="TouchScreenButtonUp"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -26.5
+offset_top = -14.0
+offset_right = 26.5
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Wave"
+label_settings = SubResource("LabelSettings_fw2cq")
 
 [node name="TouchScreenButtonSelect" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
 position = Vector2(0, -84)
