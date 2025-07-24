@@ -32,7 +32,7 @@ func _process(_delta: float) -> void:
 		label_dpad_right.text = "Cry"
 		label_dpad_up.text = "Wave"
 	else:
-		label_dpad_down.text = ""
+		label_dpad_down.text = "Drop"
 		label_dpad_left.text = "Emotes"
 		label_dpad_right.text = "Chat"
 		label_dpad_up.text = ""
