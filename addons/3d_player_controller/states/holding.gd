@@ -53,7 +53,7 @@ func _input(event: InputEvent) -> void:
 				held_node.remove_from_group("held")
 				# Move the collider to Layer 2
 				held_node.collision_layer = 1
-				# Flag the player as "holding" something
+				# Flag the player as not "holding" something
 				player.is_holding = false
 				# Return so that no other input is handled
 				return
@@ -73,27 +73,23 @@ func _input(event: InputEvent) -> void:
 					# Flag the player as "holding" something
 					player.is_holding = true
 
-		# [use] button _pressed_ (and holding a fishing rod)
-		if event.is_action_pressed("button_2") and player.is_holding_fishing_rod:
+		# [drop] button _pressed_ (and holding a fishing rod)
+		if event.is_action_pressed("button_13") and player.is_holding_fishing_rod:
 			# Remove the fishing rod from the player
 			player.visuals.get_node("HeldItemMount").remove_child(player.is_holding_onto)
 			# Reparent the fishing rod to the main scene
 			get_tree().current_scene.add_child(player.is_holding_onto)
-			# Reset the name so it can be found by main.gd
-			player.is_holding_onto.name = "FishingRod"
 			# Stop holding "fishing rod"
 			player.is_holding_fishing_rod = false
 			# Clear the reference
 			player.is_holding_onto = null
 
-		# [use] button _pressed_ (and holding a rifle)
-		if event.is_action_pressed("button_2") and player.is_holding_rifle:
+		# [drop] button _pressed_ (and holding a rifle)
+		if event.is_action_pressed("button_13") and player.is_holding_rifle:
 			# Remove the rifle from the player
 			player.visuals.get_node("HeldItemMount").remove_child(player.is_holding_onto)
 			# Reparent the rifle to the main scene
 			get_tree().current_scene.add_child(player.is_holding_onto)
-			# Reset the name so it can be found by main.gd
-			player.is_holding_onto.name = "PortalGun"
 			# Stop holding "rifle"
 			player.is_holding_rifle = false
 			# Clear the reference

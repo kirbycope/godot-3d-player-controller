@@ -193,7 +193,7 @@ grow_horizontal = 0
 grow_vertical = 2
 text = "(L1)/[L-Click]                 Reel
 (R1)/[R-Click]                Cast
-(X)/[E]                           Drop"
+(D-Down)/[Q]              Drop"
 label_settings = SubResource("LabelSettings_gqmmt")
 
 [node name="Flying" type="Label" parent="ControlsOverlay"]
@@ -259,8 +259,8 @@ offset_bottom = 24.5
 grow_horizontal = 0
 grow_vertical = 2
 text = "(L2)/[R-Click]                  Aim
-(R2)/[L-Click]             Shoot
-(X)/[E]                           Drop"
+(R2)/[L-Click]              Shoot
+(D-Down)/[Q]              Drop"
 label_settings = SubResource("LabelSettings_gqmmt")
 
 [node name="Skateboarding" type="Label" parent="ControlsOverlay"]
@@ -276,7 +276,7 @@ offset_bottom = 24.5
 grow_horizontal = 0
 grow_vertical = 2
 text = "(B)/[Shift]            Speed Up
-(X)/[E]                   Dismount
+(D-Down)/[Q]     Dismount
 (Y)/[Ctrl]            Slow Down"
 label_settings = SubResource("LabelSettings_gqmmt")
 

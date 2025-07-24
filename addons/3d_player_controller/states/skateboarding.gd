@@ -54,8 +54,8 @@ func _input(event: InputEvent) -> void:
 				# Set the player's vertical velocity
 				player.velocity.y = player.jump_velocity
 
-		# [use] button _pressed_
-		if event.is_action_pressed("button_2"):
+		# [drop] button _pressed_
+		if event.is_action_pressed("button_13"):
 			# Slow to a stop
 			player.velocity = Vector3.ZERO
 			# Remove the skateboard from the player

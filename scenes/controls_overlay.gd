@@ -38,13 +38,13 @@ func _ready() -> void:
 	label_select.text = "View"
 	label_button_start.text = "Pause"
 
-	label_button_l.text = "Zoom-In"
-	label_button_r.text = "Zoom-Out"
+	label_button_l.text = "Zoom-Out"
+	label_button_r.text = "Zoom-In"
 
 	label_button_a.text = "Jump"
-	label_button_b.text = "Crouch"
+	label_button_b.text = "Sprint"
 	label_button_x.text = "Interact"
-	label_button_y.text = "Sprint"
+	label_button_y.text = "Crouch"
 
 	label_l1.text = "L-Punch"
 	label_l2.text = "L-Kick"
@@ -75,3 +75,10 @@ func _process(_delta: float) -> void:
 		label_dpad_left.text = "Emotes"
 		label_dpad_right.text = "Chat"
 		label_dpad_up.text = ""
+	
+	if player.perspective == 1:
+		label_button_l.get_parent().hide()
+		label_button_r.get_parent().hide()
+	else:
+		label_button_l.get_parent().show()
+		label_button_r.get_parent().show()
