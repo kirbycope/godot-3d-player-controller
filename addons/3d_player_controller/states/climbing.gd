@@ -30,13 +30,13 @@ func _input(event: InputEvent) -> void:
 	# Check if the game is not paused
 	if !player.game_paused:
 		# [crouch] button _pressed_
-		if event.is_action_pressed("crouch"):
+		if event.is_action_pressed("button_3"):
 			# Start falling
 			transition(NODE_NAME, "Falling")
 			return
 
 		# [jump] button _pressed_
-		if event.is_action_pressed("jump") and player.enable_jumping:
+		if event.is_action_pressed("button_0") and player.enable_jumping:
 			# ToDo: Jump up and climb higher
 			pass
 
@@ -71,12 +71,12 @@ func _process(_delta: float) -> void:
 			return
 
 	# [sprint] button _pressed_
-	if Input.is_action_pressed("sprint"):
+	if Input.is_action_pressed("button_1"):
 		# Make the player climb faster
 		player.speed_current = player.speed_crawling
 
 	# [sprint] button just _released_
-	if Input.is_action_just_released("sprint"):
+	if Input.is_action_just_released("button_1"):
 		# Make the player climb normal speed
 		player.speed_current = player.speed_climbing
 

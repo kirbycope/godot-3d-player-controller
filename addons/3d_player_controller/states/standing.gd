@@ -45,17 +45,17 @@ func _input(event: InputEvent) -> void:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 		# [crouch] button just _pressed_ and crouching is enabled
-		if event.is_action_pressed("crouch") and player.enable_crouching:
+		if event.is_action_pressed("button_3") and player.enable_crouching:
 			# Start "crouching"
 			transition(NODE_NAME, "Crouching")
 
 		# [jump] button just _pressed_
-		if event.is_action_pressed("jump") and player.enable_jumping:
+		if event.is_action_pressed("button_0") and player.enable_jumping:
 			# Start "jumping"
 			transition(NODE_NAME, "Jumping")
 
 		# [left-kick] button _pressed_
-		if event.is_action_pressed("left_kick"):
+		if event.is_action_pressed("button_6"):
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
 				# Check if the player is not "crouching" and is "on floor"
@@ -77,7 +77,7 @@ func _input(event: InputEvent) -> void:
 							player.check_kick_collision()
 
 		# [right-kick] button _pressed_
-		if event.is_action_pressed("right_kick"):
+		if event.is_action_pressed("button_7"):
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
 				# Check if the player is not "crouching" and is "on floor"
@@ -99,7 +99,8 @@ func _input(event: InputEvent) -> void:
 							player.check_kick_collision()
 
 		# [aim] button just _pressed_
-		if event.is_action_pressed("aim"):
+		if controls.current_input_type == controls.InputType.KEYBOARD_MOUSE and event.is_action_pressed("button_5")\
+		or event.is_action_pressed("button_6"):
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
 				# Check if the player is "holding a rifle"
@@ -108,7 +109,8 @@ func _input(event: InputEvent) -> void:
 					player.is_aiming = true
 
 		# [aim] button just _released_
-		if event.is_action_released("aim"):
+		if controls.current_input_type == controls.InputType.KEYBOARD_MOUSE and event.is_action_released("button_5")\
+		or event.is_action_released("button_6"):
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
 				# Check if the player is "holding a rifle"
@@ -117,7 +119,7 @@ func _input(event: InputEvent) -> void:
 					player.is_aiming = false
 
 		# [left-punch] button just _pressed_
-		if event.is_action_pressed("left_punch"):
+		if event.is_action_pressed("button_4"):
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
 				# Check if the player is "holding a fishing rod"
@@ -144,14 +146,15 @@ func _input(event: InputEvent) -> void:
 								player.check_punch_collision()
 
 		# [left-punch] button just _released_
-		if event.is_action_released("left_punch"):
+		if event.is_action_released("button_4"):
 			# Check if the player is "holding a fishing rod"
 			if player.is_holding_fishing_rod:
 				# Flag the player as not "reeling"
 				player.is_reeling = false
 
 		# [shoot] button just _pressed_
-		if event.is_action_pressed("shoot"):
+		if controls.current_input_type == controls.InputType.KEYBOARD_MOUSE and event.is_action_pressed("button_4")\
+		or event.is_action_pressed("button_7"):
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
 				# Check if the player is "holding a rifle"
@@ -166,7 +169,7 @@ func _input(event: InputEvent) -> void:
 					player.is_firing = false
 
 		# [right-punch] button just _pressed_
-		if event.is_action_pressed("right_punch"):
+		if event.is_action_pressed("button_5"):
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
 				# Check if the player is "holding a fishing rod"
@@ -193,14 +196,14 @@ func _input(event: InputEvent) -> void:
 							player.check_punch_collision()
 
 		# [right-punch] button just _released_
-		if event.is_action_released("right_punch"):
+		if event.is_action_released("button_5"):
 			# Check if the player is "holding a fishing rod"
 			if player.is_holding_fishing_rod:
 				# Flag the player as not "casting"
 				player.is_casting = false
 
 		# [use] button just _pressed_ (and the middle raycast is colliding)
-		if event.is_action_pressed("use") and player.raycast_use.is_colliding():
+		if event.is_action_pressed("button_2") and player.raycast_use.is_colliding():
 			# Check that the collider is usable
 			if player.raycast_use.get_collider().is_in_group("Usable"):
 				# Flag the player as "using"
@@ -214,7 +217,7 @@ func _process(_delta: float) -> void:
 	# Check if the game is not paused
 	if !player.game_paused:
 		# [crouch] button _pressed_, crouching is enabled, and not already "crouching"
-		if Input.is_action_pressed("crouch") and player.enable_crouching and !player.is_crouching:
+		if Input.is_action_pressed("button_3") and player.enable_crouching and !player.is_crouching:
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
 				# Start "crouching"

@@ -52,7 +52,7 @@ func _process(_delta: float) -> void:
 ## Called when there is an input event.
 func _input(event: InputEvent) -> void:
 	# [chat] button _released_
-	if event.is_action_released("dpad_right") and !player.game_paused:
+	if event.is_action_released("button_15") and !player.game_paused:
 
 		# Show the chat input
 		input_container.show()

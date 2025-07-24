@@ -22,7 +22,7 @@ func _input(event: InputEvent) -> void:
 		if !player.game_paused:
 
 			# [jump] button just _pressed_
-			if event.is_action_pressed("jump"):
+			if event.is_action_pressed("button_0"):
 
 				# Check if the player is on the ground
 				if player.is_on_floor():

@@ -36,12 +36,13 @@ func _input(event: InputEvent) -> void:
 	# Check if the game is not paused
 	if !player.game_paused:
 		# [jump] button just _pressed_
-		if event.is_action_pressed("jump") and player.enable_jumping:
+		if event.is_action_pressed("button_0") and player.enable_jumping:
 			# Start "jumping"
 			transition(NODE_NAME, "Jumping")
 
 		# [aim] button just _pressed_
-		if event.is_action_pressed("aim"):
+		if controls.current_input_type == controls.InputType.KEYBOARD_MOUSE and event.is_action_pressed("button_5")\
+		or event.is_action_pressed("button_6"):
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
 				# Check if the player is "holding a rifle"
@@ -50,7 +51,8 @@ func _input(event: InputEvent) -> void:
 					player.is_aiming = true
 
 		# [aim] button just _released_
-		if event.is_action_released("aim"):
+		if controls.current_input_type == controls.InputType.KEYBOARD_MOUSE and event.is_action_released("button_5")\
+		or event.is_action_released("button_6"):
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
 				# Check if the player is "holding a rifle"
@@ -59,7 +61,7 @@ func _input(event: InputEvent) -> void:
 					player.is_aiming = false
 
 		# [left-punch] button just _pressed_
-		if event.is_action_pressed("left_punch"):
+		if event.is_action_pressed("button_4"):
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
 				# Check if the player is not "holding a rifle"
@@ -81,14 +83,14 @@ func _input(event: InputEvent) -> void:
 							player.check_punch_collision()
 
 		# [left-punch] button just _released_
-		if event.is_action_released("left_punch"):
+		if event.is_action_released("button_4"):
 			# Check if the player is "holding a rifle"
 			if player.is_holding_rifle:
 				# Flag the player as not "aiming"
 				player.is_aiming = false
 
 		# [right-punch] button just _pressed_
-		if event.is_action_pressed("right_punch"):
+		if event.is_action_pressed("button_5"):
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
 				# Check if the player is not "holding a rifle"
@@ -110,7 +112,8 @@ func _input(event: InputEvent) -> void:
 							player.check_punch_collision()
 
 		# [shoot] button just _pressed_
-		if event.is_action_pressed("shoot"):
+		if controls.current_input_type == controls.InputType.KEYBOARD_MOUSE and event.is_action_pressed("button_4")\
+		or event.is_action_pressed("button_7"):
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
 				# Check if the player is "holding a rifle"
@@ -137,7 +140,7 @@ func _process(_delta: float) -> void:
 			transition(NODE_NAME, "Crawling")
 
 		# [crouch] button not _pressed_
-		if !Input.is_action_pressed("crouch"):
+		if !Input.is_action_pressed("button_3"):
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
 				# Stop "crouching"

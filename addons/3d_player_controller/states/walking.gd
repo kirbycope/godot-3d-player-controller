@@ -51,7 +51,7 @@ func _process(_delta: float) -> void:
 				transition(NODE_NAME, "Sprinting")
 
 		# [sprint] button _pressed_
-		if Input.is_action_pressed("sprint"):
+		if Input.is_action_pressed("button_1"):
 			# Start "sprinting"
 			transition(NODE_NAME, "Sprinting")
 

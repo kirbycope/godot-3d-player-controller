@@ -32,7 +32,7 @@ func _process(delta: float) -> void:
 	# Check if the game is not paused
 	if !player.game_paused:
 		# [jump] button just _pressed_
-		if Input.is_action_just_pressed("jump"):
+		if Input.is_action_just_pressed("button_0"):
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
 				# Check if "jump timer" hasn't started
@@ -57,12 +57,12 @@ func _process(delta: float) -> void:
 					timer_jump = Time.get_ticks_msec()
 
 		# [crouch] button just _pressed_
-		if Input.is_action_just_pressed("crouch"):
+		if Input.is_action_just_pressed("button_3"):
 			# Pitch the player slightly downward
 			player.visuals.rotation.x = deg_to_rad(-6)
 		
 		# [crouch] button currently _pressed_
-		if Input.is_action_pressed("crouch"):
+		if Input.is_action_pressed("button_3"):
 			# Decrease the player's vertical position
 			player.position.y -= 5 * delta
 
@@ -72,27 +72,27 @@ func _process(delta: float) -> void:
 				transition(NODE_NAME, "Standing")
 		
 		# [crouch] button just _released_
-		if Input.is_action_just_released("crouch"):
+		if Input.is_action_just_released("button_3"):
 			# Reset the player's pitch
 			player.visuals.rotation.x = 0
 
 		# [jump] button just _pressed_
-		if Input.is_action_just_pressed("jump"):
+		if Input.is_action_just_pressed("button_0"):
 			# Pitch the player slightly downward
 			player.visuals.rotation.x = deg_to_rad(6)
 
 		# [jump] button currently _pressed_
-		if Input.is_action_pressed("jump"):
+		if Input.is_action_pressed("button_0"):
 			# Increase the player's vertical position
 			player.position.y += 5 * delta
 
 		# [jump] button just _released_
-		if Input.is_action_just_released("jump"):
+		if Input.is_action_just_released("button_0"):
 			# Reset the player's pitch
 			player.visuals.rotation.x = 0
 
 		# [sprint] button _pressed_
-		if Input.is_action_pressed("sprint"):
+		if Input.is_action_pressed("button_1"):
 			# Check if the player is not "sprinting"
 			if !player.is_sprinting:
 				# Set the player's speed
@@ -102,7 +102,7 @@ func _process(delta: float) -> void:
 				player.is_sprinting = true
 
 		# [sprint] button just _released_
-		if Input.is_action_just_released("sprint"):
+		if Input.is_action_just_released("button_1"):
 			# Set the player's speed
 			player.speed_current = player.speed_flying
 

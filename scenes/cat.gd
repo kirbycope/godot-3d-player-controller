@@ -4,7 +4,7 @@ extends CharacterBody3D
 
 ## Called when there is an input event.
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("use"):
+	if event.is_action_pressed("button_2"):
 		if player.raycast_lookat.is_colliding():
 			if player.raycast_high.is_colliding() and player.raycast_high.get_collider().is_in_group("Pet"):
 				player.animation_player.play("Petting_Animal_High" + "/mixamo_com")

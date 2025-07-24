@@ -203,10 +203,10 @@ func _process(delta: float) -> void:
 			# [Re]Set player's movement speed
 			speed_current = speed_flying_fast
 			# [crouch] button _pressed_
-			if Input.is_action_pressed("crouch"):
+			if Input.is_action_pressed("button_3"):
 				global_position = global_position - Vector3(0, delta * 10, 0)
 			# [jump] button _pressed_
-			if Input.is_action_pressed("jump"):
+			if Input.is_action_pressed("button_0"):
 				global_position = global_position + Vector3(0, delta * 10, 0)
 
 

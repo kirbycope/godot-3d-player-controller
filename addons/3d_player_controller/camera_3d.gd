@@ -40,13 +40,13 @@ func _input(event) -> void:
 		# Check if the camera is using a third-person perspective and the perspective is not locked and the camera is not locked
 		if player.perspective == 0 and !player.lock_perspective and !player.lock_camera:
 			# [zoom in] button _pressed_
-			if event.is_action_pressed("zoom_in"):
+			if event.is_action_pressed("button_10"):
 				# Move the camera towards the player, slightly
 				transform.origin.z = clamp(transform.origin.z + zoom_speed, zoom_min, zoom_max)
 				player.raycast_lookat.position = Vector3(0.0, 0.0, -transform.origin.z)
 
 			# [zoom out] button _pressed_
-			if event.is_action_pressed("zoom_out"):
+			if event.is_action_pressed("button_11"):
 				# Move the camera away from the player, slightly
 				transform.origin.z = clamp(transform.origin.z - zoom_speed, zoom_min, zoom_max)
 				player.raycast_lookat.position = Vector3(0.0, 0.0, -transform.origin.z)
@@ -59,7 +59,7 @@ func _input(event) -> void:
 				camera_rotate_by_mouse(event)
 
 		# [select] button _pressed_ and the camera is not locked
-		if event.is_action_pressed("select") and !player.lock_camera:
+		if event.is_action_pressed("button_8") and !player.lock_camera:
 			# Check if in third-person
 			if player.perspective == 0:
 				# Switch to "first" person perspective

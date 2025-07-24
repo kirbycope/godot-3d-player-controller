@@ -30,7 +30,7 @@ func _input(event: InputEvent) -> void:
 	# Check if the game is not paused
 	if !player.game_paused:
 		# [jump] button just _pressed_
-		if event.is_action_pressed("jump") and player.enable_jumping:
+		if event.is_action_pressed("button_0") and player.enable_jumping:
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
 				# Check if "double jump" is enabled and the player is not currently double-jumping
@@ -54,7 +54,7 @@ func _process(_delta: float) -> void:
 	# Check if the game is not paused
 	if !player.game_paused:
 		# Check if the player is not canceling a climb or hang
-		if !Input.is_action_pressed("crouch"):
+		if !Input.is_action_pressed("button_3"):
 			# Check the eyeline for a ledge to grab.
 			if !player.raycast_top.is_colliding() and player.raycast_high.is_colliding():
 				# Get the collision object

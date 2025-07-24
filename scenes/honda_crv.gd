@@ -43,7 +43,7 @@ func _input(event: InputEvent) -> void:
 				last_mouse_move_time = Time.get_ticks_msec() / 1000.0
 
 			# [crouch] action _pressed_
-			if event.is_action_pressed("crouch"):
+			if event.is_action_pressed("button_3"):
 				# Check if the player is DRIVING
 				if player.is_driving:
 					# Stop the car immediately
@@ -93,7 +93,7 @@ func _input(event: InputEvent) -> void:
 					player.base_state.transition("Driving", "Standing")
 
 			# [jump] action _pressed_
-			if event.is_action_pressed("jump"):
+			if event.is_action_pressed("button_0"):
 				# Check if the player is DRIVING
 				if player.is_driving:
 					# Set the secondary audio stream to the horn sound
@@ -103,7 +103,7 @@ func _input(event: InputEvent) -> void:
 					audio_player2.play()
 
 			# [use] action _pressed_ (and no player is DRIVING)
-			if event.is_action_pressed("use"):
+			if event.is_action_pressed("button_2"):
 				# Check if the player is near the driver's door
 				if near_driver_door:
 					# Store the vehicle with the player

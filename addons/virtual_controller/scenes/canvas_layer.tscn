@@ -1,8 +1,9 @@
-[gd_scene load_steps=77 format=3 uid="uid://cx7x0f3lh4aus"]
+[gd_scene load_steps=78 format=3 uid="uid://cx7x0f3lh4aus"]
 
 [ext_resource type="Script" uid="uid://nrm2nfdpnpku" path="res://addons/virtual_controller/scripts/controls.gd" id="1_av0r5"]
 [ext_resource type="Script" uid="uid://cm1p2ejcm3mg4" path="res://addons/virtual_controller/scripts/virtual_controller.gd" id="1_c4rma"]
 [ext_resource type="PackedScene" uid="uid://c5lir3jkw3qk" path="res://addons/virtual_controller/scenes/virtual_buttons_bottom_left.tscn" id="3_ek3oe"]
+[ext_resource type="Script" uid="uid://ctrn7ywstrjes" path="res://addons/virtual_controller/scenes/virtual_buttons.gd" id="3_hw4v4"]
 [ext_resource type="PackedScene" uid="uid://d1yeyb0luu5cy" path="res://addons/virtual_controller/scenes/virtual_buttons_bottom_right.tscn" id="4_4a2ha"]
 [ext_resource type="PackedScene" uid="uid://clp3r7jjx7lg6" path="res://addons/virtual_controller/scenes/virtual_buttons_top_left.tscn" id="5_g6s7q"]
 [ext_resource type="PackedScene" uid="uid://gpoak7bsf1wf" path="res://addons/virtual_controller/scenes/virtual_buttons_top_right.tscn" id="6_jtalx"]
@@ -91,6 +92,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("3_hw4v4")
 
 [node name="VirtualButtonsBottomLeft" parent="VirtualButtons" instance=ExtResource("3_ek3oe")]
 layout_mode = 1

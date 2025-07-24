@@ -46,22 +46,22 @@ func _input(event) -> void:
 					visible = false
 
 				# Check if the [dpad_down] action _pressed_
-				if event.is_action_pressed("dpad_down"):
+				if event.is_action_pressed("button_13"):
 					# Perform emote 4
 					emote4()
 
 				# Check if the [dpad_left] action _pressed_
-				if event.is_action_pressed("dpad_left"):
+				if event.is_action_pressed("button_14"):
 					# Perform emote 2
 					emote2()
 
 				# Check if the [dpad_right] action _pressed_
-				if event.is_action_pressed("dpad_right"):
+				if event.is_action_pressed("button_15"):
 					# Perform emote 3
 					emote3()
 
 				# Check if the [dpad_up] action _pressed_
-				if event.is_action_pressed("dpad_up"):
+				if event.is_action_pressed("button_12"):
 					# Perform emote 1
 					emote1()
 
@@ -76,7 +76,7 @@ func _input(event) -> void:
 					return
 
 				# Check if the [dpad_left] action _pressed_
-				if event.is_action_pressed("dpad_left"):
+				if event.is_action_pressed("button_14"):
 					# Enable visibility
 					visible = true
 

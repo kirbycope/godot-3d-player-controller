@@ -23,7 +23,7 @@ position = Vector2(0, 84)
 texture_normal = ExtResource("1_h0ai3")
 texture_pressed = ExtResource("2_q7kgu")
 passby_press = true
-action = "left_punch"
+action = "button_4"
 
 [node name="Label" type="Label" parent="TouchScreenButtonL1"]
 anchors_preset = 7
@@ -31,12 +31,11 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -39.0
+offset_left = -0.5
 offset_top = -28.0
-offset_right = 39.0
+offset_right = 0.5
 grow_horizontal = 2
 grow_vertical = 0
-text = "L-Punch"
 label_settings = SubResource("LabelSettings_fb8wf")
 
 [node name="TouchScreenButtonL2" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
@@ -44,7 +43,7 @@ position = Vector2(0, -16)
 texture_normal = ExtResource("2_b1e5m")
 texture_pressed = ExtResource("3_q7kgu")
 passby_press = true
-action = "left_kick"
+action = "button_6"
 
 [node name="Label" type="Label" parent="TouchScreenButtonL2"]
 anchors_preset = 7
@@ -52,10 +51,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -28.5
+offset_left = -0.5
 offset_top = -28.0
-offset_right = 28.5
+offset_right = 0.5
 grow_horizontal = 2
 grow_vertical = 0
-text = "L-Kick"
 label_settings = SubResource("LabelSettings_fb8wf")

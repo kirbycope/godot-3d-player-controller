@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://d1yeyb0luu5cy"]
+[gd_scene load_steps=32 format=3 uid="uid://d1yeyb0luu5cy"]
 
 [ext_resource type="Texture2D" uid="uid://bf7ao2r1en2cq" path="res://addons/virtual_controller/assets/textures/game_icons/PNG/White/2x/buttonA.png" id="1_dyvab"]
 [ext_resource type="Texture2D" uid="uid://gq6lwxhonocy" path="res://addons/virtual_controller/assets/textures/game_icons/PNG/Black/2x/buttonA.png" id="2_k0k70"]
@@ -28,13 +28,10 @@
 [ext_resource type="Texture2D" uid="uid://cgovkvm8tv21f" path="res://addons/virtual_controller/assets/textures/switch_2/Default/black_switch_left.png" id="17_c4fdf"]
 [ext_resource type="Texture2D" uid="uid://c0rilaeqj1cox" path="res://addons/virtual_controller/assets/textures/playstation_series/Double/black_playstation_button_triangle.png" id="17_iq1u3"]
 [ext_resource type="Texture2D" uid="uid://dfekelui7hmee" path="res://addons/virtual_controller/assets/textures/switch_2/Default/black_switch_right.png" id="19_13uvn"]
+[ext_resource type="Texture2D" uid="uid://d2l4iqe4wxipm" path="res://addons/virtual_controller/assets/textures/game_icons_expansion/PNG/White/2x/joystickR_top.png" id="20_16rok"]
+[ext_resource type="Texture2D" uid="uid://btm0cgc5iaedi" path="res://addons/virtual_controller/assets/textures/game_icons_expansion/PNG/Black/2x/joystickR_top.png" id="21_hdapk"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_2hqlr"]
-font_size = 20
-outline_size = 8
-outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_2x4f6"]
 font_size = 20
 outline_size = 8
 outline_color = Color(0, 0, 0, 1)
@@ -58,7 +55,7 @@ position = Vector2(-185, -169)
 texture_normal = ExtResource("1_dyvab")
 texture_pressed = ExtResource("2_k0k70")
 passby_press = true
-action = "jump"
+action = "button_0"
 
 [node name="Background" type="Sprite2D" parent="TouchScreenButtonA"]
 visible = false
@@ -74,13 +71,13 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -25.5
+offset_left = -0.5
 offset_top = -28.0
-offset_right = 25.5
+offset_right = 0.5
 grow_horizontal = 2
 grow_vertical = 0
-text = "Jump"
 label_settings = SubResource("LabelSettings_2hqlr")
+horizontal_alignment = 1
 
 [node name="TouchScreenButtonCross" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
 visible = false
@@ -88,7 +85,7 @@ position = Vector2(-185, -169)
 texture_normal = ExtResource("4_2hqlr")
 texture_pressed = ExtResource("5_2x4f6")
 passby_press = true
-action = "jump"
+action = "button_0"
 
 [node name="Background" type="Sprite2D" parent="TouchScreenButtonCross"]
 visible = false
@@ -103,7 +100,7 @@ position = Vector2(-105, -249)
 texture_normal = ExtResource("3_o41q3")
 texture_pressed = ExtResource("4_3qn5a")
 passby_press = true
-action = "sprint"
+action = "button_1"
 
 [node name="Background" type="Sprite2D" parent="TouchScreenButtonB"]
 visible = false
@@ -118,13 +115,13 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -29.5
+offset_left = -0.5
 offset_top = -28.0
-offset_right = 29.5
+offset_right = 0.5
 grow_horizontal = 2
 grow_vertical = 0
-text = "Sprint"
 label_settings = SubResource("LabelSettings_2hqlr")
+horizontal_alignment = 1
 
 [node name="TouchScreenButtonCircle" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
 visible = false
@@ -132,7 +129,7 @@ position = Vector2(-105, -249)
 texture_normal = ExtResource("8_16rok")
 texture_pressed = ExtResource("9_hdapk")
 passby_press = true
-action = "sprint"
+action = "button_1"
 
 [node name="Background" type="Sprite2D" parent="TouchScreenButtonCircle"]
 visible = false
@@ -146,7 +143,7 @@ position = Vector2(-265, -249)
 texture_normal = ExtResource("5_aort8")
 texture_pressed = ExtResource("6_o41q3")
 passby_press = true
-action = "use"
+action = "button_2"
 
 [node name="Background" type="Sprite2D" parent="TouchScreenButtonX"]
 visible = false
@@ -161,13 +158,13 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -18.5
+offset_left = -0.5
 offset_top = -28.0
-offset_right = 18.5
+offset_right = 0.5
 grow_horizontal = 2
 grow_vertical = 0
-text = "Use"
 label_settings = SubResource("LabelSettings_2hqlr")
+horizontal_alignment = 1
 
 [node name="TouchScreenButtonSquare" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
 visible = false
@@ -175,7 +172,7 @@ position = Vector2(-265, -249)
 texture_normal = ExtResource("12_0u8lu")
 texture_pressed = ExtResource("13_hhuy7")
 passby_press = true
-action = "use"
+action = "button_2"
 
 [node name="Background" type="Sprite2D" parent="TouchScreenButtonSquare"]
 visible = false
@@ -189,7 +186,7 @@ position = Vector2(-185, -329)
 texture_normal = ExtResource("6_yx8li")
 texture_pressed = ExtResource("8_3qn5a")
 passby_press = true
-action = "crouch"
+action = "button_3"
 
 [node name="Background" type="Sprite2D" parent="TouchScreenButtonY"]
 visible = false
@@ -204,13 +201,13 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -34.5
+offset_left = -0.5
 offset_top = -28.0
-offset_right = 34.5
+offset_right = 0.5
 grow_horizontal = 2
 grow_vertical = 0
-text = "Crouch"
 label_settings = SubResource("LabelSettings_2hqlr")
+horizontal_alignment = 1
 
 [node name="TouchScreenButtonTriangle" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
 visible = false
@@ -218,7 +215,7 @@ position = Vector2(-185, -329)
 texture_normal = ExtResource("16_ajbu6")
 texture_pressed = ExtResource("17_iq1u3")
 passby_press = true
-action = "crouch"
+action = "button_3"
 
 [node name="Background" type="Sprite2D" parent="TouchScreenButtonTriangle"]
 visible = false
@@ -231,19 +228,41 @@ texture = ExtResource("12_pcoid")
 position = Vector2(-100, -84)
 texture_normal = ExtResource("7_o7vf7")
 texture_pressed = ExtResource("8_vh2ts")
-action = "start"
+action = "button_9"
 
 [node name="Label" type="Label" parent="TouchScreenButtonStart"]
-anchors_preset = 2
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 22.0
+offset_left = -0.5
 offset_top = -44.0
-offset_right = 78.0
+offset_right = 0.5
 offset_bottom = -16.0
+grow_horizontal = 2
 grow_vertical = 0
-text = "Menu"
-label_settings = SubResource("LabelSettings_2x4f6")
+label_settings = SubResource("LabelSettings_2hqlr")
+horizontal_alignment = 1
+
+[node name="TouchScreenButtonR" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
+position = Vector2(-300, -100)
+texture_normal = ExtResource("20_16rok")
+texture_pressed = ExtResource("21_hdapk")
+action = "button_11"
+
+[node name="Label" type="Label" parent="TouchScreenButtonR"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_top = -28.0
+offset_right = 3.0
+grow_horizontal = 2
+grow_vertical = 0
+label_settings = SubResource("LabelSettings_2hqlr")
 
 [node name="TouchScreenButtonCUp" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
 visible = false
@@ -258,6 +277,21 @@ visible = false
 z_index = -1
 position = Vector2(32, 32)
 texture = ExtResource("3_uwa31")
+
+[node name="Label" type="Label" parent="TouchScreenButtonCUp"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = 31.0
+offset_right = 24.0
+offset_bottom = 59.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "look"
+label_settings = SubResource("LabelSettings_2hqlr")
 
 [node name="TouchScreenButtonCDown" type="TouchScreenButton" parent="." groups=["TouchScreenButton"]]
 visible = false

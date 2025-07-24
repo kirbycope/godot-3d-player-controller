@@ -30,7 +30,7 @@ func _input(event: InputEvent) -> void:
 	# Check if the game is not paused
 	if !player.game_paused:
 		# [crouch] button _pressed_
-		if event.is_action_pressed("crouch"):
+		if event.is_action_pressed("button_3"):
 			# Check if the player is on the ground
 			if player.is_on_floor():
 				# Flag the player as "crouching"
@@ -39,14 +39,14 @@ func _input(event: InputEvent) -> void:
 				player.speed_current = player.speed_crawling
 
 		# [crouch] button _release_
-		if event.is_action_released("crouch"):
+		if event.is_action_released("button_3"):
 			# Flag the player as not "crouching"
 			player.is_crouching = false
 			# Set the player's speed
 			player.speed_current = player.speed_running
 
 		# [jump] button _pressed_
-		if event.is_action_pressed("jump"):
+		if event.is_action_pressed("button_0"):
 			# Check if the player is on the ground
 			if player.is_on_floor():
 				# Flag the player as "jumping"
@@ -55,7 +55,7 @@ func _input(event: InputEvent) -> void:
 				player.velocity.y = player.jump_velocity
 
 		# [use] button _pressed_
-		if event.is_action_pressed("use"):
+		if event.is_action_pressed("button_2"):
 			# Slow to a stop
 			player.velocity = Vector3.ZERO
 			# Remove the skateboard from the player
@@ -84,12 +84,12 @@ func _process(_delta: float) -> void:
 		transition(NODE_NAME, "Standing")
 
 	# [sprint] button _pressed_
-	if Input.is_action_pressed("sprint"):
+	if Input.is_action_pressed("button_1"):
 		# Set the player's speed
 		player.speed_current = player.speed_sprinting
 	
 	# [sprint] button _release_
-	if Input.is_action_just_released("sprint"):
+	if Input.is_action_just_released("button_1"):
 		# Set the player's speed
 		player.speed_current = player.speed_running
 

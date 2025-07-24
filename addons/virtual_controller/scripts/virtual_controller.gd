@@ -70,6 +70,7 @@ var tap_initial_position = null
 @onready var touch_screen_button_right: TouchScreenButton = virtual_buttons_bottom_left.get_node("TouchScreenButtonRight")
 @onready var touch_screen_button_up: TouchScreenButton = virtual_buttons_bottom_left.get_node("TouchScreenButtonUp")
 @onready var touch_screen_button_select: TouchScreenButton = virtual_buttons_bottom_left.get_node("TouchScreenButtonSelect")
+@onready var touch_screen_button_joystick_l: TouchScreenButton = virtual_buttons_bottom_left.get_node("TouchScreenButtonL")
 @onready var virtual_buttons_bottom_right: Control = $"../VirtualButtons/VirtualButtonsBottomRight"
 @onready var touch_screen_button_a: TouchScreenButton = virtual_buttons_bottom_right.get_node("TouchScreenButtonA")
 @onready var touch_screen_button_a_background: Sprite2D = virtual_buttons_bottom_right.get_node("TouchScreenButtonA/Background")
@@ -92,6 +93,7 @@ var tap_initial_position = null
 @onready var touch_screen_button_y_background: Sprite2D = virtual_buttons_bottom_right.get_node("TouchScreenButtonY/Background")
 @onready var touch_screen_button_y_initial_position := touch_screen_button_y.position
 @onready var touch_screen_button_start: TouchScreenButton = virtual_buttons_bottom_right.get_node("TouchScreenButtonStart")
+@onready var touch_screen_button_joystick_r: TouchScreenButton = virtual_buttons_bottom_right.get_node("TouchScreenButtonR")
 @onready var virtual_buttons_top_left: Control = $"../VirtualButtons/VirtualButtonsTopLeft"
 @onready var touch_screen_button_l_1: TouchScreenButton = virtual_buttons_top_left.get_node("TouchScreenButtonL1")
 @onready var touch_screen_button_l_2: TouchScreenButton = virtual_buttons_top_left.get_node("TouchScreenButtonL2")
@@ -404,6 +406,8 @@ func update_theme(new_theme: theme) -> void:
 	touch_screen_button_up.self_modulate = Color.WHITE
 	touch_screen_button_select.show()
 	touch_screen_button_select.self_modulate = Color.WHITE
+	touch_screen_button_joystick_l.show()
+	touch_screen_button_joystick_l.self_modulate = Color.WHITE
 	touch_screen_button_a.show()
 	touch_screen_button_a.texture_normal = WHITE_BUTTON_A
 	touch_screen_button_a.texture_pressed = BLACK_BUTTON_A
@@ -442,6 +446,8 @@ func update_theme(new_theme: theme) -> void:
 	touch_screen_button_y.position = touch_screen_button_y_initial_position
 	touch_screen_button_start.show()
 	touch_screen_button_start.self_modulate = Color.WHITE
+	touch_screen_button_joystick_r.show()
+	touch_screen_button_joystick_r.self_modulate = Color.WHITE
 	touch_screen_button_l_1.show()
 	touch_screen_button_l_1.self_modulate = Color.WHITE
 	touch_screen_button_l_2.show()
@@ -502,6 +508,8 @@ func update_theme(new_theme: theme) -> void:
 		touch_screen_button_x.hide()
 		touch_screen_button_y.hide()
 		touch_screen_button_select.hide()
+		touch_screen_button_joystick_l.hide()
+		touch_screen_button_joystick_r.hide()
 		touch_screen_button_start.self_modulate = BOOTSTRAP_RED
 		touch_screen_button_l_1.self_modulate = BOOTSTRAP_GRAY_DARK
 		touch_screen_button_l_2.self_modulate = BOOTSTRAP_GRAY_DARK
@@ -526,7 +534,9 @@ func update_theme(new_theme: theme) -> void:
 		touch_screen_button_x.hide()
 		touch_screen_button_y.hide()
 		touch_screen_button_select.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_joystick_l.hide()
 		touch_screen_button_start.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_joystick_r.hide()
 		touch_screen_button_l_1.hide()
 		touch_screen_button_l_2.hide()
 		touch_screen_button_r_1.hide()
@@ -555,7 +565,9 @@ func update_theme(new_theme: theme) -> void:
 		touch_screen_button_y_background.show()
 		touch_screen_button_y_background.self_modulate = Color.BLACK
 		touch_screen_button_select.hide()
+		touch_screen_button_joystick_l.hide()
 		touch_screen_button_start.self_modulate = BOOTSTRAP_GRAY
+		touch_screen_button_joystick_r.hide()
 		touch_screen_button_l_1.self_modulate = BOOTSTRAP_GRAY
 		touch_screen_button_l_2.self_modulate = BOOTSTRAP_GRAY
 		touch_screen_button_r_1.self_modulate = BOOTSTRAP_GRAY
@@ -592,7 +604,9 @@ func update_theme(new_theme: theme) -> void:
 		touch_screen_button_y_background.show()
 		touch_screen_button_y_background.self_modulate = BOOTSTRAP_GREEN
 		touch_screen_button_select.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_joystick_l.self_modulate = BOOTSTRAP_GRAY_DARK
 		touch_screen_button_start.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_joystick_r.self_modulate = BOOTSTRAP_GRAY_DARK
 		touch_screen_button_l_1.self_modulate = BOOTSTRAP_GRAY_DARK
 		touch_screen_button_l_2.self_modulate = BOOTSTRAP_GRAY_DARK
 		touch_screen_button_r_1.self_modulate = BOOTSTRAP_GRAY_DARK
@@ -619,7 +633,9 @@ func update_theme(new_theme: theme) -> void:
 		touch_screen_button_y_background.show()
 		touch_screen_button_y_background.self_modulate = Color.GRAY
 		touch_screen_button_select.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_joystick_l.hide()
 		touch_screen_button_start.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_joystick_r.hide()
 		touch_screen_button_l_1.self_modulate = BOOTSTRAP_GRAY
 		touch_screen_button_l_2.hide()
 		touch_screen_button_r_1.self_modulate = BOOTSTRAP_GRAY
@@ -659,7 +675,9 @@ func update_theme(new_theme: theme) -> void:
 		touch_screen_button_y_background.show()
 		touch_screen_button_y_background.self_modulate = BOOTSTRAP_YELLOW
 		touch_screen_button_select.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_joystick_l.self_modulate = BOOTSTRAP_GRAY_DARK
 		touch_screen_button_start.self_modulate = BOOTSTRAP_GRAY_DARK
+		touch_screen_button_joystick_r.self_modulate = BOOTSTRAP_GRAY_DARK
 		touch_screen_button_l_1.self_modulate = BOOTSTRAP_GRAY_DARK
 		touch_screen_button_l_2.self_modulate = BOOTSTRAP_GRAY_DARK
 		touch_screen_button_r_1.self_modulate = BOOTSTRAP_GRAY_DARK

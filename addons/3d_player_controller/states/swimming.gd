@@ -33,12 +33,12 @@ func _process(_delta: float) -> void:
 	# Check if the game is not paused
 	if !player.game_paused:
 		# [crouch] button just _pressed_
-		if Input.is_action_pressed("crouch"):
+		if Input.is_action_pressed("button_3"):
 			# Decrement the player's vertical position
 			player.position.y -= 0.01
 
 		# [jump] button just _pressed_
-		if Input.is_action_pressed("jump"):
+		if Input.is_action_pressed("button_0"):
 			# Check if the player is swimming in a body of water
 			if player.is_swimming_in:
 				# Get the water level (top of water body)

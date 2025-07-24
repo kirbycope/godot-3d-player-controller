@@ -36,7 +36,7 @@ func _ready():
 ## Called once for every event before _unhandled_input(), allowing you to consume some events.
 func _input(event) -> void:
 	# Check if the [pause] action _pressed_
-	if event.is_action_pressed("start"):
+	if event.is_action_pressed("button_9"):
 		# Toggle game paused
 		toggle_pause()
 

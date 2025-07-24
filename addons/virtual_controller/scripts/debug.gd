@@ -42,24 +42,24 @@ func _input(event: InputEvent) -> void:
 			$SonyController.visible = false
 
 			# ⍐ (D-Pad Up)
-			if event.is_action_pressed("dpad_up"):
+			if event.is_action_pressed("button_12"):
 				$MicrosoftController/White/Button12.visible = false
-			elif event.is_action_released("dpad_up"):
+			elif event.is_action_released("button_12"):
 				$MicrosoftController/White/Button12.visible = true
 			# ⍗ (D-Pad Down)
-			if event.is_action_pressed("dpad_down"):
+			if event.is_action_pressed("button_13"):
 				$MicrosoftController/White/Button13.visible = false
-			elif event.is_action_released("dpad_down"):
+			elif event.is_action_released("button_13"):
 				$MicrosoftController/White/Button13.visible = true
 			# ⍇ (D-Pad Left)
-			if event.is_action_pressed("dpad_left"):
+			if event.is_action_pressed("button_14"):
 				$MicrosoftController/White/Button14.visible = false
-			elif event.is_action_released("dpad_left"):
+			elif event.is_action_released("button_14"):
 				$MicrosoftController/White/Button14.visible = true
 			# ⍈ (D-Pad Right)
-			if event.is_action_pressed("dpad_right"):
+			if event.is_action_pressed("button_15"):
 				$MicrosoftController/White/Button15.visible = false
-			elif event.is_action_released("dpad_right"):
+			elif event.is_action_released("button_15"):
 				$MicrosoftController/White/Button15.visible = true
 			# Ⓐ
 			if event.is_action_pressed("jump"):
@@ -67,49 +67,49 @@ func _input(event: InputEvent) -> void:
 			elif event.is_action_released("jump"):
 				$MicrosoftController/White/Button0.visible = true
 			# Ⓑ
-			if event.is_action_pressed("sprint"):
+			if event.is_action_pressed("button_1"):
 				$MicrosoftController/White/Button1.visible = false
-			elif event.is_action_released("sprint"):
+			elif event.is_action_released("button_1"):
 				$MicrosoftController/White/Button1.visible = true
 			# Ⓧ
-			if event.is_action_pressed("use"):
+			if event.is_action_pressed("button_2"):
 				$MicrosoftController/White/Button2.visible = false
-			elif event.is_action_released("use"):
+			elif event.is_action_released("button_2"):
 				$MicrosoftController/White/Button2.visible = true
 			# Ⓨ
-			if event.is_action_pressed("crouch"):
+			if event.is_action_pressed("button_3"):
 				$MicrosoftController/White/Button3.visible = false
-			elif event.is_action_released("crouch"):
+			elif event.is_action_released("button_3"):
 				$MicrosoftController/White/Button3.visible = true
 			# ☰ (Start)
-			if event.is_action_pressed("start"):
+			if event.is_action_pressed("button_9"):
 				$MicrosoftController/White/Button9.visible = false
-			elif event.is_action_released("start"):
+			elif event.is_action_released("button_9"):
 				$MicrosoftController/White/Button9.visible = true
 			# ⧉ (Select)
-			if event.is_action_pressed("select"):
+			if event.is_action_pressed("button_8"):
 				$MicrosoftController/White/Button8.visible = false
-			elif event.is_action_released("select"):
+			elif event.is_action_released("button_8"):
 				$MicrosoftController/White/Button8.visible = true
 			# Ⓛ1 (L1)
-			if event.is_action_pressed("left_punch"):
+			if event.is_action_pressed("button_4"):
 				$MicrosoftController/White/Button4.visible = false
-			elif event.is_action_released("left_punch"):
+			elif event.is_action_released("button_4"):
 				$MicrosoftController/White/Button4.visible = true
 			# Ⓛ2 (L2)
-			if event.is_action_pressed("left_kick"):
+			if event.is_action_pressed("button_6"):
 				$MicrosoftController/White/Button6.visible = false
-			elif event.is_action_released("left_kick"):
+			elif event.is_action_released("button_6"):
 				$MicrosoftController/White/Button6.visible = true
 			# Ⓡ1 (R1)
-			if event.is_action_pressed("right_punch"):
+			if event.is_action_pressed("button_5"):
 				$MicrosoftController/White/Button5.visible = false
-			elif event.is_action_released("right_punch"):
+			elif event.is_action_released("button_5"):
 				$MicrosoftController/White/Button5.visible = true
 			# Ⓡ2 (R2)
-			if event.is_action_pressed("right_kick"):
+			if event.is_action_pressed("button_7"):
 				$MicrosoftController/White/Button7.visible = false
-			elif event.is_action_released("right_kick"):
+			elif event.is_action_released("button_7"):
 				$MicrosoftController/White/Button7.visible = true
 
 		# Check if the current Input Event was triggered by a Nintendo joypad
@@ -120,29 +120,29 @@ func _input(event: InputEvent) -> void:
 			$SonyController.visible = false
 
 			# ⍐ (D-Pad Up)
-			if event.is_action_pressed("dpad_up"):
+			if event.is_action_pressed("button_12"):
 				$NintendoController/White/Button12.visible = false
-			elif event.is_action_released("dpad_up"):
+			elif event.is_action_released("button_12"):
 				$NintendoController/White/Button12.visible = true
 			# ⍗ (D-Pad Down)
-			if event.is_action_pressed("dpad_down"):
+			if event.is_action_pressed("button_13"):
 				$NintendoController/White/Button13.visible = false
-			elif event.is_action_released("dpad_down"):
+			elif event.is_action_released("button_13"):
 				$NintendoController/White/Button13.visible = true
 			# ⍇ (D-Pad Left)
-			if event.is_action_pressed("dpad_left"):
+			if event.is_action_pressed("button_14"):
 				$NintendoController/White/Button14.visible = false
-			elif event.is_action_released("dpad_left"):
+			elif event.is_action_released("button_14"):
 				$NintendoController/White/Button14.visible = true
 			# ⍈ (D-Pad Right)
-			if event.is_action_pressed("dpad_right"):
+			if event.is_action_pressed("button_15"):
 				$NintendoController/White/Button15.visible = false
-			elif event.is_action_released("dpad_right"):
+			elif event.is_action_released("button_15"):
 				$NintendoController/White/Button15.visible = true
 			# Ⓐ
-			if event.is_action_pressed("sprint"):
+			if event.is_action_pressed("button_1"):
 				$NintendoController/White/Button0.visible = false
-			elif event.is_action_released("sprint"):
+			elif event.is_action_released("button_1"):
 				$NintendoController/White/Button0.visible = true
 			# Ⓑ
 			if event.is_action_pressed("jump"):
@@ -150,44 +150,44 @@ func _input(event: InputEvent) -> void:
 			elif event.is_action_released("jump"):
 				$NintendoController/White/Button1.visible = true
 			# Ⓧ
-			if event.is_action_pressed("use"):
+			if event.is_action_pressed("button_2"):
 				$NintendoController/White/Button2.visible = false
-			elif event.is_action_released("use"):
+			elif event.is_action_released("button_2"):
 				$NintendoController/White/Button2.visible = true
 			# Ⓨ
-			if event.is_action_pressed("crouch"):
+			if event.is_action_pressed("button_3"):
 				$NintendoController/White/Button3.visible = false
-			elif event.is_action_released("crouch"):
+			elif event.is_action_released("button_3"):
 				$NintendoController/White/Button3.visible = true
 			# ☰ (Start)
-			if event.is_action_pressed("start"):
+			if event.is_action_pressed("button_9"):
 				$NintendoController/White/Button9.visible = false
-			elif event.is_action_released("start"):
+			elif event.is_action_released("button_9"):
 				$NintendoController/White/Button9.visible = true
 			# ⧉ (Select)
-			if event.is_action_pressed("select"):
+			if event.is_action_pressed("button_8"):
 				$NintendoController/White/Button8.visible = false
-			elif event.is_action_released("select"):
+			elif event.is_action_released("button_8"):
 				$NintendoController/White/Button8.visible = true
 			# Ⓛ1 (L1)
-			if event.is_action_pressed("left_punch"):
+			if event.is_action_pressed("button_4"):
 				$NintendoController/White/Button4.visible = false
-			elif event.is_action_released("left_punch"):
+			elif event.is_action_released("button_4"):
 				$NintendoController/White/Button4.visible = true
 			# Ⓛ2 (L2)
-			if event.is_action_pressed("left_kick"):
+			if event.is_action_pressed("button_6"):
 				$NintendoController/White/Button6.visible = false
-			elif event.is_action_released("left_kick"):
+			elif event.is_action_released("button_6"):
 				$NintendoController/White/Button6.visible = true
 			# Ⓡ1 (R1)
-			if event.is_action_pressed("right_punch"):
+			if event.is_action_pressed("button_5"):
 				$NintendoController/White/Button5.visible = false
-			elif event.is_action_released("right_punch"):
+			elif event.is_action_released("button_5"):
 				$NintendoController/White/Button5.visible = true
 			# Ⓡ2 (R2)
-			if event.is_action_pressed("right_kick"):
+			if event.is_action_pressed("button_7"):
 				$NintendoController/White/Button7.visible = false
-			elif event.is_action_released("right_kick"):
+			elif event.is_action_released("button_7"):
 				$NintendoController/White/Button7.visible = true
 
 		# Check if the current Input Event was triggered by a Sony joypad
@@ -198,24 +198,24 @@ func _input(event: InputEvent) -> void:
 			$SonyController.visible = true
 
 			# ⍐ (D-Pad Up)
-			if event.is_action_pressed("dpad_up"):
+			if event.is_action_pressed("button_12"):
 				$SonyController/White/Button12.visible = false
-			elif event.is_action_released("dpad_up"):
+			elif event.is_action_released("button_12"):
 				$SonyController/White/Button12.visible = true
 			# ⍗ (D-Pad Down)
-			if event.is_action_pressed("dpad_down"):
+			if event.is_action_pressed("button_13"):
 				$SonyController/White/Button13.visible = false
-			elif event.is_action_released("dpad_down"):
+			elif event.is_action_released("button_13"):
 				$SonyController/White/Button13.visible = true
 			# ⍇ (D-Pad Left)
-			if event.is_action_pressed("dpad_left"):
+			if event.is_action_pressed("button_14"):
 				$SonyController/White/Button14.visible = false
-			elif event.is_action_released("dpad_left"):
+			elif event.is_action_released("button_14"):
 				$SonyController/White/Button14.visible = true
 			# ⍈ (D-Pad Right)
-			if event.is_action_pressed("dpad_right"):
+			if event.is_action_pressed("button_15"):
 				$SonyController/White/Button15.visible = false
-			elif event.is_action_released("dpad_right"):
+			elif event.is_action_released("button_15"):
 				$SonyController/White/Button15.visible = true
 			# ⮾ (Cross)
 			if event.is_action_pressed("jump"):
@@ -223,49 +223,49 @@ func _input(event: InputEvent) -> void:
 			elif event.is_action_released("jump"):
 				$SonyController/White/Button0.visible = true
 			# 🄋 (Circle)
-			if event.is_action_pressed("sprint"):
+			if event.is_action_pressed("button_1"):
 				$SonyController/White/Button1.visible = false
-			elif event.is_action_released("sprint"):
+			elif event.is_action_released("button_1"):
 				$SonyController/White/Button1.visible = true
 			# 🟗 (Square)
-			if event.is_action_pressed("use"):
+			if event.is_action_pressed("button_2"):
 				$SonyController/White/Button2.visible = false
-			elif event.is_action_released("use"):
+			elif event.is_action_released("button_2"):
 				$SonyController/White/Button2.visible = true
 			# 🟕 (Triangle)
-			if event.is_action_pressed("crouch"):
+			if event.is_action_pressed("button_3"):
 				$SonyController/White/Button3.visible = false
-			elif event.is_action_released("crouch"):
+			elif event.is_action_released("button_3"):
 				$SonyController/White/Button3.visible = true
 			# ☰ (Start)
-			if event.is_action_pressed("start"):
+			if event.is_action_pressed("button_9"):
 				$SonyController/White/Button9.visible = false
-			elif event.is_action_released("start"):
+			elif event.is_action_released("button_9"):
 				$SonyController/White/Button9.visible = true
 			# ⧉ (Select)
-			if event.is_action_pressed("select"):
+			if event.is_action_pressed("button_8"):
 				$SonyController/White/Button8.visible = false
-			elif event.is_action_released("select"):
+			elif event.is_action_released("button_8"):
 				$SonyController/White/Button8.visible = true
 			# Ⓛ1 (L1)
-			if event.is_action_pressed("left_punch"):
+			if event.is_action_pressed("button_4"):
 				$SonyController/White/Button4.visible = false
-			elif event.is_action_released("left_punch"):
+			elif event.is_action_released("button_4"):
 				$SonyController/White/Button4.visible = true
 			# Ⓛ2 (L2)
-			if event.is_action_pressed("left_kick"):
+			if event.is_action_pressed("button_6"):
 				$SonyController/White/Button6.visible = false
-			elif event.is_action_released("left_kick"):
+			elif event.is_action_released("button_6"):
 				$SonyController/White/Button6.visible = true
 			# Ⓡ1 (R1)
-			if event.is_action_pressed("right_punch"):
+			if event.is_action_pressed("button_5"):
 				$SonyController/White/Button5.visible = false
-			elif event.is_action_released("right_punch"):
+			elif event.is_action_released("button_5"):
 				$SonyController/White/Button5.visible = true
 			# Ⓡ2 (R2)
-			if event.is_action_pressed("right_kick"):
+			if event.is_action_pressed("button_7"):
 				$SonyController/White/Button7.visible = false
-			elif event.is_action_released("right_kick"):
+			elif event.is_action_released("button_7"):
 				$SonyController/White/Button7.visible = true
 
 

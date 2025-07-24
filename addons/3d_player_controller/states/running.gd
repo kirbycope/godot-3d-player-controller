@@ -31,12 +31,12 @@ func _input(event: InputEvent) -> void:
 	# Check if the game is not paused
 	if !player.game_paused:
 		# [crouch] button just _pressed_ and crouching is enabled
-		if event.is_action_pressed("crouch") and player.enable_crouching:
+		if event.is_action_pressed("button_3") and player.enable_crouching:
 			# Start "crouching"
 			transition(NODE_NAME, "Crouching")
 
 		# [jump] button just _pressed_
-		if event.is_action_pressed("jump") and player.enable_jumping:
+		if event.is_action_pressed("button_0") and player.enable_jumping:
 			# Start "jumping"
 			transition(NODE_NAME, "Jumping")
 
@@ -65,7 +65,7 @@ func _process(_delta: float) -> void:
 				transition(NODE_NAME, "Sprinting")
 
 	# [sprint] button _pressed_
-	if Input.is_action_pressed("sprint"):
+	if Input.is_action_pressed("button_1"):
 		# Check if sprinting is enabled
 		if player.enable_sprinting:
 			# Start "sprinting"

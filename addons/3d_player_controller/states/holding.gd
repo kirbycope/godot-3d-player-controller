@@ -37,12 +37,12 @@ func _input(event: InputEvent) -> void:
 	# Check if the game is not paused
 	if !player.game_paused:
 		# [left_punch] button _pressed_ (and holding something)
-		if event.is_action_pressed("left_punch") and player.is_holding:
+		if event.is_action_pressed("button_4") and player.is_holding:
 			# Throw the held object
 			throw_held_object()
 
 		# [use] button _pressed_ (and holding something)
-		if event.is_action_pressed("use") and player.is_holding:
+		if event.is_action_pressed("button_2") and player.is_holding:
 			# Get the nodes in the "held" group
 			var held_nodes = get_tree().get_nodes_in_group("held")
 			# Check if nodes were found in the group
@@ -59,7 +59,7 @@ func _input(event: InputEvent) -> void:
 				return
 
 		# [use] button _pressed_ (and not holding something)
-		if event.is_action_pressed("use") and !player.is_holding:
+		if event.is_action_pressed("button_2") and !player.is_holding:
 			# Check if the player is looking at something
 			if player.raycast_lookat.is_colliding():
 				# Get the object the RayCast is colliding with
@@ -74,7 +74,7 @@ func _input(event: InputEvent) -> void:
 					player.is_holding = true
 
 		# [use] button _pressed_ (and holding a fishing rod)
-		if event.is_action_pressed("use") and player.is_holding_fishing_rod:
+		if event.is_action_pressed("button_2") and player.is_holding_fishing_rod:
 			# Remove the fishing rod from the player
 			player.visuals.get_node("HeldItemMount").remove_child(player.is_holding_onto)
 			# Reparent the fishing rod to the main scene
@@ -87,7 +87,7 @@ func _input(event: InputEvent) -> void:
 			player.is_holding_onto = null
 
 		# [use] button _pressed_ (and holding a rifle)
-		if event.is_action_pressed("use") and player.is_holding_rifle:
+		if event.is_action_pressed("button_2") and player.is_holding_rifle:
 			# Remove the rifle from the player
 			player.visuals.get_node("HeldItemMount").remove_child(player.is_holding_onto)
 			# Reparent the rifle to the main scene
