@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=51 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" uid="uid://c7agev1ouwnuu" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="Texture2D" uid="uid://e6rn4rs3cr0v" path="res://assets/kenney_nl/prototype_textures/PNG/Dark/texture_09.png" id="2_d2mly"]
@@ -19,6 +19,10 @@
 [ext_resource type="PackedScene" uid="uid://cqwgvb8l36ahu" path="res://scenes/skateboard.tscn" id="14_5m2ip"]
 [ext_resource type="PackedScene" uid="uid://drj7qejya7pr0" path="res://scenes/honda_crv.tscn" id="15_5l67w"]
 [ext_resource type="Texture2D" uid="uid://bdtte10ghbme5" path="res://assets/kenney_nl/prototype_textures/PNG/Red/texture_01.png" id="17_muem4"]
+[ext_resource type="PackedScene" uid="uid://bgl6bo6l055fa" path="res://scenes/lego.tscn" id="20_gqmmt"]
+[ext_resource type="PackedScene" uid="uid://blacmq3pm0bqy" path="res://scenes/lego_rigid.tscn" id="21_yc10j"]
+[ext_resource type="PackedScene" uid="uid://cfimpfxdaq6td" path="res://scenes/ball.tscn" id="22_jscy8"]
+[ext_resource type="PackedScene" uid="uid://gjgumshj0mif" path="res://scenes/ball_rigid.tscn" id="23_pm3ni"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yu8tv"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -684,3 +688,22 @@ material_override = SubResource("StandardMaterial3D_dp3eg")
 use_collision = true
 size = Vector3(3, 5.5, 1)
 material = SubResource("StandardMaterial3D_jbj1t")
+
+[node name="Lego" parent="." instance=ExtResource("20_gqmmt")]
+
+[node name="Lego2" parent="." instance=ExtResource("20_gqmmt")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -2, 0.9999999, 0)
+
+[node name="Lego3" parent="." instance=ExtResource("20_gqmmt")]
+transform = Transform3D(-4.371139e-07, -10, 0, 10, -4.371139e-07, 0, 0, 0, 10, -7, 10, 0)
+
+[node name="LegoRigid" parent="." instance=ExtResource("21_yc10j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -4)
+contact_monitor = true
+
+[node name="Ball" parent="." instance=ExtResource("22_jscy8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.5, -6)
+pressure_coefficient = 100.0
+
+[node name="BallRigid" parent="." instance=ExtResource("23_pm3ni")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.4750595, -8)

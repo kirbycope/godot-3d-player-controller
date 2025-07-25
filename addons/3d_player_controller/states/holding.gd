@@ -53,6 +53,10 @@ func _input(event: InputEvent) -> void:
 				held_node.remove_from_group("held")
 				# Move the collider to Layer 2
 				held_node.collision_layer = 1
+				# Disable contact monitoring when dropping
+				if held_node is RigidBody3D:
+					held_node.contact_monitor = false
+					held_node.max_contacts_reported = 0
 				# Flag the player as not "holding" something
 				player.is_holding = false
 				# Return so that no other input is handled
@@ -70,6 +74,9 @@ func _input(event: InputEvent) -> void:
 					collider.add_to_group("held")
 					# Move the collider to Layer 2
 					collider.collision_layer = 2
+					# Enable contact monitoring when picking up
+					collider.contact_monitor = true
+					collider.max_contacts_reported = 1
 					# Flag the player as "holding" something
 					player.is_holding = true
 
@@ -282,6 +289,11 @@ func throw_held_object() -> void:
 
 		# Move the collider back to Layer 1
 		held_node.collision_layer = 1
+
+		# Disable contact monitoring when throwing
+		if held_node is RigidBody3D:
+			held_node.contact_monitor = false
+			held_node.max_contacts_reported = 0
 
 		# Flag the player as no longer "holding" something
 		player.is_holding = false
