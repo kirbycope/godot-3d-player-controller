@@ -1,0 +1,42 @@
+[gd_scene load_steps=8 format=3 uid="uid://dduy3hngy8xk3"]
+
+[ext_resource type="Script" uid="uid://cspbpvx8gjq7" path="res://scenes/kickball.gd" id="1_nqiug"]
+[ext_resource type="AudioStream" uid="uid://dp5cmodyset2b" path="res://assets/sounds/blouncing_ball_3.wav" id="2_46fg8"]
+[ext_resource type="Texture2D" uid="uid://fbl3rb8eqwol" path="res://assets/textures/13620.jpg" id="3_4bmev"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bounce"]
+friction = 0.2
+bounce = 0.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tiyet"]
+albedo_color = Color(1, 0.14557746, 0.1537516, 1)
+albedo_texture = ExtResource("3_4bmev")
+roughness = 0.75
+roughness_texture = ExtResource("3_4bmev")
+normal_enabled = true
+normal_scale = 0.75
+normal_texture = ExtResource("3_4bmev")
+uv1_scale = Vector3(2, 2, 2)
+uv1_triplanar = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_y6hle"]
+material = SubResource("StandardMaterial3D_tiyet")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_q7vr8"]
+
+[node name="Kickball" type="RigidBody3D"]
+physics_material_override = SubResource("PhysicsMaterial_bounce")
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_nqiug")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_46fg8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_y6hle")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_q7vr8")
+
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

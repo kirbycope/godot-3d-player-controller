@@ -1,23 +1,4 @@
 extends BaseState
-## holding.gd
-
-# States (states.gd)
-#├── Base (base.gd)
-#├── Climbing (climbing.gd)
-#├── Crawling (crawling.gd)
-#├── Crouching (crouching.gd)
-#├── Driving (driving.gd)
-#├── Falling (falling.gd)
-#├── Flying (flying.gd)
-#├── Hanging (hanging.gd)
-#├── Holding (holding.gd)
-#├── Jumping (jumping.gd)
-#├── Running (running.gd)
-#├── Skateboarding (skateboarding.gd)
-#├── Sprinting (sprinting.gd)
-#├── Standing (standing.gd)
-#├── Swimming (swimming.gd)
-#└── Walking (walking.gd)
 
 const ANIMATION_CROUCHING_AIMING_RIFLE := "Rifle_Aiming_Idle_Crouching" + "/mixamo_com"
 const ANIMATION_CROUCHING_FIRING_RIFLE := "Rifle_Firing_Crouching" + "/mixamo_com"
@@ -29,19 +10,49 @@ const ANIMATION_STANDING_HOLDING_RIFLE := "Rifle_Low_Idle" + "/mixamo_com"
 const ANIMATION_STANDING_CASTING_FISHING_ROD := "Fishing_Cast" + "/mixamo_com"
 const ANIMATION_STANDING_HOLDING_FISHING_ROD := "Fishing_Idle" + "/mixamo_com"
 const ANIMATION_STANDING_REELING_FISHING_ROD := "Fishing_Reel" + "/mixamo_com"
+const ANIMATION_STANDING_THROWING_LEFT := "Throw_Object_Left" + "/mixamo_com"
+const ANIMATION_STANDING_THROWING_RIGHT := "Throw_Object_Right" + "/mixamo_com"
 const NODE_NAME := "Holding"
 
+@export var held_object_rotation_speed: float = 0.5
+
+# Track the cumulative manual rotation
+var manual_rotation_x := 0.0
 
 ## Called when there is an input event.
 func _input(event: InputEvent) -> void:
 	# Check if the game is not paused
 	if !player.game_paused:
-		# [left_punch] button _pressed_ (and holding something)
+		# (L1)/[L-Clk] _pressed_ (and holding something) -> throw the held object
 		if event.is_action_pressed("button_4") and player.is_holding:
 			# Throw the held object
 			throw_held_object()
+			# Stop handling any further input
+			return
 
-		# [use] button _pressed_ (and holding something)
+		# (X)/[E] _pressed_ (and not holding something) -> pick up the object
+		if event.is_action_pressed("button_2") and !player.is_holding:
+			# Check if the player is looking at something
+			if player.raycast_lookat.is_colliding():
+				# Get the object the RayCast is colliding with
+				var collider = player.raycast_lookat.get_collider()
+				# Check if the collider is a RigidBody3D
+				if collider is RigidBody3D and collider is not VehicleBody3D:
+					# Flag the RigidBody3D as being "held"
+					collider.add_to_group("held")
+					# Move the collider to Layer 2
+					collider.collision_layer = 2
+					# Enable contact monitoring when picking up
+					collider.contact_monitor = true
+					collider.max_contacts_reported = 1
+					# Flag the player as "holding" something
+					player.is_holding = true
+					# Reset manual rotation when picking up new object
+					manual_rotation_x = 0.0
+					# Stop handling any further input
+					return
+
+		# (X)/[E] _pressed_ (and holding something) -> drop the held object
 		if event.is_action_pressed("button_2") and player.is_holding:
 			# Get the nodes in the "held" group
 			var held_nodes = get_tree().get_nodes_in_group("held")
@@ -59,28 +70,10 @@ func _input(event: InputEvent) -> void:
 					held_node.max_contacts_reported = 0
 				# Flag the player as not "holding" something
 				player.is_holding = false
-				# Return so that no other input is handled
+				# Stop handling any further input
 				return
 
-		# [use] button _pressed_ (and not holding something)
-		if event.is_action_pressed("button_2") and !player.is_holding:
-			# Check if the player is looking at something
-			if player.raycast_lookat.is_colliding():
-				# Get the object the RayCast is colliding with
-				var collider = player.raycast_lookat.get_collider()
-				# Check if the collider is a RigidBody3D
-				if collider is RigidBody3D and collider is not VehicleBody3D:
-					# Flag the RigidBody3D as being "held"
-					collider.add_to_group("held")
-					# Move the collider to Layer 2
-					collider.collision_layer = 2
-					# Enable contact monitoring when picking up
-					collider.contact_monitor = true
-					collider.max_contacts_reported = 1
-					# Flag the player as "holding" something
-					player.is_holding = true
-
-		# [drop] button _pressed_ (and holding a fishing rod)
+		# (D-Down)/[Q] _pressed_ (and holding a fishing rod) -> drop the fishing rod
 		if event.is_action_pressed("button_13") and player.is_holding_fishing_rod:
 			# Remove the fishing rod from the player
 			player.visuals.get_node("HeldItemMount").remove_child(player.is_holding_onto)
@@ -90,8 +83,10 @@ func _input(event: InputEvent) -> void:
 			player.is_holding_fishing_rod = false
 			# Clear the reference
 			player.is_holding_onto = null
+			# Stop handling any further input
+			return
 
-		# [drop] button _pressed_ (and holding a rifle)
+		# (D-Down)/[Q] _pressed_ (and holding a rifle) -> drop the rifle
 		if event.is_action_pressed("button_13") and player.is_holding_rifle:
 			# Remove the rifle from the player
 			player.visuals.get_node("HeldItemMount").remove_child(player.is_holding_onto)
@@ -101,12 +96,28 @@ func _input(event: InputEvent) -> void:
 			player.is_holding_rifle = false
 			# Clear the reference
 			player.is_holding_onto = null
+			# Stop handling any further input
+			return
 
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	# Uncomment the next line if using GodotSteam
 	#if !is_multiplayer_authority(): return
+
+	# (R1)/[R-Clk] _pressed_ + (D-Up)/[Tab] _just_pressed_ (and holding something) -> rotate the held object upwards
+	if Input.is_action_pressed("button_5") and Input.is_action_just_pressed("button_12") and player.is_holding:
+		# Get the nodes in the "held" group
+		var held_nodes = get_tree().get_nodes_in_group("held")
+		# Check if nodes were found in the group
+		if not held_nodes.is_empty():
+			# Get the first node in the "held" group
+			var held_node = held_nodes[0]
+			# Increment the manual rotation angle
+			manual_rotation_x += held_object_rotation_speed
+			# Apply the rotation using Euler angles but keeping it clean
+			held_node.rotation.x = manual_rotation_x
+
 	# Check if the player is holding an object
 	if player.is_holding:
 		# Move the held object in front of the player
@@ -266,8 +277,10 @@ func move_held_object() -> void:
 				# Move the held object to the new position
 				held_node.global_position = origin + (direction * distance)
 
-		# Rotate the held item with the player
+		# Set rotation: combine manual X rotation with player Y rotation
+		held_node.rotation.x = manual_rotation_x
 		held_node.rotation.y = player.rotation.y
+		held_node.rotation.z = 0.0  # Keep Z rotation at 0
 
 		# Reset velocities
 		held_node.linear_velocity = Vector3.ZERO
@@ -290,11 +303,6 @@ func throw_held_object() -> void:
 		# Move the collider back to Layer 1
 		held_node.collision_layer = 1
 
-		# Disable contact monitoring when throwing
-		if held_node is RigidBody3D:
-			held_node.contact_monitor = false
-			held_node.max_contacts_reported = 0
-
 		# Flag the player as no longer "holding" something
 		player.is_holding = false
 
@@ -303,3 +311,33 @@ func throw_held_object() -> void:
 
 		# Apply force to throw the object
 		held_node.apply_central_impulse(throw_direction * player.throw_force)
+
+		# Check if the animation player is not locked
+		if !player.is_animation_locked:
+			# Flag the animation player as locked
+			player.is_animation_locked = true
+
+			# Check if the player is in "third-person" perspective
+			if player.perspective == 0:
+				# Rotate the player to face the throwing direction
+				player.visuals.look_at(
+					Vector3(
+						held_node.global_position.x,
+						player.global_position.y,
+						held_node.global_position.z,
+					),
+					Vector3.UP
+				)
+
+			# Play the throwing animation from the middle
+			if player.animation_player.current_animation != ANIMATION_STANDING_THROWING_LEFT:
+				# Play the "throwing left" animation
+				player.animation_player.play(ANIMATION_STANDING_THROWING_LEFT)
+				# [Hack] Start playing partway through the animation
+				var animation_length = player.animation_player.get_animation(ANIMATION_STANDING_THROWING_LEFT).length
+				player.animation_player.seek(animation_length * 0.2)
+				
+				# Stop the animation early after a short duration
+				var segment_duration = animation_length * 0.2  # Play for 20% of total length
+				await get_tree().create_timer(segment_duration).timeout
+				player.is_animation_locked = false

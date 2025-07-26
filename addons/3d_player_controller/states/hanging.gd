@@ -1,23 +1,4 @@
 extends BaseState
-## hanging.gd
-
-# States (states.gd)
-#├── Base (base.gd)
-#├── Climbing (climbing.gd)
-#├── Crawling (crawling.gd)
-#├── Crouching (crouching.gd)
-#├── Driving (driving.gd)
-#├── Falling (falling.gd)
-#├── Flying (flying.gd)
-#├── Hanging (hanging.gd)
-#├── Holding (holding.gd)
-#├── Jumping (jumping.gd)
-#├── Running (running.gd)
-#├── Skateboarding (skateboarding.gd)
-#├── Sprinting (sprinting.gd)
-#├── Standing (standing.gd)
-#├── Swimming (swimming.gd)
-#└── Walking (walking.gd)
 
 const ANIMATION_HANGING := "Hanging_Idle" + "/mixamo_com"
 const ANIMATION_HANGING_SHIMMY_LEFT := "Braced_Hang_Shimmy_Left_In_Place" + "/mixamo_com"
@@ -41,10 +22,28 @@ func _input(event: InputEvent) -> void:
 			if player.raycast_jumptarget.is_colliding():
 				# Get the collision point
 				var collision_point = player.raycast_jumptarget.get_collision_point()
+				
+				# Temporarily disable player collision to avoid physics interference during mantle
+				player.collision_shape.disabled = true
+				
+				# Reset velocity to prevent unwanted movement
+				player.velocity = Vector3.ZERO
+				player.virtual_velocity = Vector3.ZERO
+				
 				# Set the player's position to the collision point
 				var tween = get_tree().create_tween()
 				tween.tween_property(player, "position", collision_point, 0.2)
-				# Cehck if the player is in first-person perspective
+				
+				# Wait for the tween to complete
+				await tween.finished
+				
+				# Wait an additional frame for physics to settle
+				await get_tree().physics_frame
+				
+				# Re-enable collision after positioning is complete
+				player.collision_shape.disabled = false
+				
+				# Check if the player is in first-person perspective
 				if player.perspective == 1:
 					# Rotate the body to match the camera_mount
 					player.visuals.rotation = Vector3(0.0, player.camera_mount.rotation.y, player.camera_mount.rotation.z)

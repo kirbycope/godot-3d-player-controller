@@ -1,23 +1,4 @@
 extends BaseState
-## standing.gd
-
-# States (states.gd)
-#├── Base (base.gd)
-#├── Climbing (climbing.gd)
-#├── Crawling (crawling.gd)
-#├── Crouching (crouching.gd)
-#├── Driving (driving.gd)
-#├── Falling (falling.gd)
-#├── Flying (flying.gd)
-#├── Hanging (hanging.gd)
-#├── Holding (holding.gd)
-#├── Jumping (jumping.gd)
-#├── Running (running.gd)
-#├── Skateboarding (skateboarding.gd)
-#├── Sprinting (sprinting.gd)
-#├── Standing (standing.gd)
-#├── Swimming (swimming.gd)
-#└── Walking (walking.gd)
 
 const ANIMATION_STANDING := "Standing_Idle" + "/mixamo_com"
 const ANIMATION_STANDING_AIMING_RIFLE := "Rifle_Aiming_Idle" + "/mixamo_com"
@@ -127,8 +108,8 @@ func _input(event: InputEvent) -> void:
 					# Flag the player as "reeling"
 					player.is_reeling = true
 
-				# Check if the player is not "holding a rifle"
-				elif !player.is_holding_rifle:
+				# Check if the player is not "holding a rifle" and not holding any object
+				elif !player.is_holding_rifle and !player.is_holding:
 					# Check if punching is enabled
 					if player.enable_punching:
 						# Flag the animation player as locked
@@ -177,8 +158,8 @@ func _input(event: InputEvent) -> void:
 					# Flag the player as "casting"
 					player.is_casting = true
 
-				# Check if the player is not "holding a rifle"
-				elif !player.is_holding_rifle:
+				# Check if the player is not "holding a rifle" and not holding any object
+				elif !player.is_holding_rifle and !player.is_holding:
 					# Check if punching is enabled
 					if player.enable_punching:
 						# Flag the animation player as locked

@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://b7wnthj3i5cl5"]
+
+[ext_resource type="Texture2D" uid="uid://c7hsfsxhknanr" path="res://assets/textures/Wood061_1K-JPG_Color.jpg" id="1_04e1i"]
+[ext_resource type="Texture2D" uid="uid://6he72ttskqei" path="res://assets/textures/Wood061_1K-JPG_AmbientOcclusion.jpg" id="2_0w8n3"]
+[ext_resource type="Texture2D" uid="uid://dnp2eex0htt8t" path="res://assets/textures/Wood061_1K-JPG_Roughness.jpg" id="3_srkvf"]
+[ext_resource type="Texture2D" uid="uid://b2btxtyjsyksf" path="res://assets/textures/Wood061_1K-JPG_NormalGL.jpg" id="4_5xa68"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_04e1i"]
+size = Vector3(3.75, 0.75, 1.25)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6q78u"]
+albedo_texture = ExtResource("1_04e1i")
+roughness_texture = ExtResource("3_srkvf")
+normal_enabled = true
+normal_texture = ExtResource("4_5xa68")
+ao_enabled = true
+ao_texture = ExtResource("2_0w8n3")
+heightmap_enabled = true
+heightmap_texture = ExtResource("3_srkvf")
+
+[sub_resource type="BoxMesh" id="BoxMesh_pby4r"]
+material = SubResource("StandardMaterial3D_6q78u")
+size = Vector3(3.75, 0.75, 1.25)
+
+[node name="JengaBlock" type="RigidBody3D"]
+mass = 5.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_04e1i")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_pby4r")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.626)
+modulate = Color(1, 1, 1, 0)
+text = "Not Jenga"
+font_size = 64
+outline_size = 6
+
+[node name="Label3D2" type="Label3D" parent="."]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, -0.626)
+modulate = Color(1, 1, 1, 0)
+text = "Not Jenga"
+font_size = 64
+outline_size = 6
