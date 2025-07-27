@@ -14,10 +14,12 @@ const ANIMATION_STANDING_THROWING_LEFT := "Throw_Object_Left" + "/mixamo_com"
 const ANIMATION_STANDING_THROWING_RIGHT := "Throw_Object_Right" + "/mixamo_com"
 const NODE_NAME := "Holding"
 
-@export var held_object_rotation_speed: float = 0.5
+@export var held_object_rotation_speed: float = 0.2618  # 15 degrees in radians = 15 * (π / 180)
 
 # Track the cumulative manual rotation
 var manual_rotation_x := 0.0
+var manual_rotation_z := 0.0
+
 
 ## Called when there is an input event.
 func _input(event: InputEvent) -> void:
@@ -49,6 +51,7 @@ func _input(event: InputEvent) -> void:
 					player.is_holding = true
 					# Reset manual rotation when picking up new object
 					manual_rotation_x = 0.0
+					manual_rotation_z = 0.0
 					# Stop handling any further input
 					return
 
@@ -105,18 +108,28 @@ func _process(_delta: float) -> void:
 	# Uncomment the next line if using GodotSteam
 	#if !is_multiplayer_authority(): return
 
+	# Set the player as "rotating" if they are holding something and pressing R1
+	player.is_rotating_object = player.is_holding and Input.is_action_pressed("button_5")
+
 	# (R1)/[R-Clk] _pressed_ + (D-Up)/[Tab] _just_pressed_ (and holding something) -> rotate the held object upwards
 	if Input.is_action_pressed("button_5") and Input.is_action_just_pressed("button_12") and player.is_holding:
-		# Get the nodes in the "held" group
-		var held_nodes = get_tree().get_nodes_in_group("held")
-		# Check if nodes were found in the group
-		if not held_nodes.is_empty():
-			# Get the first node in the "held" group
-			var held_node = held_nodes[0]
-			# Increment the manual rotation angle
-			manual_rotation_x += held_object_rotation_speed
-			# Apply the rotation using Euler angles but keeping it clean
-			held_node.rotation.x = manual_rotation_x
+		# Increment the manual rotation angle
+		manual_rotation_x -= held_object_rotation_speed
+
+	# (R1)/[R-Clk] _pressed_ + (D-Down)/[Q] _just_pressed_ (and holding something) -> rotate the held object downwards
+	if Input.is_action_pressed("button_5") and Input.is_action_just_pressed("button_13") and player.is_holding:
+		# Increment the manual rotation angle
+		manual_rotation_x += held_object_rotation_speed
+
+	# (R1)/[R-Clk] _pressed_ + (D-Left)/[B] _just_pressed_ (and holding something) -> rotate the held object left
+	if Input.is_action_pressed("button_5") and Input.is_action_just_pressed("button_14") and player.is_holding:
+		# Increment the manual rotation angle
+		manual_rotation_z += held_object_rotation_speed
+
+	# (R1)/[R-Clk] _pressed_ + (D-Left)/[T] _just_pressed_ (and holding something) -> rotate the held object right
+	if Input.is_action_pressed("button_5") and Input.is_action_just_pressed("button_15") and player.is_holding:
+		# Increment the manual rotation angle
+		manual_rotation_z -= held_object_rotation_speed
 
 	# Check if the player is holding an object
 	if player.is_holding:
@@ -277,10 +290,10 @@ func move_held_object() -> void:
 				# Move the held object to the new position
 				held_node.global_position = origin + (direction * distance)
 
-		# Set rotation: combine manual X rotation with player Y rotation
+		# Set rotation: combine manual rotations with player Y rotation
 		held_node.rotation.x = manual_rotation_x
 		held_node.rotation.y = player.rotation.y
-		held_node.rotation.z = 0.0  # Keep Z rotation at 0
+		held_node.rotation.z = player.rotation.z + manual_rotation_z
 
 		# Reset velocities
 		held_node.linear_velocity = Vector3.ZERO

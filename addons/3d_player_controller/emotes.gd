@@ -50,13 +50,13 @@ func _input(event) -> void:
 					# Perform emote 4
 					emote4()
 
-				# Check if the [dpad_left] action _pressed_
-				if event.is_action_pressed("button_14"):
+				# Check if the [dpad_left] action _pressed_ and not rotating an object
+				if event.is_action_pressed("button_14") and !player.is_rotating_object:
 					# Perform emote 2
 					emote2()
 
-				# Check if the [dpad_right] action _pressed_
-				if event.is_action_pressed("button_15"):
+				# Check if the [dpad_right] action _pressed_ and not rotating an object
+				if event.is_action_pressed("button_15") and !player.is_rotating_object:
 					# Perform emote 3
 					emote3()
 
@@ -75,8 +75,8 @@ func _input(event) -> void:
 				]:
 					return
 
-				# Check if the [dpad_left] action _pressed_
-				if event.is_action_pressed("button_14"):
+				# Check if the [dpad_left] action _pressed_ and not rotating an object
+				if event.is_action_pressed("button_14") and !player.is_rotating_object:
 					# Enable visibility
 					visible = true
 

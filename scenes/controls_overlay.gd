@@ -60,8 +60,9 @@ func _process(_delta: float) -> void:
 	$Fishing.visible = player.is_holding_fishing_rod
 	$Flying.visible = player.is_flying
 	$Hanging.visible = player.is_hanging
-	$Holding.visible = player.is_holding
+	$Holding.visible = player.is_holding and !player.is_holding_fishing_rod and !player.is_holding_rifle and !player.is_rotating_object
 	$Rifling.visible = player.is_holding_rifle
+	$Rotating.visible = player.is_rotating_object
 	$Skateboarding.visible = player.is_skateboarding
 	$Swimming.visible = player.is_swimming
 

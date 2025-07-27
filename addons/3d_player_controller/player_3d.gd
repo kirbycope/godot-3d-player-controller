@@ -93,6 +93,7 @@ var is_kicking_right: bool = false
 var is_punching_left: bool = false
 var is_punching_right: bool = false
 var is_reeling: bool = false
+var is_rotating_object: bool = false
 var is_running: bool = false
 var is_shimmying: bool = false
 var is_skateboarding: bool = false

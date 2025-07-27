@@ -21,8 +21,11 @@ uv1_triplanar = true
 
 [sub_resource type="SphereMesh" id="SphereMesh_y6hle"]
 material = SubResource("StandardMaterial3D_tiyet")
+radius = 6.35
+height = 12.7
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_q7vr8"]
+radius = 6.35
 
 [node name="Kickball" type="RigidBody3D"]
 physics_material_override = SubResource("PhysicsMaterial_bounce")
