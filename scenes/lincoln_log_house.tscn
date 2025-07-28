@@ -1,0 +1,127 @@
+[gd_scene load_steps=3 format=3 uid="uid://3ktvjr6ui3vk"]
+
+[ext_resource type="PackedScene" uid="uid://m4ahueh0shhm" path="res://scenes/lincoln_log_2_notch_rigid.tscn" id="1_nbg0g"]
+[ext_resource type="PackedScene" uid="uid://bbyfq5smkk4w0" path="res://scenes/lincoln_log_1_notch_rigid.tscn" id="2_uanjm"]
+
+[node name="LincolnLogHouse" type="Node3D"]
+
+[node name="Layer0" type="Node3D" parent="."]
+
+[node name="LincolnLog2NotchRigid" parent="Layer0" instance=ExtResource("1_nbg0g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.91)
+
+[node name="LincolnLog2NotchRigid2" parent="Layer0" instance=ExtResource("1_nbg0g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.91)
+
+[node name="Layer1" type="Node3D" parent="."]
+
+[node name="LincolnLog2NotchRigid" parent="Layer1" instance=ExtResource("1_nbg0g")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.91, 0.348, 0)
+
+[node name="LincolnLog1NotchRigid" parent="Layer1" instance=ExtResource("2_uanjm")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1.9, 0.348, -1.9)
+
+[node name="LincolnLog1NotchRigid2" parent="Layer1" instance=ExtResource("2_uanjm")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1.9, 0.348, 1.9)
+
+[node name="Layer2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+
+[node name="LincolnLog2NotchRigid" parent="Layer2" instance=ExtResource("1_nbg0g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.026798308, 1.91)
+
+[node name="LincolnLog2NotchRigid2" parent="Layer2" instance=ExtResource("1_nbg0g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.026798308, -1.91)
+
+[node name="Layer3" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="LincolnLog2NotchRigid" parent="Layer3" instance=ExtResource("1_nbg0g")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.91, 0.17479825, 0)
+
+[node name="LincolnLog1NotchRigid" parent="Layer3" instance=ExtResource("2_uanjm")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1.9, 0.175, -1.9)
+
+[node name="LincolnLog1NotchRigid2" parent="Layer3" instance=ExtResource("2_uanjm")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1.9, 0.175, 1.9)
+
+[node name="Layer4" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+
+[node name="LincolnLog1NotchRigid" parent="Layer4" instance=ExtResource("2_uanjm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9, -0.13, -1.9)
+
+[node name="LincolnLog1NotchRigid2" parent="Layer4" instance=ExtResource("2_uanjm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9, -0.13, 1.9)
+
+[node name="LincolnLog1NotchRigid3" parent="Layer4" instance=ExtResource("2_uanjm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9000001, -0.13, -1.9)
+
+[node name="LincolnLog1NotchRigid4" parent="Layer4" instance=ExtResource("2_uanjm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9, -0.13, 1.9)
+
+[node name="Layer5" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.83, 0)
+
+[node name="LincolnLog2NotchRigid" parent="Layer5" instance=ExtResource("1_nbg0g")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.91, 0.17479825, 0)
+
+[node name="LincolnLog1NotchRigid" parent="Layer5" instance=ExtResource("2_uanjm")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1.9, 0.175, -1.9)
+
+[node name="LincolnLog1NotchRigid2" parent="Layer5" instance=ExtResource("2_uanjm")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1.9, 0.175, 1.9)
+
+[node name="Layer6" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.63, 0)
+
+[node name="LincolnLog1NotchRigid" parent="Layer6" instance=ExtResource("2_uanjm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9, -0.13, -1.9)
+
+[node name="LincolnLog1NotchRigid2" parent="Layer6" instance=ExtResource("2_uanjm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9, -0.13, 1.9)
+
+[node name="LincolnLog1NotchRigid3" parent="Layer6" instance=ExtResource("2_uanjm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9000001, -0.13, -1.9)
+
+[node name="LincolnLog1NotchRigid4" parent="Layer6" instance=ExtResource("2_uanjm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9, -0.13, 1.9)
+
+[node name="Layer7" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.673, 0)
+
+[node name="LincolnLog2NotchRigid" parent="Layer7" instance=ExtResource("1_nbg0g")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.91, 0.17479825, 0)
+
+[node name="LincolnLog1NotchRigid" parent="Layer7" instance=ExtResource("2_uanjm")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1.9, 0.175, -1.9)
+
+[node name="LincolnLog1NotchRigid2" parent="Layer7" instance=ExtResource("2_uanjm")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -1.9, 0.175, 1.9)
+
+[node name="Layer8" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3300002, 0)
+
+[node name="LincolnLog2NotchRigid" parent="Layer8" instance=ExtResource("1_nbg0g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.91)
+
+[node name="LincolnLog2NotchRigid2" parent="Layer8" instance=ExtResource("1_nbg0g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.91)
+
+[node name="Layer9" type="Node3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 3.7000003, 0)
+
+[node name="LincolnLog2NotchRigid" parent="Layer9" instance=ExtResource("1_nbg0g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.91)
+
+[node name="LincolnLog2NotchRigid2" parent="Layer9" instance=ExtResource("1_nbg0g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.91)
+
+[node name="Layer10" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.17, 0)
+
+[node name="LincolnLog2NotchRigid" parent="Layer10" instance=ExtResource("1_nbg0g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.91)
+
+[node name="LincolnLog2NotchRigid2" parent="Layer10" instance=ExtResource("1_nbg0g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.91)

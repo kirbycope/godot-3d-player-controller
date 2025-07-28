@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=56 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" uid="uid://c7agev1ouwnuu" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="Texture2D" uid="uid://e6rn4rs3cr0v" path="res://assets/kenney_nl/prototype_textures/PNG/Dark/texture_09.png" id="2_d2mly"]
@@ -24,6 +24,10 @@
 [ext_resource type="PackedScene" uid="uid://df87830b4ccrl" path="res://scenes/slime_ball.tscn" id="22_pm3ni"]
 [ext_resource type="PackedScene" uid="uid://dduy3hngy8xk3" path="res://scenes/kickball.tscn" id="23_pm3ni"]
 [ext_resource type="PackedScene" uid="uid://bhi3g10yf0six" path="res://scenes/jenga_tower.tscn" id="24_y6deb"]
+[ext_resource type="PackedScene" uid="uid://3ktvjr6ui3vk" path="res://scenes/lincoln_log_house.tscn" id="25_og1vs"]
+[ext_resource type="PackedScene" uid="uid://b7wnthj3i5cl5" path="res://scenes/jenga_block.tscn" id="26_2wyq8"]
+[ext_resource type="PackedScene" uid="uid://m4ahueh0shhm" path="res://scenes/lincoln_log_2_notch_rigid.tscn" id="26_vxglm"]
+[ext_resource type="PackedScene" uid="uid://c0xr10lkn0418" path="res://scenes/crayon_rigid.tscn" id="28_2f3dj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yu8tv"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -716,7 +720,7 @@ size = Vector3(3, 5.5, 1)
 material = SubResource("StandardMaterial3D_jbj1t")
 
 [node name="Largelego" parent="." instance=ExtResource("20_gqmmt")]
-transform = Transform3D(-4.371139e-07, -10, 0, 10, -4.371139e-07, 0, 0, 0, 10, -7, 7.9, 0)
+transform = Transform3D(-4.371139e-07, -10, 0, 10, -4.371139e-07, 0, 0, 0, 10, -11, 7.9, 0)
 
 [node name="LegoRigid4" parent="." instance=ExtResource("21_yc10j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.8, -8)
@@ -741,3 +745,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 6.3550005, -16)
 
 [node name="JengaTower" parent="." instance=ExtResource("24_y6deb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16)
+
+[node name="LincolnLogHouse" parent="." instance=ExtResource("25_og1vs")]
+transform = Transform3D(-0.7071067, 0, 0.7071068, 0, 1, 0, -0.7071068, 0, -0.7071067, -14, 0.41850045, -12)
+
+[node name="LegoRigid" parent="." instance=ExtResource("21_yc10j")]
+transform = Transform3D(-4.371139e-08, 1, -8.742278e-08, 1, 4.371139e-08, -3.821371e-15, 0, -8.742278e-08, -1, 1.9923782, 0.80000067, 5.1398783)
+
+[node name="LincolnLog2NotchRigid" parent="." instance=ExtResource("26_vxglm")]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -0.9833612, 2.8730009, 5.2080064)
+
+[node name="JengaBlock" parent="." instance=ExtResource("26_2wyq8")]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 1.016639, 1.8800002, 5.2080064)
+
+[node name="CrayonRigid" parent="." instance=ExtResource("28_2f3dj")]
+transform = Transform3D(0, 4.371139e-08, -1, 1, -4.371139e-08, 0, -4.371139e-08, -1, -4.3711385e-08, 0, 2.3550003, 5)

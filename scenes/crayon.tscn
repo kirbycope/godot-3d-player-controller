@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://f1vpbgmok30s"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_87c5q"]
+albedo_color = Color(0.5647059, 0, 0.5647059, 1)
+roughness = 0.0
+clearcoat = 0.0
+
+[node name="Crayon" type="Node3D"]
+
+[node name="Tip" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, 0)
+radius = 0.19
+height = 0.6
+sides = 16
+cone = true
+material = SubResource("StandardMaterial3D_87c5q")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Tip"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+operation = 2
+size = Vector3(0.1, 0.1, 0.1)
+material = SubResource("StandardMaterial3D_87c5q")
+
+[node name="Body" type="CSGCylinder3D" parent="."]
+radius = 0.2
+height = 4.1
+sides = 16
+material = SubResource("StandardMaterial3D_87c5q")
+
+[node name="Cover" type="CSGCylinder3D" parent="."]
+radius = 0.21
+height = 3.8
+sides = 16
