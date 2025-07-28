@@ -1,0 +1,814 @@
+[gd_scene load_steps=63 format=3 uid="uid://p5psdprmw6l7"]
+
+[ext_resource type="Script" uid="uid://bpukopnm3orle" path="res://scenes/piano_octave.gd" id="1_wyclp"]
+[ext_resource type="AudioStream" uid="uid://fnj12qnbk4hc" path="res://assets/sounds/piano/C4.mp3" id="2_0lkn4"]
+[ext_resource type="AudioStream" uid="uid://d1jb1nhmb20sl" path="res://assets/sounds/piano/A4.mp3" id="2_07fpr"]
+[ext_resource type="AudioStream" uid="uid://cbq3ojvq4wthg" path="res://assets/sounds/piano/As4.mp3" id="3_1vqej"]
+[ext_resource type="AudioStream" uid="uid://dadsfiiqlhukt" path="res://assets/sounds/piano/Cs4.mp3" id="3_hl5tc"]
+[ext_resource type="AudioStream" uid="uid://tmkiufvwwdbo" path="res://assets/sounds/piano/B4.mp3" id="4_eputo"]
+[ext_resource type="AudioStream" uid="uid://c7ohu2vrakw4j" path="res://assets/sounds/piano/D4.mp3" id="4_qjxbx"]
+[ext_resource type="AudioStream" uid="uid://bycr7jo40cbwe" path="res://assets/sounds/piano/Ds4.mp3" id="5_s5p82"]
+[ext_resource type="AudioStream" uid="uid://w4aymv40b2we" path="res://assets/sounds/piano/E4.mp3" id="6_iq2et"]
+[ext_resource type="AudioStream" uid="uid://caya7x80a0byf" path="res://assets/sounds/piano/F4.mp3" id="7_4xmli"]
+[ext_resource type="AudioStream" uid="uid://whk27kjnlmxm" path="res://assets/sounds/piano/Fs4.mp3" id="8_oq26v"]
+[ext_resource type="AudioStream" uid="uid://brnwrwtf0h2ki" path="res://assets/sounds/piano/G4.mp3" id="9_eu8pr"]
+[ext_resource type="AudioStream" uid="uid://bexmhbvtnyd0m" path="res://assets/sounds/piano/Gs4.mp3" id="10_bi50k"]
+
+[sub_resource type="Animation" id="Animation_hl5tc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_0lkn4"]
+resource_name = "press"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.08726645, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0lkn4"]
+_data = {
+&"RESET": SubResource("Animation_hl5tc"),
+&"press": SubResource("Animation_0lkn4")
+}
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_vptbd"]
+data = PackedVector3Array(-0.55, 0.55, 3.5, 0.55, 0.55, 3.5, -0.55, -0.55, 3.5, 0.55, 0.55, 3.5, 0.55, -0.55, 3.5, -0.55, -0.55, 3.5, 0.55, 0.55, -3.5, -0.55, 0.55, -3.5, 0.55, -0.55, -3.5, -0.55, 0.55, -3.5, -0.55, -0.55, -3.5, 0.55, -0.55, -3.5, 0.55, 0.55, 3.5, 0.55, 0.55, -3.5, 0.55, -0.55, 3.5, 0.55, 0.55, -3.5, 0.55, -0.55, -3.5, 0.55, -0.55, 3.5, -0.55, 0.55, -3.5, -0.55, 0.55, 3.5, -0.55, -0.55, -3.5, -0.55, 0.55, 3.5, -0.55, -0.55, 3.5, -0.55, -0.55, -3.5, 0.55, 0.55, 3.5, -0.55, 0.55, 3.5, 0.55, 0.55, -3.5, -0.55, 0.55, 3.5, -0.55, 0.55, -3.5, 0.55, 0.55, -3.5, -0.55, -0.55, 3.5, 0.55, -0.55, 3.5, -0.55, -0.55, -3.5, 0.55, -0.55, 3.5, 0.55, -0.55, -3.5, -0.55, -0.55, -3.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vptbd"]
+roughness = 0.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_wyclp"]
+material = SubResource("StandardMaterial3D_vptbd")
+size = Vector3(1.1, 1.1, 7)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_afojc"]
+data = PackedVector3Array(-0.25, 0.25, 1.875, 0.25, 0.25, 1.875, -0.25, -0.25, 1.875, 0.25, 0.25, 1.875, 0.25, -0.25, 1.875, -0.25, -0.25, 1.875, 0.25, 0.25, -1.875, -0.25, 0.25, -1.875, 0.25, -0.25, -1.875, -0.25, 0.25, -1.875, -0.25, -0.25, -1.875, 0.25, -0.25, -1.875, 0.25, 0.25, 1.875, 0.25, 0.25, -1.875, 0.25, -0.25, 1.875, 0.25, 0.25, -1.875, 0.25, -0.25, -1.875, 0.25, -0.25, 1.875, -0.25, 0.25, -1.875, -0.25, 0.25, 1.875, -0.25, -0.25, -1.875, -0.25, 0.25, 1.875, -0.25, -0.25, 1.875, -0.25, -0.25, -1.875, 0.25, 0.25, 1.875, -0.25, 0.25, 1.875, 0.25, 0.25, -1.875, -0.25, 0.25, 1.875, -0.25, 0.25, -1.875, 0.25, 0.25, -1.875, -0.25, -0.25, 1.875, 0.25, -0.25, 1.875, -0.25, -0.25, -1.875, 0.25, -0.25, 1.875, 0.25, -0.25, -1.875, -0.25, -0.25, -1.875)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wepi8"]
+albedo_color = Color(0, 0, 0, 1)
+roughness = 0.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_mtkrx"]
+material = SubResource("StandardMaterial3D_wepi8")
+size = Vector3(0.5, 0.5, 3.75)
+
+[sub_resource type="Animation" id="Animation_qjxbx"]
+resource_name = "press"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.08726645, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_s5p82"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iq2et"]
+_data = {
+&"RESET": SubResource("Animation_s5p82"),
+&"press": SubResource("Animation_qjxbx")
+}
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_wyclp"]
+data = PackedVector3Array(-0.55, 0.55, 3.5, 0.55, 0.55, 3.5, -0.55, -0.55, 3.5, 0.55, 0.55, 3.5, 0.55, -0.55, 3.5, -0.55, -0.55, 3.5, 0.55, 0.55, -3.5, -0.55, 0.55, -3.5, 0.55, -0.55, -3.5, -0.55, 0.55, -3.5, -0.55, -0.55, -3.5, 0.55, -0.55, -3.5, 0.55, 0.55, 3.5, 0.55, 0.55, -3.5, 0.55, -0.55, 3.5, 0.55, 0.55, -3.5, 0.55, -0.55, -3.5, 0.55, -0.55, 3.5, -0.55, 0.55, -3.5, -0.55, 0.55, 3.5, -0.55, -0.55, -3.5, -0.55, 0.55, 3.5, -0.55, -0.55, 3.5, -0.55, -0.55, -3.5, 0.55, 0.55, 3.5, -0.55, 0.55, 3.5, 0.55, 0.55, -3.5, -0.55, 0.55, 3.5, -0.55, 0.55, -3.5, 0.55, 0.55, -3.5, -0.55, -0.55, 3.5, 0.55, -0.55, 3.5, -0.55, -0.55, -3.5, 0.55, -0.55, 3.5, 0.55, -0.55, -3.5, -0.55, -0.55, -3.5)
+
+[sub_resource type="Animation" id="Animation_47s7q"]
+resource_name = "press"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.08726645, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_cbdno"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gs01u"]
+_data = {
+&"RESET": SubResource("Animation_cbdno"),
+&"press": SubResource("Animation_47s7q")
+}
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_4iysp"]
+data = PackedVector3Array(-0.25, 0.25, 1.875, 0.25, 0.25, 1.875, -0.25, -0.25, 1.875, 0.25, 0.25, 1.875, 0.25, -0.25, 1.875, -0.25, -0.25, 1.875, 0.25, 0.25, -1.875, -0.25, 0.25, -1.875, 0.25, -0.25, -1.875, -0.25, 0.25, -1.875, -0.25, -0.25, -1.875, 0.25, -0.25, -1.875, 0.25, 0.25, 1.875, 0.25, 0.25, -1.875, 0.25, -0.25, 1.875, 0.25, 0.25, -1.875, 0.25, -0.25, -1.875, 0.25, -0.25, 1.875, -0.25, 0.25, -1.875, -0.25, 0.25, 1.875, -0.25, -0.25, -1.875, -0.25, 0.25, 1.875, -0.25, -0.25, 1.875, -0.25, -0.25, -1.875, 0.25, 0.25, 1.875, -0.25, 0.25, 1.875, 0.25, 0.25, -1.875, -0.25, 0.25, 1.875, -0.25, 0.25, -1.875, 0.25, 0.25, -1.875, -0.25, -0.25, 1.875, 0.25, -0.25, 1.875, -0.25, -0.25, -1.875, 0.25, -0.25, 1.875, 0.25, -0.25, -1.875, -0.25, -0.25, -1.875)
+
+[sub_resource type="Animation" id="Animation_iq2et"]
+resource_name = "press"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.08726645, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_4xmli"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oq26v"]
+_data = {
+&"RESET": SubResource("Animation_4xmli"),
+&"press": SubResource("Animation_iq2et")
+}
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_wepi8"]
+data = PackedVector3Array(-0.55, 0.55, 3.5, 0.55, 0.55, 3.5, -0.55, -0.55, 3.5, 0.55, 0.55, 3.5, 0.55, -0.55, 3.5, -0.55, -0.55, 3.5, 0.55, 0.55, -3.5, -0.55, 0.55, -3.5, 0.55, -0.55, -3.5, -0.55, 0.55, -3.5, -0.55, -0.55, -3.5, 0.55, -0.55, -3.5, 0.55, 0.55, 3.5, 0.55, 0.55, -3.5, 0.55, -0.55, 3.5, 0.55, 0.55, -3.5, 0.55, -0.55, -3.5, 0.55, -0.55, 3.5, -0.55, 0.55, -3.5, -0.55, 0.55, 3.5, -0.55, -0.55, -3.5, -0.55, 0.55, 3.5, -0.55, -0.55, 3.5, -0.55, -0.55, -3.5, 0.55, 0.55, 3.5, -0.55, 0.55, 3.5, 0.55, 0.55, -3.5, -0.55, 0.55, 3.5, -0.55, 0.55, -3.5, 0.55, 0.55, -3.5, -0.55, -0.55, 3.5, 0.55, -0.55, 3.5, -0.55, -0.55, -3.5, 0.55, -0.55, 3.5, 0.55, -0.55, -3.5, -0.55, -0.55, -3.5)
+
+[sub_resource type="Animation" id="Animation_oq26v"]
+resource_name = "press"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-7.450581e-09, 0, 0), Vector3(0.087266445, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_eu8pr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bi50k"]
+_data = {
+&"RESET": SubResource("Animation_eu8pr"),
+&"press": SubResource("Animation_oq26v")
+}
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_mtkrx"]
+data = PackedVector3Array(-0.55, 0.55, 3.5, 0.55, 0.55, 3.5, -0.55, -0.55, 3.5, 0.55, 0.55, 3.5, 0.55, -0.55, 3.5, -0.55, -0.55, 3.5, 0.55, 0.55, -3.5, -0.55, 0.55, -3.5, 0.55, -0.55, -3.5, -0.55, 0.55, -3.5, -0.55, -0.55, -3.5, 0.55, -0.55, -3.5, 0.55, 0.55, 3.5, 0.55, 0.55, -3.5, 0.55, -0.55, 3.5, 0.55, 0.55, -3.5, 0.55, -0.55, -3.5, 0.55, -0.55, 3.5, -0.55, 0.55, -3.5, -0.55, 0.55, 3.5, -0.55, -0.55, -3.5, -0.55, 0.55, 3.5, -0.55, -0.55, 3.5, -0.55, -0.55, -3.5, 0.55, 0.55, 3.5, -0.55, 0.55, 3.5, 0.55, 0.55, -3.5, -0.55, 0.55, 3.5, -0.55, 0.55, -3.5, 0.55, 0.55, -3.5, -0.55, -0.55, 3.5, 0.55, -0.55, 3.5, -0.55, -0.55, -3.5, 0.55, -0.55, 3.5, 0.55, -0.55, -3.5, -0.55, -0.55, -3.5)
+
+[sub_resource type="Animation" id="Animation_7hwp5"]
+resource_name = "press"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.08726645, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7s38a"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mspys"]
+_data = {
+&"RESET": SubResource("Animation_7s38a"),
+&"press": SubResource("Animation_7hwp5")
+}
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_c5vki"]
+data = PackedVector3Array(-0.25, 0.25, 1.875, 0.25, 0.25, 1.875, -0.25, -0.25, 1.875, 0.25, 0.25, 1.875, 0.25, -0.25, 1.875, -0.25, -0.25, 1.875, 0.25, 0.25, -1.875, -0.25, 0.25, -1.875, 0.25, -0.25, -1.875, -0.25, 0.25, -1.875, -0.25, -0.25, -1.875, 0.25, -0.25, -1.875, 0.25, 0.25, 1.875, 0.25, 0.25, -1.875, 0.25, -0.25, 1.875, 0.25, 0.25, -1.875, 0.25, -0.25, -1.875, 0.25, -0.25, 1.875, -0.25, 0.25, -1.875, -0.25, 0.25, 1.875, -0.25, -0.25, -1.875, -0.25, 0.25, 1.875, -0.25, -0.25, 1.875, -0.25, -0.25, -1.875, 0.25, 0.25, 1.875, -0.25, 0.25, 1.875, 0.25, 0.25, -1.875, -0.25, 0.25, 1.875, -0.25, 0.25, -1.875, 0.25, 0.25, -1.875, -0.25, -0.25, 1.875, 0.25, -0.25, 1.875, -0.25, -0.25, -1.875, 0.25, -0.25, 1.875, 0.25, -0.25, -1.875, -0.25, -0.25, -1.875)
+
+[sub_resource type="Animation" id="Animation_bi50k"]
+resource_name = "press"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.08726645, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_mspys"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_47s7q"]
+_data = {
+&"RESET": SubResource("Animation_mspys"),
+&"press": SubResource("Animation_bi50k")
+}
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_07fpr"]
+data = PackedVector3Array(-0.55, 0.55, 3.5, 0.55, 0.55, 3.5, -0.55, -0.55, 3.5, 0.55, 0.55, 3.5, 0.55, -0.55, 3.5, -0.55, -0.55, 3.5, 0.55, 0.55, -3.5, -0.55, 0.55, -3.5, 0.55, -0.55, -3.5, -0.55, 0.55, -3.5, -0.55, -0.55, -3.5, 0.55, -0.55, -3.5, 0.55, 0.55, 3.5, 0.55, 0.55, -3.5, 0.55, -0.55, 3.5, 0.55, 0.55, -3.5, 0.55, -0.55, -3.5, 0.55, -0.55, 3.5, -0.55, 0.55, -3.5, -0.55, 0.55, 3.5, -0.55, -0.55, -3.5, -0.55, 0.55, 3.5, -0.55, -0.55, 3.5, -0.55, -0.55, -3.5, 0.55, 0.55, 3.5, -0.55, 0.55, 3.5, 0.55, 0.55, -3.5, -0.55, 0.55, 3.5, -0.55, 0.55, -3.5, 0.55, 0.55, -3.5, -0.55, -0.55, 3.5, 0.55, -0.55, 3.5, -0.55, -0.55, -3.5, 0.55, -0.55, 3.5, 0.55, -0.55, -3.5, -0.55, -0.55, -3.5)
+
+[sub_resource type="Animation" id="Animation_kp6qv"]
+resource_name = "press"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.08726645, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_tyjps"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k5cwc"]
+_data = {
+&"RESET": SubResource("Animation_tyjps"),
+&"press": SubResource("Animation_kp6qv")
+}
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_fou16"]
+data = PackedVector3Array(-0.25, 0.25, 1.875, 0.25, 0.25, 1.875, -0.25, -0.25, 1.875, 0.25, 0.25, 1.875, 0.25, -0.25, 1.875, -0.25, -0.25, 1.875, 0.25, 0.25, -1.875, -0.25, 0.25, -1.875, 0.25, -0.25, -1.875, -0.25, 0.25, -1.875, -0.25, -0.25, -1.875, 0.25, -0.25, -1.875, 0.25, 0.25, 1.875, 0.25, 0.25, -1.875, 0.25, -0.25, 1.875, 0.25, 0.25, -1.875, 0.25, -0.25, -1.875, 0.25, -0.25, 1.875, -0.25, 0.25, -1.875, -0.25, 0.25, 1.875, -0.25, -0.25, -1.875, -0.25, 0.25, 1.875, -0.25, -0.25, 1.875, -0.25, -0.25, -1.875, 0.25, 0.25, 1.875, -0.25, 0.25, 1.875, 0.25, 0.25, -1.875, -0.25, 0.25, 1.875, -0.25, 0.25, -1.875, 0.25, 0.25, -1.875, -0.25, -0.25, 1.875, 0.25, -0.25, 1.875, -0.25, -0.25, -1.875, 0.25, -0.25, 1.875, 0.25, -0.25, -1.875, -0.25, -0.25, -1.875)
+
+[sub_resource type="Animation" id="Animation_t5jlt"]
+resource_name = "press"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.087266475, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_o6pcs"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bo027"]
+_data = {
+&"RESET": SubResource("Animation_o6pcs"),
+&"press": SubResource("Animation_t5jlt")
+}
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_1vqej"]
+data = PackedVector3Array(-0.55, 0.55, 3.5, 0.55, 0.55, 3.5, -0.55, -0.55, 3.5, 0.55, 0.55, 3.5, 0.55, -0.55, 3.5, -0.55, -0.55, 3.5, 0.55, 0.55, -3.5, -0.55, 0.55, -3.5, 0.55, -0.55, -3.5, -0.55, 0.55, -3.5, -0.55, -0.55, -3.5, 0.55, -0.55, -3.5, 0.55, 0.55, 3.5, 0.55, 0.55, -3.5, 0.55, -0.55, 3.5, 0.55, 0.55, -3.5, 0.55, -0.55, -3.5, 0.55, -0.55, 3.5, -0.55, 0.55, -3.5, -0.55, 0.55, 3.5, -0.55, -0.55, -3.5, -0.55, 0.55, 3.5, -0.55, -0.55, 3.5, -0.55, -0.55, -3.5, 0.55, 0.55, 3.5, -0.55, 0.55, 3.5, 0.55, 0.55, -3.5, -0.55, 0.55, 3.5, -0.55, 0.55, -3.5, 0.55, 0.55, -3.5, -0.55, -0.55, 3.5, 0.55, -0.55, 3.5, -0.55, -0.55, -3.5, 0.55, -0.55, 3.5, 0.55, -0.55, -3.5, -0.55, -0.55, -3.5)
+
+[sub_resource type="Animation" id="Animation_h800l"]
+resource_name = "press"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.08726645, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_fsh6l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pef7x"]
+_data = {
+&"RESET": SubResource("Animation_fsh6l"),
+&"press": SubResource("Animation_h800l")
+}
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_kwkmj"]
+data = PackedVector3Array(-0.25, 0.25, 1.875, 0.25, 0.25, 1.875, -0.25, -0.25, 1.875, 0.25, 0.25, 1.875, 0.25, -0.25, 1.875, -0.25, -0.25, 1.875, 0.25, 0.25, -1.875, -0.25, 0.25, -1.875, 0.25, -0.25, -1.875, -0.25, 0.25, -1.875, -0.25, -0.25, -1.875, 0.25, -0.25, -1.875, 0.25, 0.25, 1.875, 0.25, 0.25, -1.875, 0.25, -0.25, 1.875, 0.25, 0.25, -1.875, 0.25, -0.25, -1.875, 0.25, -0.25, 1.875, -0.25, 0.25, -1.875, -0.25, 0.25, 1.875, -0.25, -0.25, -1.875, -0.25, 0.25, 1.875, -0.25, -0.25, 1.875, -0.25, -0.25, -1.875, 0.25, 0.25, 1.875, -0.25, 0.25, 1.875, 0.25, 0.25, -1.875, -0.25, 0.25, 1.875, -0.25, 0.25, -1.875, 0.25, 0.25, -1.875, -0.25, -0.25, 1.875, 0.25, -0.25, 1.875, -0.25, -0.25, -1.875, 0.25, -0.25, 1.875, 0.25, -0.25, -1.875, -0.25, -0.25, -1.875)
+
+[sub_resource type="Animation" id="Animation_da8wn"]
+resource_name = "press"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.08726645, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_mqoy0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jrsmb"]
+_data = {
+&"RESET": SubResource("Animation_mqoy0"),
+&"press": SubResource("Animation_da8wn")
+}
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_eputo"]
+data = PackedVector3Array(-0.55, 0.55, 3.5, 0.55, 0.55, 3.5, -0.55, -0.55, 3.5, 0.55, 0.55, 3.5, 0.55, -0.55, 3.5, -0.55, -0.55, 3.5, 0.55, 0.55, -3.5, -0.55, 0.55, -3.5, 0.55, -0.55, -3.5, -0.55, 0.55, -3.5, -0.55, -0.55, -3.5, 0.55, -0.55, -3.5, 0.55, 0.55, 3.5, 0.55, 0.55, -3.5, 0.55, -0.55, 3.5, 0.55, 0.55, -3.5, 0.55, -0.55, -3.5, 0.55, -0.55, 3.5, -0.55, 0.55, -3.5, -0.55, 0.55, 3.5, -0.55, -0.55, -3.5, -0.55, 0.55, 3.5, -0.55, -0.55, 3.5, -0.55, -0.55, -3.5, 0.55, 0.55, 3.5, -0.55, 0.55, 3.5, 0.55, 0.55, -3.5, -0.55, 0.55, 3.5, -0.55, 0.55, -3.5, 0.55, 0.55, -3.5, -0.55, -0.55, 3.5, 0.55, -0.55, 3.5, -0.55, -0.55, -3.5, 0.55, -0.55, 3.5, 0.55, -0.55, -3.5, -0.55, -0.55, -3.5)
+
+[node name="PianoOctave" type="Node3D"]
+script = ExtResource("1_wyclp")
+
+[node name="C" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.45, 0, -3)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="C"]
+root_node = NodePath("../StaticBody3D")
+libraries = {
+&"": SubResource("AnimationLibrary_0lkn4")
+}
+
+[node name="StaticBody3D" type="StaticBody3D" parent="C"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.5)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="C/StaticBody3D"]
+stream = ExtResource("2_0lkn4")
+
+[node name="Area3D" type="Area3D" parent="C/StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="C/StaticBody3D/Area3D"]
+shape = SubResource("ConcavePolygonShape3D_vptbd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="C/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_vptbd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="C/StaticBody3D"]
+mesh = SubResource("BoxMesh_wyclp")
+skeleton = NodePath("../../..")
+
+[node name="C#" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9, 0.8, -3)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="C#"]
+root_node = NodePath("../StaticBody3D")
+libraries = {
+&"": SubResource("AnimationLibrary_0lkn4")
+}
+
+[node name="StaticBody3D" type="StaticBody3D" parent="C#"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.875)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="C#/StaticBody3D"]
+stream = ExtResource("3_hl5tc")
+
+[node name="Area3D" type="Area3D" parent="C#/StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="C#/StaticBody3D/Area3D"]
+shape = SubResource("ConcavePolygonShape3D_afojc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="C#/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_afojc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="C#/StaticBody3D"]
+mesh = SubResource("BoxMesh_mtkrx")
+skeleton = NodePath("../../..")
+
+[node name="D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3, 0, -3)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="D"]
+libraries = {
+&"": SubResource("AnimationLibrary_iq2et")
+}
+
+[node name="StaticBody3D" type="StaticBody3D" parent="D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.5)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="D/StaticBody3D"]
+stream = ExtResource("4_qjxbx")
+
+[node name="Area3D" type="Area3D" parent="D/StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="D/StaticBody3D/Area3D"]
+shape = SubResource("ConcavePolygonShape3D_wyclp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_wyclp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="D/StaticBody3D"]
+mesh = SubResource("BoxMesh_wyclp")
+skeleton = NodePath("../../..")
+
+[node name="D#" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 0.8, -3)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="D#"]
+libraries = {
+&"": SubResource("AnimationLibrary_gs01u")
+}
+
+[node name="StaticBody3D" type="StaticBody3D" parent="D#"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.875)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="D#/StaticBody3D"]
+stream = ExtResource("5_s5p82")
+
+[node name="Area3D" type="Area3D" parent="D#/StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="D#/StaticBody3D/Area3D"]
+shape = SubResource("ConcavePolygonShape3D_4iysp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="D#/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_4iysp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="D#/StaticBody3D"]
+mesh = SubResource("BoxMesh_mtkrx")
+skeleton = NodePath("../../..")
+
+[node name="E" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.15, 0, -3.1000001)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="E"]
+libraries = {
+&"": SubResource("AnimationLibrary_oq26v")
+}
+
+[node name="StaticBody3D" type="StaticBody3D" parent="E"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.6000001)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="E/StaticBody3D"]
+stream = ExtResource("6_iq2et")
+
+[node name="Area3D" type="Area3D" parent="E/StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="E/StaticBody3D/Area3D"]
+shape = SubResource("ConcavePolygonShape3D_wepi8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="E/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_wepi8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="E/StaticBody3D"]
+mesh = SubResource("BoxMesh_wyclp")
+skeleton = NodePath("../../..")
+
+[node name="F" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.004, 0, -3)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="F"]
+libraries = {
+&"": SubResource("AnimationLibrary_bi50k")
+}
+
+[node name="StaticBody3D" type="StaticBody3D" parent="F"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.5)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="F/StaticBody3D"]
+stream = ExtResource("7_4xmli")
+
+[node name="Area3D" type="Area3D" parent="F/StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="F/StaticBody3D/Area3D"]
+shape = SubResource("ConcavePolygonShape3D_mtkrx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="F/StaticBody3D"]
+mesh = SubResource("BoxMesh_wyclp")
+skeleton = NodePath("../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="F/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_mtkrx")
+
+[node name="F#" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.546, 0.8, -3)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="F#"]
+libraries = {
+&"": SubResource("AnimationLibrary_mspys")
+}
+
+[node name="StaticBody3D" type="StaticBody3D" parent="F#"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.875)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="F#/StaticBody3D"]
+stream = ExtResource("8_oq26v")
+
+[node name="Area3D" type="Area3D" parent="F#/StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="F#/StaticBody3D/Area3D"]
+shape = SubResource("ConcavePolygonShape3D_c5vki")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="F#/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_c5vki")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="F#/StaticBody3D"]
+mesh = SubResource("BoxMesh_mtkrx")
+skeleton = NodePath("../../..")
+
+[node name="G" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.146, 0, -3)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="G"]
+libraries = {
+&"": SubResource("AnimationLibrary_47s7q")
+}
+
+[node name="StaticBody3D" type="StaticBody3D" parent="G"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.5)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="G/StaticBody3D"]
+stream = ExtResource("9_eu8pr")
+
+[node name="Area3D" type="Area3D" parent="G/StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="G/StaticBody3D/Area3D"]
+shape = SubResource("ConcavePolygonShape3D_07fpr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="G/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_07fpr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="G/StaticBody3D"]
+mesh = SubResource("BoxMesh_wyclp")
+skeleton = NodePath("../../..")
+
+[node name="G#" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.696, 0.8, -3)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="G#"]
+libraries = {
+&"": SubResource("AnimationLibrary_k5cwc")
+}
+
+[node name="StaticBody3D" type="StaticBody3D" parent="G#"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.875)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="G#/StaticBody3D"]
+stream = ExtResource("10_bi50k")
+
+[node name="Area3D" type="Area3D" parent="G#/StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="G#/StaticBody3D/Area3D"]
+shape = SubResource("ConcavePolygonShape3D_fou16")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="G#/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_fou16")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="G#/StaticBody3D"]
+mesh = SubResource("BoxMesh_mtkrx")
+skeleton = NodePath("../../..")
+
+[node name="A" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.296, 0, -3)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="A"]
+root_node = NodePath("../StaticBody3D")
+libraries = {
+&"": SubResource("AnimationLibrary_bo027")
+}
+
+[node name="StaticBody3D" type="StaticBody3D" parent="A"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.475)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="A/StaticBody3D"]
+stream = ExtResource("2_07fpr")
+
+[node name="Area3D" type="Area3D" parent="A/StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="A/StaticBody3D/Area3D"]
+shape = SubResource("ConcavePolygonShape3D_1vqej")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="A/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_1vqej")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="A/StaticBody3D"]
+mesh = SubResource("BoxMesh_wyclp")
+skeleton = NodePath("../../..")
+
+[node name="A#" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.846, 0.8, -3.025)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="A#"]
+libraries = {
+&"": SubResource("AnimationLibrary_pef7x")
+}
+
+[node name="StaticBody3D" type="StaticBody3D" parent="A#"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.875)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="A#/StaticBody3D"]
+stream = ExtResource("3_1vqej")
+
+[node name="Area3D" type="Area3D" parent="A#/StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="A#/StaticBody3D/Area3D"]
+shape = SubResource("ConcavePolygonShape3D_kwkmj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="A#/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_kwkmj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="A#/StaticBody3D"]
+mesh = SubResource("BoxMesh_mtkrx")
+skeleton = NodePath("../../..")
+
+[node name="B" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.446, 0, -3)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="B"]
+libraries = {
+&"": SubResource("AnimationLibrary_jrsmb")
+}
+
+[node name="StaticBody3D" type="StaticBody3D" parent="B"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.5)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="B/StaticBody3D"]
+stream = ExtResource("4_eputo")
+
+[node name="Area3D" type="Area3D" parent="B/StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="B/StaticBody3D/Area3D"]
+shape = SubResource("ConcavePolygonShape3D_eputo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="B/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_eputo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="B/StaticBody3D"]
+mesh = SubResource("BoxMesh_wyclp")
+skeleton = NodePath("../../..")
+
+[connection signal="body_entered" from="C/StaticBody3D/Area3D" to="." method="_on_c_body_entered"]
+[connection signal="body_entered" from="D/StaticBody3D/Area3D" to="." method="_on_d_body_entered"]
+[connection signal="body_entered" from="D#/StaticBody3D/Area3D" to="." method="_on_d_sharp_body_entered"]
+[connection signal="body_entered" from="E/StaticBody3D/Area3D" to="." method="_on_e_body_entered"]
+[connection signal="body_entered" from="F/StaticBody3D/Area3D" to="." method="_on_f_body_entered"]
+[connection signal="body_entered" from="F#/StaticBody3D/Area3D" to="." method="_on_f_sharp_body_entered"]
+[connection signal="body_entered" from="G/StaticBody3D/Area3D" to="." method="_on_g_body_entered"]
+[connection signal="body_entered" from="G#/StaticBody3D/Area3D" to="." method="_on_g_sharp_body_entered"]
+[connection signal="body_entered" from="A/StaticBody3D/Area3D" to="." method="_on_a_body_entered"]
+[connection signal="body_entered" from="A#/StaticBody3D/Area3D" to="." method="_on_a_sharp_body_entered"]
+[connection signal="body_entered" from="B/StaticBody3D/Area3D" to="." method="_on_b_body_entered"]
+[connection signal="body_exited" from="C/StaticBody3D/Area3D" to="." method="_on_c_body_exited"]
+[connection signal="body_exited" from="D/StaticBody3D/Area3D" to="." method="_on_d_body_exited"]
+[connection signal="body_exited" from="D#/StaticBody3D/Area3D" to="." method="_on_d_sharp_body_exited"]
+[connection signal="body_exited" from="E/StaticBody3D/Area3D" to="." method="_on_e_body_exited"]
+[connection signal="body_exited" from="F/StaticBody3D/Area3D" to="." method="_on_f_body_exited"]
+[connection signal="body_exited" from="F#/StaticBody3D/Area3D" to="." method="_on_f_sharp_body_exited"]
+[connection signal="body_exited" from="G/StaticBody3D/Area3D" to="." method="_on_g_body_exited"]
+[connection signal="body_exited" from="G#/StaticBody3D/Area3D" to="." method="_on_g_sharp_body_exited"]
+[connection signal="body_exited" from="A/StaticBody3D/Area3D" to="." method="_on_a_body_exited"]
+[connection signal="body_exited" from="A#/StaticBody3D/Area3D" to="." method="_on_a_sharp_body_exited"]
+[connection signal="body_exited" from="B/StaticBody3D/Area3D" to="." method="_on_b_body_exited"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=57 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" uid="uid://c7agev1ouwnuu" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="Texture2D" uid="uid://e6rn4rs3cr0v" path="res://assets/kenney_nl/prototype_textures/PNG/Dark/texture_09.png" id="2_d2mly"]
@@ -28,6 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://b7wnthj3i5cl5" path="res://scenes/jenga_block.tscn" id="26_2wyq8"]
 [ext_resource type="PackedScene" uid="uid://m4ahueh0shhm" path="res://scenes/lincoln_log_2_notch_rigid.tscn" id="26_vxglm"]
 [ext_resource type="PackedScene" uid="uid://c0xr10lkn0418" path="res://scenes/crayon_rigid.tscn" id="28_2f3dj"]
+[ext_resource type="PackedScene" uid="uid://p5psdprmw6l7" path="res://scenes/piano_octave.tscn" id="29_yq6so"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yu8tv"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -760,3 +761,6 @@ transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 1.01
 
 [node name="CrayonRigid" parent="." instance=ExtResource("28_2f3dj")]
 transform = Transform3D(0, 4.371139e-08, -1, 1, -4.371139e-08, 0, -4.371139e-08, -1, -4.3711385e-08, 0, 2.3550003, 5)
+
+[node name="Node3D" parent="." instance=ExtResource("29_yq6so")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 0)
