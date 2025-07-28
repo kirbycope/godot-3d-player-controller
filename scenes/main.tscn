@@ -762,5 +762,10 @@ transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 1.01
 [node name="CrayonRigid" parent="." instance=ExtResource("28_2f3dj")]
 transform = Transform3D(0, 4.371139e-08, -1, 1, -4.371139e-08, 0, -4.371139e-08, -1, -4.3711385e-08, 0, 2.3550003, 5)
 
-[node name="Node3D" parent="." instance=ExtResource("29_yq6so")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 0)
+[node name="PianoOctave" parent="." instance=ExtResource("29_yq6so")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0.5550005, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="PianoOctave"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.6, -0.25, 3.5)
+use_collision = true
+size = Vector3(1, 0.5, 1)
