@@ -421,7 +421,7 @@ libraries = {
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.4156103e-07)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="C/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 3.5)
 shape = SubResource("BoxShape3D_0lkn4")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="C"]
@@ -449,9 +449,9 @@ libraries = {
 }
 
 [node name="Area3D" type="Area3D" parent="C#"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.875)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="C#/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 1.9)
 shape = SubResource("BoxShape3D_hl5tc")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="C#"]
@@ -480,9 +480,9 @@ libraries = {
 }
 
 [node name="Area3D" type="Area3D" parent="D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.5)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="D/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 3.5)
 shape = SubResource("BoxShape3D_0lkn4")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="D"]
@@ -510,9 +510,9 @@ libraries = {
 }
 
 [node name="Area3D" type="Area3D" parent="D#"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.875)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="D#/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 1.9)
 shape = SubResource("BoxShape3D_hl5tc")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="D#"]
@@ -541,9 +541,9 @@ libraries = {
 }
 
 [node name="Area3D" type="Area3D" parent="E"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.5000002)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="E/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 3.5)
 shape = SubResource("BoxShape3D_0lkn4")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="E"]
@@ -572,9 +572,9 @@ libraries = {
 }
 
 [node name="Area3D" type="Area3D" parent="F"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.5)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="F/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 3.5)
 shape = SubResource("BoxShape3D_0lkn4")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="F"]
@@ -602,9 +602,9 @@ libraries = {
 }
 
 [node name="Area3D" type="Area3D" parent="F#"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.875)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="F#/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 1.9)
 shape = SubResource("BoxShape3D_hl5tc")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="F#"]
@@ -633,9 +633,9 @@ libraries = {
 }
 
 [node name="Area3D" type="Area3D" parent="G"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.5)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="G/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 3.5)
 shape = SubResource("BoxShape3D_0lkn4")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="G"]
@@ -663,9 +663,9 @@ libraries = {
 }
 
 [node name="Area3D" type="Area3D" parent="G#"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.875)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="G#/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 1.9)
 shape = SubResource("BoxShape3D_hl5tc")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="G#"]
@@ -694,9 +694,9 @@ libraries = {
 }
 
 [node name="Area3D" type="Area3D" parent="A"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.5)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="A/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 3.5)
 shape = SubResource("BoxShape3D_0lkn4")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="A"]
@@ -715,7 +715,7 @@ mesh = SubResource("BoxMesh_wyclp")
 skeleton = NodePath("../../..")
 
 [node name="A#" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.846, 0.8, -3.025)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.846, 0.8, -3)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="A#"]
 root_node = NodePath("../StaticBody3D")
@@ -724,9 +724,9 @@ libraries = {
 }
 
 [node name="Area3D" type="Area3D" parent="A#"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.875)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="A#/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 1.9)
 shape = SubResource("BoxShape3D_hl5tc")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="A#"]
@@ -755,9 +755,9 @@ libraries = {
 }
 
 [node name="Area3D" type="Area3D" parent="B"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.5)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="B/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 3.5)
 shape = SubResource("BoxShape3D_0lkn4")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="B"]

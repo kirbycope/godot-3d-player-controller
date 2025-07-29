@@ -75,132 +75,120 @@ extends Node3D
 
 func _on_c_body_entered(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
-		if c_body.rotation_degrees.x == 0.0:
-			c_audio.play()
-			c_animation_player.play("press")
+		c_audio.play()
+		c_animation_player.play("press")
 
 func _on_c_body_exited(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
-		if c_body.rotation_degrees.x != 0.0 and !c_animation_player.is_playing():
+		if !c_animation_player.is_playing():
 			c_animation_player.play_backwards("press")
 
 func _on_c_sharp_body_entered(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
-		if c_sharp_body.rotation_degrees.x == 0.0:
-			c_sharp_audio.play()
-			c_sharp_animation_player.play("press")
+		c_sharp_audio.play()
+		c_sharp_animation_player.play("press")
 
 func _on_c_sharp_body_exited(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
-		if c_sharp_body.rotation_degrees.x != 0.0 and !c_sharp_animation_player.is_playing():
+		if !c_sharp_animation_player.is_playing():
 			c_sharp_animation_player.play_backwards("press")
 
 func _on_d_body_entered(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
-		if d_body.rotation_degrees.x == 0.0:
-			d_audio.play()
-			d_animation_player.play("press")
+		d_audio.play()
+		d_animation_player.play("press")
 
 func _on_d_body_exited(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
-		if d_body.rotation_degrees.x != 0.0 and !d_animation_player.is_playing():
+		if !d_animation_player.is_playing():
 			d_animation_player.play_backwards("press")
 
 func _on_d_sharp_body_entered(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
-		if d_sharp_body.rotation_degrees.x == 0.0:
-			d_sharp_audio.play()
-			d_sharp_animation_player.play("press")
+		d_sharp_audio.play()
+		d_sharp_animation_player.play("press")
 
 func _on_d_sharp_body_exited(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
-		if d_sharp.rotation_degrees.x != 0.0 and !d_sharp_animation_player.is_playing():
+		if !d_sharp_animation_player.is_playing():
 			d_sharp_animation_player.play_backwards("press")
 
 func _on_e_body_entered(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
-		if e_body.rotation_degrees.x == 0.0:
-			e_audio.play()
-			e_animation_player.play("press")
+		e_audio.play()
+		e_animation_player.play("press")
 
 func _on_e_body_exited(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
-		if e_body.rotation_degrees.x != 0.0 and !e_animation_player.is_playing():
+		if !e_animation_player.is_playing():
 			e_animation_player.play_backwards("press")
 
 func _on_f_body_entered(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
-		if f_body.rotation_degrees.x == 0.0:
-			f_audio.play()
-			f_animation_player.play("press")
+		f_audio.play()
+		f_animation_player.play("press")
 
 func _on_f_body_exited(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
-		if f_body.rotation_degrees.x != 0.0 and !f_animation_player.is_playing():
+		if !f_animation_player.is_playing():
 			f_animation_player.play_backwards("press")
 
 func _on_f_sharp_body_entered(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
-		if f_sharp_body.rotation_degrees.x == 0.0:
-			f_sharp_audio.play()
-			f_sharp_animation_player.play("press")
+		f_sharp_audio.play()
+		f_sharp_animation_player.play("press")
 
 func _on_f_sharp_body_exited(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
-		if f_sharp_body.rotation_degrees.x != 0.0 and !f_sharp_animation_player.is_playing():
+		if !f_sharp_animation_player.is_playing():
 			f_sharp_animation_player.play_backwards("press")
 
 func _on_g_body_entered(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
-		if g_body.rotation_degrees.x == 0.0:
-			g_audio.play()
-			g_animation_player.play("press")
+		g_audio.play()
+		g_animation_player.play("press")
 
 func _on_g_body_exited(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
-		if g_body.rotation_degrees.x != 0.0 and !g_animation_player.is_playing():
+		if !g_animation_player.is_playing():
 			g_animation_player.play_backwards("press")
 
 func _on_g_sharp_body_entered(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
-		if g_sharp_body.rotation_degrees.x == 0.0:
-			g_sharp_audio.play()
-			g_sharp_animation_player.play("press")
+		g_sharp_audio.play()
+		g_sharp_animation_player.play("press")
 
 func _on_g_sharp_body_exited(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
-		if g_sharp_body.rotation_degrees.x != 0.0 and !g_sharp_animation_player.is_playing():
+		if !g_sharp_animation_player.is_playing():
 			g_sharp_animation_player.play_backwards("press")
 
 func _on_a_body_entered(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
-		if a_body.rotation_degrees.x == 0.0:
-			a_audio.play()
-			a_animation_player.play("press")
+		a_audio.play()
+		a_animation_player.play("press")
 
 func _on_a_body_exited(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
-		if a_body.rotation_degrees.x != 0.0 and !a_animation_player.is_playing():
+		if !a_animation_player.is_playing():
 			a_animation_player.play_backwards("press")
 
 func _on_a_sharp_body_entered(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
-		if a_sharp_body.rotation_degrees.x == 0.0:
-			a_sharp_audio.play()
-			a_sharp_animation_player.play("press")
+		a_sharp_audio.play()
+		a_sharp_animation_player.play("press")
 
 func _on_a_sharp_body_exited(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
-		if a_sharp_body.rotation_degrees.x != 0.0 and !a_sharp_animation_player.is_playing():
+		if !a_sharp_animation_player.is_playing():
 			a_sharp_animation_player.play_backwards("press")
 
 func _on_b_body_entered(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
-		if b_body.rotation_degrees.x == 0.0:
-			b_audio.play()
-			b_animation_player.play("press")
+		b_audio.play()
+		b_animation_player.play("press")
 
 func _on_b_body_exited(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
-		if b_body.rotation_degrees.x != 0.0:
+		if !b_animation_player.is_playing():
 			b_animation_player.play_backwards("press")
