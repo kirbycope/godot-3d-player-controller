@@ -33,6 +33,7 @@ mesh = SubResource("BoxMesh_pby4r")
 
 [node name="Label3D" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.626)
+double_sided = false
 modulate = Color(1, 1, 1, 0)
 text = "Not Jenga"
 font_size = 64
@@ -40,6 +41,7 @@ outline_size = 6
 
 [node name="Label3D2" type="Label3D" parent="."]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, -0.626)
+double_sided = false
 modulate = Color(1, 1, 1, 0)
 text = "Not Jenga"
 font_size = 64

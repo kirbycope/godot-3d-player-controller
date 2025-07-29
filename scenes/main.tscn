@@ -756,19 +756,19 @@ transform = Transform3D(-0.7071067, 0, 0.7071068, 0, 1, 0, -0.7071068, 0, -0.707
 transform = Transform3D(-0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, -0.70710677, 11.535534, 1.2550012, 13.464466)
 
 [node name="LegoRigid" parent="." instance=ExtResource("21_yc10j")]
-transform = Transform3D(-4.371139e-08, 1, -8.742278e-08, 1, 4.371139e-08, -3.821371e-15, 0, -8.742278e-08, -1, 2.9923782, 0.8000007, 5.285022)
+transform = Transform3D(-4.371139e-08, 1, -8.742278e-08, 1, 4.371139e-08, -3.821371e-15, 0, -8.742278e-08, -1, -5.8076215, 0.8000003, 11.285023)
 
 [node name="DominoRigid" parent="." instance=ExtResource("26_fv21b")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.1860998, 1.2550004, 5.2755685)
-
-[node name="LincolnLog2NotchRigid" parent="." instance=ExtResource("26_vxglm")]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -0.9833612, 2.8730009, 5.2080064)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6.8139, 1.2550004, 11.275569)
 
 [node name="JengaBlock" parent="." instance=ExtResource("26_2wyq8")]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 1.016639, 1.8800002, 5.2080064)
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -7.9833612, 1.8800006, 11.208006)
 
 [node name="CrayonRigid" parent="." instance=ExtResource("28_2f3dj")]
-transform = Transform3D(0, 4.371139e-08, -1, 1, -4.371139e-08, 0, -4.371139e-08, -1, -4.3711385e-08, -1.163141e-08, 2.3550003, 5.2660956)
+transform = Transform3D(0, 4.371139e-08, -1, 1, -4.371139e-08, 0, -4.371139e-08, -1, -4.3711385e-08, -9, 2.3550005, 11.266095)
+
+[node name="LincolnLog2NotchRigid" parent="." instance=ExtResource("26_vxglm")]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -9.983361, 2.8730013, 11.208006)
 
 [node name="PianoOctave" parent="." instance=ExtResource("29_yq6so")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0.5550005, 0)

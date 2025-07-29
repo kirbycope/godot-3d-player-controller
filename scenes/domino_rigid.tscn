@@ -40,6 +40,7 @@ _surfaces = [{
 size = Vector3(1.25, 2.5, 0.35)
 
 [node name="DominoRigid" type="RigidBody3D"]
+mass = 5.0
 
 [node name="CSGBakedMeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_og2eu")
