@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=3 uid="uid://bifv6c704eb3g"]
+
+[ext_resource type="PackedScene" uid="uid://cflmbgbra5sj5" path="res://scenes/domino_rigid.tscn" id="1_5rk3v"]
+
+[node name="DominosTrail" type="Node3D"]
+
+[node name="DominoRigid" parent="." instance=ExtResource("1_5rk3v")]
+
+[node name="DominoRigid2" parent="." instance=ExtResource("1_5rk3v")]
+transform = Transform3D(-0.9659258, -8.742278e-08, -0.25881904, 8.444392e-08, -1, 2.262668e-08, -0.25881904, 0, 0.9659258, 0, 0, -1)
+
+[node name="DominoRigid3" parent="." instance=ExtResource("1_5rk3v")]
+transform = Transform3D(0.8660254, 1.171243e-08, -0.5, 1.1712434e-08, 1, 4.3711395e-08, 0.5, -4.3711395e-08, 0.8660254, 0.25881904, -2.262668e-08, -1.9659258)
+
+[node name="DominoRigid4" parent="." instance=ExtResource("1_5rk3v")]
+transform = Transform3D(-0.7071067, -8.742278e-08, -0.70710677, 6.181724e-08, -1, 6.181724e-08, -0.70710677, 0, 0.7071067, 0.75881904, -6.633807e-08, -2.8319511)
+
+[node name="DominoRigid5" parent="." instance=ExtResource("1_5rk3v")]
+transform = Transform3D(0.49999994, 1.3113416e-07, -0.8660253, -1.3113416e-07, 1, 7.5710346e-08, 0.86602527, 7.571035e-08, 0.5, 1.4659258, -1.281553e-07, -3.5390577)
+
+[node name="DominoRigid6" parent="." instance=ExtResource("1_5rk3v")]
+transform = Transform3D(-0.25881898, -8.742278e-08, -0.9659257, 2.262669e-08, -1, 8.444391e-08, -0.9659257, 0, 0.25881898, 2.3319511, -2.0386565e-07, -4.0390577)
+
+[node name="DominoRigid7" parent="." instance=ExtResource("1_5rk3v")]
+transform = Transform3D(-2.980233e-08, 8.742279e-08, -0.9999998, -8.742278e-08, 1, 8.742277e-08, 0.9999998, 8.742278e-08, -2.980233e-08, 3.2978768, -2.8830956e-07, -4.297877)
+
+[node name="DominoRigid8" parent="." instance=ExtResource("1_5rk3v")]
+transform = Transform3D(2.9802322e-08, -8.742278e-08, -0.99999976, 1.2434498e-14, -1, 8.742277e-08, -0.99999976, 0, -2.9802322e-08, 4.297877, -3.7573233e-07, -4.297877)
+
+[node name="DominoRigid9" parent="." instance=ExtResource("1_5rk3v")]
+transform = Transform3D(-0.25881904, 1.1004947e-07, -0.9659259, 1.1004942e-07, 1, 8.444394e-08, 0.96592563, -8.444391e-08, -0.2588191, 5.2638025, -4.6017624e-07, -4.0390577)
+
+[node name="DominoRigid10" parent="." instance=ExtResource("1_5rk3v")]
+transform = Transform3D(0.49999994, -8.742278e-08, -0.8660252, -4.3711367e-08, -1, 7.571034e-08, -0.8660252, 0, -0.49999994, 6.1298275, -5.3588656e-07, -3.5390577)
+
+[node name="DominoRigid11" parent="." instance=ExtResource("1_5rk3v")]
+transform = Transform3D(-0.7071066, 1.4924002e-07, -0.7071067, 1.4923997e-07, 1, 6.1817246e-08, 0.7071066, -6.181722e-08, -0.7071067, 6.836934, -5.977038e-07, -2.8319511)
+
+[node name="DominoRigid12" parent="." instance=ExtResource("1_5rk3v")]
+transform = Transform3D(0.86602515, -8.742278e-08, -0.49999982, -7.5710304e-08, -1, 4.371139e-08, -0.49999982, 0, -0.86602515, 7.336934, -6.4141517e-07, -1.9659259)
+
+[node name="DominoRigid13" parent="." instance=ExtResource("1_5rk3v")]
+transform = Transform3D(-0.9659256, 1.718667e-07, -0.25881895, 1.7186665e-07, 1, 2.2626683e-08, 0.25881892, -2.2626645e-08, -0.9659257, 7.595753, -6.6404186e-07, -1.0000004)
+
+[node name="DominoRigid14" parent="." instance=ExtResource("1_5rk3v")]
+transform = Transform3D(0.9999997, -8.742278e-08, 5.9604645e-08, -8.742274e-08, -1, 1.0658141e-14, 5.9604645e-08, 0, -0.9999997, 7.595753, -6.6404186e-07, -6.556511e-07)

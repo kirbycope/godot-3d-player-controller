@@ -1,0 +1,99 @@
+[gd_scene load_steps=3 format=3 uid="uid://dp7d3g5h01hjb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bujxi"]
+roughness = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dniiv"]
+albedo_color = Color(0, 0, 0, 1)
+roughness = 0.5
+
+[node name="Domino" type="Node3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+size = Vector3(1.25, 2.5, 0.35)
+material = SubResource("StandardMaterial3D_bujxi")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.175)
+operation = 2
+size = Vector3(1, 0.1, 0.1)
+material = SubResource("StandardMaterial3D_dniiv")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0.17)
+operation = 2
+radius = 0.125
+material = SubResource("StandardMaterial3D_dniiv")
+
+[node name="CSGSphere3D2" type="CSGSphere3D" parent="CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 0.29999998, 0.17)
+operation = 2
+radius = 0.125
+material = SubResource("StandardMaterial3D_dniiv")
+
+[node name="CSGSphere3D3" type="CSGSphere3D" parent="CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.39999998, 1, 0.17)
+operation = 2
+radius = 0.125
+material = SubResource("StandardMaterial3D_dniiv")
+
+[node name="CSGSphere3D4" type="CSGSphere3D" parent="CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, -0.24975637, 0.17)
+operation = 2
+radius = 0.125
+material = SubResource("StandardMaterial3D_dniiv")
+
+[node name="CSGSphere3D5" type="CSGSphere3D" parent="CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, -0.24975637, 0.17)
+operation = 2
+radius = 0.125
+material = SubResource("StandardMaterial3D_dniiv")
+
+[node name="CSGSphere3D6" type="CSGSphere3D" parent="CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, -0.6497564, 0.17)
+operation = 2
+radius = 0.125
+material = SubResource("StandardMaterial3D_dniiv")
+
+[node name="CSGSphere3D7" type="CSGSphere3D" parent="CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, -0.6497564, 0.17)
+operation = 2
+radius = 0.125
+material = SubResource("StandardMaterial3D_dniiv")
+
+[node name="CSGSphere3D8" type="CSGSphere3D" parent="CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, -1.0497563, 0.17)
+operation = 2
+radius = 0.125
+material = SubResource("StandardMaterial3D_dniiv")
+
+[node name="CSGSphere3D9" type="CSGSphere3D" parent="CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, -1.0497563, 0.17)
+operation = 2
+radius = 0.125
+material = SubResource("StandardMaterial3D_dniiv")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGBox3D"]
+transform = Transform3D(0.70710677, -0.70710677, 0, 0.70710677, 0.70710677, 0, 0, 0, 1, -0.75, 1.35, 0.006)
+operation = 2
+size = Vector3(0.5, 0.4, 0.4)
+
+[node name="Corner" type="CSGBox3D" parent="CSGBox3D"]
+transform = Transform3D(0.70710677, -0.70710677, 0, 0.70710677, 0.70710677, 0, 0, 0, 1, -0.75, 1.367, 0.005889699)
+operation = 2
+size = Vector3(0.5, 0.4, 0.4)
+
+[node name="Corner2" type="CSGBox3D" parent="CSGBox3D"]
+transform = Transform3D(0.7071067, 0.7071067, 0, -0.7071067, 0.7071067, 0, 0, 0, 1, 0.75, 1.35, 0.006)
+operation = 2
+size = Vector3(0.5, 0.4, 0.4)
+
+[node name="Corner3" type="CSGBox3D" parent="CSGBox3D"]
+transform = Transform3D(0.7071067, 0.7071067, 0, -0.7071067, 0.7071067, 0, 0, 0, 1, -0.75, -1.35, 0.006)
+operation = 2
+size = Vector3(0.5, 0.4, 0.4)
+
+[node name="Corner4" type="CSGBox3D" parent="CSGBox3D"]
+transform = Transform3D(-0.7071067, 0.7071067, 0, -0.7071067, -0.7071067, 0, 0, 0, 1, 0.75, -1.35, 0.006)
+operation = 2
+size = Vector3(0.5, 0.4, 0.4)

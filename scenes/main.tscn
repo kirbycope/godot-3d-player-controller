@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=59 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" uid="uid://c7agev1ouwnuu" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="Texture2D" uid="uid://e6rn4rs3cr0v" path="res://assets/kenney_nl/prototype_textures/PNG/Dark/texture_09.png" id="2_d2mly"]
@@ -26,6 +26,8 @@
 [ext_resource type="PackedScene" uid="uid://bhi3g10yf0six" path="res://scenes/jenga_tower.tscn" id="24_y6deb"]
 [ext_resource type="PackedScene" uid="uid://3ktvjr6ui3vk" path="res://scenes/lincoln_log_house.tscn" id="25_og1vs"]
 [ext_resource type="PackedScene" uid="uid://b7wnthj3i5cl5" path="res://scenes/jenga_block.tscn" id="26_2wyq8"]
+[ext_resource type="PackedScene" uid="uid://cflmbgbra5sj5" path="res://scenes/domino_rigid.tscn" id="26_fv21b"]
+[ext_resource type="PackedScene" uid="uid://bifv6c704eb3g" path="res://scenes/dominos_trail.tscn" id="26_tel4y"]
 [ext_resource type="PackedScene" uid="uid://m4ahueh0shhm" path="res://scenes/lincoln_log_2_notch_rigid.tscn" id="26_vxglm"]
 [ext_resource type="PackedScene" uid="uid://c0xr10lkn0418" path="res://scenes/crayon_rigid.tscn" id="28_2f3dj"]
 [ext_resource type="PackedScene" uid="uid://p5psdprmw6l7" path="res://scenes/piano_octave.tscn" id="29_yq6so"]
@@ -750,8 +752,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16)
 [node name="LincolnLogHouse" parent="." instance=ExtResource("25_og1vs")]
 transform = Transform3D(-0.7071067, 0, 0.7071068, 0, 1, 0, -0.7071068, 0, -0.7071067, -14, 0.41850045, -12)
 
+[node name="DominosTrail" parent="." instance=ExtResource("26_tel4y")]
+transform = Transform3D(-0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, -0.70710677, 11.535534, 1.2550012, 13.464466)
+
 [node name="LegoRigid" parent="." instance=ExtResource("21_yc10j")]
-transform = Transform3D(-4.371139e-08, 1, -8.742278e-08, 1, 4.371139e-08, -3.821371e-15, 0, -8.742278e-08, -1, 1.9923782, 0.80000067, 5.1398783)
+transform = Transform3D(-4.371139e-08, 1, -8.742278e-08, 1, 4.371139e-08, -3.821371e-15, 0, -8.742278e-08, -1, 2.9923782, 0.8000007, 5.285022)
+
+[node name="DominoRigid" parent="." instance=ExtResource("26_fv21b")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.1860998, 1.2550004, 5.2755685)
 
 [node name="LincolnLog2NotchRigid" parent="." instance=ExtResource("26_vxglm")]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -0.9833612, 2.8730009, 5.2080064)
@@ -760,7 +768,7 @@ transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -0.9
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 1.016639, 1.8800002, 5.2080064)
 
 [node name="CrayonRigid" parent="." instance=ExtResource("28_2f3dj")]
-transform = Transform3D(0, 4.371139e-08, -1, 1, -4.371139e-08, 0, -4.371139e-08, -1, -4.3711385e-08, 0, 2.3550003, 5)
+transform = Transform3D(0, 4.371139e-08, -1, 1, -4.371139e-08, 0, -4.371139e-08, -1, -4.3711385e-08, -1.163141e-08, 2.3550003, 5.2660956)
 
 [node name="PianoOctave" parent="." instance=ExtResource("29_yq6so")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0.5550005, 0)
