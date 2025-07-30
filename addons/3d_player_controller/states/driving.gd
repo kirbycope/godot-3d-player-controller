@@ -1,23 +1,4 @@
 extends BaseState
-## driving.gd
-
-# States (states.gd)
-#├── Base (base.gd)
-#├── Climbing (climbing.gd)
-#├── Crawling (crawling.gd)
-#├── Crouching (crouching.gd)
-#├── Driving (driving.gd)
-#├── Falling (falling.gd)
-#├── Flying (flying.gd)
-#├── Hanging (hanging.gd)
-#├── Holding (holding.gd)
-#├── Jumping (jumping.gd)
-#├── Running (running.gd)
-#├── Skateboarding (skateboarding.gd)
-#├── Sprinting (sprinting.gd)
-#├── Standing (standing.gd)
-#├── Swimming (swimming.gd)
-#└── Walking (walking.gd)
 
 const ANIMATION_DRIVING := "Driving" + "/mixamo_com"
 const ANIMATION_ENTERING_CAR := "Entering_Car" + "/mixamo_com"

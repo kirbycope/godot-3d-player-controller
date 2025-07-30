@@ -1,5 +1,4 @@
 extends Node
-## states.gd
 
 # Define states as an enum for clarity
 enum State {

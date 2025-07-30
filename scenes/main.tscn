@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=61 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" uid="uid://c7agev1ouwnuu" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="Texture2D" uid="uid://e6rn4rs3cr0v" path="res://assets/kenney_nl/prototype_textures/PNG/Dark/texture_09.png" id="2_d2mly"]
@@ -31,6 +31,8 @@
 [ext_resource type="PackedScene" uid="uid://m4ahueh0shhm" path="res://scenes/lincoln_log_2_notch_rigid.tscn" id="26_vxglm"]
 [ext_resource type="PackedScene" uid="uid://c0xr10lkn0418" path="res://scenes/crayon_rigid.tscn" id="28_2f3dj"]
 [ext_resource type="PackedScene" uid="uid://p5psdprmw6l7" path="res://scenes/piano_octave.tscn" id="29_yq6so"]
+[ext_resource type="PackedScene" uid="uid://d3afb22wm1k4h" path="res://scenes/moon_shoes.tscn" id="32_qkpxi"]
+[ext_resource type="PackedScene" uid="uid://ctdlktrnwgsoy" path="res://scenes/pinball.tscn" id="33_5q0nq"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yu8tv"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -756,19 +758,19 @@ transform = Transform3D(-0.7071067, 0, 0.7071068, 0, 1, 0, -0.7071068, 0, -0.707
 transform = Transform3D(-0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, -0.70710677, 11.535534, 1.2550012, 13.464466)
 
 [node name="LegoRigid" parent="." instance=ExtResource("21_yc10j")]
-transform = Transform3D(-4.371139e-08, 1, -8.742278e-08, 1, 4.371139e-08, -3.821371e-15, 0, -8.742278e-08, -1, -5.8076215, 0.8000003, 11.285023)
+transform = Transform3D(-4.371139e-08, 1, -8.742278e-08, 1, 4.371139e-08, -3.821371e-15, 0, -8.742278e-08, -1, -6, 0.8, 11.285)
 
 [node name="DominoRigid" parent="." instance=ExtResource("26_fv21b")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6.8139, 1.2550004, 11.275569)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -8, 1.255, 11.276)
 
 [node name="JengaBlock" parent="." instance=ExtResource("26_2wyq8")]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -7.9833612, 1.8800006, 11.208006)
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -10, 1.88, 11.208)
 
 [node name="CrayonRigid" parent="." instance=ExtResource("28_2f3dj")]
-transform = Transform3D(0, 4.371139e-08, -1, 1, -4.371139e-08, 0, -4.371139e-08, -1, -4.3711385e-08, -9, 2.3550005, 11.266095)
+transform = Transform3D(0, 4.371139e-08, -1, 1, -4.371139e-08, 0, -4.371139e-08, -1, -4.3711385e-08, -12, 2.355, 11.266)
 
 [node name="LincolnLog2NotchRigid" parent="." instance=ExtResource("26_vxglm")]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -9.983361, 2.8730013, 11.208006)
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -14, 2.873, 11.208)
 
 [node name="PianoOctave" parent="." instance=ExtResource("29_yq6so")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0.5550005, 0)
@@ -777,3 +779,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0.5550005, 0)
 transform = Transform3D(0.9961947, 0.08715574, 0, -0.08715574, 0.9961947, 0, 0, 0, 1, 13.443087, -0.81313443, 2.5)
 use_collision = true
 size = Vector3(19, 2, 3)
+
+[node name="MoonShoes" parent="." instance=ExtResource("32_qkpxi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.6590075, 0.10801329, 1.2042702)
+
+[node name="Pinball" parent="." instance=ExtResource("33_5q0nq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0.6800005, 11)

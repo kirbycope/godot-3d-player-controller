@@ -1,23 +1,4 @@
 extends BaseState
-## crawling.gd
-
-# States (states.gd)
-#├── Base (base.gd)
-#├── Climbing (climbing.gd)
-#├── Crawling (crawling.gd)
-#├── Crouching (crouching.gd)
-#├── Driving (driving.gd)
-#├── Falling (falling.gd)
-#├── Flying (flying.gd)
-#├── Hanging (hanging.gd)
-#├── Holding (holding.gd)
-#├── Jumping (jumping.gd)
-#├── Running (running.gd)
-#├── Skateboarding (skateboarding.gd)
-#├── Sprinting (sprinting.gd)
-#├── Standing (standing.gd)
-#├── Swimming (swimming.gd)
-#└── Walking (walking.gd)
 
 const ANIMATION_CRAWLING := "Crawling_In_Place" + "/mixamo_com"
 const ANIMATION_CROUCHING_MOVE_HOLDING_RIFLE := "Rifle_Walk_Crouching" + "/mixamo_com"

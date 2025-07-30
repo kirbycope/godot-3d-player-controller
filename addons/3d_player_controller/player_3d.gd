@@ -1,23 +1,4 @@
 extends CharacterBody3D
-## player_3d.gd
-
-# Player (player_3d.gd)
-#├── AudioStreamPlayer3D
-#├── CameraMount
-#│	└── Camera3D (camera_3d.gd)
-#│		└── ChatWindow (chat_window.gd)
-#│			└── Message (message.gd)
-#│		└── Debug (debug.gd)
-#│		└── Emotes (emotes.gd)
-#│		└── Pause (pause.gd)
-#│		└── Settings (settings.gd)
-#├── CollisionShape3D
-#├── Controls (controls.gd)
-#├── ShapeCast3D
-#├── States
-#└── Visuals
-#	└── AuxScene
-#		└── AnimationPlayer
 
 const BONE_NAME_HEAD = "Head"
 const BONE_NAME_LEFT_HAND = "LeftHand"
@@ -190,10 +171,8 @@ func _physics_process(delta) -> void:
 			# Handle player movement (input-based movement)
 			update_velocity()
 
-	# Check if the animation player is unlocked
-	if !is_animation_locked:
-		# Move player (physics movement)
-		move_player(delta)
+	# Move player (physics movement)
+	move_player(delta)
 
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.

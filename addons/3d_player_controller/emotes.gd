@@ -1,23 +1,4 @@
 extends Control
-## emotes.gd
-
-# Player (player_3d.gd)
-#├── AudioStreamPlayer3D
-#├── CameraMount
-#│	└── Camera3D (camera_3d.gd)
-#│		└── ChatWindow (chat_window.gd)
-#│			└── Message (message.gd)
-#│		└── Debug (debug.gd)
-#│		└── Emotes (emotes.gd)
-#│		└── Pause (pause.gd)
-#│		└── Settings (settings.gd)
-#├── CollisionShape3D
-#├── Controls (controls.gd)
-#├── ShapeCast3D
-#├── States
-#└── Visuals
-#	└── AuxScene
-#		└── AnimationPlayer
 
 const ANIMATION_CLAPPING := "Clapping" + "/mixamo_com"
 const ANIMATION_CRYING := "Crying" + "/mixamo_com"
@@ -75,8 +56,8 @@ func _input(event) -> void:
 				]:
 					return
 
-				# Check if the [dpad_left] action _pressed_ and not rotating an object
-				if event.is_action_pressed("button_14") and !player.is_rotating_object:
+				# Check if the [dpad_left] action _released_ and not rotating an object
+				if event.is_action_released("button_14") and !player.is_rotating_object:
 					# Enable visibility
 					visible = true
 

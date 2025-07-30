@@ -1,24 +1,5 @@
 class_name Message
 extends PanelContainer
-## message.gd
-
-# Player (player_3d.gd)
-#├── AudioStreamPlayer3D
-#├── CameraMount
-#│	└── Camera3D (camera_3d.gd)
-#│		└── ChatWindow (chat_window.gd)
-#│			└── Message (message.gd)
-#│		└── Debug (debug.gd)
-#│		└── Emotes (emotes.gd)
-#│		└── Pause (pause.gd)
-#│		└── Settings (settings.gd)
-#├── CollisionShape3D
-#├── Controls (controls.gd)
-#├── ShapeCast3D
-#├── States
-#└── Visuals
-#	└── AuxScene
-#		└── AnimationPlayer
 
 const HIDE_DELAY: float = 30.0
 

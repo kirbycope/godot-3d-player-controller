@@ -1,23 +1,4 @@
 extends Control
-## chat_window.gd
-
-# Player (player_3d.gd)
-#├── AudioStreamPlayer3D
-#├── CameraMount
-#│	└── Camera3D (camera_3d.gd)
-#│		└── ChatWindow (chat_window.gd)
-#│			└── Message (message.gd)
-#│		└── Debug (debug.gd)
-#│		└── Emotes (emotes.gd)
-#│		└── Pause (pause.gd)
-#│		└── Settings (settings.gd)
-#├── CollisionShape3D
-#├── Controls (controls.gd)
-#├── ShapeCast3D
-#├── States
-#└── Visuals
-#	└── AuxScene
-#		└── AnimationPlayer
 
 const MESSAGE_SCENE: PackedScene = preload("res://addons/3d_player_controller/message.tscn")
 

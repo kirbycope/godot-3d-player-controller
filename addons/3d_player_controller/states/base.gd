@@ -1,24 +1,5 @@
 class_name BaseState
 extends Node
-## base.gd
-
-# States (states.gd)
-#├── Base (base.gd)
-#├── Climbing (climbing.gd)
-#├── Crawling (crawling.gd)
-#├── Crouching (crouching.gd)
-#├── Driving (driving.gd)
-#├── Falling (falling.gd)
-#├── Flying (flying.gd)
-#├── Hanging (hanging.gd)
-#├── Holding (holding.gd)
-#├── Jumping (jumping.gd)
-#├── Running (running.gd)
-#├── Skateboarding (skateboarding.gd)
-#├── Sprinting (sprinting.gd)
-#├── Standing (standing.gd)
-#├── Swimming (swimming.gd)
-#└── Walking (walking.gd)
 
 const STATES = preload("res://addons/3d_player_controller/states/states.gd")
 
