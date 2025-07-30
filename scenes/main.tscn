@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=60 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" uid="uid://c7agev1ouwnuu" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="Texture2D" uid="uid://e6rn4rs3cr0v" path="res://assets/kenney_nl/prototype_textures/PNG/Dark/texture_09.png" id="2_d2mly"]
@@ -31,7 +31,6 @@
 [ext_resource type="PackedScene" uid="uid://m4ahueh0shhm" path="res://scenes/lincoln_log_2_notch_rigid.tscn" id="26_vxglm"]
 [ext_resource type="PackedScene" uid="uid://c0xr10lkn0418" path="res://scenes/crayon_rigid.tscn" id="28_2f3dj"]
 [ext_resource type="PackedScene" uid="uid://p5psdprmw6l7" path="res://scenes/piano_octave.tscn" id="29_yq6so"]
-[ext_resource type="PackedScene" uid="uid://d3afb22wm1k4h" path="res://scenes/moon_shoes.tscn" id="32_qkpxi"]
 [ext_resource type="PackedScene" uid="uid://ctdlktrnwgsoy" path="res://scenes/pinball.tscn" id="33_5q0nq"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yu8tv"]
@@ -779,9 +778,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0.5550005, 0)
 transform = Transform3D(0.9961947, 0.08715574, 0, -0.08715574, 0.9961947, 0, 0, 0, 1, 13.443087, -0.81313443, 2.5)
 use_collision = true
 size = Vector3(19, 2, 3)
-
-[node name="MoonShoes" parent="." instance=ExtResource("32_qkpxi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.6590075, 0.10801329, 1.2042702)
 
 [node name="Pinball" parent="." instance=ExtResource("33_5q0nq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0.6800005, 11)
