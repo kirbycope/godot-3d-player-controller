@@ -148,10 +148,13 @@ func _physics_process(delta) -> void:
 			# Ignore the gravity
 			velocity.y = 0.0
 
-		# The player must not be "swimming"
+		# The player must not be "swimming" or using noclip mode
 		else:
+			# Scale the gravity based on the player's size
+			var gravity_scaled = gravity * scale.y
+
 			# Add the gravity
-			velocity.y -= gravity * delta
+			velocity.y -= gravity_scaled * delta
 
 	# Check if the game is not paused
 	if !game_paused:
@@ -407,6 +410,20 @@ func move_player(delta: float) -> void:
 	move_and_slide()
 
 
+## Reparent the held item to the root of the scene tree.
+func reparent_held_item() -> void:
+	# Check if the player is holding an item
+	if is_holding_onto != null:
+		# Remove the item from the player
+		visuals.get_node("HeldItemMount").remove_child(is_holding_onto)
+		# Reparent the item to the main scene
+		get_tree().current_scene.add_child(is_holding_onto)
+		# Stop holding the item
+		is_holding_onto = null
+		is_holding_fishing_rod = false
+		is_holding_rifle = false
+
+
 ## Toggles the noclip mode.
 func toggle_noclip() -> void:
 	enable_noclip = !enable_noclip
@@ -429,6 +446,9 @@ func update_velocity() -> void:
 		#speed_current = input_magnitude * speed_running 
 		speed_current = speed_running # ToDo: Fine tune walking with the left-analog stick
 
+	# Scale the speed based on the player's size
+	var speed_current_scaled = speed_current * scale.x
+
 	# Check for directional movement
 	if direction:
 		# Check if the animation player is unlocked
@@ -441,22 +461,22 @@ func update_velocity() -> void:
 			# Check if movement along the x-axis is locked
 			if lock_movement_x:
 				# Update [virtual] horizontal velocity
-				virtual_velocity.x = direction.x * speed_current
+				virtual_velocity.x = direction.x * speed_current_scaled
 
 			# The x-axis movement not locked
 			else:
 				# Update horizontal velocity
-				velocity.x = direction.x * speed_current
+				velocity.x = direction.x * speed_current_scaled
 
 			# Check if movement along the z-axis is locked
 			if lock_movement_y:
 				# Update vertical velocity
-				virtual_velocity.z = direction.z * speed_current
+				virtual_velocity.z = direction.z * speed_current_scaled
 
 			# The y-axis movement not locked
 			else:
 				# Update vertical velocity
-				velocity.z = direction.z * speed_current
+				velocity.z = direction.z * speed_current_scaled
 
 	# No movement detected
 	else:
@@ -471,16 +491,16 @@ func update_velocity() -> void:
 				friction_current = friction_current * 10
 
 			# Apply gradual deceleration when skating
-			velocity.x = move_toward(velocity.x, 0, speed_current * friction_current)
-			velocity.z = move_toward(velocity.z, 0, speed_current * friction_current)
+			velocity.x = move_toward(velocity.x, 0, speed_current_scaled * friction_current)
+			velocity.z = move_toward(velocity.z, 0, speed_current_scaled * friction_current)
 
 		# The player is not skateboarding (on the ground)
 		else:
 			# Update horizontal velocity
-			velocity.x = move_toward(velocity.x, 0, speed_current)
+			velocity.x = move_toward(velocity.x, 0, speed_current_scaled)
 
 			# Update vertical velocity
-			velocity.z = move_toward(velocity.z, 0, speed_current)
+			velocity.z = move_toward(velocity.z, 0, speed_current_scaled)
 
 			# Update [virtual] velocity
 			virtual_velocity = Vector3.ZERO

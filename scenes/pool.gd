@@ -28,20 +28,17 @@ func _on_area_3d_body_entered(body: Node3D, area_node: Node3D) -> void:
 			get_tree().current_scene.add_child(body.is_holding_onto)
 			# Set appropriate name and clear references
 			if body.is_holding_fishing_rod:
-				body.is_holding_onto.name = "FishingRod"
 				body.is_holding_fishing_rod = false
 			elif body.is_holding_rifle:
-				body.is_holding_onto.name = "PortalGun"
 				body.is_holding_rifle = false
 			body.is_holding_onto = null
 
-		# Stop skateboarding if currently doing so
+		# Drop any equipment before swimming
 		if body.is_skateboarding:
-			# Remove the skateboard from the player
-			body.visuals.get_node("SkateboardMount").remove_child(body.is_skateboarding_on)
+			# Remove any foot mounted equipment from the player
+			body.visuals.get_node("FootMount").remove_child(body.is_skateboarding_on)
 			# Reparent the skateboard to the main scene
 			get_tree().current_scene.add_child(body.is_skateboarding_on)
-			body.is_skateboarding_on.name = "Skateboard"
 			body.is_skateboarding_on = null
 
 		# Store which body the player is swimming in

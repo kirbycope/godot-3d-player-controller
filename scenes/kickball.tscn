@@ -35,6 +35,7 @@ script = ExtResource("1_nqiug")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("2_46fg8")
+unit_size = 24.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_y6hle")

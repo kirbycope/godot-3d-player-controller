@@ -107,8 +107,11 @@ func start() -> void:
 	# Flag the player as not "double jumping"
 	player.is_double_jumping = false
 
+	# Scale the vertical velocity based on the player's size
+	var jump_velocity_scaled = player.jump_velocity * player.scale.y
+
 	# Set the player's vertical velocity
-	player.velocity.y = player.jump_velocity
+	player.velocity.y = jump_velocity_scaled
 
 
 ## Stop "jumping".

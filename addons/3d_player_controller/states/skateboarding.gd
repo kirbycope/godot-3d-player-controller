@@ -39,12 +39,17 @@ func _input(event: InputEvent) -> void:
 		if event.is_action_pressed("button_13"):
 			# Slow to a stop
 			player.velocity = Vector3.ZERO
-			# Remove the skateboard from the player
-			player.visuals.get_node("SkateboardMount").remove_child(player.is_skateboarding_on)
-			# Reparent the skateboard to the main scene
-			get_tree().current_scene.add_child(player.is_skateboarding_on)
-			# Clear the reference
+
+			# Get the equipped item
+			var item = player.visuals.get_node("FootMount").get_children()[0]
+			# Remove the item from the player
+			player.visuals.get_node("FootMount").remove_child(item)
+			# Reparent the item from the player to current scene
+			player.get_tree().current_scene.add_child(item)
+			# Clear the references
+			player.is_skateboarding_on.player = null
 			player.is_skateboarding_on = null
+
 			# Check if the player is on the ground
 			if player.is_on_floor():
 				# Start standing

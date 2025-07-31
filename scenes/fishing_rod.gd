@@ -6,7 +6,7 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 		# Check if the player is not skateboarding
 		if !body.is_skateboarding:
 			# Reparent the held item (if any)
-			body.get_parent().reparent_held_item()
+			body.reparent_held_item()
 			# Flag the player as "holding fishing rod"
 			body.is_holding_fishing_rod = true
 			# Load the scene

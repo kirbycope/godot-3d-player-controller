@@ -63,7 +63,7 @@ func _input(event: InputEvent) -> void:
 					# Create a tween to synchronize player with car during exit animation
 					var sync_tween = create_tween()
 					sync_tween.set_loops()
-					sync_tween.tween_method(_sync_player_to_car, 0.0, 1.0, 0.016)  # ~60fps updates
+					sync_tween.tween_method(_sync_player_to_car, 0.0, 1.0, 0.016) # ~60fps updates
 
 					await get_tree().create_timer(1.0).timeout
 					animation_player.play("door_front_driver_open")
@@ -82,6 +82,7 @@ func _input(event: InputEvent) -> void:
 					player.rotation = exit_driver_door.rotation
 					player.visuals.rotation = exit_driver_door.rotation
 					player.camera_mount.rotation = exit_driver_door.rotation
+					player.collision_shape.disabled = false # Ensure collision is re-enabled
 					player.is_animation_locked = false
 
 					# Reset car controls after exiting
@@ -120,17 +121,16 @@ func _input(event: InputEvent) -> void:
 				if near_driver_door:
 					# Store the vehicle with the player
 					player.is_driving_in = self
-					# Transition animation
-					player.collision_shape.disabled = true
 					player.is_animation_locked = true
 					player.global_position = open_driver_door.global_position
-					
+
 					# Make the player look at the car (similar to climbing system)
 					var car_direction = drivers_seat.global_position - player.global_position
-					car_direction.y = 0.0  # Keep horizontal only
+					car_direction.y = 0.0
 					var look_at_target = player.global_position + car_direction.normalized()
 					player.visuals.look_at(look_at_target, Vector3.UP)
-					
+
+					# Transition animation
 					player.animation_player.play("Entering_Car" + "/mixamo_com")
 					await get_tree().create_timer(1.0).timeout
 					animation_player.play("door_front_driver_open")
@@ -143,6 +143,7 @@ func _input(event: InputEvent) -> void:
 					audio_player2.play()
 					player.global_position = drivers_seat.global_position
 					player.global_rotation = drivers_seat.global_rotation
+					player.collision_shape.disabled = true
 					player.animation_player.stop()
 					player.animation_player.play(DRIVING.ANIMATION_DRIVING)
 
@@ -251,4 +252,4 @@ func _on_area_3d_body_exited(body: Node3D) -> void:
 func _sync_player_to_car(_value: float) -> void:
 	if player and player.animation_player.current_animation == "Exiting_Car" + "/mixamo_com":
 		player.global_position = drivers_seat.global_position
-		player.global_position.y -= 0.15  # Maintain the offset
+		player.global_position.y -= 0.15 # Maintain the offset

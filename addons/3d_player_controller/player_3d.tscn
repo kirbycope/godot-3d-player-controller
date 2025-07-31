@@ -197,5 +197,4 @@ target_position = Vector3(0, 0, -1)
 
 [node name="HeldItemMount" type="Node3D" parent="Visuals"]
 
-[node name="SkateboardMount" type="Node3D" parent="Visuals"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+[node name="FootMount" type="Node3D" parent="Visuals"]

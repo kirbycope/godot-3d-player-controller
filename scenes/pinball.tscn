@@ -18,6 +18,11 @@ radius = 0.675
 height = 1.35
 
 [node name="Pinball" type="RigidBody3D"]
+mass = 5.0
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="."]
+update_mode = 1
+size = Vector3(10, 10, 10)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_bkwau")

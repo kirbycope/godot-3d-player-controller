@@ -93,8 +93,11 @@ func move_character() -> void:
 	if move_direction.length() > 0:
 		move_direction = move_direction.normalized()
 
+	# Scale the speed based on the player's size
+	var speed_current_scaled = player.speed_current * player.scale.x
+
 	# Apply movement
-	player.velocity = move_direction * player.speed_current
+	player.velocity = move_direction * speed_current_scaled
 	player.move_and_slide()
 
 
@@ -208,7 +211,8 @@ func start() -> void:
 	await get_tree().process_frame
 
 	# Make the player face the wall while keeping upright
-	player.visuals.look_at(player.position + wall_direction, Vector3.UP)
+	if player.position != player.position + wall_direction:
+		player.visuals.look_at(player.position + wall_direction, Vector3.UP)
 
 	# [Hack] Adjust player visuals for animation
 	player.visuals_aux_scene.position.y = -0.4

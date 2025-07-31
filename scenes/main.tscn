@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=61 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" uid="uid://c7agev1ouwnuu" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="Texture2D" uid="uid://e6rn4rs3cr0v" path="res://assets/kenney_nl/prototype_textures/PNG/Dark/texture_09.png" id="2_d2mly"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://b0v08nrfse8c5" path="res://assets/kenney_nl/prototype_textures/PNG/Purple/texture_02.png" id="6_moi5b"]
 [ext_resource type="Texture2D" uid="uid://ci020ecabgbvq" path="res://assets/kenney_nl/prototype_textures/PNG/Orange/texture_02.png" id="7_uwbdk"]
 [ext_resource type="Texture2D" uid="uid://ba2orr1vybqao" path="res://assets/kenney_nl/prototype_textures/PNG/Red/texture_02.png" id="8_px2wr"]
+[ext_resource type="PackedScene" uid="uid://d3afb22wm1k4h" path="res://scenes/moon_shoes.tscn" id="10_5q0nq"]
 [ext_resource type="PackedScene" uid="uid://c367hft1v0u2w" path="res://scenes/duck.tscn" id="11_11ve4"]
 [ext_resource type="Texture2D" uid="uid://rp4815bjrm1x" path="res://assets/kenney_nl/prototype_textures/PNG/Green/texture_10.png" id="11_h4p86"]
 [ext_resource type="Script" uid="uid://d1r8wjghxyidm" path="res://scenes/pool.gd" id="12_71twb"]
@@ -262,6 +263,22 @@ text = "(L1) | [L-Clk]              Throw
           * Hold to rotate"
 label_settings = SubResource("LabelSettings_gqmmt")
 
+[node name="ItemEquipped" type="Label" parent="ControlsOverlay"]
+visible = false
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -242.0
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "(D-Down) | [Q]                      Drop"
+label_settings = SubResource("LabelSettings_gqmmt")
+horizontal_alignment = 2
+
 [node name="Rotating" type="Label" parent="ControlsOverlay"]
 visible = false
 anchors_preset = 6
@@ -488,6 +505,14 @@ to \"equip\""
 
 [node name="FishingRod" parent="." instance=ExtResource("6_byq53")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.5, 6)
+
+[node name="MoonShoesLabel" type="Label3D" parent="."]
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5, 0.010000087, 8)
+text = "Walk into
+to \"equip\""
+
+[node name="MoonShoes" parent="." instance=ExtResource("10_5q0nq")]
+transform = Transform3D(-4.371139e-08, 0, 1, 8.742278e-08, -1, 0, 1, 8.742277e-08, 4.371139e-08, -6.2, 0.3, 8)
 
 [node name="PoolLabel" type="Label3D" parent="."]
 transform = Transform3D(-1, 8.742278e-08, 0, 0, 4.371138e-08, 1, 8.742278e-08, 1, -4.371138e-08, 0, 0.01, 7.25)

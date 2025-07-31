@@ -123,6 +123,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_kgdfk")
 
 [node name="Skateboard" type="Node3D"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 script = ExtResource("1_11jlf")
 
 [node name="Area3D" type="Area3D" parent="."]

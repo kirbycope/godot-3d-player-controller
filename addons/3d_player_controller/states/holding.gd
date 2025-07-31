@@ -52,6 +52,13 @@ func _input(event: InputEvent) -> void:
 					# Reset manual rotation when picking up new object
 					manual_rotation_x = 0.0
 					manual_rotation_z = 0.0
+					# Scale the object opposite to the player's scale
+					if player.scale.x != 0:
+						collider.scale = Vector3(
+							1 / player.scale.x,
+							1 / player.scale.y,
+							1 / player.scale.z
+						)
 					# Stop handling any further input
 					return
 
@@ -237,6 +244,14 @@ func move_held_item_mount() -> void:
 	
 		# Apply the rotation
 		player.held_item_mount.rotation = Vector3(rot_x, rot_y, rot_z)
+
+		# Apply counter-scaling to held item to compensate for player scale
+		if player.is_holding_onto and player.scale.x != 0:
+			player.is_holding_onto.scale = Vector3(
+				1 / player.scale.x,
+				1 / player.scale.y,
+				1 / player.scale.z
+			)
 
 
 ## Moves the held object in front of the player.
