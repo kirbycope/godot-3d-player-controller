@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=68 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" uid="uid://c7agev1ouwnuu" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="Texture2D" uid="uid://e6rn4rs3cr0v" path="res://assets/kenney_nl/prototype_textures/PNG/Dark/texture_09.png" id="2_d2mly"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://d3afb22wm1k4h" path="res://scenes/moon_shoes.tscn" id="10_5q0nq"]
 [ext_resource type="PackedScene" uid="uid://c367hft1v0u2w" path="res://scenes/duck.tscn" id="11_11ve4"]
 [ext_resource type="Texture2D" uid="uid://rp4815bjrm1x" path="res://assets/kenney_nl/prototype_textures/PNG/Green/texture_10.png" id="11_h4p86"]
+[ext_resource type="PackedScene" uid="uid://bra5h4ewvogkf" path="res://scenes/punching_bag.tscn" id="11_kmb1v"]
 [ext_resource type="Script" uid="uid://d1r8wjghxyidm" path="res://scenes/pool.gd" id="12_71twb"]
 [ext_resource type="Shader" uid="uid://dtltd1rk71y13" path="res://scenes/water.gdshader" id="12_wmmbb"]
 [ext_resource type="PackedScene" uid="uid://cqwgvb8l36ahu" path="res://scenes/skateboard.tscn" id="14_5m2ip"]
@@ -117,6 +118,26 @@ size = Vector3(5, 2, 0.1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_ws3r6"]
 size = Vector3(10.2, 2, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kmb1v"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j8jky"]
+albedo_color = Color(0.6, 0.60784316, 0.60784316, 1)
+roughness = 0.5
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_kmb1v"]
+material = SubResource("StandardMaterial3D_j8jky")
+top_radius = 0.05
+bottom_radius = 0.05
+height = 2.5
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_fuf3a"]
+material = SubResource("StandardMaterial3D_j8jky")
+top_radius = 0.05
+bottom_radius = 0.05
+height = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qkbxv"]
 albedo_texture = ExtResource("7_uwbdk")
@@ -516,6 +537,9 @@ to \"equip\""
 [node name="MoonShoes" parent="." instance=ExtResource("10_5q0nq")]
 transform = Transform3D(-4.371139e-08, 0, 1, 8.742278e-08, -1, 0, 1, 8.742277e-08, 4.371139e-08, -6.2, 0.3, 8)
 
+[node name="PunchingBag" parent="." instance=ExtResource("11_kmb1v")]
+transform = Transform3D(-0.7071067, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, -0.7071067, 4, 0, 4)
+
 [node name="PoolLabel" type="Label3D" parent="."]
 transform = Transform3D(-1, 8.742278e-08, 0, 0, 4.371138e-08, 1, 8.742278e-08, 1, -4.371138e-08, 0, 0.01, 7.25)
 text = "Walk into
@@ -550,6 +574,45 @@ mesh = SubResource("BoxMesh_ws3r6")
 [node name="MeshInstance3D5" type="MeshInstance3D" parent="Pool"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.54955, 1, 7.9)
 mesh = SubResource("BoxMesh_ws3r6")
+
+[node name="DivingBoard" type="CSGBox3D" parent="Pool"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 2.45, 11.799999)
+use_collision = true
+size = Vector3(1, 2.5, 0.1)
+
+[node name="DivingBoardWall" type="CSGBox3D" parent="Pool/DivingBoard"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -1.2000008, -1.2000002)
+use_collision = true
+size = Vector3(1, 2.5, 0.1)
+material = SubResource("StandardMaterial3D_kmb1v")
+
+[node name="Pole" type="MeshInstance3D" parent="Pool/DivingBoard"]
+transform = Transform3D(-4.3711385e-08, -4.371139e-08, -1, -1, 0, 4.371139e-08, 0, 1, -4.371139e-08, -0.4999999, -1.1999992, -1.2)
+mesh = SubResource("CylinderMesh_kmb1v")
+
+[node name="Pole2" type="MeshInstance3D" parent="Pool/DivingBoard"]
+transform = Transform3D(-4.3711385e-08, -4.371139e-08, -1, -1, 0, 4.371139e-08, 0, 1, -4.371139e-08, 0.5000001, -1.1999992, -1.2)
+mesh = SubResource("CylinderMesh_kmb1v")
+
+[node name="Rail" type="MeshInstance3D" parent="Pool/DivingBoard"]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 3.496911e-08, -1.1999999, 0)
+mesh = SubResource("CylinderMesh_fuf3a")
+
+[node name="Rail4" type="MeshInstance3D" parent="Pool/DivingBoard"]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 3.496911e-08, -1.1999999, -0.5)
+mesh = SubResource("CylinderMesh_fuf3a")
+
+[node name="Rail2" type="MeshInstance3D" parent="Pool/DivingBoard"]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 3.496911e-08, -1.1999999, -1)
+mesh = SubResource("CylinderMesh_fuf3a")
+
+[node name="Rail5" type="MeshInstance3D" parent="Pool/DivingBoard"]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 3.496911e-08, -1.1999999, -1.5)
+mesh = SubResource("CylinderMesh_fuf3a")
+
+[node name="Rail3" type="MeshInstance3D" parent="Pool/DivingBoard"]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 3.496911e-08, -1.1999999, -2)
+mesh = SubResource("CylinderMesh_fuf3a")
 
 [node name="StairsLabel" type="Label3D" parent="."]
 transform = Transform3D(-4.371139e-08, -1, 0, -4.371137e-08, -7.1054274e-15, 1, -1, 4.371139e-08, -4.371137e-08, 6.25, 0.01, -7)

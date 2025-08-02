@@ -52,6 +52,9 @@ func stop() -> void:
 	# Flag player as not "driving"
 	player.is_driving = false
 
+	# Reset player velocity to prevent flying when exiting
+	player.velocity = Vector3.ZERO
+
 	# Remove the player from the vehicle
 	player.is_driving_in.player = null
 

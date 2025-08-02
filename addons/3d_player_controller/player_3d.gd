@@ -144,23 +144,22 @@ func _physics_process(delta) -> void:
 	# Uncomment the next line if using GodotSteam
 	#if !is_multiplayer_authority(): return
 	
-	# Apply gravity regardless of pause state (but not if climbing, driving, hanging, swimming, or noclip)
-	if !is_climbing and !is_driving and !is_hanging:
-		# Check if the player is "swimming" or noclip mode is enabled
-		if is_swimming or enable_noclip:
-			# Ignore the gravity
-			velocity.y = 0.0
-
-		# The player must not be "swimming" or using noclip mode
-		else:
-			# Scale the gravity based on the player's size
-			var gravity_scaled = gravity * scale.y
-
-			# Add the gravity
-			velocity.y -= gravity_scaled * delta
-
 	# Check if the game is not paused
 	if !game_paused:
+		# Apply gravity (but not if climbing, driving, hanging, swimming, or noclip)
+		if !is_climbing and !is_driving and !is_hanging:
+			# Check if the player is "swimming" or noclip mode is enabled
+			if is_swimming or enable_noclip:
+				# Ignore the gravity
+				velocity.y = 0.0
+
+			# The player must not be "swimming" or using noclip mode
+			else:
+				# Scale the gravity based on the player's size
+				var gravity_scaled = gravity * scale.y
+
+				# Add the gravity
+				velocity.y -= gravity_scaled * delta
 		# Check if no animation is playing
 		if !animation_player.is_playing():
 			# Flag the animation player no longer locked
@@ -177,8 +176,11 @@ func _physics_process(delta) -> void:
 			# Handle player movement (input-based movement)
 			update_velocity()
 
-	# Move player (physics movement)
-	move_player(delta)
+		# Move player (physics movement)
+		move_player(delta)
+	else:
+		# When paused, stop all movement by zeroing velocity
+		velocity = Vector3.ZERO
 
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.

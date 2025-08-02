@@ -54,7 +54,7 @@ func _input(event: InputEvent) -> void:
 					audio_player.stop()
 					audio_player2.stop()
 					
-					player.is_driving = false
+					# Don't set is_driving = false yet - keep it true to prevent gravity during exit
 					player.is_animation_locked = true
 					# Transition animation
 					player.global_position.y -= 0.15
@@ -82,6 +82,8 @@ func _input(event: InputEvent) -> void:
 					player.rotation = exit_driver_door.rotation
 					player.visuals.rotation = exit_driver_door.rotation
 					player.camera_mount.rotation = exit_driver_door.rotation
+					player.velocity = Vector3.ZERO # Reset velocity to prevent flying
+					player.is_driving = false # Now set driving to false after positioning
 					player.collision_shape.disabled = false # Ensure collision is re-enabled
 					player.is_animation_locked = false
 
