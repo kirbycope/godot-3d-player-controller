@@ -14,6 +14,12 @@ extends Camera3D
 @onready var retical: Control = $Retical
 
 
+## Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	# Set the camera's raycast to ignore collisions with the player
+	$RayCast3D.add_exception(player)
+
+
 ## Called when there is an input event.
 func _input(event) -> void:
 	# Check if the game is not paused
@@ -184,10 +190,10 @@ func switch_to_third_person() -> void:
 	player.perspective = 0
 
 	# Set camera's position
-	position = Vector3(0.0, 0.6, 2.5)
+	position = Vector3(0.0, 0.3333 * player.collision_height, 1.6666 * player.collision_height)
 
 	# Set the camera's raycast position to match the player's position
-	player.raycast_lookat.position = Vector3(0.0, 0.0, -2.5)
+	player.raycast_lookat.position = Vector3(0.0, 0.0, -1.6666 * player.collision_height)
 
 	# Set the visual's rotation
 	player.visuals.rotation = Vector3.ZERO

@@ -135,6 +135,9 @@ func _ready() -> void:
 	# Set the canvas layer behind all other Control nodes
 	$Controls.layer = -1
 
+	# Start "standing"
+	$States/Standing.start()
+
 
 ## Called each physics frame with the time since the last physics frame as argument (delta, in seconds).
 func _physics_process(delta) -> void:
