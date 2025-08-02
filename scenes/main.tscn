@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=69 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" uid="uid://c7agev1ouwnuu" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="Texture2D" uid="uid://e6rn4rs3cr0v" path="res://assets/kenney_nl/prototype_textures/PNG/Dark/texture_09.png" id="2_d2mly"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://b00vkv565tcmq" path="res://scenes/information_sign.tscn" id="4_dp3eg"]
 [ext_resource type="PackedScene" uid="uid://cog5lww47pkyv" path="res://scenes/portal_gun.tscn" id="5_k8xrp"]
 [ext_resource type="PackedScene" uid="uid://pjs50x7keevf" path="res://scenes/fishing_rod.tscn" id="6_byq53"]
+[ext_resource type="PackedScene" uid="uid://qi0jcm5uxbeu" path="res://scenes/bubble_tornado.tscn" id="6_fuf3a"]
 [ext_resource type="Texture2D" uid="uid://b0v08nrfse8c5" path="res://assets/kenney_nl/prototype_textures/PNG/Purple/texture_02.png" id="6_moi5b"]
 [ext_resource type="Texture2D" uid="uid://ci020ecabgbvq" path="res://assets/kenney_nl/prototype_textures/PNG/Orange/texture_02.png" id="7_uwbdk"]
 [ext_resource type="Texture2D" uid="uid://ba2orr1vybqao" path="res://assets/kenney_nl/prototype_textures/PNG/Red/texture_02.png" id="8_px2wr"]
@@ -95,12 +96,6 @@ uv1_triplanar = true
 material = SubResource("StandardMaterial3D_y8jba")
 size = Vector3(0.69, 0.69, 0.69)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2h6p8"]
-render_priority = 0
-shader = ExtResource("12_wmmbb")
-shader_parameter/uv_scale = 2.0
-shader_parameter/color_alpha = 0.8
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1sf67"]
 transparency = 1
 albedo_color = Color(0.00392157, 0.482353, 0.572549, 0.607843)
@@ -109,6 +104,12 @@ albedo_color = Color(0.00392157, 0.482353, 0.572549, 0.607843)
 lightmap_size_hint = Vector2i(79, 76)
 material = SubResource("StandardMaterial3D_1sf67")
 size = Vector3(5, 2, 10)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kmb1v"]
+render_priority = 0
+shader = ExtResource("12_wmmbb")
+shader_parameter/uv_scale = 1.0
+shader_parameter/color_alpha = 1.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ku3gi"]
 size = Vector3(5, 2, 10)
@@ -187,7 +188,7 @@ script = ExtResource("4_0ld40")
 
 [node name="Climbing" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = -1
+anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -203,7 +204,7 @@ label_settings = SubResource("LabelSettings_gqmmt")
 
 [node name="Driving" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = -1
+anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -218,7 +219,7 @@ label_settings = SubResource("LabelSettings_gqmmt")
 
 [node name="Fishing" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = -1
+anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -236,7 +237,7 @@ horizontal_alignment = 2
 
 [node name="Flying" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = -1
+anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -254,7 +255,7 @@ label_settings = SubResource("LabelSettings_gqmmt")
 
 [node name="Hanging" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = -1
+anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -270,7 +271,7 @@ label_settings = SubResource("LabelSettings_gqmmt")
 
 [node name="Holding" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = -1
+anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -288,7 +289,7 @@ label_settings = SubResource("LabelSettings_gqmmt")
 
 [node name="ItemEquipped" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = -1
+anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -304,7 +305,7 @@ horizontal_alignment = 2
 
 [node name="Rotating" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = -1
+anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -323,7 +324,7 @@ horizontal_alignment = 2
 
 [node name="Rifling" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = -1
+anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -341,7 +342,7 @@ horizontal_alignment = 2
 
 [node name="Skateboarding" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = -1
+anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -359,7 +360,7 @@ horizontal_alignment = 2
 
 [node name="Swimming" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = -1
+anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -462,6 +463,8 @@ line_spacing = -5.0
 autowrap_mode = 3
 width = 220.0
 
+[node name="BubbleTornado" parent="." instance=ExtResource("6_fuf3a")]
+
 [node name="ButtonLabel" type="Label3D" parent="."]
 transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5, 0.01, -2)
 text = "Stand in circle
@@ -551,8 +554,8 @@ script = ExtResource("12_71twb")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Pool"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 7.9)
-material_override = SubResource("ShaderMaterial_2h6p8")
 mesh = SubResource("BoxMesh_y86t8")
+surface_material_override/0 = SubResource("ShaderMaterial_kmb1v")
 
 [node name="Area3D" type="Area3D" parent="Pool/MeshInstance3D"]
 

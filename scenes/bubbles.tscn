@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://cvdym6dsql8ny"]
+
+[ext_resource type="Shader" uid="uid://txxbng5tchty" path="res://scenes/bubbles.gdshader" id="1_2eoim"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gt360"]
+angle_min = -15.0
+angle_max = 15.0
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 0.5
+initial_velocity_max = 2.0
+angular_velocity_min = -45.0
+angular_velocity_max = 45.0
+gravity = Vector3(0, -0.5, 0)
+scale_min = 0.1
+scale_max = 0.3
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2eoim"]
+render_priority = 10
+shader = ExtResource("1_2eoim")
+shader_parameter/fuwafuwa_speed = 1.5
+shader_parameter/fuwafuwa_size = 0.05
+shader_parameter/outline_color = Vector4(0.45, 0.7, 1, 1)
+shader_parameter/outline_ratio = 1.0
+shader_parameter/noise_speed = 0.2
+shader_parameter/noise_scale = 0.5
+
+[sub_resource type="SphereMesh" id="SphereMesh_gt360"]
+material = SubResource("ShaderMaterial_2eoim")
+radius = 0.1
+height = 0.2
+
+[node name="Bubbles" type="GPUParticles3D"]
+amount = 20
+lifetime = 2.5
+process_material = SubResource("ParticleProcessMaterial_gt360")
+draw_pass_1 = SubResource("SphereMesh_gt360")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://bra5h4ewvogkf"]
+[gd_scene load_steps=17 format=4 uid="uid://bra5h4ewvogkf"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m533g"]
 albedo_color = Color(0, 0, 0, 1)
@@ -48,6 +48,14 @@ roughness = 0.8
 material = SubResource("StandardMaterial3D_drmsc")
 radius = 0.3
 height = 1.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_drm4u"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_m533g"]
+material = SubResource("StandardMaterial3D_drm4u")
+top_radius = 0.29
+bottom_radius = 0.29
+height = 0.2
 
 [sub_resource type="SphereMesh" id="SphereMesh_m533g"]
 lightmap_size_hint = Vector2i(11, 8)
@@ -130,6 +138,11 @@ shape = SubResource("CapsuleShape3D_m533g")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Bag"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_m533g")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Bag"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 0.012)
+mesh = SubResource("CylinderMesh_m533g")
+skeleton = NodePath("../../Generic6DOFJoint3D")
 
 [node name="BottomBand" type="MeshInstance3D" parent="Bag"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
