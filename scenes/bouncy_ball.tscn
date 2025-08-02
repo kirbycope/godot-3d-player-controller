@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://by6aakvda3r8i"]
+
+[ext_resource type="Texture2D" uid="uid://b1xhtsiv0obp3" path="res://assets/textures/bouncy_ball_bg.png" id="1_6k5h2"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_5lnoa"]
+friction = 0.5
+bounce = 0.9
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x5kq6"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_6k5h2")
+roughness = 0.8
+stencil_flags = 2
+
+[sub_resource type="SphereMesh" id="SphereMesh_6k5h2"]
+material = SubResource("StandardMaterial3D_x5kq6")
+radius = 0.475
+height = 0.95
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_x5kq6"]
+radius = 0.475
+
+[node name="BouncyBall" type="RigidBody3D"]
+physics_material_override = SubResource("PhysicsMaterial_5lnoa")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_6k5h2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_x5kq6")

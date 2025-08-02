@@ -75,14 +75,15 @@ visible = false
 
 [node name="ChatWindow" parent="CameraMount/Camera3D" instance=ExtResource("5_k4p2k")]
 visible = false
+anchors_preset = -1
+
+[node name="Debug" parent="CameraMount/Camera3D" instance=ExtResource("3_xex47")]
+visible = false
 
 [node name="Pause" parent="CameraMount/Camera3D" instance=ExtResource("4_t2fvs")]
 visible = false
 
 [node name="Settings" parent="CameraMount/Camera3D" instance=ExtResource("7_1k1wo")]
-visible = false
-
-[node name="Debug" parent="CameraMount/Camera3D" instance=ExtResource("3_xex47")]
 visible = false
 
 [node name="RayCast3D" type="RayCast3D" parent="CameraMount/Camera3D"]

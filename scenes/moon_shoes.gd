@@ -42,6 +42,7 @@ func _input(event: InputEvent) -> void:
 		shoe_2.position = initial_shoe_2_position
 		shoe_2.rotation = initial_shoe_2_rotation
 		# Reset player properties
+		player.position.y += 0.2
 		player.collision_shape.position.y += 0.2
 		player.shapecast.position.y += 0.2
 		player.jump_velocity = initial_jump_velocity
@@ -107,5 +108,6 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 		# Modify player properties when equipping
 		body.collision_shape.position.y -= 0.2
 		body.shapecast.position.y -= 0.2
-		initial_jump_velocity = body.jump_velocity
+		# Store the original jump velocity before modifying it
+		instance.initial_jump_velocity = body.jump_velocity
 		body.jump_velocity = 9.0

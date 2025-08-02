@@ -67,6 +67,7 @@ func _process(_delta: float) -> void:
 
 		# Panel 3
 		$Coordinates.text = "[center][color=red]X:[/color]%.1f [color=green]Y:[/color]%.1f [color=blue]Z:[/color]%.1f[/center]" % [player.global_position.x, player.global_position.y, player.global_position.z]
+		$Velocity.text = "[center][color=red]X:[/color]%.1f [color=green]Y:[/color]%.1f [color=blue]Z:[/color]%.1f[/center]" % [player.velocity.x, player.velocity.y, player.velocity.z]
 		$FPS.text = "FPS: " + str(int(Engine.get_frames_per_second()))
 
 

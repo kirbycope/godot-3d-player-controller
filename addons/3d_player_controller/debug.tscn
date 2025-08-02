@@ -3,12 +3,18 @@
 [ext_resource type="Script" uid="uid://cw83brmd2u3nt" path="res://addons/3d_player_controller/debug.gd" id="1_nyx4n"]
 
 [node name="Debug" type="Control"]
+z_index = -1
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_nyx4n")
 
 [node name="Panel1" type="Panel" parent="."]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
 offset_right = 216.0
 offset_bottom = 720.0
 
@@ -461,10 +467,13 @@ offset_bottom = 719.0
 text = "is_walking"
 
 [node name="Panel2" type="Panel" parent="."]
-layout_mode = 0
-offset_left = 1064.0
-offset_right = 1280.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -216.0
 offset_bottom = 468.0
+grow_horizontal = 0
 
 [node name="EnableChat" type="CheckButton" parent="Panel2"]
 layout_mode = 0
@@ -595,32 +604,47 @@ text = "game_paused"
 [node name="Coordinates" type="RichTextLabel" parent="."]
 clip_contents = false
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 280.0
-offset_top = 697.0
-offset_right = 1000.0
-offset_bottom = 720.0
+offset_left = -360.0
+offset_top = -23.0
+offset_right = 360.0
 grow_horizontal = 2
 grow_vertical = 0
 bbcode_enabled = true
 text = "[center]X:0.0 Y:0.0 Z:0.0[/center]"
 scroll_active = false
 
-[node name="FPS" type="Label" parent="."]
+[node name="Velocity" type="RichTextLabel" parent="."]
+clip_contents = false
 layout_mode = 1
-anchors_preset = 3
+anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1207.0
-offset_top = 697.0
-offset_right = 1280.0
-offset_bottom = 720.0
+offset_left = -203.0
+offset_top = -47.0
+offset_bottom = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+bbcode_enabled = true
+text = "[center]X:0000.0 Y:0000.0 Z:0000.0[/center]"
+fit_content = true
+scroll_active = false
+
+[node name="FPS" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -73.0
+offset_top = -23.0
 grow_horizontal = 0
 grow_vertical = 0
 text = "FPS: 0000"

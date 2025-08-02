@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=63 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" uid="uid://c7agev1ouwnuu" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="Texture2D" uid="uid://e6rn4rs3cr0v" path="res://assets/kenney_nl/prototype_textures/PNG/Dark/texture_09.png" id="2_d2mly"]
@@ -33,6 +33,8 @@
 [ext_resource type="PackedScene" uid="uid://c0xr10lkn0418" path="res://scenes/crayon_rigid.tscn" id="28_2f3dj"]
 [ext_resource type="PackedScene" uid="uid://p5psdprmw6l7" path="res://scenes/piano_octave.tscn" id="29_yq6so"]
 [ext_resource type="PackedScene" uid="uid://ctdlktrnwgsoy" path="res://scenes/pinball.tscn" id="33_5q0nq"]
+[ext_resource type="PackedScene" uid="uid://by6aakvda3r8i" path="res://scenes/bouncy_ball.tscn" id="34_dgi5k"]
+[ext_resource type="PackedScene" uid="uid://kvot350vxctj" path="res://scenes/rock_a_stack_rigid.tscn" id="35_j8jky"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yu8tv"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -164,7 +166,7 @@ script = ExtResource("4_0ld40")
 
 [node name="Climbing" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = 6
+anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -180,7 +182,7 @@ label_settings = SubResource("LabelSettings_gqmmt")
 
 [node name="Driving" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = 6
+anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -195,7 +197,7 @@ label_settings = SubResource("LabelSettings_gqmmt")
 
 [node name="Fishing" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = 6
+anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -213,7 +215,7 @@ horizontal_alignment = 2
 
 [node name="Flying" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = 6
+anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -231,7 +233,7 @@ label_settings = SubResource("LabelSettings_gqmmt")
 
 [node name="Hanging" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = 6
+anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -247,7 +249,7 @@ label_settings = SubResource("LabelSettings_gqmmt")
 
 [node name="Holding" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = 6
+anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -265,7 +267,7 @@ label_settings = SubResource("LabelSettings_gqmmt")
 
 [node name="ItemEquipped" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = 6
+anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -281,7 +283,7 @@ horizontal_alignment = 2
 
 [node name="Rotating" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = 6
+anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -300,7 +302,7 @@ horizontal_alignment = 2
 
 [node name="Rifling" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = 6
+anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -318,7 +320,7 @@ horizontal_alignment = 2
 
 [node name="Skateboarding" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = 6
+anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -336,7 +338,7 @@ horizontal_alignment = 2
 
 [node name="Swimming" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = 6
+anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -779,7 +781,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16)
 transform = Transform3D(-0.7071067, 0, 0.7071068, 0, 1, 0, -0.7071068, 0, -0.7071067, -14, 0.41850045, -12)
 
 [node name="DominosTrail" parent="." instance=ExtResource("26_tel4y")]
-transform = Transform3D(-0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, -0.70710677, 11.535534, 1.2550012, 13.464466)
+transform = Transform3D(-0.99999994, 0, 8.742277e-08, 0, 1, 0, -8.742277e-08, 0, -0.99999994, 11.035534, 1.2550012, 13.464466)
 
 [node name="LegoRigid" parent="." instance=ExtResource("21_yc10j")]
 transform = Transform3D(-4.371139e-08, 1, -8.742278e-08, 1, 4.371139e-08, -3.821371e-15, 0, -8.742278e-08, -1, -6, 0.8, 11.285)
@@ -806,3 +808,9 @@ size = Vector3(19, 2, 3)
 
 [node name="Pinball" parent="." instance=ExtResource("33_5q0nq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0.6800005, 11)
+
+[node name="BouncyBall" parent="." instance=ExtResource("34_dgi5k")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -6.119594e-07, 6, -11)
+
+[node name="RockAStackRigid" parent="." instance=ExtResource("35_j8jky")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0.8050005, 15)

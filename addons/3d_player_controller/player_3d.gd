@@ -209,70 +209,83 @@ func check_kick_collision() -> void:
 		# Get the position of the current collision
 		var collision_position = raycast_low.get_collision_point()
 
-		# Apply force to RigidBody3D and SoftBody3D objects immediately (before delay)
-		if collider is RigidBody3D:
-			# Define the force to apply to the collided object
-			var force = force_kicking_sprinting if is_sprinting else force_kicking
+		# Store collision info for delayed force application
+		var stored_collider = collider
+		var stored_collision_position = collision_position
 
-			# Get the appropriate foot bone position for force application
+		# Wait 0.4 seconds for animation to play before applying force
+		await get_tree().create_timer(0.4).timeout
+
+		# Apply force to RigidBody3D and SoftBody3D objects after delay
+		if stored_collider is RigidBody3D:
+			# Define the base force to apply to the collided object
+			var base_force = force_kicking_sprinting if is_sprinting else force_kicking
+
+			# Get the appropriate foot bone position for force application at the time of impact
 			var bone_position = global_position  # Fallback to player position
 			if player_skeleton:
 				var bone_name = BONE_NAME_LEFT_FOOT if is_kicking_left else BONE_NAME_RIGHT_FOOT
 				var bone_idx = player_skeleton.find_bone(bone_name)
 				if bone_idx != -1:
-					# Get the global position of the bone
+					# Get the current global position of the bone
 					bone_position = player_skeleton.to_global(player_skeleton.get_bone_global_pose(bone_idx).origin)
 
-			# Calculate impulse direction from bone position to collision point
-			var impulse_direction = (collision_position - bone_position).normalized()
-			var impulse = impulse_direction * force * force_pushing_multiplier
+			# Calculate impulse direction from current bone position to stored collision point
+			var impulse_direction = (stored_collision_position - bone_position).normalized()
+			
+			# Add velocity factor similar to handle_rigidbody_collisions for more powerful impacts
+			var velocity_factor = max(min(velocity.length(), 5.0), 2.0)  # Minimum 2.0 for strong kicks even when stationary
+			var impulse = impulse_direction * base_force * velocity_factor * force_pushing_multiplier
 
 			# Apply the force to the object
-			collider.apply_central_impulse(impulse)
+			stored_collider.apply_central_impulse(impulse)
 
-		elif collider is SoftBody3D:
-			# Define the force to apply to the collided object
-			var force = force_kicking_sprinting if is_sprinting else force_kicking
+		elif stored_collider is SoftBody3D:
+			# Define the base force to apply to the collided object
+			var base_force = force_kicking_sprinting if is_sprinting else force_kicking
 
-			# Get the appropriate foot bone position for force application
+			# Get the appropriate foot bone position for force application at the time of impact
 			var bone_position = global_position  # Fallback to player position
 			if player_skeleton:
 				var bone_name = BONE_NAME_LEFT_FOOT if is_kicking_left else BONE_NAME_RIGHT_FOOT
 				var bone_idx = player_skeleton.find_bone(bone_name)
 				if bone_idx != -1:
-					# Get the global position of the bone
+					# Get the current global position of the bone
 					bone_position = player_skeleton.to_global(player_skeleton.get_bone_global_pose(bone_idx).origin)
 
-			# Calculate impulse direction from bone position to collision point
-			var impulse_direction = (collision_position - bone_position).normalized()
-			var impulse = impulse_direction * force * force_pushing_multiplier
+			# Calculate impulse direction from current bone position to stored collision point
+			var impulse_direction = (stored_collision_position - bone_position).normalized()
+			
+			# Add velocity factor similar to handle_rigidbody_collisions for more powerful impacts
+			var velocity_factor = max(min(velocity.length(), 5.0), 2.0)  # Minimum 2.0 for strong kicks even when stationary
+			var impulse = impulse_direction * base_force * velocity_factor * force_pushing_multiplier
 
 			# Apply the force to the SoftBody3D
-			collider.apply_central_impulse(impulse)
+			stored_collider.apply_central_impulse(impulse)
 
-		# Check if the collider is a CharacterBody3D
-		if collider is CharacterBody3D:
+		# Check if the collider is a CharacterBody3D (apply hit animation immediately)
+		if stored_collider is CharacterBody3D:
 			# Check if kicking left
 			if is_kicking_left:
 				# Check if the collider has the appropriate function
-				if collider.has_method("animate_hit_low_left"):
+				if stored_collider.has_method("animate_hit_low_left"):
 					# Play the appropriate hit animation
-					collider.call("animate_hit_low_left")
+					stored_collider.call("animate_hit_low_left")
 
 			# Must be kicking right
 			else:
 				# Check if the collider has the appropriate function
-				if collider.has_method("animate_hit_low_right"):
+				if stored_collider.has_method("animate_hit_low_right"):
 					# Play the appropriate hit animation
-					collider.call("animate_hit_low_right")
+					stored_collider.call("animate_hit_low_right")
 
 		# Check if controller vibration is enabled
 		if enable_vibration:
 			# Vibrate the controller
 			Input.start_joy_vibration(0, 0.0, 1.0, 0.1)
 
-		# Delay execution for animation reset
-		await get_tree().create_timer(0.5).timeout
+		# Additional delay for animation reset (0.2 more seconds, total 0.6s)
+		await get_tree().create_timer(0.2).timeout
 
 		# Flag the animation player no longer locked
 		is_animation_locked = false
@@ -292,70 +305,83 @@ func check_punch_collision() -> void:
 		# Get the position of the current collision
 		var collision_position = raycast_middle.get_collision_point()
 
-		# Apply force to RigidBody3D and SoftBody3D objects immediately (before delay)
-		if collider is RigidBody3D:
-			# Define the force to apply to the collided object
-			var force = force_punching_sprinting if is_sprinting else force_punching
+		# Store collision info for delayed force application
+		var stored_collider = collider
+		var stored_collision_position = collision_position
 
-			# Get the appropriate hand bone position for force application
+		# Wait 0.2 seconds for animation to play before applying force
+		await get_tree().create_timer(0.2).timeout
+
+		# Apply force to RigidBody3D and SoftBody3D objects after delay
+		if stored_collider is RigidBody3D:
+			# Define the base force to apply to the collided object
+			var base_force = force_punching_sprinting if is_sprinting else force_punching
+
+			# Get the appropriate hand bone position for force application at the time of impact
 			var bone_position = global_position  # Fallback to player position
 			if player_skeleton:
 				var bone_name = BONE_NAME_LEFT_HAND if is_punching_left else BONE_NAME_RIGHT_HAND
 				var bone_idx = player_skeleton.find_bone(bone_name)
 				if bone_idx != -1:
-					# Get the global position of the bone
+					# Get the current global position of the bone
 					bone_position = player_skeleton.to_global(player_skeleton.get_bone_global_pose(bone_idx).origin)
 
-			# Calculate impulse direction from bone position to collision point
-			var impulse_direction = (collision_position - bone_position).normalized()
-			var impulse = impulse_direction * force * force_pushing_multiplier
+			# Calculate impulse direction from current bone position to stored collision point
+			var impulse_direction = (stored_collision_position - bone_position).normalized()
+			
+			# Add velocity factor similar to handle_rigidbody_collisions for more powerful impacts
+			var velocity_factor = max(min(velocity.length(), 5.0), 1.5)  # Minimum 1.5 for strong punches even when stationary
+			var impulse = impulse_direction * base_force * velocity_factor * force_pushing_multiplier
 
 			# Apply the force to the object
-			collider.apply_central_impulse(impulse)
+			stored_collider.apply_central_impulse(impulse)
 
-		elif collider is SoftBody3D:
-			# Define the force to apply to the collided object
-			var force = force_punching_sprinting if is_sprinting else force_punching
+		elif stored_collider is SoftBody3D:
+			# Define the base force to apply to the collided object
+			var base_force = force_punching_sprinting if is_sprinting else force_punching
 
-			# Get the appropriate hand bone position for force application
+			# Get the appropriate hand bone position for force application at the time of impact
 			var bone_position = global_position  # Fallback to player position
 			if player_skeleton:
 				var bone_name = BONE_NAME_LEFT_HAND if is_punching_left else BONE_NAME_RIGHT_HAND
 				var bone_idx = player_skeleton.find_bone(bone_name)
 				if bone_idx != -1:
-					# Get the global position of the bone
+					# Get the current global position of the bone
 					bone_position = player_skeleton.to_global(player_skeleton.get_bone_global_pose(bone_idx).origin)
 
-			# Calculate impulse direction from bone position to collision point
-			var impulse_direction = (collision_position - bone_position).normalized()
-			var impulse = impulse_direction * force * force_pushing_multiplier
+			# Calculate impulse direction from current bone position to stored collision point
+			var impulse_direction = (stored_collision_position - bone_position).normalized()
+			
+			# Add velocity factor similar to handle_rigidbody_collisions for more powerful impacts
+			var velocity_factor = max(min(velocity.length(), 5.0), 1.5)  # Minimum 1.5 for strong punches even when stationary
+			var impulse = impulse_direction * base_force * velocity_factor * force_pushing_multiplier
 
 			# Apply the force to the SoftBody3D
-			collider.apply_central_impulse(impulse)
+			stored_collider.apply_central_impulse(impulse)
 
-		# Check if the collider is a CharacterBody3D
-		if collider is CharacterBody3D:
+		# Check if the collider is a CharacterBody3D (apply hit animation immediately)
+		if stored_collider is CharacterBody3D:
 			# Check if punching left
 			if is_punching_left:
 				# Check if the collider has the appropriate function
-				if collider.has_method("animate_hit_high_left"):
+				if stored_collider.has_method("animate_hit_high_left"):
 					# Play the appropriate hit animation
-					collider.call("animate_hit_high_left")
+					stored_collider.call("animate_hit_high_left")
 
 			# Must be punching right
 			else:
 				# Check if the collider has the appropriate function
-				if collider.has_method("animate_hit_high_right"):
+				if stored_collider.has_method("animate_hit_high_right"):
 					# Play the appropriate hit animation
-					collider.call("animate_hit_high_right")
+					stored_collider.call("animate_hit_high_right")
 
 		# Check if controller vibration is enabled
 		if enable_vibration:
 			# Vibrate the controller
 			Input.start_joy_vibration(0, 1.0, 0.0, 0.1)
 
-		# Delay execution for animation reset
-		await get_tree().create_timer(0.3).timeout
+		# Additional delay for animation reset (0.1 more seconds, total 0.3s)
+		await get_tree().create_timer(0.1).timeout
 
 		# Flag the animation player no longer locked
 		is_animation_locked = false
@@ -496,6 +522,12 @@ func update_velocity() -> void:
 			# Apply gradual deceleration when skating
 			velocity.x = move_toward(velocity.x, 0, speed_current_scaled * friction_current)
 			velocity.z = move_toward(velocity.z, 0, speed_current_scaled * friction_current)
+
+		# Check if the player is skateboarding but in the air (preserve momentum)
+		elif is_skateboarding and !is_on_floor():
+			# Preserve horizontal momentum while skateboarding in the air
+			# Don't modify velocity.x and velocity.z to maintain jump momentum
+			pass
 
 		# The player is not skateboarding (on the ground)
 		else:
