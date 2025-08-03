@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://qi0jcm5uxbeu"]
+[gd_scene load_steps=9 format=3 uid="uid://qi0jcm5uxbeu"]
 
 [ext_resource type="PackedScene" uid="uid://cvdym6dsql8ny" path="res://scenes/bubbles.tscn" id="1_sye6i"]
 
@@ -52,6 +52,10 @@ _data = {
 &"RESET": SubResource("Animation_sye6i"),
 &"spin": SubResource("Animation_72bio")
 }
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ciksp"]
+albedo_color = Color(1, 0, 0, 1)
+roughness = 0.5
 
 [node name="BubbleTornado" type="Node3D"]
 
@@ -186,3 +190,10 @@ autoplay = "spin"
 
 [node name="Bubbles" parent="." instance=ExtResource("1_sye6i")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.08715577, -0.9961947, 0, 0.9961947, -0.08715577, 0, 0.321, 0.224)
+radius = 0.035
+height = 0.001
+sides = 16
+material = SubResource("StandardMaterial3D_ciksp")

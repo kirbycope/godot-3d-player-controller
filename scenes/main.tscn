@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=70 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" uid="uid://c7agev1ouwnuu" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="Texture2D" uid="uid://e6rn4rs3cr0v" path="res://assets/kenney_nl/prototype_textures/PNG/Dark/texture_09.png" id="2_d2mly"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://pjs50x7keevf" path="res://scenes/fishing_rod.tscn" id="6_byq53"]
 [ext_resource type="PackedScene" uid="uid://qi0jcm5uxbeu" path="res://scenes/bubble_tornado.tscn" id="6_fuf3a"]
 [ext_resource type="Texture2D" uid="uid://b0v08nrfse8c5" path="res://assets/kenney_nl/prototype_textures/PNG/Purple/texture_02.png" id="6_moi5b"]
+[ext_resource type="PackedScene" uid="uid://bgw2mr57wh170" path="res://scenes/foam_sword.tscn" id="7_pibwh"]
 [ext_resource type="Texture2D" uid="uid://ci020ecabgbvq" path="res://assets/kenney_nl/prototype_textures/PNG/Orange/texture_02.png" id="7_uwbdk"]
 [ext_resource type="Texture2D" uid="uid://ba2orr1vybqao" path="res://assets/kenney_nl/prototype_textures/PNG/Red/texture_02.png" id="8_px2wr"]
 [ext_resource type="PackedScene" uid="uid://d3afb22wm1k4h" path="res://scenes/moon_shoes.tscn" id="10_5q0nq"]
@@ -464,6 +465,7 @@ autowrap_mode = 3
 width = 220.0
 
 [node name="BubbleTornado" parent="." instance=ExtResource("6_fuf3a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
 
 [node name="ButtonLabel" type="Label3D" parent="."]
 transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5, 0.01, -2)
@@ -489,6 +491,9 @@ mesh = SubResource("CylinderMesh_gqmmt")
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="Button"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.49, 0)
 mesh = SubResource("CylinderMesh_yc10j")
+
+[node name="FoamSword" parent="." instance=ExtResource("7_pibwh")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.815, 1.375, 0.875)
 
 [node name="MetalBoxLabel" type="Label3D" parent="."]
 transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5, 0.01, 0)

@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://bgw2mr57wh170"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rfn03"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ri7pq"]
+material = SubResource("StandardMaterial3D_rfn03")
+top_radius = 0.012
+bottom_radius = 0.012
+height = 0.102
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8kgmi"]
+material = SubResource("StandardMaterial3D_rfn03")
+top_radius = 0.051
+bottom_radius = 0.051
+height = 0.013
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_viam0"]
+albedo_color = Color(0.78039217, 0.28627452, 0.2627451, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_2ce4c"]
+material = SubResource("StandardMaterial3D_viam0")
+radius = 0.025
+height = 0.749
+
+[node name="FoamSword" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999997, 0)
+mesh = SubResource("CylinderMesh_ri7pq")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_8kgmi")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.375, 0)
+mesh = SubResource("CapsuleMesh_2ce4c")
