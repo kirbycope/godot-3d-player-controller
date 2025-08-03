@@ -2,7 +2,7 @@ extends CharacterBody3D
 
 const BONE_NAME_HEAD = "Head"
 const BONE_NAME_LEFT_HAND = "LeftHand"
-const BONE_NAME_RIGHT_HAND = "RightHand"
+const BONE_NAME_RIGHT_HAND = "RightIndexProximal" # Right hand index finger proximal bone
 const BONE_NAME_LEFT_FOOT = "LeftFoot"
 const BONE_NAME_RIGHT_FOOT = "RightFoot"
 const STATES = preload("res://addons/3d_player_controller/states/states.gd")
@@ -453,6 +453,7 @@ func reparent_held_item() -> void:
 		is_holding_onto = null
 		is_holding_fishing_rod = false
 		is_holding_rifle = false
+		is_holding_tool = false
 
 
 ## Toggles the noclip mode.

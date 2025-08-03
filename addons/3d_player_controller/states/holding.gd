@@ -1,4 +1,8 @@
 extends BaseState
+##
+# Items in the player's hands are mooved using the item mount.
+# Items "held" by the player are moved in front of the player (Portal 1/2 style).
+##
 
 const ANIMATION_CROUCHING_AIMING_RIFLE := "Rifle_Aiming_Idle_Crouching" + "/mixamo_com"
 const ANIMATION_CROUCHING_FIRING_RIFLE := "Rifle_Firing_Crouching" + "/mixamo_com"
@@ -252,6 +256,29 @@ func move_held_item_mount() -> void:
 				1 / player.scale.y,
 				1 / player.scale.z
 			)
+
+	# The player is holding a generic tool or item (this will replace the specific cases above, when those models are edited to be like the moonshoes hierarchy)
+	else:
+		# Check if the player is holding something
+		if player.held_item_mount.get_children().size() > 0:
+			# Get the right hand bone
+			var bone_name = player.BONE_NAME_RIGHT_HAND
+			var bone_index = player.player_skeleton.find_bone(bone_name)
+			# Get the global pose of the bone
+			var bone_pose = player.player_skeleton.get_bone_global_pose(bone_index)
+			# Convert from skeleton's local space to world space, accounting for visuals rotation
+			var skeleton_world_position = player.player_skeleton.to_global(bone_pose.origin)
+			var skeleton_world_basis = player.player_skeleton.global_transform.basis * bone_pose.basis
+			# Apply the transformations to the item's position and rotation
+			player.held_item_mount.get_children()[0].global_position = skeleton_world_position
+			player.held_item_mount.get_children()[0].global_rotation = skeleton_world_basis.get_euler()
+			# Apply counter-scaling to held item to compensate for player scale
+			if player.scale != Vector3.ZERO:
+				player.held_item_mount.get_children()[0].scale = Vector3(
+					1 / player.scale.x,
+					1 / player.scale.y,
+					1 / player.scale.z
+				)
 
 
 ## Moves the held object in front of the player.
