@@ -1,5 +1,6 @@
 extends Node3D
 
+@onready var foam_sword_initial_transform: Transform3D
 @onready var fishing_rod_initial_transform: Transform3D
 @onready var player: CharacterBody3D = $Player
 @onready var portal_gun_initial_transform: Transform3D
@@ -13,6 +14,7 @@ func _ready() -> void:
 	$"PortalGun/AnimationPlayer".play("rotate")
 
 	# Get the transform of the not held items
+	foam_sword_initial_transform = $FoamSword.global_transform
 	fishing_rod_initial_transform = $FishingRod.global_transform
 	portal_gun_initial_transform = $PortalGun.global_transform
 	moon_shoes_initial_transform = $MoonShoes.global_transform
@@ -27,11 +29,19 @@ func _process(_delta: float) -> void:
 
 ## Moves an orphaned, equippable "items" back to their spawn locations.
 func move_dropped_items_to_initial_position() -> void:
+	# Check if there is a foam sword as a child of the current scene
+	if has_node("FoamSword"):
+		# Check if the item (not held by the player) moved from its initial position
+		if $FoamSword.global_position != foam_sword_initial_transform.origin:
+			# Reset the item's position
+			$FoamSword.global_transform = foam_sword_initial_transform
+			# Enable the item's "pickup" collision
+			$FoamSword/Area3D/CollisionShape3D.disabled = false
 	# Check if there is a fishing rod as a child of the current scene
 	if has_node("FishingRod"):
 		# Check if the item (not held by the player) moved from its initial position
 		if $FishingRod.global_position != fishing_rod_initial_transform.origin:
-			# Reset theitem's position
+			# Reset the item's position
 			$FishingRod.global_transform = fishing_rod_initial_transform
 			# Enable the item's "pickup" collision
 			$FishingRod/Area3D/CollisionShape3D.disabled = false
@@ -41,7 +51,7 @@ func move_dropped_items_to_initial_position() -> void:
 	if has_node("PortalGun"):
 		# Check if the item (not held by the player) moved from its initial position
 		if $PortalGun.global_position != portal_gun_initial_transform.origin:
-			# Reset theitem's position
+			# Reset the item's position
 			$PortalGun.global_transform = portal_gun_initial_transform
 			# Enable the item's "pickup" collision
 			$PortalGun/Area3D/CollisionShape3D.disabled = false

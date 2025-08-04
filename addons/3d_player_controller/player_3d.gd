@@ -121,8 +121,11 @@ var virtual_velocity: Vector3 = Vector3.ZERO
 @onready var visuals_aux_scene = visuals.get_node("AuxScene")
 @onready var visuals_aux_scene_position = visuals_aux_scene.position
 @onready var player_skeleton = visuals_aux_scene.get_node("GeneralSkeleton")
+@onready var bone_attachement_left_foot = player_skeleton.get_node("BoneAttachment3D_LeftFoot")
+@onready var bone_attachement_right_foot = player_skeleton.get_node("BoneAttachment3D_RightFoot")
+@onready var bone_attachement_left_hand = player_skeleton.get_node("BoneAttachment3D_LeftHand")
+@onready var bone_attachement_right_hand = player_skeleton.get_node("BoneAttachment3D_RightHand")
 @onready var look_at_modifier = player_skeleton.get_node("LookAtModifier3D")
-@onready var held_item_mount = visuals.get_node("HeldItemMount")
 # Initial Values
 @onready var initial_position = position
 

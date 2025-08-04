@@ -49,7 +49,7 @@ length = 0.001
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("w_portalgun_ARM/Skeleton3D:rotation:x")
+tracks/0/path = NodePath("Visuals/w_portalgun_ARM/Skeleton3D:rotation:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -65,7 +65,7 @@ loop_mode = 1
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("w_portalgun_ARM/Skeleton3D:rotation:x")
+tracks/0/path = NodePath("Visuals/w_portalgun_ARM/Skeleton3D:rotation:x")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -87,9 +87,12 @@ size = Vector3(0.5, 0.5, 0.5)
 transform = Transform3D(-1.4, 0, -1.22392e-07, 0, 1.4, 0, 1.22392e-07, 0, -1.4, 0, 0, 0)
 script = ExtResource("1_bwwmu")
 
-[node name="w_portalgun_ARM" type="Node3D" parent="."]
+[node name="Visuals" type="Node3D" parent="."]
+transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 0, 0.035, -0.025)
 
-[node name="Skeleton3D" type="Skeleton3D" parent="w_portalgun_ARM"]
+[node name="w_portalgun_ARM" type="Node3D" parent="Visuals"]
+
+[node name="Skeleton3D" type="Skeleton3D" parent="Visuals/w_portalgun_ARM"]
 bones/0/name = "weapon_bone"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
@@ -98,61 +101,61 @@ bones/0/position = Vector3(0, 0, 0)
 bones/0/rotation = Quaternion(-0.707107, 0, 0, 0.707107)
 bones/0/scale = Vector3(1, 1, 1)
 
-[node name="w_portalgun_parts_dmx_w_portalgun_reference_dmx" type="MeshInstance3D" parent="w_portalgun_ARM/Skeleton3D"]
+[node name="w_portalgun_parts_dmx_w_portalgun_reference_dmx" type="MeshInstance3D" parent="Visuals/w_portalgun_ARM/Skeleton3D"]
 transform = Transform3D(1, -9.3024e-25, 0, -9.3024e-25, 1, 1.65436e-24, 0, 8.27181e-25, 1, 8.7836e-12, 0.0666667, 0)
 mesh = SubResource("ArrayMesh_7rxjt")
 skin = SubResource("Skin_37ox2")
 
-[node name="muzzle" type="Node3D" parent="."]
-transform = Transform3D(0, -0.01905, 1.43824e-09, -0.01905, 1.08584e-16, 1.43824e-09, -1.43824e-09, -1.43824e-09, -0.01905, 0, -0.40005, 0)
+[node name="muzzle" type="Node3D" parent="Visuals"]
+transform = Transform3D(0, -0.01905, 1.43824e-09, -0.01905, 1.08584e-16, 1.4382401e-09, -1.4382401e-09, -1.43824e-09, -0.01905, 0, -0.40005004, 0)
 
-[node name="Arm1_attach1" type="Node3D" parent="."]
-transform = Transform3D(0.01905, 0, 0, 0, 0.01905, 0, 0, 0, 0.01905, -0.066675, -0.333375, 0)
+[node name="Arm1_attach1" type="Node3D" parent="Visuals"]
+transform = Transform3D(0.01905, 0, 1.110223e-16, 0, 0.01905, 0, -1.110223e-16, 0, 0.01905, -0.066675, -0.333375, 0)
 
-[node name="Arm1_attach2" type="Node3D" parent="."]
-transform = Transform3D(0.01905, 0, 0, 0, 0.01905, 0, 0, 0, 0.01905, -0.108585, -0.37719, 0)
+[node name="Arm1_attach2" type="Node3D" parent="Visuals"]
+transform = Transform3D(0.01905, 0, 1.110223e-16, 0, 0.01905, 0, -1.110223e-16, 0, 0.01905, -0.108585, -0.37719, 8.881784e-16)
 
-[node name="Arm1_attach3" type="Node3D" parent="."]
-transform = Transform3D(0.01905, 0, 0, 0, 0.01905, 0, 0, 0, 0.01905, -0.09144, -0.459105, 0)
+[node name="Arm1_attach3" type="Node3D" parent="Visuals"]
+transform = Transform3D(0.01905, 0, 1.110223e-16, 0, 0.01905, 0, -1.110223e-16, 0, 0.01905, -0.09144, -0.459105, 0)
 
-[node name="Arm2_attach1" type="Node3D" parent="."]
-transform = Transform3D(0.01905, 0, 0, 0, 0.01905, 0, 0, 0, 0.01905, 0.028575, -0.329565, 0.07239)
+[node name="Arm2_attach1" type="Node3D" parent="Visuals"]
+transform = Transform3D(0.01905, 0, 1.110223e-16, 0, 0.01905, 0, -1.110223e-16, 0, 0.01905, 0.028575, -0.329565, 0.07239)
 
-[node name="Arm2_attach2" type="Node3D" parent="."]
-transform = Transform3D(0.01905, 0, 0, 0, 0.01905, 0, 0, 0, 0.01905, 0.047625, -0.36195, 0.104775)
+[node name="Arm2_attach2" type="Node3D" parent="Visuals"]
+transform = Transform3D(0.01905, 0, 1.110223e-16, 0, 0.01905, 0, -1.110223e-16, 0, 0.01905, 0.047625005, -0.36195, 0.104775004)
 
-[node name="Arm2_attach3" type="Node3D" parent="."]
-transform = Transform3D(0.01905, 0, 0, 0, 0.01905, 0, 0, 0, 0.01905, 0.047625, -0.451485, 0.09525)
+[node name="Arm2_attach3" type="Node3D" parent="Visuals"]
+transform = Transform3D(0.01905, 0, 1.110223e-16, 0, 0.01905, 0, -1.110223e-16, 0, 0.01905, 0.047625005, -0.451485, 0.09525001)
 
-[node name="Arm3_attach1" type="Node3D" parent="."]
-transform = Transform3D(0.01905, 0, 0, 0, 0.01905, 0, 0, 0, 0.01905, 0.028575, -0.329565, -0.055245)
+[node name="Arm3_attach1" type="Node3D" parent="Visuals"]
+transform = Transform3D(0.01905, 0, 1.110223e-16, 0, 0.01905, 0, -1.110223e-16, 0, 0.01905, 0.028575, -0.329565, -0.055244997)
 
-[node name="Arm3_attach2" type="Node3D" parent="."]
-transform = Transform3D(0.01905, 0, 0, 0, 0.01905, 0, 0, 0, 0.01905, 0.047625, -0.36195, -0.08763)
+[node name="Arm3_attach2" type="Node3D" parent="Visuals"]
+transform = Transform3D(0.01905, 0, 1.110223e-16, 0, 0.01905, 0, -1.110223e-16, 0, 0.01905, 0.047625, -0.36195, -0.08763)
 
-[node name="Arm3_attach3" type="Node3D" parent="."]
-transform = Transform3D(0.01905, 0, 0, 0, 0.01905, 0, 0, 0, 0.01905, 0.047625, -0.451485, -0.0762)
+[node name="Arm3_attach3" type="Node3D" parent="Visuals"]
+transform = Transform3D(0.01905, 0, 1.110223e-16, 0, 0.01905, 0, -1.110223e-16, 0, 0.01905, 0.047625, -0.451485, -0.0762)
 
-[node name="Body_light" type="Node3D" parent="."]
-transform = Transform3D(0.01905, 0, 0, 0, 0.01905, 0, 0, 0, 0.01905, -0.085725, -0.15621, 0.009525)
+[node name="Body_light" type="Node3D" parent="Visuals"]
+transform = Transform3D(0.01905, 0, 1.110223e-16, 0, 0.01905, 0, -1.110223e-16, 0, 0.01905, -0.085725, -0.15621, 0.009525)
 
-[node name="Beam_point1" type="Node3D" parent="."]
-transform = Transform3D(0.01905, 0, 0, 0, 0.01905, 0, 0, 0, 0.01905, -0.028575, -0.291465, 0.009525)
+[node name="Beam_point1" type="Node3D" parent="Visuals"]
+transform = Transform3D(0.01905, 0, 1.110223e-16, 0, 0.01905, 0, -1.110223e-16, 0, 0.01905, -0.028575, -0.291465, 0.009525)
 
-[node name="Beam_point2" type="Node3D" parent="."]
-transform = Transform3D(0.01905, 0, 0, 0, 0.01905, 0, 0, 0, 0.01905, -0.028575, -0.269558, 0.009525)
+[node name="Beam_point2" type="Node3D" parent="Visuals"]
+transform = Transform3D(0.01905, 0, 1.110223e-16, 0, 0.01905, 0, -1.110223e-16, 0, 0.01905, -0.028575, -0.269558, 0.009525)
 
-[node name="Beam_point3" type="Node3D" parent="."]
-transform = Transform3D(0.01905, 0, 0, 0, 0.01905, 0, 0, 0, 0.01905, -0.028575, -0.24384, 0.009525)
+[node name="Beam_point3" type="Node3D" parent="Visuals"]
+transform = Transform3D(0.01905, 0, 1.110223e-16, 0, 0.01905, 0, -1.110223e-16, 0, 0.01905, -0.028575, -0.24384, 0.009525)
 
-[node name="Beam_point4" type="Node3D" parent="."]
-transform = Transform3D(0.01905, 0, 0, 0, 0.01905, 0, 0, 0, 0.01905, -0.028575, -0.220028, 0.009525)
+[node name="Beam_point4" type="Node3D" parent="Visuals"]
+transform = Transform3D(0.01905, 0, 1.110223e-16, 0, 0.01905, 0, -1.110223e-16, 0, 0.01905, -0.028575, -0.220028, 0.009525)
 
-[node name="Beam_point5" type="Node3D" parent="."]
-transform = Transform3D(0.01905, 0, 0, 0, 0.01905, 0, 0, 0, 0.01905, -0.028575, -0.196215, 0.009525)
+[node name="Beam_point5" type="Node3D" parent="Visuals"]
+transform = Transform3D(0.01905, 0, 1.110223e-16, 0, 0.01905, 0, -1.110223e-16, 0, 0.01905, -0.028575, -0.196215, 0.009525)
 
-[node name="Inside_effects" type="Node3D" parent="."]
-transform = Transform3D(0.01905, 0, 0, 0, 0.01905, 0, 0, 0, 0.01905, -0.028575, -0.3429, 0.009525)
+[node name="Inside_effects" type="Node3D" parent="Visuals"]
+transform = Transform3D(0.01905, 0, 1.110223e-16, 0, 0.01905, 0, -1.110223e-16, 0, 0.01905, -0.028575, -0.3429, 0.009525)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

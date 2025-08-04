@@ -34,7 +34,7 @@ script = ExtResource("1_l1chj")
 stream = ExtResource("2_l1chj")
 
 [node name="Shoe" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0, 0.1)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -0.2, 0, 0.1)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Shoe"]
 transform = Transform3D(1.5, 0, 0, 0, -1.5, 2.2649371e-07, 0, -2.2649371e-07, -1.5, 0, 0.2, 0.075)
@@ -92,7 +92,7 @@ sides = 16
 material = SubResource("StandardMaterial3D_o7i6b")
 
 [node name="Shoe2" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0.1)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.2, 0, 0.1)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Shoe2"]
 transform = Transform3D(1.5, 0, 0, 0, -1.5, 2.2649371e-07, 0, -2.2649371e-07, -1.5, 0, 0.2, 0.075)

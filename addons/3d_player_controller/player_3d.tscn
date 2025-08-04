@@ -196,6 +196,4 @@ target_position = Vector3(0, 0, -1)
 
 [node name="RayCast3D_BelowPlayer" type="RayCast3D" parent="Visuals"]
 
-[node name="HeldItemMount" type="Node3D" parent="Visuals"]
-
 [node name="FootMount" type="Node3D" parent="Visuals"]

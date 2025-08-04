@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bgw2mr57wh170"]
+[gd_scene load_steps=8 format=3 uid="uid://bgw2mr57wh170"]
 
 [ext_resource type="Script" uid="uid://cpacxe8rt3ii4" path="res://scenes/foam_sword.gd" id="1_ri7pq"]
 
@@ -25,11 +25,13 @@ material = SubResource("StandardMaterial3D_viam0")
 radius = 0.025
 height = 0.749
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_ri7pq"]
+
 [node name="FoamSword" type="Node3D"]
 script = ExtResource("1_ri7pq")
 
 [node name="Visuals" type="Node3D" parent="."]
-transform = Transform3D(-4.371139e-08, 1, 4.371139e-08, 0, -4.371139e-08, 1, 1, 4.371139e-08, 1.9106855e-15, 0.05, 0.005, 0.035)
+transform = Transform3D(-4.371139e-08, 1, 4.371139e-08, 0, -4.371139e-08, 1, 1, 4.371139e-08, 1.9106855e-15, 0.05, 0.02, 0.04)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Visuals"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.049999997, 0)
@@ -44,3 +46,11 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.375, 0)
 mesh = SubResource("CapsuleMesh_2ce4c")
 skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_ri7pq")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

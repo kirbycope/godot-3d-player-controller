@@ -1,8 +1,4 @@
 extends BaseState
-##
-# Items in the player's hands are mooved using the item mount.
-# Items "held" by the player are moved in front of the player (Portal 1/2 style).
-##
 
 const ANIMATION_CROUCHING_AIMING_RIFLE := "Rifle_Aiming_Idle_Crouching" + "/mixamo_com"
 const ANIMATION_CROUCHING_FIRING_RIFLE := "Rifle_Firing_Crouching" + "/mixamo_com"
@@ -87,32 +83,6 @@ func _input(event: InputEvent) -> void:
 				# Stop handling any further input
 				return
 
-		# (D-Down)/[Q] _pressed_ (and holding a fishing rod) -> drop the fishing rod
-		if event.is_action_pressed("button_13") and player.is_holding_fishing_rod:
-			# Remove the fishing rod from the player
-			player.visuals.get_node("HeldItemMount").remove_child(player.is_holding_onto)
-			# Reparent the fishing rod to the main scene
-			get_tree().current_scene.add_child(player.is_holding_onto)
-			# Stop holding "fishing rod"
-			player.is_holding_fishing_rod = false
-			# Clear the reference
-			player.is_holding_onto = null
-			# Stop handling any further input
-			return
-
-		# (D-Down)/[Q] _pressed_ (and holding a rifle) -> drop the rifle
-		if event.is_action_pressed("button_13") and player.is_holding_rifle:
-			# Remove the rifle from the player
-			player.visuals.get_node("HeldItemMount").remove_child(player.is_holding_onto)
-			# Reparent the rifle to the main scene
-			get_tree().current_scene.add_child(player.is_holding_onto)
-			# Stop holding "rifle"
-			player.is_holding_rifle = false
-			# Clear the reference
-			player.is_holding_onto = null
-			# Stop handling any further input
-			return
-
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -146,139 +116,6 @@ func _process(_delta: float) -> void:
 	if player.is_holding:
 		# Move the held object in front of the player
 		move_held_object()
-
-	# Check if the player is holding a fishing rod, rifle, or a tool
-	if player.is_holding_fishing_rod or player.is_holding_rifle or player.is_holding_tool:
-		# Move the position of the held item to the player's hand
-		move_held_item_mount()
-
-
-## Move the item being held in the player's hand to the player's hand.
-func move_held_item_mount() -> void:
-	# Check if the player is holding a fishing rod
-	if player.is_holding_fishing_rod:
-		# Get the left hand bone
-		var bone_name = player.BONE_NAME_LEFT_HAND
-		var bone_index = player.player_skeleton.find_bone(bone_name)
-
-		# Get the overall transform of the specified bone, with respect to the player's skeleton.
-		var bone_pose = player.player_skeleton.get_bone_global_pose(bone_index)
-
-		# Get the position of the bone
-		var bone_origin = bone_pose.origin
-		var pos_x = (-bone_origin.x) + 0.05
-		var pos_y = (bone_origin.y) + 0.1
-		var pos_z = (-bone_origin.z) - 0.1
-
-		# Set the rotation of the held item mount to match the bone's rotation
-		var bone_basis = bone_pose.basis.get_euler()
-		var rot_x = (-bone_basis.x)
-		var rot_y = (bone_basis.y)
-		var rot_z = - (bone_basis.z) - 1.25
-
-		# Hack: Handle ANIMATION_STANDING_HOLDING_FISHING_ROD
-		if player.animation_player.current_animation == ANIMATION_STANDING_HOLDING_FISHING_ROD:
-			pos_x = (-bone_origin.x) + 0.05
-			pos_y = (bone_origin.y) + 0.1
-			pos_z = (-bone_origin.z) - 0.1
-			rot_x = (-bone_basis.x)
-			rot_y = (bone_basis.y)
-			rot_z = (-bone_basis.z) - 1.25
-
-		# Apply the position
-		player.held_item_mount.position = Vector3(pos_x, pos_y, pos_z)
-
-		# Apply the rotation
-		player.held_item_mount.rotation = Vector3(rot_x, rot_y, rot_z)
-
-	# Check if the player is holding a rifle
-	elif player.is_holding_rifle:
-		# Get the right hand bone
-		var bone_name = player.BONE_NAME_RIGHT_HAND
-		var bone_index = player.player_skeleton.find_bone(bone_name)
-
-		# Get the overall transform of the specified bone, with respect to the player's skeleton.
-		var bone_pose = player.player_skeleton.get_bone_global_pose(bone_index)
-
-		# Get the position of the bone
-		var bone_origin = bone_pose.origin
-		var pos_x = (-bone_origin.x)
-		var pos_y = (bone_origin.y)
-		var pos_z = (-bone_origin.z)
-
-		# Get the rotation of the held item mount to match the bone's rotation
-		var bone_basis = bone_pose.basis.get_euler()
-		var rot_x = bone_basis.x
-		var rot_y = bone_basis.y
-		var rot_z = bone_basis.z
-
-		# Hack: Handle ANIMATION_CROUCHING_AIMING_RIFLE and ANIMATION_CROUCHING_HOLDING_RIFLE
-		if player.animation_player.current_animation == ANIMATION_CROUCHING_AIMING_RIFLE \
-		or player.animation_player.current_animation == ANIMATION_CROUCHING_FIRING_RIFLE \
-		or player.animation_player.current_animation == ANIMATION_CROUCHING_HOLDING_RIFLE:
-			pos_x = (-bone_origin.x) - 0.01
-			pos_y = (bone_origin.y) + 0.01
-			pos_z = (-bone_origin.z) - 0.15
-			rot_x = bone_basis.x
-			rot_y = bone_basis.y
-			rot_z = bone_basis.z + 0.55
-
-		# Hack: Handle ANIMATION_STANDING_AIMING_RIFLE and ANIMATION_STANDING_FIRING_RIFLE
-		if player.animation_player.current_animation == ANIMATION_STANDING_AIMING_RIFLE \
-		or player.animation_player.current_animation == ANIMATION_STANDING_FIRING_RIFLE \
-		or player.animation_player.current_animation == ANIMATION_CROUCHING_MOVE_HOLDING_RIFLE:
-			pos_x = (-bone_origin.x) - 0.01
-			pos_y = (bone_origin.y) + 0.01
-			pos_z = (-bone_origin.z) - 0.15
-			rot_x = bone_basis.x
-			rot_y = bone_basis.y
-			rot_z = bone_basis.z + 0.3
-	
-		# Hack: Handle ANIMATION_STANDING_HOLDING_RIFLE
-		if player.animation_player.current_animation == ANIMATION_STANDING_HOLDING_RIFLE:
-			pos_x = (-bone_origin.x) - 0.125
-			pos_y = (bone_origin.y) - 0.05
-			pos_z = (-bone_origin.z) - 0.03
-			rot_x = bone_basis.x #
-			rot_y = bone_basis.y # + 0.15
-			rot_z = bone_basis.z - 0.85
-
-		# Apply the position
-		player.held_item_mount.position = Vector3(pos_x, pos_y, pos_z)
-	
-		# Apply the rotation
-		player.held_item_mount.rotation = Vector3(rot_x, rot_y, rot_z)
-
-		# Apply counter-scaling to held item to compensate for player scale
-		if player.is_holding_onto and player.scale.x != 0:
-			player.is_holding_onto.scale = Vector3(
-				1 / player.scale.x,
-				1 / player.scale.y,
-				1 / player.scale.z
-			)
-
-	# The player is holding a generic tool or item (this will replace the specific cases above, when those models are edited to be like the moonshoes hierarchy)
-	else:
-		# Check if the player is holding something
-		if player.held_item_mount.get_children().size() > 0:
-			# Get the right hand bone
-			var bone_name = player.BONE_NAME_RIGHT_HAND
-			var bone_index = player.player_skeleton.find_bone(bone_name)
-			# Get the global pose of the bone
-			var bone_pose = player.player_skeleton.get_bone_global_pose(bone_index)
-			# Convert from skeleton's local space to world space, accounting for visuals rotation
-			var skeleton_world_position = player.player_skeleton.to_global(bone_pose.origin)
-			var skeleton_world_basis = player.player_skeleton.global_transform.basis * bone_pose.basis
-			# Apply the transformations to the item's position and rotation
-			player.held_item_mount.get_children()[0].global_position = skeleton_world_position
-			player.held_item_mount.get_children()[0].global_rotation = skeleton_world_basis.get_euler()
-			# Apply counter-scaling to held item to compensate for player scale
-			if player.scale != Vector3.ZERO:
-				player.held_item_mount.get_children()[0].scale = Vector3(
-					1 / player.scale.x,
-					1 / player.scale.y,
-					1 / player.scale.z
-				)
 
 
 ## Moves the held object in front of the player.

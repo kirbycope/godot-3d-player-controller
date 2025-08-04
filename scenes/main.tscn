@@ -468,14 +468,14 @@ width = 220.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
 
 [node name="ButtonLabel" type="Label3D" parent="."]
-transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5, 0.01, -2)
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5, 0.009999912, -4)
 text = "Stand in circle
 and face button.
 Press (use)
 to \"interact\""
 
 [node name="Button" type="StaticBody3D" parent="." groups=["Usable"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.5, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.5, -4)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Button"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
@@ -492,18 +492,23 @@ mesh = SubResource("CylinderMesh_gqmmt")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.49, 0)
 mesh = SubResource("CylinderMesh_yc10j")
 
+[node name="FoamSwordLabel" type="Label3D" parent="."]
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5, 0.009999825, 2)
+text = "Walk into
+to \"equip\""
+
 [node name="FoamSword" parent="." instance=ExtResource("7_pibwh")]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.815, 1.375, 0.875)
+transform = Transform3D(4.776714e-16, 0, -0.99999994, 0.99999994, -4.3711392e-08, 1.6850433e-17, -4.371139e-08, -1, 2.6645353e-15, -5.9999995, 0.100000106, 2)
 
 [node name="MetalBoxLabel" type="Label3D" parent="."]
-transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5, 0.01, 0)
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5, 0.009999912, -2)
 text = "Face and look
 at the cube.
 Press (use)
 to \"hold\""
 
 [node name="MetalBox" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.35000047, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.35000047, -2)
 contact_monitor = true
 max_contacts_reported = 1
 
@@ -514,36 +519,36 @@ shape = SubResource("BoxShape3D_3tkmj")
 mesh = SubResource("BoxMesh_egegn")
 
 [node name="PortalGunLabel" type="Label3D" parent="."]
-transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5, 0.01, 2)
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5, 0.009999912, 0)
 text = "Walk into
 to \"equip\""
 
 [node name="PortalGun" parent="." instance=ExtResource("5_k8xrp")]
-transform = Transform3D(-6.11959e-08, 1.4, 0, -1.4, -6.11959e-08, 0, 0, 0, 1.4, -6.06, 0.5000002, 2.06)
+transform = Transform3D(-1.1920929e-07, -1.4000001, 0, 1.4000001, -1.1920929e-07, 0, 0, 0, 1.4, -6.06, 0.36, 0)
 
 [node name="SkateboardLabel" type="Label3D" parent="."]
-transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5, 0.01, 4)
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -4.9999995, 0.010000175, 8)
 text = "Walk into to
 \"skateboard\""
 
 [node name="Skateboard" parent="." instance=ExtResource("14_5m2ip")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 8)
 
-[node name="FishingRodlabel" type="Label3D" parent="."]
-transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5, 0.01, 6)
+[node name="FishingRodLabel" type="Label3D" parent="."]
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5, 0.009999912, 4)
 text = "Walk into
 to \"equip\""
 
 [node name="FishingRod" parent="." instance=ExtResource("6_byq53")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.5, 6)
+transform = Transform3D(0.258819, 0, -0.9659258, -0.9659258, -4.371138e-08, -0.258819, -4.222196e-08, 0.99999994, -1.1313339e-08, -6, 0.50000006, 4)
 
 [node name="MoonShoesLabel" type="Label3D" parent="."]
-transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5, 0.010000087, 8)
+transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5, 0.01, 6)
 text = "Walk into
 to \"equip\""
 
 [node name="MoonShoes" parent="." instance=ExtResource("10_5q0nq")]
-transform = Transform3D(-4.371139e-08, 0, 1, 8.742278e-08, -1, 0, 1, 8.742277e-08, 4.371139e-08, -6.2, 0.3, 8)
+transform = Transform3D(-4.371139e-08, 1, -4.371138e-08, 8.742276e-08, 4.3711392e-08, 1, 1, 4.371138e-08, -8.742277e-08, -6.2, 0.29999983, 6)
 
 [node name="PunchingBag" parent="." instance=ExtResource("11_kmb1v")]
 transform = Transform3D(-0.7071067, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, -0.7071067, 4, 0, 4)
@@ -821,13 +826,8 @@ use_collision = true
 size = Vector3(3, 5.5, 1)
 material = SubResource("StandardMaterial3D_jbj1t")
 
-[node name="Largelego" parent="." instance=ExtResource("20_gqmmt")]
+[node name="Lego" parent="." instance=ExtResource("20_gqmmt")]
 transform = Transform3D(-4.371139e-07, -10, 0, 10, -4.371139e-07, 0, 0, 0, 10, -11, 7.9, 0)
-
-[node name="LegoRigid4" parent="." instance=ExtResource("21_yc10j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.8, -8)
-contact_monitor = true
-script = null
 
 [node name="LegoRigid2" parent="." instance=ExtResource("21_yc10j")]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 3.4969112e-08, 0.8, -8)
@@ -836,6 +836,11 @@ script = null
 
 [node name="LegoRigid3" parent="." instance=ExtResource("21_yc10j")]
 transform = Transform3D(-4.371139e-08, -1, 5.9604645e-08, -1, 4.371139e-08, 0, 0, -5.9604645e-08, -1, -0.99999994, 0.8, -8)
+contact_monitor = true
+script = null
+
+[node name="LegoRigid4" parent="." instance=ExtResource("21_yc10j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.8, -8)
 contact_monitor = true
 script = null
 

@@ -967,6 +967,26 @@ symmetry_limitation = true
 primary_limit_angle = 2.26893
 primary_damp_threshold = 1.0
 
+[node name="BoneAttachment3D_LeftFoot" type="BoneAttachment3D" parent="GeneralSkeleton"]
+transform = Transform3D(-0.99753475, -0.07000526, -0.0048717326, -0.010235738, 0.076469935, 0.9970193, -0.06942405, 0.9946112, -0.07699796, 0.06916207, 0.105935186, 0.05077544)
+bone_name = "LeftFoot"
+bone_idx = 57
+
+[node name="BoneAttachment3D_LeftHand" type="BoneAttachment3D" parent="GeneralSkeleton"]
+transform = Transform3D(0.26318163, 0.8346374, -0.48385513, -0.21950698, -0.43657595, -0.87247795, -0.93944234, 0.33582985, 0.06830995, 0.8070901, 1.4773546, 0.16092397)
+bone_name = "LeftIndexProximal"
+bone_idx = 15
+
+[node name="BoneAttachment3D_RightFoot" type="BoneAttachment3D" parent="GeneralSkeleton"]
+transform = Transform3D(-0.90652055, -0.42216235, 2.4493784e-07, 2.0302832e-07, 4.0978193e-07, 0.99999994, -0.42216235, 0.90652055, -8.195639e-08, -0.09897696, 0.11482623, -0.036440432)
+bone_name = "RightFoot"
+bone_idx = 62
+
+[node name="BoneAttachment3D_RightHand" type="BoneAttachment3D" parent="GeneralSkeleton"]
+transform = Transform3D(0.12341866, -0.9591928, 0.2543951, -0.14651479, -0.27115873, -0.95131844, 0.98147935, 0.080137685, -0.17400196, -0.8086946, 1.4090154, 0.07584006)
+bone_name = "RightIndexProximal"
+bone_idx = 39
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_w5ayq"),
