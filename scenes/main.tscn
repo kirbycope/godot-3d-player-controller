@@ -629,12 +629,12 @@ mesh = SubResource("CylinderMesh_fuf3a")
 
 [node name="StairsLabel" type="Label3D" parent="."]
 transform = Transform3D(-4.371139e-08, -1, 0, -4.371137e-08, -7.1054274e-15, 1, -1, 4.371139e-08, -4.371137e-08, 6.25, 0.01, -7)
-text = "Press [jump]
+text = "Press Ⓐ/[Space]::[button_0]
 to \"hang\""
 
 [node name="StairsLabel2" type="Label3D" parent="."]
 transform = Transform3D(-4.3711385e-08, -1, -4.3711385e-08, 7.1054274e-15, -4.3711392e-08, 1, -1, 4.371139e-08, 3.5527137e-15, 5.75, 2.01, -7)
-text = "Press [jump]
+text = "Press Ⓐ/[Space]::[button_0]
 to \"mantle\""
 
 [node name="Stairs" type="Node3D" parent="."]
@@ -805,7 +805,7 @@ transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 8.0226
 
 [node name="ClimbingWallLabel" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 3.5527137e-15, -4.371138e-08, 1, 0, -1, -4.3711374e-08, -3.9999995, 0.009999475, -6.0000005)
-text = "Press [jump]
+text = "Press Ⓐ/[Space]::[button_0]
 to \"climb\""
 
 [node name="ClimbingWallLabel2" type="Label3D" parent="."]
@@ -816,7 +816,7 @@ you reach a ledge"
 
 [node name="ClimbingWallLabel3" type="Label3D" parent="."]
 transform = Transform3D(1, -2.1175826e-22, 0, 3.5527133e-15, -4.371138e-08, 1, 0, -1, -4.3711374e-08, -4, 5.51, -6.75)
-text = "Press [jump]
+text = "Press Ⓐ/[Space]::[button_0]
 to \"mantle\""
 
 [node name="ClimbingWall" type="CSGBox3D" parent="."]

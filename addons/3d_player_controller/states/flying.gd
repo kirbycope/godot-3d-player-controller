@@ -12,7 +12,7 @@ func _process(delta: float) -> void:
 	#if !is_multiplayer_authority(): return
 	# Check if the game is not paused
 	if !player.game_paused:
-		# [jump] button just _pressed_
+		# Ⓐ/[Space]::[button_0] button just _pressed_
 		if Input.is_action_just_pressed("button_0"):
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
@@ -37,12 +37,12 @@ func _process(delta: float) -> void:
 					# Either way, reset the timer
 					timer_jump = Time.get_ticks_msec()
 
-		# [crouch] button just _pressed_
+		# Ⓨ/[Ctrl]::[button_3] just _pressed_
 		if Input.is_action_just_pressed("button_3"):
 			# Pitch the player slightly downward
 			player.visuals.rotation.x = deg_to_rad(-6)
 		
-		# [crouch] button currently _pressed_
+		# Ⓨ/[Ctrl]::[button_3] currently _pressed_
 		if Input.is_action_pressed("button_3"):
 			# Decrease the player's vertical position
 			player.position.y -= 5 * delta
@@ -52,22 +52,22 @@ func _process(delta: float) -> void:
 				# Start "standing"
 				transition(NODE_NAME, "Standing")
 		
-		# [crouch] button just _released_
+		# Ⓨ/[Ctrl]::[button_3] just _released_
 		if Input.is_action_just_released("button_3"):
 			# Reset the player's pitch
 			player.visuals.rotation.x = 0
 
-		# [jump] button just _pressed_
+		# Ⓐ/[Space]::[button_0] button just _pressed_
 		if Input.is_action_just_pressed("button_0"):
 			# Pitch the player slightly downward
 			player.visuals.rotation.x = deg_to_rad(6)
 
-		# [jump] button currently _pressed_
+		# Ⓐ/[Space]::[button_0] button currently _pressed_
 		if Input.is_action_pressed("button_0"):
 			# Increase the player's vertical position
 			player.position.y += 5 * delta
 
-		# [jump] button just _released_
+		# Ⓐ/[Space]::[button_0] button just _released_
 		if Input.is_action_just_released("button_0"):
 			# Reset the player's pitch
 			player.visuals.rotation.x = 0

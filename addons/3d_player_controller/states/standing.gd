@@ -15,6 +15,8 @@ const ANIMATION_STANDING_PUNCHING_HIGH_RIGHT := "Punching_High_Right" + "/mixamo
 const ANIMATION_STANDING_PUNCHING_LOW_LEFT := "Punching_Low_Left" + "/mixamo_com"
 const ANIMATION_STANDING_PUNCHING_LOW_RIGHT := "Punching_Low_Right" + "/mixamo_com"
 const ANIMATION_STANDING_USING := "Button_Pushing" + "/mixamo_com"
+const ANIMATION_STANDING_SWINGING_LEFT := "Standing_Melee_Attack_Downward_Left" + "/mixamo_com"
+const ANIMATION_STANDING_SWINGING_RIGHT := "Standing_Melee_Attack_Downward_Right" + "/mixamo_com"
 const NODE_NAME := "Standing"
 
 
@@ -25,171 +27,153 @@ func _input(event: InputEvent) -> void:
 		# Web fix - Input is required before the mouse can be captured so onready wont work
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
-		# [crouch] button just _pressed_ and crouching is enabled
-		if event.is_action_pressed("button_3") and player.enable_crouching:
-			# Start "crouching"
-			transition(NODE_NAME, "Crouching")
-
-		# [jump] button just _pressed_
+		# Ⓐ/[Space]::[button_0] _pressed_ and jumping is enabled -> Start "jumping"
 		if event.is_action_pressed("button_0") and player.enable_jumping:
 			# Start "jumping"
 			transition(NODE_NAME, "Jumping")
 
-		# [left-kick] button _pressed_
-		if event.is_action_pressed("button_6"):
-			# Check if the animation player is not locked
-			if !player.is_animation_locked:
-				# Check if the player is not "crouching" and is "on floor"
-				if !player.is_crouching and player.is_on_floor():
-					# Check if the player is not "holding a rifle" (and kicking is enabled)
-					if !player.is_holding_rifle and player.enable_kicking:
-						# Flag the animation player as locked
-						player.is_animation_locked = true
-
-						# Flag the player as "kicking with their left leg"
-						player.is_kicking_left = true
-
-						# Check if the animation player is not already playing the appropriate animation
-						if player.animation_player.current_animation != ANIMATION_STANDING_KICKING_LOW_LEFT:
-							# Play the "kicking low, left" animation
-							player.animation_player.play(ANIMATION_STANDING_KICKING_LOW_LEFT)
-
-							# Check the kick hits something
-							player.check_kick_collision()
-
-		# [right-kick] button _pressed_
-		if event.is_action_pressed("button_7"):
-			# Check if the animation player is not locked
-			if !player.is_animation_locked:
-				# Check if the player is not "crouching" and is "on floor"
-				if !player.is_crouching and player.is_on_floor():
-					# Check if the player is not "holding a rifle" (and kicking is enabled)
-					if !player.is_holding_rifle and player.enable_kicking:
-						# Flag the animation player as locked
-						player.is_animation_locked = true
-
-						# Flag the player as "kicking with their right leg"
-						player.is_kicking_right = true
-
-						# Check if the animation player is not already playing the appropriate animation
-						if player.animation_player.current_animation != ANIMATION_STANDING_KICKING_LOW_RIGHT:
-							# Play the "kicking low, right" animation
-							player.animation_player.play(ANIMATION_STANDING_KICKING_LOW_RIGHT)
-
-							# Check the kick hits something
-							player.check_kick_collision()
-
-		# [aim] button just _pressed_
-		if controls.current_input_type == controls.InputType.KEYBOARD_MOUSE and event.is_action_pressed("button_5")\
-		or event.is_action_pressed("button_6"):
-			# Check if the animation player is not locked
-			if !player.is_animation_locked:
-				# Check if the player is "holding a rifle"
-				if player.is_holding_rifle:
-					# Flag the player as "aiming"
-					player.is_aiming = true
-
-		# [aim] button just _released_
-		if controls.current_input_type == controls.InputType.KEYBOARD_MOUSE and event.is_action_released("button_5")\
-		or event.is_action_released("button_6"):
-			# Check if the animation player is not locked
-			if !player.is_animation_locked:
-				# Check if the player is "holding a rifle"
-				if player.is_holding_rifle:
-					# Flag the player as not "aiming"
-					player.is_aiming = false
-
-		# [left-punch] button just _pressed_
-		if event.is_action_pressed("button_4"):
-			# Check if the animation player is not locked
-			if !player.is_animation_locked:
-				# Check if the player is "holding a fishing rod"
-				if player.is_holding_fishing_rod:
-					# Flag the player as "reeling"
-					player.is_reeling = true
-
-				# Check if the player is not "holding a rifle" and not holding any object
-				elif !player.is_holding_rifle and !player.is_holding:
-					# Check if punching is enabled
-					if player.enable_punching:
-						# Flag the animation player as locked
-						player.is_animation_locked = true
-
-						# Flag the player as "punching with their left arm"
-						player.is_punching_left = true
-
-						# Check if the animation player is not already playing the appropriate animation
-						if player.animation_player.current_animation != ANIMATION_STANDING_PUNCHING_HIGH_LEFT:
-								# Play the "punching high, left" animation
-								player.animation_player.play(ANIMATION_STANDING_PUNCHING_HIGH_LEFT)
-
-								# Check the punch hits something
-								player.check_punch_collision()
-
-		# [left-punch] button just _released_
-		if event.is_action_released("button_4"):
-			# Check if the player is "holding a fishing rod"
-			if player.is_holding_fishing_rod:
-				# Flag the player as not "reeling"
-				player.is_reeling = false
-
-		# [shoot] button just _pressed_
-		if controls.current_input_type == controls.InputType.KEYBOARD_MOUSE and event.is_action_pressed("button_4")\
-		or event.is_action_pressed("button_7"):
-			# Check if the animation player is not locked
-			if !player.is_animation_locked:
-				# Check if the player is "holding a rifle"
-				if player.is_holding_rifle:
-					# Flag the player as is "firing"
-					player.is_firing = true
-
-					# Delay execution
-					await get_tree().create_timer(0.3).timeout
-
-					# Flag the player as is not "firing"
-					player.is_firing = false
-
-		# [right-punch] button just _pressed_
-		if event.is_action_pressed("button_5"):
-			# Check if the animation player is not locked
-			if !player.is_animation_locked:
-				# Check if the player is "holding a fishing rod"
-				if player.is_holding_fishing_rod:
-					# Flag the player as "casting"
-					player.is_casting = true
-
-				# Check if the player is not "holding a rifle" and not holding any object
-				elif !player.is_holding_rifle and !player.is_holding:
-					# Check if punching is enabled
-					if player.enable_punching:
-						# Flag the animation player as locked
-						player.is_animation_locked = true
-
-						# Flag the player as "punching with their right arm"
-						player.is_punching_right = true
-
-						# Check if the animation player is not already playing the appropriate animation
-						if player.animation_player.current_animation != ANIMATION_STANDING_PUNCHING_HIGH_RIGHT:
-							# Play the "punching high, right" animation
-							player.animation_player.play(ANIMATION_STANDING_PUNCHING_HIGH_RIGHT)
-
-							# Check the punch hits something
-							player.check_punch_collision()
-
-		# [right-punch] button just _released_
-		if event.is_action_released("button_5"):
-			# Check if the player is "holding a fishing rod"
-			if player.is_holding_fishing_rod:
-				# Flag the player as not "casting"
-				player.is_casting = false
-
-		# [use] button just _pressed_ (and the middle raycast is colliding)
+		# Ⓧ/[E] _pressed_ (and the middle raycast is colliding)
 		if event.is_action_pressed("button_2") and player.raycast_use.is_colliding():
 			# Check that the collider is usable
 			if player.raycast_use.get_collider().is_in_group("Usable"):
 				# Flag the player as "using"
 				player.is_using = true
 
+		# Ⓨ/[Ctrl]::[button_3] _pressed_ and crouching is enabled -> Start "crouching"
+		if event.is_action_pressed("button_3") and player.enable_crouching:
+			# Start "crouching"
+			transition(NODE_NAME, "Crouching")
+
+		# 🄻1/[L-Click] _pressed_ and punching is enabled -> Start "punching" (left arm)
+		if event.is_action_pressed("button_4") and player.enable_punching:
+			# Check if the animation player is not locked
+			if !player.is_animation_locked:
+				# Check if the player is not "holding a fishing rod", "holding a rifle", and not holding any object
+				if !player.is_holding_fishing_rod and !player.is_holding_rifle and !player.is_holding:
+					# Flag the animation player as locked
+					player.is_animation_locked = true
+					# Flag the player as "punching with their left arm"
+					player.is_punching_left = true
+					# Check if the animation player is not already playing the appropriate animation
+					if player.animation_player.current_animation != ANIMATION_STANDING_PUNCHING_HIGH_LEFT:
+							# Play the "punching high, left" animation
+							player.animation_player.play(ANIMATION_STANDING_PUNCHING_HIGH_LEFT)
+							# Check the punch hits something
+							player.check_punch_collision()
+
+		# 🅁1/[R-Click] _pressed_ and punching is enabled -> Start "punching" (right arm)
+		if event.is_action_pressed("button_5") and player.enable_punching:
+			# Check if the animation player is not locked
+			if !player.is_animation_locked:
+				# Check if the player is not "holding a fishing rod", "holding a rifle", and not holding any object
+				if !player.is_holding_fishing_rod and !player.is_holding_rifle and !player.is_holding:
+					# Flag the animation player as locked
+					player.is_animation_locked = true
+					# Flag the player as "punching with their right arm"
+					player.is_punching_right = true
+					# Check if the animation player is not already playing the appropriate animation
+					if player.animation_player.current_animation != ANIMATION_STANDING_PUNCHING_HIGH_RIGHT:
+							# Play the "punching high, right" animation
+							player.animation_player.play(ANIMATION_STANDING_PUNCHING_HIGH_RIGHT)
+							# Check the punch hits something
+							player.check_punch_collision()
+
+		# 🄻2/[Mouse-Forward]::[button_6] _pressed_ and kicking is enabled -> Start "kicking" (left leg)
+		if event.is_action_pressed("button_6") and player.enable_kicking:
+			# Check if the animation player is not locked
+			if !player.is_animation_locked:
+				# Check if the player is not "crouching" and is "on floor"
+				if !player.is_crouching and player.is_on_floor():
+					# Check if the player is not "holding a rifle"
+					if !player.is_holding_rifle:
+						# Flag the animation player as locked
+						player.is_animation_locked = true
+						# Flag the player as "kicking with their left leg"
+						player.is_kicking_left = true
+						# Check if the animation player is not already playing the appropriate animation
+						if player.animation_player.current_animation != ANIMATION_STANDING_KICKING_LOW_LEFT:
+							# Play the "kicking low, left" animation
+							player.animation_player.play(ANIMATION_STANDING_KICKING_LOW_LEFT)
+							# Check the kick hits something
+							player.check_kick_collision()
+
+		# 🅁2/[Mouse-Backward]::[button_7] _pressed_ and kicking is enabled -> Start "kicking" (right leg)
+		if event.is_action_pressed("button_7") and player.enable_kicking:
+			# Check if the animation player is not locked
+			if !player.is_animation_locked:
+				# Check if the player is not "crouching" and is "on floor"
+				if !player.is_crouching and player.is_on_floor():
+					# Check if the player is not "holding a rifle"
+					if !player.is_holding_rifle:
+						# Flag the animation player as locked
+						player.is_animation_locked = true
+						# Flag the player as "kicking with their right leg"
+						player.is_kicking_right = true
+						# Check if the animation player is not already playing the appropriate animation
+						if player.animation_player.current_animation != ANIMATION_STANDING_KICKING_LOW_RIGHT:
+							# Play the "kicking low, right" animation
+							player.animation_player.play(ANIMATION_STANDING_KICKING_LOW_RIGHT)
+							# Check the kick hits something
+							player.check_kick_collision()
+
+		# 🄻2/[R-Click] _pressed_ and the player is "holding a rifle" -> Start "aiming"
+		if controls.current_input_type == controls.InputType.KEYBOARD_MOUSE and event.is_action_pressed("button_5") and player.is_holding_rifle\
+		or event.is_action_pressed("button_6") and player.is_holding_rifle:
+			# Check if the animation player is not locked
+			if !player.is_animation_locked:
+				# Flag the player as "aiming"
+				player.is_aiming = true
+
+		# 🄻2/[R-Click] _released_ and the player is "holding a rifle" -> Stop "aiming"
+		if controls.current_input_type == controls.InputType.KEYBOARD_MOUSE and event.is_action_released("button_5") and player.is_holding_rifle\
+		or event.is_action_released("button_6") and player.is_holding_rifle:
+			# Check if the animation player is not locked
+			if !player.is_animation_locked:
+				# Flag the player as not "aiming"
+				player.is_aiming = false
+
+		# 🅁2/[L-Click] _pressed_ the player is "holding a rifle" -> Start "firing"
+		if controls.current_input_type == controls.InputType.KEYBOARD_MOUSE and event.is_action_pressed("button_4") and player.is_holding_rifle\
+		or event.is_action_pressed("button_7") and player.is_holding_rifle:
+			# Check if the animation player is not locked
+			if !player.is_animation_locked:
+				# Flag the player as is "firing"
+				player.is_firing = true
+				# Delay execution
+				await get_tree().create_timer(0.3).timeout
+				# Flag the player as is not "firing"
+				player.is_firing = false
+
+		# 🄻1/[L-Click] _pressed_ and the player is "holding a fishing rod" -> Start "casting"
+		if event.is_action_pressed("button_4") and player.is_holding_fishing_rod:
+			# Check if the animation player is not locked
+			if !player.is_animation_locked:
+				# Flag the player as "casting"
+				player.is_casting = true
+
+		# 🄻1/[L-Click] _released_ and player is holding a fishing rod -> Stop "casting"
+		if event.is_action_released("button_4") and player.is_holding_fishing_rod:
+			# Flag the player as not "casting"
+			player.is_casting = false
+
+		# 🅁1/[R-Click] _pressed_ and player is "holding a fishing rod" -> Start "reeling"
+		if event.is_action_pressed("button_5") and player.is_holding_fishing_rod:
+			# Check if the animation player is not locked
+			if !player.is_animation_locked:
+				# Flag the player as "reeling"
+				player.is_reeling = true
+
+		# 🅁1/[R-Click] _released_ and the player is "holding a fishing rod" -> Stop "reeling"
+		if event.is_action_released("button_5") and player.is_holding_fishing_rod:
+			# Flag the player as not "reeling"
+			player.is_reeling = false
+
+		# 🅁1/[R-Click] _pressed_ and player is "holding a tool" -> Start "swinging"
+		if event.is_action_pressed("button_5") and player.is_holding_tool:
+			# Check if the animation player is not locked
+			if !player.is_animation_locked:
+				# Flag the player as "swinging"
+				player.is_swinging = true
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -197,7 +181,7 @@ func _process(_delta: float) -> void:
 	#if !is_multiplayer_authority(): return
 	# Check if the game is not paused
 	if !player.game_paused:
-		# [crouch] button _pressed_, crouching is enabled, and not already "crouching"
+		# Ⓨ/[Ctrl]::[button_3] _pressed_, crouching is enabled, and not already "crouching"
 		if Input.is_action_pressed("button_3") and player.enable_crouching and !player.is_crouching:
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:

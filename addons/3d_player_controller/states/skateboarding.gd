@@ -10,7 +10,7 @@ const NODE_NAME := "Skateboarding"
 func _input(event: InputEvent) -> void:
 	# Check if the game is not paused
 	if !player.game_paused:
-		# [crouch] button _pressed_
+		# Ⓨ/[Ctrl]::[button_3] _pressed_
 		if event.is_action_pressed("button_3"):
 			# Check if the player is on the ground
 			if player.is_on_floor():
@@ -19,14 +19,14 @@ func _input(event: InputEvent) -> void:
 				# Set the player's speed
 				player.speed_current = player.speed_crawling
 
-		# [crouch] button _release_
+		# Ⓨ/[Ctrl]::[button_3] _release_
 		if event.is_action_released("button_3"):
 			# Flag the player as not "crouching"
 			player.is_crouching = false
 			# Set the player's speed
 			player.speed_current = player.speed_running
 
-		# [jump] button _pressed_
+		# Ⓐ/[Space]::[button_0] button _pressed_
 		if event.is_action_pressed("button_0"):
 			# Check if the player is on the ground
 			if player.is_on_floor():

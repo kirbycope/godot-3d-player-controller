@@ -16,7 +16,7 @@ const NODE_NAME := "Crouching"
 func _input(event: InputEvent) -> void:
 	# Check if the game is not paused
 	if !player.game_paused:
-		# [jump] button just _pressed_
+		# Ⓐ/[Space]::[button_0] button just _pressed_
 		if event.is_action_pressed("button_0") and player.enable_jumping:
 			# Start "jumping"
 			transition(NODE_NAME, "Jumping")
@@ -120,7 +120,7 @@ func _process(_delta: float) -> void:
 			# Start "crawling"
 			transition(NODE_NAME, "Crawling")
 
-		# [crouch] button not _pressed_
+		# Ⓨ/[Ctrl]::[button_3] not _pressed_
 		if !Input.is_action_pressed("button_3"):
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:

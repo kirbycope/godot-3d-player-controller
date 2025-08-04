@@ -11,12 +11,12 @@ const NODE_NAME := "Running"
 func _input(event: InputEvent) -> void:
 	# Check if the game is not paused
 	if !player.game_paused:
-		# [crouch] button just _pressed_ and crouching is enabled
+		# Ⓨ/[Ctrl]::[button_3] just _pressed_ and crouching is enabled
 		if event.is_action_pressed("button_3") and player.enable_crouching:
 			# Start "crouching"
 			transition(NODE_NAME, "Crouching")
 
-		# [jump] button just _pressed_
+		# Ⓐ/[Space]::[button_0] button just _pressed_
 		if event.is_action_pressed("button_0") and player.enable_jumping:
 			# Start "jumping"
 			transition(NODE_NAME, "Jumping")

@@ -42,7 +42,7 @@ func _input(event: InputEvent) -> void:
 				# Log the time of the event
 				last_mouse_move_time = Time.get_ticks_msec() / 1000.0
 
-			# [crouch] action _pressed_
+			# Ⓨ/[Ctrl]::[button_3] action _pressed_
 			if event.is_action_pressed("button_3"):
 				# Check if the player is DRIVING
 				if player.is_driving:
@@ -95,7 +95,7 @@ func _input(event: InputEvent) -> void:
 					# Start "standing"
 					player.base_state.transition("Driving", "Standing")
 
-			# [jump] action _pressed_
+			# Ⓐ/[Space]::[button_0] action _pressed_
 			if event.is_action_pressed("button_0"):
 				# Check if the player is DRIVING
 				if player.is_driving:

@@ -10,13 +10,13 @@ const NODE_NAME := "Climbing"
 func _input(event: InputEvent) -> void:
 	# Check if the game is not paused
 	if !player.game_paused:
-		# [crouch] button _pressed_
+		# Ⓨ/[Ctrl]::[button_3] _pressed_
 		if event.is_action_pressed("button_3"):
 			# Start falling
 			transition(NODE_NAME, "Falling")
 			return
 
-		# [jump] button _pressed_
+		# Ⓐ/[Space]::[button_0] button _pressed_
 		if event.is_action_pressed("button_0") and player.enable_jumping:
 			# ToDo: Jump up and climb higher
 			pass

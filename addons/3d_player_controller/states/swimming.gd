@@ -27,12 +27,12 @@ func _process(_delta: float) -> void:
 				player.position.y = swimming_entry_target_y
 				swimming_entry_lerp_time = 0.0
 
-		# [crouch] button just _pressed_
+		# Ⓨ/[Ctrl]::[button_3] just _pressed_
 		if Input.is_action_pressed("button_3"):
 			# Decrement the player's vertical position
 			player.position.y -= 0.01
 
-		# [jump] button just _pressed_
+		# Ⓐ/[Space]::[button_0] button just _pressed_
 		if Input.is_action_pressed("button_0"):
 			# Check if the player is swimming in a body of water
 			if player.is_swimming_in:

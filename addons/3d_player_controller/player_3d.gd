@@ -8,84 +8,90 @@ const BONE_NAME_RIGHT_FOOT = "RightFoot"
 const STATES = preload("res://addons/3d_player_controller/states/states.gd")
 
 # Note: `@export` variables are available for editing in the property editor.
-@export var current_state: STATES.State = STATES.State.STANDING
-@export var enable_chat: bool = true
-@export var enable_emotes: bool = true
-@export var enable_climbing: bool = true
-@export var enable_crouching: bool = true
-@export var enable_double_jump: bool = false
-@export var enable_flying: bool = false
-@export var enable_jumping: bool = true
-@export var enable_kicking: bool = true
-@export var enable_noclip: bool = false
-@export var enable_punching: bool = true
-@export var enable_sprinting: bool = true
-@export var enable_vibration: bool = false
-@export var friction_skateboarding: float = 0.01
-@export var force_kicking: float = 2.0
-@export var force_kicking_sprinting: float = 3.0
-@export var force_punching: float = 1.0
-@export var force_punching_sprinting: float = 1.5
-@export var force_pushing: float = 0.2
-@export var force_pushing_sprinting: float = 0.4
-@export var force_pushing_multiplier: float = 1.0  ## Global multiplier for all pushing/hitting forces
-@export var game_paused: bool = false
-@export var jump_velocity: float = 4.5
-@export var lock_camera: bool = false
-@export var lock_movement_x: bool = false
-@export var lock_movement_y: bool = false
-@export var lock_perspective: bool = false
+@export var current_state: STATES.State = STATES.State.STANDING ## The current state of the player.
+@export var game_paused: bool = false ## Is the game paused?
+@export_group("Toggle Features")
+@export var enable_chat: bool = true ## Enable the chat window
+@export var enable_emotes: bool = true ## Enable emotes
+@export var enable_climbing: bool = true ## Enable climbing
+@export var enable_crouching: bool = true ## Enable crouching
+@export var enable_double_jump: bool = false ## Enable double jump
+@export var enable_flying: bool = false ## Enable flying
+@export var enable_jumping: bool = true ## Enable jumping
+@export var enable_kicking: bool = true ## Enable kicking
+@export var enable_noclip: bool = false ## Enable noclip
+@export var enable_punching: bool = true ## Enable punching
+@export var enable_sprinting: bool = true ## Enable sprinting
+@export var enable_vibration: bool = false ## Enable controller vibration
+@export_group("Camera Settings")
+@export var lock_camera: bool = false ## Lock the camera
+@export var lock_perspective: bool = false ## Lock the camera perspective
 @export var perspective: int = 0 ## 0 = Third Person, 1 = First Person
-@export var speed_climbing: float = 0.5
-@export var speed_crawling: float = 0.75
-@export var speed_current: float = 3.0
-@export var speed_flying: float = 5.0
-@export var speed_flying_fast: float = 10.0
-@export var speed_hanging: float = 0.5
-@export var speed_running: float = 3.5
-@export var speed_sprinting: float = 5.0
-@export var speed_swimming: float = 3.0
-@export var speed_walking: float = 1.0
-@export var throw_force: float = 3.5
+@export_group("Movement Settings")
+@export var friction_skateboarding: float = 0.01 ## Friction while skateboarding
+@export var jump_velocity: float = 4.5 ## Jump velocity
+@export var lock_movement_x: bool = false ## Lock movement on the X axis
+@export var lock_movement_y: bool = false ## Lock movement on the Y axis
+@export var speed_climbing: float = 0.5 ## Speed while climbing
+@export var speed_crawling: float = 0.75 ## Speed while crawling
+@export var speed_current: float = 3.0 ## Current speed
+@export var speed_flying: float = 5.0 ## Speed while flying
+@export var speed_flying_fast: float = 10.0 ## Speed while flying fast
+@export var speed_hanging: float = 0.5 ## Speed while hanging
+@export var speed_running: float = 3.5 ## Speed while running
+@export var speed_sprinting: float = 5.0 ## Speed while sprinting
+@export var speed_swimming: float = 3.0 ## Speed while swimming
+@export var speed_walking: float = 1.0 ## Speed while walking
+@export_group("Physics Settings")
+@export var force_kicking: float = 2.0 ## Force applied when kicking
+@export var force_kicking_sprinting: float = 3.0 ## Force applied when kicking while sprinting
+@export var force_punching: float = 1.0 ## Force applied when punching
+@export var force_punching_sprinting: float = 1.5 ## Force applied when punching while sprinting
+@export var force_pushing: float = 0.2 ## Force applied when pushing
+@export var force_pushing_sprinting: float = 0.4 ## Force applied when pushing while sprinting
+@export var force_pushing_multiplier: float = 1.0  ## Global multiplier for all pushing/hitting forces
+@export var throw_force: float = 3.5 ## Force applied when throwing
+
 
 # State machine variables
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-var is_aiming: bool = false
-var is_animation_locked: bool = false
-var is_casting: bool = false
-var is_climbing: bool = false
-var is_crawling: bool = false
-var is_crouching: bool = false
-var is_double_jumping: bool = false
-var is_driving: bool = false
-var is_driving_in ## The Node the player is driving
-var is_falling: bool = false
-var is_firing: bool = false
-var is_flying: bool = false
-var is_hanging: bool = false
-var is_holding: bool = false
-var is_holding_onto ## The Node held in a player's hand
-var is_holding_fishing_rod: bool = false
-var is_holding_rifle: bool = false
-var is_holding_tool: bool = false
-var is_jumping: bool = false
-var is_kicking_left: bool = false
-var is_kicking_right: bool = false
-var is_punching_left: bool = false
-var is_punching_right: bool = false
-var is_reeling: bool = false
-var is_rotating_object: bool = false
-var is_running: bool = false
-var is_shimmying: bool = false
-var is_skateboarding: bool = false
-var is_skateboarding_on ## The Node the player is skateboarding on
-var is_sprinting: bool = false
-var is_standing: bool = false
+var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")	## Default gravity value
+var is_aiming: bool = false ## Is the player aiming?
+var is_animation_locked: bool = false ## Is the animation player locked?
+var is_casting: bool = false ## Is the player casting a fishing line?
+var is_climbing: bool = false ## Is the player climbing?
+var is_crawling: bool = false ## Is the player crawling?
+var is_crouching: bool = false ## Is the player crouching?
+var is_double_jumping: bool = false ## Is the player double jumping?
+var is_driving: bool = false ## Is the player driving?
+var is_driving_in ## The Node the player is driving in.
+var is_falling: bool = false ## Is the player falling?
+var is_firing: bool = false ## Is the player firing a weapon?
+var is_flying: bool = false  ## Is the player flying?
+var is_hanging: bool = false  ## Is the player hanging from a ledge?
+var is_holding: bool = false ## Is the player holding an object in front of them?
+var is_holding_onto ## The object the player is holding in front of them.
+var is_holding_fishing_rod: bool = false ## Is the player holding a fishing rod?
+var is_holding_rifle: bool = false ## Is the player holding a rifle?
+var is_holding_tool: bool = false ## Is the player holding a tool?
+var is_jumping: bool = false ## Is the player jumping?
+var is_kicking_left: bool = false ## Is the player kicking with the left foot?
+var is_kicking_right: bool = false ## Is the player kicking with the right foot?
+var is_punching_left: bool = false ## Is the player punching with the left hand?
+var is_punching_right: bool = false ## Is the player punching with the right hand?
+var is_reeling: bool = false ## Is the player reeling in a fishing line?
+var is_rotating_object: bool = false ## Is the player rotating an object being held in front of them?
+var is_running: bool = false ## Is the player running?
+var is_shimmying: bool = false ## Is the player shimmying along a ledge?
+var is_skateboarding: bool = false ## Is the player skateboarding?
+var is_skateboarding_on ## The Node the player is skateboarding on.
+var is_sprinting: bool = false ## Is the player sprinting?
+var is_standing: bool = false ## Is the player standing?
+var is_swinging: bool = false ## Is the player swinging?
 var is_swimming_in ## The Node the player is swimming in
-var is_swimming: bool = false
-var is_using: bool = false
-var is_walking: bool = false
-var virtual_velocity: Vector3 = Vector3.ZERO
+var is_swimming: bool = false ## Is the player swimming?
+var is_using: bool = false ## Is the player using an object?
+var is_walking: bool = false ## Is the player walking?
+var virtual_velocity: Vector3 = Vector3.ZERO ## The velocity of the player if they moved, to be used when movement is locked.
 
 # Note: `@onready` variables are set when the scene is loaded.
 # Audio and Animation
@@ -196,10 +202,10 @@ func _process(delta: float) -> void:
 		if enable_noclip:
 			# [Re]Set player's movement speed
 			speed_current = speed_flying_fast
-			# [crouch] button _pressed_
+			# Ⓨ/[Ctrl]::[button_3] _pressed_
 			if Input.is_action_pressed("button_3"):
 				global_position = global_position - Vector3(0, delta * 10, 0)
-			# [jump] button _pressed_
+			# Ⓐ/[Space]::[button_0] button _pressed_
 			if Input.is_action_pressed("button_0"):
 				global_position = global_position + Vector3(0, delta * 10, 0)
 
@@ -520,7 +526,7 @@ func update_velocity() -> void:
 			# Set the friction to the skateboarding friction
 			var friction_current = friction_skateboarding
 
-			# [crouch] action _pressed_
+			# Ⓨ/[Ctrl]::[button_3] action _pressed_
 			if is_crouching:
 				# Slow down the player, more than usual
 				friction_current = friction_current * 10
