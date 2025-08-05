@@ -80,6 +80,7 @@ var is_kicking_left: bool = false ## Is the player kicking with the left foot?
 var is_kicking_right: bool = false ## Is the player kicking with the right foot?
 var is_punching_left: bool = false ## Is the player punching with the left hand?
 var is_punching_right: bool = false ## Is the player punching with the right hand?
+var is_pushing: bool = false ## Is the player pushing something?
 var is_reeling: bool = false ## Is the player reeling in a fishing line?
 var is_rotating_object: bool = false ## Is the player rotating an object being held in front of them?
 var is_running: bool = false ## Is the player running?

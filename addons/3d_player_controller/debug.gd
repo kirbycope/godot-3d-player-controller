@@ -32,6 +32,7 @@ func _process(_delta: float) -> void:
 		$Panel1/IsKickingRight.button_pressed = player.is_kicking_right
 		$Panel1/IsPunchingLeft.button_pressed = player.is_punching_left
 		$Panel1/IsPunchingRight.button_pressed = player.is_punching_right
+		$Panel1/IsPushing.button_pressed = player.is_pushing
 		$Panel1/IsRunning.button_pressed = player.is_running
 		$Panel1/IsSkateboarding.button_pressed = player.is_skateboarding
 		$Panel1/IsShimmying.button_pressed = player.is_shimmying

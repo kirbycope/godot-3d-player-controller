@@ -16,7 +16,7 @@ script = ExtResource("1_nyx4n")
 layout_mode = 1
 anchors_preset = -1
 offset_right = 216.0
-offset_bottom = 552.0
+offset_bottom = 576.0
 
 [node name="Label4" type="Label" parent="Panel1"]
 layout_mode = 0
@@ -241,131 +241,146 @@ offset_top = 338.0
 offset_right = 216.0
 offset_bottom = 362.0
 
+[node name="Label15" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 362.0
+offset_right = 179.0
+offset_bottom = 385.0
+text = "is_pushing"
+
+[node name="IsPushing" type="CheckBox" parent="Panel1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 362.0
+offset_right = 216.0
+offset_bottom = 386.0
+
 [node name="Label20" type="Label" parent="Panel1"]
-layout_mode = 0
-offset_left = 9.0
-offset_top = 359.0
-offset_right = 179.0
-offset_bottom = 382.0
-text = "is_running"
-
-[node name="IsRunning" type="CheckBox" parent="Panel1"]
-layout_mode = 0
-offset_left = 192.0
-offset_top = 359.0
-offset_right = 216.0
-offset_bottom = 383.0
-
-[node name="Label31" type="Label" parent="Panel1"]
-layout_mode = 0
-offset_left = 9.0
-offset_top = 407.0
-offset_right = 179.0
-offset_bottom = 430.0
-text = "is_skateboarding"
-
-[node name="IsSkateboarding" type="CheckBox" parent="Panel1"]
-layout_mode = 0
-offset_left = 192.0
-offset_top = 407.0
-offset_right = 216.0
-offset_bottom = 431.0
-
-[node name="Label34" type="Label" parent="Panel1"]
 layout_mode = 0
 offset_left = 9.0
 offset_top = 383.0
 offset_right = 179.0
 offset_bottom = 406.0
-text = "is_shimmying"
+text = "is_running"
 
-[node name="IsShimmying" type="CheckBox" parent="Panel1"]
+[node name="IsRunning" type="CheckBox" parent="Panel1"]
 layout_mode = 0
 offset_left = 192.0
 offset_top = 383.0
 offset_right = 216.0
 offset_bottom = 407.0
 
-[node name="Label14" type="Label" parent="Panel1"]
+[node name="Label31" type="Label" parent="Panel1"]
 layout_mode = 0
 offset_left = 9.0
 offset_top = 431.0
 offset_right = 179.0
 offset_bottom = 454.0
-text = "is_sprinting"
+text = "is_skateboarding"
 
-[node name="IsSprinting" type="CheckBox" parent="Panel1"]
+[node name="IsSkateboarding" type="CheckBox" parent="Panel1"]
 layout_mode = 0
 offset_left = 192.0
 offset_top = 431.0
 offset_right = 216.0
 offset_bottom = 455.0
 
-[node name="Label21" type="Label" parent="Panel1"]
+[node name="Label34" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 407.0
+offset_right = 179.0
+offset_bottom = 430.0
+text = "is_shimmying"
+
+[node name="IsShimmying" type="CheckBox" parent="Panel1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 407.0
+offset_right = 216.0
+offset_bottom = 431.0
+
+[node name="Label14" type="Label" parent="Panel1"]
 layout_mode = 0
 offset_left = 9.0
 offset_top = 455.0
 offset_right = 179.0
 offset_bottom = 478.0
-text = "is_standing"
+text = "is_sprinting"
 
-[node name="IsStanding" type="CheckBox" parent="Panel1"]
+[node name="IsSprinting" type="CheckBox" parent="Panel1"]
 layout_mode = 0
 offset_left = 192.0
 offset_top = 455.0
 offset_right = 216.0
 offset_bottom = 479.0
 
-[node name="Label23" type="Label" parent="Panel1"]
+[node name="Label21" type="Label" parent="Panel1"]
 layout_mode = 0
 offset_left = 9.0
 offset_top = 479.0
 offset_right = 179.0
 offset_bottom = 502.0
-text = "is_swimming"
+text = "is_standing"
 
-[node name="IsSwimming" type="CheckBox" parent="Panel1"]
+[node name="IsStanding" type="CheckBox" parent="Panel1"]
 layout_mode = 0
 offset_left = 192.0
 offset_top = 479.0
 offset_right = 216.0
 offset_bottom = 503.0
 
-[node name="IsUsing" type="CheckBox" parent="Panel1"]
+[node name="Label23" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 503.0
+offset_right = 179.0
+offset_bottom = 526.0
+text = "is_swimming"
+
+[node name="IsSwimming" type="CheckBox" parent="Panel1"]
 layout_mode = 0
 offset_left = 192.0
 offset_top = 503.0
 offset_right = 216.0
 offset_bottom = 527.0
 
-[node name="Label33" type="Label" parent="Panel1"]
-layout_mode = 0
-offset_left = 9.0
-offset_top = 503.0
-offset_right = 179.0
-offset_bottom = 526.0
-text = "is_using"
-
-[node name="IsWalking" type="CheckBox" parent="Panel1"]
+[node name="IsUsing" type="CheckBox" parent="Panel1"]
 layout_mode = 0
 offset_left = 192.0
 offset_top = 527.0
 offset_right = 216.0
 offset_bottom = 551.0
 
-[node name="Label27" type="Label" parent="Panel1"]
+[node name="Label33" type="Label" parent="Panel1"]
 layout_mode = 0
 offset_left = 9.0
 offset_top = 527.0
 offset_right = 179.0
 offset_bottom = 550.0
+text = "is_using"
+
+[node name="IsWalking" type="CheckBox" parent="Panel1"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 551.0
+offset_right = 216.0
+offset_bottom = 575.0
+
+[node name="Label27" type="Label" parent="Panel1"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 551.0
+offset_right = 179.0
+offset_bottom = 574.0
 text = "is_walking"
 
 [node name="Fishing" type="Panel" parent="Panel1"]
 layout_mode = 0
-offset_top = 556.0
+offset_top = 577.0
 offset_right = 216.0
-offset_bottom = 628.0
+offset_bottom = 649.0
 
 [node name="Label28" type="Label" parent="Panel1/Fishing"]
 layout_mode = 0
@@ -412,9 +427,9 @@ offset_bottom = 72.0
 
 [node name="Shooting" type="Panel" parent="Panel1"]
 layout_mode = 0
-offset_top = 631.0
+offset_top = 650.0
 offset_right = 216.0
-offset_bottom = 703.0
+offset_bottom = 722.0
 
 [node name="Label16" type="Label" parent="Panel1/Shooting"]
 layout_mode = 0
@@ -461,8 +476,8 @@ offset_bottom = 72.0
 
 [node name="Swinging" type="Panel" parent="Panel1"]
 layout_mode = 0
-offset_left = 220.0
-offset_right = 436.0
+offset_left = 218.0
+offset_right = 434.0
 offset_bottom = 120.0
 
 [node name="Label17" type="Label" parent="Panel1/Swinging"]

@@ -250,6 +250,13 @@ func _process(_delta: float) -> void:
 					# Start "sprinting"
 					transition(NODE_NAME, "Sprinting")
 
+		# Check if the player is not moving but input is pressed and blocked by obstacle
+		elif Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right") or Input.is_action_pressed("move_up") or Input.is_action_pressed("move_down"):
+			# Check if there is something in front of the player
+			if player.raycast_middle.is_colliding() or player.raycast_high.is_colliding():
+				# Start "pushing"
+				transition(NODE_NAME, "Pushing")
+
 	# Check if the player is "standing"
 	if player.is_standing:
 		# Play the animation
