@@ -20,19 +20,6 @@ func _on_area_3d_body_entered(body: Node3D, area_node: Node3D) -> void:
 	# Check if the collision body is a character
 	if body is CharacterBody3D and body.is_in_group("Player"):
 
-		# Drop any held items before swimming
-		if body.is_holding_fishing_rod or body.is_holding_rifle:
-			# Remove the item from the player
-			body.visuals.get_node("HeldItemMount").remove_child(body.is_holding_onto)
-			# Reparent the item to the main scene
-			get_tree().current_scene.add_child(body.is_holding_onto)
-			# Set appropriate name and clear references
-			if body.is_holding_fishing_rod:
-				body.is_holding_fishing_rod = false
-			elif body.is_holding_rifle:
-				body.is_holding_rifle = false
-			body.is_holding_onto = null
-
 		# Drop any equipment before swimming
 		if body.is_skateboarding:
 			# Remove any foot mounted equipment from the player

@@ -10,46 +10,37 @@ const NODE_NAME := "Hanging"
 func _input(event: InputEvent) -> void:
 	# Check if the game is not paused
 	if !player.game_paused:
-		# Ⓨ/[Ctrl]::[button_3] _pressed_
+		# Ⓨ/[Ctrl] _pressed_ -> Start "falling"
 		if event.is_action_pressed("button_3"):
 			# Start falling
 			transition(NODE_NAME, "Falling")
-			return
 
-		# Ⓐ/[Space]::[button_0] button _pressed_
+		# Ⓐ/[Space] button _pressed_ and the jump target is valid -> Start "mantling"
 		if event.is_action_pressed("button_0"):
 			# Check if there is a raycast collision
 			if player.raycast_jumptarget.is_colliding():
 				# Get the collision point
 				var collision_point = player.raycast_jumptarget.get_collision_point()
-				
 				# Temporarily disable player collision to avoid physics interference during mantle
 				player.collision_shape.disabled = true
-				
 				# Reset velocity to prevent unwanted movement
 				player.velocity = Vector3.ZERO
 				player.virtual_velocity = Vector3.ZERO
-				
 				# Set the player's position to the collision point
 				var tween = get_tree().create_tween()
 				tween.tween_property(player, "position", collision_point, 0.2)
-				
 				# Wait for the tween to complete
 				await tween.finished
-				
 				# Wait an additional frame for physics to settle
 				await get_tree().physics_frame
-				
 				# Re-enable collision after positioning is complete
 				player.collision_shape.disabled = false
-				
 				# Check if the player is in first-person perspective
 				if player.perspective == 1:
 					# Rotate the body to match the camera_mount
 					player.visuals.rotation = Vector3(0.0, player.camera_mount.rotation.y, player.camera_mount.rotation.z)
 				# Start "standing"
 				transition(NODE_NAME, "Standing")
-				return
 
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
@@ -163,7 +154,7 @@ func start() -> void:
 	var collision_point = player.raycast_high.get_collision_point()
 
 	# [DEBUG] Draw a debug sphere at the collision point
-	#_draw_debug_sphere(collision_point, Color.RED)
+	#draw_debug_sphere(collision_point, Color.RED)
 
 	# Get the collision normal
 	var collision_normal = player.raycast_high.get_collision_normal()
@@ -181,7 +172,7 @@ func start() -> void:
 	collision_point = collision_point - direction * player_width
 
 	# [DEBUG] Draw a debug sphere at the collision point
-	#_draw_debug_sphere(collision_point, Color.YELLOW)
+	#draw_debug_sphere(collision_point, Color.YELLOW)
 
 	# Adjust the point relative to the player's height
 	collision_point = Vector3(collision_point.x, player.position.y, collision_point.z)
@@ -194,7 +185,7 @@ func start() -> void:
 	player.global_position = collision_point
 
 	# [DEBUG] Draw a debug sphere at the collision point
-	#_draw_debug_sphere(collision_point, Color.GREEN)
+	#draw_debug_sphere(collision_point, Color.GREEN)
 
 	# Wait one frame to ensure position is set before continuing
 	await get_tree().process_frame
@@ -232,17 +223,3 @@ func stop() -> void:
 	# [Hack] Reset player visuals for animation
 	player.visuals_aux_scene.position.y = 0.0
 	player.animation_player.playback_default_blend_time = 0.2
-
-
-## Draws a debug sphere at the given position.
-func _draw_debug_sphere(pos: Vector3, color: Color) -> void:
-	var debug_sphere = MeshInstance3D.new()
-	player.get_tree().get_root().add_child(debug_sphere)
-	var sphere_mesh = SphereMesh.new()
-	sphere_mesh.radius = 0.1
-	sphere_mesh.height = 0.2
-	debug_sphere.mesh = sphere_mesh
-	var material = StandardMaterial3D.new()
-	material.albedo_color = color
-	debug_sphere.material_override = material
-	debug_sphere.global_position = pos

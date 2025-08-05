@@ -230,8 +230,8 @@ offset_top = -24.5
 offset_bottom = 24.5
 grow_horizontal = 0
 grow_vertical = 2
-text = "(L1) | [L-Click]               Reel
-(R1) | [R-Click]              Cast
+text = "(L1) | [L-Click]               Cast
+(R1) | [R-Click]              Reel
 (D-Down) | [Q]                      Drop"
 label_settings = SubResource("LabelSettings_gqmmt")
 horizontal_alignment = 2
@@ -295,14 +295,13 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -242.0
+offset_left = -200.0
 offset_top = -11.5
 offset_bottom = 11.5
 grow_horizontal = 0
 grow_vertical = 2
 text = "(D-Down) | [Q]                      Drop"
 label_settings = SubResource("LabelSettings_gqmmt")
-horizontal_alignment = 2
 
 [node name="Rotating" type="Label" parent="ControlsOverlay"]
 visible = false
@@ -374,6 +373,24 @@ grow_vertical = 2
 text = "(A) | [Space]         Swim Up
 (Y) | [Ctrl]        Swim Down"
 label_settings = SubResource("LabelSettings_gqmmt")
+
+[node name="ToolEquipped" type="Label" parent="ControlsOverlay"]
+visible = false
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -242.0
+offset_top = -37.5
+offset_bottom = 37.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "(L2) | [R-Click]           Swing
+(R2) | [L-Click]            Block
+(D-Down) | [Q]                      Drop"
+label_settings = SubResource("LabelSettings_gqmmt")
+horizontal_alignment = 2
 
 [node name="ControlsOnFootController" parent="." instance=ExtResource("4_dp3eg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
@@ -629,12 +646,12 @@ mesh = SubResource("CylinderMesh_fuf3a")
 
 [node name="StairsLabel" type="Label3D" parent="."]
 transform = Transform3D(-4.371139e-08, -1, 0, -4.371137e-08, -7.1054274e-15, 1, -1, 4.371139e-08, -4.371137e-08, 6.25, 0.01, -7)
-text = "Press Ⓐ/[Space]::[button_0]
+text = "Press [jump]
 to \"hang\""
 
 [node name="StairsLabel2" type="Label3D" parent="."]
 transform = Transform3D(-4.3711385e-08, -1, -4.3711385e-08, 7.1054274e-15, -4.3711392e-08, 1, -1, 4.371139e-08, 3.5527137e-15, 5.75, 2.01, -7)
-text = "Press Ⓐ/[Space]::[button_0]
+text = "Press [jump]
 to \"mantle\""
 
 [node name="Stairs" type="Node3D" parent="."]
@@ -805,7 +822,7 @@ transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 8.0226
 
 [node name="ClimbingWallLabel" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 3.5527137e-15, -4.371138e-08, 1, 0, -1, -4.3711374e-08, -3.9999995, 0.009999475, -6.0000005)
-text = "Press Ⓐ/[Space]::[button_0]
+text = "Press [jump]
 to \"climb\""
 
 [node name="ClimbingWallLabel2" type="Label3D" parent="."]
@@ -816,7 +833,7 @@ you reach a ledge"
 
 [node name="ClimbingWallLabel3" type="Label3D" parent="."]
 transform = Transform3D(1, -2.1175826e-22, 0, 3.5527133e-15, -4.371138e-08, 1, 0, -1, -4.3711374e-08, -4, 5.51, -6.75)
-text = "Press Ⓐ/[Space]::[button_0]
+text = "Press [jump]
 to \"mantle\""
 
 [node name="ClimbingWall" type="CSGBox3D" parent="."]

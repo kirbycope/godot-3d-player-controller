@@ -10,14 +10,14 @@ const NODE_NAME := "Sprinting"
 func _input(event: InputEvent) -> void:
 	# Check if the game is not paused
 	if !player.game_paused:
-		# Ⓐ/[Space]::[button_0] button just _pressed_
+		# Ⓐ/[Space] _pressed_ and jumping is enabled -> Start "jumping"
 		if event.is_action_pressed("button_0") and player.enable_jumping:
 			# Start "jumping"
 			transition(NODE_NAME, "Jumping")
 
-		# [sprint] button just _released_
+		# Ⓑ/[Shift] _released_ -> Stop "sprinting"
 		if event.is_action_released("button_1"):
-			# Start "standing"
+			# Start "standing" (which will check the player's speed and transition them to another state as needed)
 			transition(NODE_NAME, "Standing")
 
 

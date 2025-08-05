@@ -10,7 +10,7 @@ const NODE_NAME := "Skateboarding"
 func _input(event: InputEvent) -> void:
 	# Check if the game is not paused
 	if !player.game_paused:
-		# Ⓨ/[Ctrl]::[button_3] _pressed_
+		# Ⓨ/[Ctrl] _pressed_ -> Slow down
 		if event.is_action_pressed("button_3"):
 			# Check if the player is on the ground
 			if player.is_on_floor():
@@ -19,14 +19,14 @@ func _input(event: InputEvent) -> void:
 				# Set the player's speed
 				player.speed_current = player.speed_crawling
 
-		# Ⓨ/[Ctrl]::[button_3] _release_
+		# Ⓨ/[Ctrl] _released_ -> Resume normal speed
 		if event.is_action_released("button_3"):
 			# Flag the player as not "crouching"
 			player.is_crouching = false
 			# Set the player's speed
 			player.speed_current = player.speed_running
 
-		# Ⓐ/[Space]::[button_0] button _pressed_
+		# Ⓐ/[Space] _pressed_ -> Jump
 		if event.is_action_pressed("button_0"):
 			# Check if the player is on the ground
 			if player.is_on_floor():
@@ -35,21 +35,19 @@ func _input(event: InputEvent) -> void:
 				# Set the player's vertical velocity
 				player.velocity.y = player.jump_velocity
 
-		# [drop] button _pressed_
+		# (D-Pad Down)/[Q] _pressed_ -> Drop skateboard
 		if event.is_action_pressed("button_13"):
 			# Slow to a stop
 			player.velocity = Vector3.ZERO
-
-			# Get the equipped item
+			# Get the skateboard
 			var item = player.visuals.get_node("FootMount").get_children()[0]
-			# Remove the item from the player
+			# Remove the skateboard from the player
 			player.visuals.get_node("FootMount").remove_child(item)
-			# Reparent the item from the player to current scene
+			# Reparent the skateboard from the player to current scene
 			player.get_tree().current_scene.add_child(item)
 			# Clear the references
 			player.is_skateboarding_on.player = null
 			player.is_skateboarding_on = null
-
 			# Check if the player is on the ground
 			if player.is_on_floor():
 				# Start standing

@@ -49,14 +49,16 @@ const STATES = preload("res://addons/3d_player_controller/states/states.gd")
 @export var force_punching_sprinting: float = 1.5 ## Force applied when punching while sprinting
 @export var force_pushing: float = 0.2 ## Force applied when pushing
 @export var force_pushing_sprinting: float = 0.4 ## Force applied when pushing while sprinting
-@export var force_pushing_multiplier: float = 1.0  ## Global multiplier for all pushing/hitting forces
+@export var force_pushing_multiplier: float = 1.0 ## Global multiplier for all pushing/hitting forces
 @export var throw_force: float = 3.5 ## Force applied when throwing
 
 
 # State machine variables
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")	## Default gravity value
+var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") ## Default gravity value
 var is_aiming: bool = false ## Is the player aiming?
 var is_animation_locked: bool = false ## Is the animation player locked?
+var is_blocking_left: bool = false ## Is the player blocking with their left arm?
+var is_blocking_right: bool = false ## Is the player blocking with their right arm?
 var is_casting: bool = false ## Is the player casting a fishing line?
 var is_climbing: bool = false ## Is the player climbing?
 var is_crawling: bool = false ## Is the player crawling?
@@ -66,8 +68,8 @@ var is_driving: bool = false ## Is the player driving?
 var is_driving_in ## The Node the player is driving in.
 var is_falling: bool = false ## Is the player falling?
 var is_firing: bool = false ## Is the player firing a weapon?
-var is_flying: bool = false  ## Is the player flying?
-var is_hanging: bool = false  ## Is the player hanging from a ledge?
+var is_flying: bool = false ## Is the player flying?
+var is_hanging: bool = false ## Is the player hanging from a ledge?
 var is_holding: bool = false ## Is the player holding an object in front of them?
 var is_holding_onto ## The object the player is holding in front of them.
 var is_holding_fishing_rod: bool = false ## Is the player holding a fishing rod?
@@ -86,7 +88,8 @@ var is_skateboarding: bool = false ## Is the player skateboarding?
 var is_skateboarding_on ## The Node the player is skateboarding on.
 var is_sprinting: bool = false ## Is the player sprinting?
 var is_standing: bool = false ## Is the player standing?
-var is_swinging: bool = false ## Is the player swinging?
+var is_swinging_left: bool = false ## Is the player swinging with the left arm?
+var is_swinging_right: bool = false ## Is the player swinging with the right arm?
 var is_swimming_in ## The Node the player is swimming in
 var is_swimming: bool = false ## Is the player swimming?
 var is_using: bool = false ## Is the player using an object?
@@ -140,7 +143,6 @@ var virtual_velocity: Vector3 = Vector3.ZERO ## The velocity of the player if th
 func _ready() -> void:
 	# Uncomment the next line if using GodotSteam
 	#camera.current = is_multiplayer_authority()
-
 	# Set the canvas layer behind all other Control nodes
 	$Controls.layer = -1
 
@@ -152,44 +154,43 @@ func _ready() -> void:
 func _physics_process(delta) -> void:
 	# Uncomment the next line if using GodotSteam
 	#if !is_multiplayer_authority(): return
-	
+
+	# Apply gravity (but not if climbing, driving, hanging, swimming, or noclip)
+	if !is_climbing and !is_driving and !is_hanging:
+		# Check if the player is "swimming" or noclip mode is enabled
+		if is_swimming or enable_noclip:
+			# Ignore the gravity
+			velocity.y = 0.0
+
+		# The player must not be "swimming" or using noclip mode
+		else:
+			# Scale the gravity based on the player's size
+			var gravity_scaled = gravity * scale.y
+
+			# Add the gravity
+			velocity.y -= gravity_scaled * delta
+	# Check if no animation is playing
+	if !animation_player.is_playing():
+		# Flag the animation player no longer locked
+		is_animation_locked = false
+
+		# Reset player state
+		is_kicking_left = false
+		is_kicking_right = false
+		is_punching_left = false
+		is_punching_right = false
+		is_swinging_left = false
+		is_swinging_right = false
+
 	# Check if the game is not paused
 	if !game_paused:
-		# Apply gravity (but not if climbing, driving, hanging, swimming, or noclip)
-		if !is_climbing and !is_driving and !is_hanging:
-			# Check if the player is "swimming" or noclip mode is enabled
-			if is_swimming or enable_noclip:
-				# Ignore the gravity
-				velocity.y = 0.0
-
-			# The player must not be "swimming" or using noclip mode
-			else:
-				# Scale the gravity based on the player's size
-				var gravity_scaled = gravity * scale.y
-
-				# Add the gravity
-				velocity.y -= gravity_scaled * delta
-		# Check if no animation is playing
-		if !animation_player.is_playing():
-			# Flag the animation player no longer locked
-			is_animation_locked = false
-
-			# Reset player state
-			is_kicking_left = false
-			is_kicking_right = false
-			is_punching_left = false
-			is_punching_right = false
-
 		# Check if player is not hanging or climbing (these states handle their own movement)
 		if !is_hanging and !is_climbing:
 			# Handle player movement (input-based movement)
 			update_velocity()
 
-		# Move player (physics movement)
-		move_player(delta)
-	else:
-		# When paused, stop all movement by zeroing velocity
-		velocity = Vector3.ZERO
+	# Move player (physics movement)
+	move_player(delta)
 
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -202,10 +203,10 @@ func _process(delta: float) -> void:
 		if enable_noclip:
 			# [Re]Set player's movement speed
 			speed_current = speed_flying_fast
-			# Ⓨ/[Ctrl]::[button_3] _pressed_
+			# Ⓨ/[Ctrl] _pressed_
 			if Input.is_action_pressed("button_3"):
 				global_position = global_position - Vector3(0, delta * 10, 0)
-			# Ⓐ/[Space]::[button_0] button _pressed_
+			# Ⓐ/[Space] button _pressed_
 			if Input.is_action_pressed("button_0"):
 				global_position = global_position + Vector3(0, delta * 10, 0)
 
@@ -233,7 +234,7 @@ func check_kick_collision() -> void:
 			var base_force = force_kicking_sprinting if is_sprinting else force_kicking
 
 			# Get the appropriate foot bone position for force application at the time of impact
-			var bone_position = global_position  # Fallback to player position
+			var bone_position = global_position # Fallback to player position
 			if player_skeleton:
 				var bone_name = BONE_NAME_LEFT_FOOT if is_kicking_left else BONE_NAME_RIGHT_FOOT
 				var bone_idx = player_skeleton.find_bone(bone_name)
@@ -245,7 +246,7 @@ func check_kick_collision() -> void:
 			var impulse_direction = (stored_collision_position - bone_position).normalized()
 			
 			# Add velocity factor similar to handle_rigidbody_collisions for more powerful impacts
-			var velocity_factor = max(min(velocity.length(), 5.0), 2.0)  # Minimum 2.0 for strong kicks even when stationary
+			var velocity_factor = max(min(velocity.length(), 5.0), 2.0) # Minimum 2.0 for strong kicks even when stationary
 			var impulse = impulse_direction * base_force * velocity_factor * force_pushing_multiplier
 
 			# Apply the force to the object
@@ -256,7 +257,7 @@ func check_kick_collision() -> void:
 			var base_force = force_kicking_sprinting if is_sprinting else force_kicking
 
 			# Get the appropriate foot bone position for force application at the time of impact
-			var bone_position = global_position  # Fallback to player position
+			var bone_position = global_position # Fallback to player position
 			if player_skeleton:
 				var bone_name = BONE_NAME_LEFT_FOOT if is_kicking_left else BONE_NAME_RIGHT_FOOT
 				var bone_idx = player_skeleton.find_bone(bone_name)
@@ -268,7 +269,7 @@ func check_kick_collision() -> void:
 			var impulse_direction = (stored_collision_position - bone_position).normalized()
 			
 			# Add velocity factor similar to handle_rigidbody_collisions for more powerful impacts
-			var velocity_factor = max(min(velocity.length(), 5.0), 2.0)  # Minimum 2.0 for strong kicks even when stationary
+			var velocity_factor = max(min(velocity.length(), 5.0), 2.0) # Minimum 2.0 for strong kicks even when stationary
 			var impulse = impulse_direction * base_force * velocity_factor * force_pushing_multiplier
 
 			# Apply the force to the SoftBody3D
@@ -329,7 +330,7 @@ func check_punch_collision() -> void:
 			var base_force = force_punching_sprinting if is_sprinting else force_punching
 
 			# Get the appropriate hand bone position for force application at the time of impact
-			var bone_position = global_position  # Fallback to player position
+			var bone_position = global_position # Fallback to player position
 			if player_skeleton:
 				var bone_name = BONE_NAME_LEFT_HAND if is_punching_left else BONE_NAME_RIGHT_HAND
 				var bone_idx = player_skeleton.find_bone(bone_name)
@@ -341,7 +342,7 @@ func check_punch_collision() -> void:
 			var impulse_direction = (stored_collision_position - bone_position).normalized()
 			
 			# Add velocity factor similar to handle_rigidbody_collisions for more powerful impacts
-			var velocity_factor = max(min(velocity.length(), 5.0), 1.5)  # Minimum 1.5 for strong punches even when stationary
+			var velocity_factor = max(min(velocity.length(), 5.0), 1.5) # Minimum 1.5 for strong punches even when stationary
 			var impulse = impulse_direction * base_force * velocity_factor * force_pushing_multiplier
 
 			# Apply the force to the object
@@ -352,7 +353,7 @@ func check_punch_collision() -> void:
 			var base_force = force_punching_sprinting if is_sprinting else force_punching
 
 			# Get the appropriate hand bone position for force application at the time of impact
-			var bone_position = global_position  # Fallback to player position
+			var bone_position = global_position # Fallback to player position
 			if player_skeleton:
 				var bone_name = BONE_NAME_LEFT_HAND if is_punching_left else BONE_NAME_RIGHT_HAND
 				var bone_idx = player_skeleton.find_bone(bone_name)
@@ -364,7 +365,7 @@ func check_punch_collision() -> void:
 			var impulse_direction = (stored_collision_position - bone_position).normalized()
 			
 			# Add velocity factor similar to handle_rigidbody_collisions for more powerful impacts
-			var velocity_factor = max(min(velocity.length(), 5.0), 1.5)  # Minimum 1.5 for strong punches even when stationary
+			var velocity_factor = max(min(velocity.length(), 5.0), 1.5) # Minimum 1.5 for strong punches even when stationary
 			var impulse = impulse_direction * base_force * velocity_factor * force_pushing_multiplier
 
 			# Apply the force to the SoftBody3D
@@ -400,6 +401,115 @@ func check_punch_collision() -> void:
 		# Reset action flag(s)
 		is_punching_left = false
 		is_punching_right = false
+
+
+## Checks if the tool hits anything when swung.
+func check_tool_collision() -> void:
+	# Check if the player is holding a tool and swinging
+	if is_holding_tool and (is_swinging_left or is_swinging_right):
+		# Get the tool from the right hand bone attachment
+		if bone_attachement_right_hand.get_child_count() > 0:
+			var tool = bone_attachement_right_hand.get_child(0)
+			# Check if the tool has the required Area3D structure
+			if tool.has_node("Visuals/Area3D"):
+				var tool_area = tool.get_node("Visuals/Area3D")
+				# Wait 0.3 seconds for the swing animation to position the tool properly
+				await get_tree().create_timer(0.3).timeout
+				# Continuously check for collisions until one is detected or swing ends
+				var collision_detected = false
+				var max_check_time = 2.0 # Maximum time to check for collisions (safety limit)
+				var check_start_time = Time.get_time_dict_from_system()
+				# Loop to check for collisions while swinging
+				while not collision_detected and (is_swinging_left or is_swinging_right):
+					# Check elapsed time to prevent infinite loops
+					var current_time = Time.get_time_dict_from_system()
+					var elapsed = (current_time.hour * 3600 + current_time.minute * 60 + current_time.second) - \
+								 (check_start_time.hour * 3600 + check_start_time.minute * 60 + check_start_time.second)
+					# If elapsed time exceeds max_check_time, break the loop
+					if elapsed > max_check_time:
+						break
+					# Get all bodies currently overlapping with the tool's Area3D
+					var overlapping_bodies = tool_area.get_overlapping_bodies()
+					# Process each overlapping body
+					for body in overlapping_bodies:
+						# Skip if it's the player themselves
+						if body == self:
+							continue
+						# Get the collision shape to find the contact point
+						if tool.has_node("Visuals/Area3D/CollisionShape3D"):
+							var collision_shape = tool.get_node("Visuals/Area3D/CollisionShape3D")
+							var collision_position = collision_shape.global_position
+							# base_state.draw_debug_sphere(collision_position, Color.RED) # Uncomment for debugging
+							collision_detected = true
+							# Store collision info for immediate force application
+							var stored_body = body
+							var stored_collision_position = collision_position
+							# Apply force to RigidBody3D objects immediately
+							if stored_body is RigidBody3D:
+								# Define the base force to apply (stronger than punches/kicks since it's a tool)
+								var base_force = 4.0 # Higher base force for tool swinging
+								if is_sprinting:
+									base_force *= 1.5 # Increase force when sprinting
+								# Get the tool's position for force direction calculation
+								var tool_position = tool.global_position
+								# Calculate impulse direction from tool position to collision point
+								var impulse_direction = (stored_collision_position - tool_position).normalized()
+								# Add velocity factor for more powerful impacts based on player movement
+								var velocity_factor = max(min(velocity.length(), 6.0), 2.5) # Higher minimum for tool impacts
+								var impulse = impulse_direction * base_force * velocity_factor * force_pushing_multiplier
+								# Apply the force to the object
+								stored_body.apply_central_impulse(impulse)
+							# Apply force to SoftBody3D objects immediately
+							elif stored_body is SoftBody3D:
+								# Define the base force to apply (stronger than punches/kicks since it's a tool)
+								var base_force = 4.0 # Higher base force for tool swinging
+								if is_sprinting:
+									base_force *= 1.5 # Increase force when sprinting
+								# Get the tool's position for force direction calculation
+								var tool_position = tool.global_position
+								# Calculate impulse direction from tool position to collision point
+								var impulse_direction = (stored_collision_position - tool_position).normalized()
+								# Add velocity factor for more powerful impacts based on player movement
+								var velocity_factor = max(min(velocity.length(), 6.0), 2.5) # Higher minimum for tool impacts
+								var impulse = impulse_direction * base_force * velocity_factor * force_pushing_multiplier
+								# Apply the force to the SoftBody3D
+								stored_body.apply_central_impulse(impulse)
+
+							# Check if the body is a CharacterBody3D (apply hit animation immediately)
+							if stored_body is CharacterBody3D:
+								# Check if swinging left
+								if is_swinging_left:
+									# Check if the body has the appropriate function
+									if stored_body.has_method("animate_hit_high_left"):
+										# Play the appropriate hit animation
+										stored_body.call("animate_hit_high_left")
+								# Must be swinging right
+								else:
+									# Check if the body has the appropriate function
+									if stored_body.has_method("animate_hit_high_right"):
+										# Play the appropriate hit animation
+										stored_body.call("animate_hit_high_right")
+
+							# Check if controller vibration is enabled
+							if enable_vibration:
+								# Vibrate the controller (stronger vibration for tool impact)
+								Input.start_joy_vibration(0, 0.8, 0.8, 0.2)
+
+							# Break after processing the first collision to avoid multiple hits
+							break
+
+					# Wait a frame before checking again to avoid blocking the main thread
+					await get_tree().process_frame
+
+				# If collision was detected, wait for animation to finish before resetting flags
+				if collision_detected:
+					# Wait for animation to complete before resetting flags
+					await get_tree().create_timer(0.5).timeout
+					# Flag the animation player no longer locked
+					is_animation_locked = false
+					# Reset action flag(s)
+					is_swinging_left = false
+					is_swinging_right = false
 
 
 ## Moves the player based on velocity and shapecast collision.
@@ -526,7 +636,7 @@ func update_velocity() -> void:
 			# Set the friction to the skateboarding friction
 			var friction_current = friction_skateboarding
 
-			# Ⓨ/[Ctrl]::[button_3] action _pressed_
+			# Ⓨ/[Ctrl] action _pressed_
 			if is_crouching:
 				# Slow down the player, more than usual
 				friction_current = friction_current * 10
@@ -567,8 +677,8 @@ func handle_rigidbody_collisions() -> void:
 		if collider is RigidBody3D:
 			# Calculate push force based on player velocity and movement
 			var push_force = force_pushing_sprinting if is_sprinting else force_pushing
-			var push_direction = collision.get_normal() * -1.0  # Opposite of collision normal
-			var velocity_factor = min(velocity.length(), 5.0)  # Cap velocity factor to prevent excessive force
+			var push_direction = collision.get_normal() * -1.0 # Opposite of collision normal
+			var velocity_factor = min(velocity.length(), 5.0) # Cap velocity factor to prevent excessive force
 			var impulse = push_direction * push_force * velocity_factor * force_pushing_multiplier
 
 			# Apply the impulse to the RigidBody3D
@@ -578,8 +688,8 @@ func handle_rigidbody_collisions() -> void:
 		elif collider is SoftBody3D:
 			# Calculate push force based on player velocity and movement
 			var push_force = force_pushing_sprinting if is_sprinting else force_pushing
-			var push_direction = collision.get_normal() * -1.0  # Opposite of collision normal
-			var velocity_factor = min(velocity.length(), 5.0)  # Cap velocity factor to prevent excessive force
+			var push_direction = collision.get_normal() * -1.0 # Opposite of collision normal
+			var velocity_factor = min(velocity.length(), 5.0) # Cap velocity factor to prevent excessive force
 			var impulse = push_direction * push_force * velocity_factor * force_pushing_multiplier
 
 			# Apply the impulse to the SoftBody3D

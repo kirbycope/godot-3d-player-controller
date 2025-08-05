@@ -35,17 +35,13 @@ func _input(event: InputEvent) -> void:
 			# Get the equipped items from both feet
 			var left_foot_children = player.bone_attachement_left_foot.get_children()
 			var right_foot_children = player.bone_attachement_right_foot.get_children()
-
 			# Create a new complete moon shoes instance to drop
 			var scene = load("res://scenes/moon_shoes.tscn")
 			var dropped_item = scene.instantiate()
-
 			# Add the complete item to the current scene first
 			player.get_tree().current_scene.add_child(dropped_item)
-
 			# Now position the dropped item at position 0, 0, 0
 			dropped_item.global_position = Vector3.ZERO
-
 			# Remove the equipped items from both feet
 			for child in left_foot_children:
 				if child.name == "MoonShoes":
@@ -53,7 +49,6 @@ func _input(event: InputEvent) -> void:
 			for child in right_foot_children:
 				if child.name == "MoonShoes":
 					child.queue_free()
-
 			# Reset player properties
 			player.position.y += 0.2
 			player.collision_shape.position.y += 0.2

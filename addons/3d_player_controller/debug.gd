@@ -17,28 +17,21 @@ func _process(_delta: float) -> void:
 	# Check is the Debug Panel is visible
 	if visible:
 		# Panel 1
-		$Panel1/IsAiming.button_pressed = player.is_aiming
 		$Panel1/IsAnimationLocked.button_pressed = player.is_animation_locked
-		$Panel1/IsCasting.button_pressed = player.is_casting
 		$Panel1/IsClimbing.button_pressed = player.is_climbing
 		$Panel1/IsCrawling.button_pressed = player.is_crawling
 		$Panel1/IsCrouching.button_pressed = player.is_crouching
 		$Panel1/IsDoubleJumping.button_pressed = player.is_double_jumping
 		$Panel1/IsDriving.button_pressed = player.is_driving
 		$Panel1/IsFalling.button_pressed = player.is_falling
-		$Panel1/IsFiring.button_pressed = player.is_firing
 		$Panel1/IsFlying.button_pressed = player.is_flying
 		$Panel1/IsHanging.button_pressed = player.is_hanging
 		$Panel1/IsHolding.button_pressed = player.is_holding
-		$Panel1/IsHoldingFishingRod.button_pressed = player.is_holding_fishing_rod
-		$Panel1/IsHoldingRifle.button_pressed = player.is_holding_rifle
-		$Panel1/IsHoldingTool.button_pressed = player.is_holding_tool
 		$Panel1/IsJumping.button_pressed = player.is_jumping
 		$Panel1/IsKickingLeft.button_pressed = player.is_kicking_left
 		$Panel1/IsKickingRight.button_pressed = player.is_kicking_right
 		$Panel1/IsPunchingLeft.button_pressed = player.is_punching_left
 		$Panel1/IsPunchingRight.button_pressed = player.is_punching_right
-		$Panel1/IsReeling.button_pressed = player.is_reeling
 		$Panel1/IsRunning.button_pressed = player.is_running
 		$Panel1/IsSkateboarding.button_pressed = player.is_skateboarding
 		$Panel1/IsShimmying.button_pressed = player.is_shimmying
@@ -47,7 +40,20 @@ func _process(_delta: float) -> void:
 		$Panel1/IsSwimming.button_pressed = player.is_swimming
 		$Panel1/IsUsing.button_pressed = player.is_using
 		$Panel1/IsWalking.button_pressed = player.is_walking
-
+		# Panel 1 - Fishing
+		$Panel1/Fishing/IsHoldingFishingRod.button_pressed = player.is_holding_fishing_rod
+		$Panel1/Fishing/IsCasting.button_pressed = player.is_casting
+		$Panel1/Fishing/IsReeling.button_pressed = player.is_reeling
+		# Panel 1 - Shooting
+		$Panel1/Shooting/IsHoldingRifle.button_pressed = player.is_holding_rifle
+		$Panel1/Shooting/IsAiming.button_pressed = player.is_aiming
+		$Panel1/Shooting/IsFiring.button_pressed = player.is_firing
+		# Panel 2 - Swinging
+		$Panel1/Swinging/IsHoldingTool.button_pressed = player.is_holding_tool
+		$Panel1/Swinging/IsBlockingLeft.button_pressed = player.is_blocking_left
+		$Panel1/Swinging/IsBlockingRight.button_pressed = player.is_blocking_right
+		$Panel1/Swinging/IsSwingingLeft.button_pressed = player.is_swinging_left
+		$Panel1/Swinging/IsSwingingRight.button_pressed = player.is_swinging_right
 		# Panel 2
 		$Panel2/EnableCrouching.button_pressed = player.enable_crouching
 		$Panel2/EnableClimbing.button_pressed = player.enable_climbing

@@ -60,12 +60,13 @@ func _process(_delta: float) -> void:
 	$Fishing.visible = player.is_holding_fishing_rod
 	$Flying.visible = player.is_flying
 	$Hanging.visible = player.is_hanging
-	$Holding.visible = player.is_holding and !player.is_holding_fishing_rod and !player.is_holding_rifle and !player.is_rotating_object
-	$ItemEquipped.visible = player.is_holding_tool and !player.is_skateboarding
+	$Holding.visible = player.is_holding and !player.is_rotating_object
+	$ItemEquipped.visible = (player.bone_attachement_left_foot.get_children().size() > 0) or (player.bone_attachement_right_foot.get_children().size() > 0)
 	$Rifling.visible = player.is_holding_rifle
 	$Rotating.visible = player.is_rotating_object
 	$Skateboarding.visible = player.is_skateboarding
 	$Swimming.visible = player.is_swimming
+	$ToolEquipped.visible = player.is_holding_tool
 
 	if emotes.visible:
 		label_dpad_down.text = "Bow"

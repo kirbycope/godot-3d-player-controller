@@ -6,8 +6,8 @@ const ANIMATION_CROUCHING_FIRING_RIFLE := "Rifle_Firing_Crouching" + "/mixamo_co
 const ANIMATION_CROUCHING_HOLDING_RIFLE := "Rifle_Idle_Crouching" + "/mixamo_com"
 const ANIMATION_CROUCHING_MOVE := "Sneaking_In_Place" + "/mixamo_com"
 const ANIMATION_CROUCHING_MOVE_HOLDING_RIFLE := "Rifle_Walk_Crouching" + "/mixamo_com"
-const ANIMATION_CROUCING_HOLDING_TOOL := "Tool_Idle_Crouching" + "/mixamo_com"
-const ANIMTION_PUNCHING_LOW_LEFT := "Punching_Low_Left" + "/mixamo_com"
+const ANIMATION_CROUCHING_HOLDING_TOOL := "Tool_Idle_Crouching" + "/mixamo_com"
+const ANIMATION_PUNCHING_LOW_LEFT := "Punching_Low_Left" + "/mixamo_com"
 const ANIMATION_PUNCHING_LOW_RIGHT := "Punching_Low_Right" + "/mixamo_com"
 const NODE_NAME := "Crouching"
 
@@ -16,97 +16,72 @@ const NODE_NAME := "Crouching"
 func _input(event: InputEvent) -> void:
 	# Check if the game is not paused
 	if !player.game_paused:
-		# Ⓐ/[Space]::[button_0] button just _pressed_
+		# Ⓐ/[Space] _pressed_ and jumping is enabled -> Start "jumping"
 		if event.is_action_pressed("button_0") and player.enable_jumping:
 			# Start "jumping"
 			transition(NODE_NAME, "Jumping")
 
-		# [aim] button just _pressed_
-		if controls.current_input_type == controls.InputType.KEYBOARD_MOUSE and event.is_action_pressed("button_5")\
-		or event.is_action_pressed("button_6"):
+		# 🄻2/[R-Click] _pressed_ and the player is "holding a rifle" -> Start "aiming"
+		if controls.current_input_type == controls.InputType.KEYBOARD_MOUSE and event.is_action_pressed("button_5") and player.is_holding_rifle\
+		or event.is_action_pressed("button_6") and player.is_holding_rifle:
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
-				# Check if the player is "holding a rifle"
-				if player.is_holding_rifle:
-					# Flag the player as is "aiming"
-					player.is_aiming = true
+				# Flag the player as is "aiming"
+				player.is_aiming = true
 
-		# [aim] button just _released_
-		if controls.current_input_type == controls.InputType.KEYBOARD_MOUSE and event.is_action_released("button_5")\
-		or event.is_action_released("button_6"):
+		# 🄻2/[R-Click] _released_ and the player is "holding a rifle" -> Stop "aiming"
+		if controls.current_input_type == controls.InputType.KEYBOARD_MOUSE and event.is_action_released("button_5") and player.is_holding_rifle\
+		or event.is_action_released("button_6") and player.is_holding_rifle:
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
-				# Check if the player is "holding a rifle"
-				if player.is_holding_rifle:
-					# Flag the player as not "aiming"
-					player.is_aiming = false
-
-		# [left-punch] button just _pressed_
-		if event.is_action_pressed("button_4"):
-			# Check if the animation player is not locked
-			if !player.is_animation_locked:
-				# Check if the player is not "holding a rifle"
-				if !player.is_holding_rifle:
-					# Check if punching is enabled
-					if player.enable_punching:
-						# Flag the animation player as locked
-						player.is_animation_locked = true
-
-						# Flag the player as "punching with their left arm"
-						player.is_punching_left = true
-
-						# Check if the animation player is not already playing the appropriate animation
-						if player.animation_player.current_animation != ANIMTION_PUNCHING_LOW_LEFT:
-							# Play the "punching low, left" animation
-							player.animation_player.play(ANIMTION_PUNCHING_LOW_LEFT)
-
-							# Check the punch hits something
-							player.check_punch_collision()
-
-		# [left-punch] button just _released_
-		if event.is_action_released("button_4"):
-			# Check if the player is "holding a rifle"
-			if player.is_holding_rifle:
 				# Flag the player as not "aiming"
 				player.is_aiming = false
 
-		# [right-punch] button just _pressed_
-		if event.is_action_pressed("button_5"):
+		# 🅁2/[L-Click] _pressed_ the player is "holding a rifle" -> Start "firing"
+		if controls.current_input_type == controls.InputType.KEYBOARD_MOUSE and event.is_action_pressed("button_4") and player.is_holding_rifle\
+		or event.is_action_pressed("button_7") and player.is_holding_rifle:
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
-				# Check if the player is not "holding a rifle"
-				if !player.is_holding_rifle:
-					# Check if punching is enabled
-					if player.enable_punching:
+				# Flag the player as is "firing"
+				player.is_firing = true
+				# Delay execution
+				await get_tree().create_timer(0.3).timeout
+				# Flag the player as is not "firing"
+				player.is_firing = false
+
+		# 🄻1/[L-Click] _pressed_ and punching is enabled -> Start "punching" (left arm)
+		if event.is_action_pressed("button_4") and player.enable_punching:
+			# Check if the animation player is not locked
+			if !player.is_animation_locked:
+				# Check if the player is not "holding a fishing rod", "holding a rifle", "holding a tool", and not holding any object
+				if !player.is_holding_fishing_rod and !player.is_holding_rifle and !player.is_holding_tool and !player.is_holding:
+					# Flag the animation player as locked
+					player.is_animation_locked = true
+					# Flag the player as "punching with their left arm"
+					player.is_punching_left = true
+					# Check if the animation player is not already playing the appropriate animation
+					if player.animation_player.current_animation != ANIMATION_PUNCHING_LOW_LEFT:
+						# Play the "punching low, left" animation
+						player.animation_player.play(ANIMATION_PUNCHING_LOW_LEFT)
+						# Check the punch hits something
+						player.check_punch_collision()
+
+		# 🅁1/[R-Click] _pressed_ and punching is enabled -> Start "punching" (right arm)
+		if event.is_action_pressed("button_5") and player.enable_punching:
+			# Check if the animation player is not locked
+			if !player.is_animation_locked:
+				# Check if the player is not "holding a fishing rod", "holding a rifle", "holding a tool", and not holding any object
+				if !player.is_holding_fishing_rod and !player.is_holding_rifle and !player.is_holding_tool and !player.is_holding:
 						# Flag the animation player as locked
 						player.is_animation_locked = true
-
 						# Flag the player as "punching with their right arm"
 						player.is_punching_right = true
-
 						# Check if the animation player is not already playing the appropriate animation
 						if player.animation_player.current_animation != ANIMATION_PUNCHING_LOW_RIGHT:
 							# Play the "punching low, right" animation
 							player.animation_player.play(ANIMATION_PUNCHING_LOW_RIGHT)
-
 							# Check the punch hits something
 							player.check_punch_collision()
-
-		# [shoot] button just _pressed_
-		if controls.current_input_type == controls.InputType.KEYBOARD_MOUSE and event.is_action_pressed("button_4")\
-		or event.is_action_pressed("button_7"):
-			# Check if the animation player is not locked
-			if !player.is_animation_locked:
-				# Check if the player is "holding a rifle"
-				if player.is_holding_rifle:
-					# Flag the player as is "firing"
-					player.is_firing = true
-
-					# Delay execution
-					await get_tree().create_timer(0.3).timeout
-
-					# Flag the player as is not "firing"
-					player.is_firing = false
 
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
@@ -120,7 +95,7 @@ func _process(_delta: float) -> void:
 			# Start "crawling"
 			transition(NODE_NAME, "Crawling")
 
-		# Ⓨ/[Ctrl]::[button_3] not _pressed_
+		# Ⓨ/[Ctrl] not _pressed_
 		if !Input.is_action_pressed("button_3"):
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
@@ -163,9 +138,9 @@ func play_animation() -> void:
 		# Check if the player is "holding a tool"
 		elif player.is_holding_tool:
 			# Check if the animation player is not already playing the appropriate animation
-			if player.animation_player.current_animation != ANIMATION_CROUCING_HOLDING_TOOL:
+			if player.animation_player.current_animation != ANIMATION_CROUCHING_HOLDING_TOOL:
 				# Play the "crouching, holding tool" animation
-				player.animation_player.play(ANIMATION_CROUCING_HOLDING_TOOL)
+				player.animation_player.play(ANIMATION_CROUCHING_HOLDING_TOOL)
 
 		# The player must be unarmed
 		else:

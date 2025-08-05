@@ -16,7 +16,7 @@ func _input(event: InputEvent) -> void:
 	if player:
 		# Check if the game is not paused
 		if !player.game_paused:
-			# Ⓐ/[Space]::[button_0] button just _pressed_
+			# Ⓐ/[Space] button just _pressed_
 			if event.is_action_pressed("button_0"):
 				# Check if the player is on the ground
 				if player.is_on_floor():

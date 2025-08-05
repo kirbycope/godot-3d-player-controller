@@ -16,23 +16,22 @@ const NODE_NAME := "Holding"
 
 @export var held_object_rotation_speed: float = 0.2618  # 15 degrees in radians = 15 * (π / 180)
 
-# Track the cumulative manual rotation
-var manual_rotation_x := 0.0
-var manual_rotation_z := 0.0
+var manual_rotation_x := 0.0 ## Track the manual rotation of the "held" object around the X-axis
+var manual_rotation_z := 0.0 ## Track the manual rotation of the "held" object around the Z-axis
 
 
 ## Called when there is an input event.
 func _input(event: InputEvent) -> void:
 	# Check if the game is not paused
 	if !player.game_paused:
-		# (L1)/[L-Clk] _pressed_ (and holding something) -> throw the held object
+		# (L1)/[L-Clk] _pressed_ (and holding something) -> Throw the held object
 		if event.is_action_pressed("button_4") and player.is_holding:
 			# Throw the held object
 			throw_held_object()
 			# Stop handling any further input
 			return
 
-		# (X)/[E] _pressed_ (and not holding something) -> pick up the object
+		# (X)/[E] _pressed_ (and not holding something) -> Pick up the object
 		if event.is_action_pressed("button_2") and !player.is_holding:
 			# Check if the player is looking at something
 			if player.raycast_lookat.is_colliding():
@@ -62,7 +61,7 @@ func _input(event: InputEvent) -> void:
 					# Stop handling any further input
 					return
 
-		# (X)/[E] _pressed_ (and holding something) -> drop the held object
+		# (X)/[E] _pressed_ (and holding something) -> Drop the held object
 		if event.is_action_pressed("button_2") and player.is_holding:
 			# Get the nodes in the "held" group
 			var held_nodes = get_tree().get_nodes_in_group("held")

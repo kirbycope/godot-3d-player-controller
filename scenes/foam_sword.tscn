@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bgw2mr57wh170"]
+[gd_scene load_steps=9 format=3 uid="uid://bgw2mr57wh170"]
 
 [ext_resource type="Script" uid="uid://cpacxe8rt3ii4" path="res://scenes/foam_sword.gd" id="1_ri7pq"]
 
@@ -25,6 +25,10 @@ material = SubResource("StandardMaterial3D_viam0")
 radius = 0.025
 height = 0.749
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ri7pq"]
+height = 0.74
+radius = 0.03
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_ri7pq"]
 
 [node name="FoamSword" type="Node3D"]
@@ -47,10 +51,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.375, 0)
 mesh = SubResource("CapsuleMesh_2ce4c")
 skeleton = NodePath("../..")
 
+[node name="Area3D" type="Area3D" parent="Visuals"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Visuals/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 8.351872e-23, 0, 8.351872e-23, 1, 0, 0.375, 0)
+shape = SubResource("CylinderShape3D_ri7pq")
+
 [node name="Area3D" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+visible = false
 shape = SubResource("BoxShape3D_ri7pq")
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

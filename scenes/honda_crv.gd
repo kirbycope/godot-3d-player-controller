@@ -42,7 +42,7 @@ func _input(event: InputEvent) -> void:
 				# Log the time of the event
 				last_mouse_move_time = Time.get_ticks_msec() / 1000.0
 
-			# Ⓨ/[Ctrl]::[button_3] action _pressed_
+			# Ⓨ/[Ctrl] action _pressed_
 			if event.is_action_pressed("button_3"):
 				# Check if the player is DRIVING
 				if player.is_driving:
@@ -95,7 +95,7 @@ func _input(event: InputEvent) -> void:
 					# Start "standing"
 					player.base_state.transition("Driving", "Standing")
 
-			# Ⓐ/[Space]::[button_0] action _pressed_
+			# Ⓐ/[Space] action _pressed_
 			if event.is_action_pressed("button_0"):
 				# Check if the player is DRIVING
 				if player.is_driving:
@@ -107,17 +107,6 @@ func _input(event: InputEvent) -> void:
 
 			# [use] action _pressed_ (and no player is DRIVING)
 			if event.is_action_pressed("button_2"):
-				# Check if there are held items
-				if player.visuals.get_node("HeldItemMount").get_children().size() > 0:
-					# Remove the held item from the player
-					player.visuals.get_node("HeldItemMount").remove_child(player.is_holding_onto)
-					# Reparent the dropped item to the main scene
-					get_tree().current_scene.add_child(player.is_holding_onto)
-					# Stop holding (anything and everything)
-					player.is_holding_onto = null
-					player.is_holding_fishing_rod = false
-					player.is_holding_rifle = false
-					player.is_holding_tool = false
 
 				# Check if the player is near the driver's door
 				if near_driver_door:

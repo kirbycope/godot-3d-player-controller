@@ -10,22 +10,21 @@ const NODE_NAME := "Falling"
 func _input(event: InputEvent) -> void:
 	# Check if the game is not paused
 	if !player.game_paused:
-		# Ⓐ/[Space]::[button_0] button just _pressed_
-		if event.is_action_pressed("button_0") and player.enable_jumping:
+		# Ⓐ/[Space] _pressed_ and double jumping is enabled -> Start "double jumping"
+		if event.is_action_pressed("button_0") and player.enable_double_jump and !player.is_double_jumping:
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
-				# Check if "double jump" is enabled and the player is not currently double-jumping
-				if player.enable_double_jump and !player.is_double_jumping:
-					# Set the player's vertical velocity
-					player.velocity.y = player.jump_velocity
+				# Set the player's vertical velocity
+				player.velocity.y = player.jump_velocity
+				# Set the "double jumping" flag
+				player.is_double_jumping = true
 
-					# Set the "double jumping" flag
-					player.is_double_jumping = true
-				
-				# Check if "flying" is enabled and the player is not currently flying
-				elif player.enable_flying and !player.is_flying:
-					# Start "flying"
-					transition(NODE_NAME, "Flying")
+		# Ⓐ/[Space] _pressed_ and flying is enabled --> Start "flying"
+		if event.is_action_pressed("button_0") and player.enable_flying:
+			# Check if the animation player is not locked
+			if !player.is_animation_locked:
+				# Start "flying"
+				transition(NODE_NAME, "Flying")
 
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.

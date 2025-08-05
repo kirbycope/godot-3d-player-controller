@@ -73,122 +73,157 @@ extends Node3D
 @onready var b_body: StaticBody3D = b.get_node("StaticBody3D")
 
 
+func is_valid_body(body):
+	return body is CharacterBody3D or body is RigidBody3D or body is SoftBody3D
+
+
+func is_key_pressed(key_rotation: Vector3) -> bool:
+	# Use a small epsilon to handle floating point precision issues
+	return key_rotation.length_squared() > 0.001
+
+func _on_timer_timeout() -> void:
+	if is_key_pressed(c_body.rotation):
+		if c_area.get_overlapping_bodies().filter(is_valid_body).size() == 0:
+			_on_c_body_exited(null)
+	if is_key_pressed(c_sharp_body.rotation):
+		if c_sharp_area.get_overlapping_bodies().filter(is_valid_body).size() == 0:
+			_on_c_sharp_body_exited(null)
+	if is_key_pressed(d_body.rotation):
+		if d_area.get_overlapping_bodies().filter(is_valid_body).size() == 0:
+			_on_d_body_exited(null)
+	if is_key_pressed(d_sharp_body.rotation):
+		if d_sharp_area.get_overlapping_bodies().filter(is_valid_body).size() == 0:
+			_on_d_sharp_body_exited(null)
+	if is_key_pressed(e_body.rotation):
+		if e_area.get_overlapping_bodies().filter(is_valid_body).size() == 0:
+			_on_e_body_exited(null)
+	if is_key_pressed(f_body.rotation):
+		if f_area.get_overlapping_bodies().filter(is_valid_body).size() == 0:
+			_on_f_body_exited(null)
+	if is_key_pressed(f_sharp_body.rotation):
+		if f_sharp_area.get_overlapping_bodies().filter(is_valid_body).size() == 0:
+			_on_f_sharp_body_exited(null)
+	if is_key_pressed(g_body.rotation):
+		if g_area.get_overlapping_bodies().filter(is_valid_body).size() == 0:
+			_on_g_body_exited(null)
+	if is_key_pressed(g_sharp_body.rotation):
+		if g_sharp_area.get_overlapping_bodies().filter(is_valid_body).size() == 0:
+			_on_g_sharp_body_exited(null)
+	if is_key_pressed(a_body.rotation):
+		if a_area.get_overlapping_bodies().filter(is_valid_body).size() == 0:
+			_on_a_body_exited(null)
+	if is_key_pressed(a_sharp_body.rotation):
+		if a_sharp_area.get_overlapping_bodies().filter(is_valid_body).size() == 0:
+			_on_a_sharp_body_exited(null)
+	if is_key_pressed(b_body.rotation):
+		if b_area.get_overlapping_bodies().filter(is_valid_body).size() == 0:
+			_on_b_body_exited(null)
+
+
 func _on_c_body_entered(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
 		c_audio.play()
 		c_animation_player.play("press")
 
-func _on_c_body_exited(body: Node3D) -> void:
-	if body is CharacterBody3D or body is RigidBody3D:
-		if !c_animation_player.is_playing():
-			c_animation_player.play_backwards("press")
+func _on_c_body_exited(_body: Node3D) -> void:
+	if !c_animation_player.is_playing():
+		c_animation_player.play_backwards("press")
 
 func _on_c_sharp_body_entered(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
 		c_sharp_audio.play()
 		c_sharp_animation_player.play("press")
 
-func _on_c_sharp_body_exited(body: Node3D) -> void:
-	if body is CharacterBody3D or body is RigidBody3D:
-		if !c_sharp_animation_player.is_playing():
-			c_sharp_animation_player.play_backwards("press")
+func _on_c_sharp_body_exited(_body: Node3D) -> void:
+	if !c_sharp_animation_player.is_playing():
+		c_sharp_animation_player.play_backwards("press")
 
 func _on_d_body_entered(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
 		d_audio.play()
 		d_animation_player.play("press")
 
-func _on_d_body_exited(body: Node3D) -> void:
-	if body is CharacterBody3D or body is RigidBody3D:
-		if !d_animation_player.is_playing():
-			d_animation_player.play_backwards("press")
+func _on_d_body_exited(_body: Node3D) -> void:
+	if !d_animation_player.is_playing():
+		d_animation_player.play_backwards("press")
 
 func _on_d_sharp_body_entered(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
 		d_sharp_audio.play()
 		d_sharp_animation_player.play("press")
 
-func _on_d_sharp_body_exited(body: Node3D) -> void:
-	if body is CharacterBody3D or body is RigidBody3D:
-		if !d_sharp_animation_player.is_playing():
-			d_sharp_animation_player.play_backwards("press")
+func _on_d_sharp_body_exited(_body: Node3D) -> void:
+	if !d_sharp_animation_player.is_playing():
+		d_sharp_animation_player.play_backwards("press")
 
 func _on_e_body_entered(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
 		e_audio.play()
 		e_animation_player.play("press")
 
-func _on_e_body_exited(body: Node3D) -> void:
-	if body is CharacterBody3D or body is RigidBody3D:
-		if !e_animation_player.is_playing():
-			e_animation_player.play_backwards("press")
+func _on_e_body_exited(_body: Node3D) -> void:
+	if !e_animation_player.is_playing():
+		e_animation_player.play_backwards("press")
 
 func _on_f_body_entered(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
 		f_audio.play()
 		f_animation_player.play("press")
 
-func _on_f_body_exited(body: Node3D) -> void:
-	if body is CharacterBody3D or body is RigidBody3D:
-		if !f_animation_player.is_playing():
-			f_animation_player.play_backwards("press")
+func _on_f_body_exited(_body: Node3D) -> void:
+	if !f_animation_player.is_playing():
+		f_animation_player.play_backwards("press")
 
 func _on_f_sharp_body_entered(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
 		f_sharp_audio.play()
 		f_sharp_animation_player.play("press")
 
-func _on_f_sharp_body_exited(body: Node3D) -> void:
-	if body is CharacterBody3D or body is RigidBody3D:
-		if !f_sharp_animation_player.is_playing():
-			f_sharp_animation_player.play_backwards("press")
+func _on_f_sharp_body_exited(_body: Node3D) -> void:
+	if !f_sharp_animation_player.is_playing():
+		f_sharp_animation_player.play_backwards("press")
 
 func _on_g_body_entered(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
 		g_audio.play()
 		g_animation_player.play("press")
 
-func _on_g_body_exited(body: Node3D) -> void:
-	if body is CharacterBody3D or body is RigidBody3D:
-		if !g_animation_player.is_playing():
-			g_animation_player.play_backwards("press")
+func _on_g_body_exited(_body: Node3D) -> void:
+	if !g_animation_player.is_playing():
+		g_animation_player.play_backwards("press")
 
 func _on_g_sharp_body_entered(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
 		g_sharp_audio.play()
 		g_sharp_animation_player.play("press")
 
-func _on_g_sharp_body_exited(body: Node3D) -> void:
-	if body is CharacterBody3D or body is RigidBody3D:
-		if !g_sharp_animation_player.is_playing():
-			g_sharp_animation_player.play_backwards("press")
+func _on_g_sharp_body_exited(_body: Node3D) -> void:
+	if !g_sharp_animation_player.is_playing():
+		g_sharp_animation_player.play_backwards("press")
 
 func _on_a_body_entered(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
 		a_audio.play()
 		a_animation_player.play("press")
 
-func _on_a_body_exited(body: Node3D) -> void:
-	if body is CharacterBody3D or body is RigidBody3D:
-		if !a_animation_player.is_playing():
-			a_animation_player.play_backwards("press")
+func _on_a_body_exited(_body: Node3D) -> void:
+	if !a_animation_player.is_playing():
+		a_animation_player.play_backwards("press")
 
 func _on_a_sharp_body_entered(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
 		a_sharp_audio.play()
 		a_sharp_animation_player.play("press")
 
-func _on_a_sharp_body_exited(body: Node3D) -> void:
-	if body is CharacterBody3D or body is RigidBody3D:
-		if !a_sharp_animation_player.is_playing():
-			a_sharp_animation_player.play_backwards("press")
+func _on_a_sharp_body_exited(_body: Node3D) -> void:
+	if !a_sharp_animation_player.is_playing():
+		a_sharp_animation_player.play_backwards("press")
 
 func _on_b_body_entered(body: Node3D) -> void:
 	if body is CharacterBody3D or body is RigidBody3D:
 		b_audio.play()
 		b_animation_player.play("press")
 
-func _on_b_body_exited(body: Node3D) -> void:
-	if body is CharacterBody3D or body is RigidBody3D:
-		if !b_animation_player.is_playing():
-			b_animation_player.play_backwards("press")
+func _on_b_body_exited(_body: Node3D) -> void:
+	if !b_animation_player.is_playing():
+		b_animation_player.play_backwards("press")

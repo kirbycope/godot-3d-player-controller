@@ -9,7 +9,7 @@ const NODE_NAME := "Crawling"
 func _input(event: InputEvent) -> void:
 	# Check if the game is not paused
 	if !player.game_paused:
-		# Ⓐ/[Space]::[button_0] button just _pressed_
+		# Ⓐ/[Space] button just _pressed_
 		if event.is_action_pressed("button_0") and player.enable_jumping:
 			# Start "jumping"
 			transition(NODE_NAME, "Jumping")
@@ -24,7 +24,7 @@ func _process(_delta: float) -> void:
 		# Start "crouching"		
 		transition(NODE_NAME, "Crouching")
 
-	# Ⓨ/[Ctrl]::[button_3] just _released_
+	# Ⓨ/[Ctrl] just _released_
 	if Input.is_action_just_released("button_3"):
 		# Start "standing"
 		transition(NODE_NAME, "Standing")
