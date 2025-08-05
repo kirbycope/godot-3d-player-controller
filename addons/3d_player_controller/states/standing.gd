@@ -34,6 +34,20 @@ func _input(event: InputEvent) -> void:
 			# Start "jumping"
 			transition(NODE_NAME, "Jumping")
 
+		# Ⓑ/[Shift] _pressed_ and next to a flipped vehicle -> Flip the vehicle
+		if event.is_action_pressed("button_1") and player.raycast_middle.is_colliding():
+			var collider = player.raycast_middle.get_collider()
+			# Check if the collider is a vehicle
+			if collider is VehicleBody3D:
+				# Check if the vehicle has a raycast
+				if collider.has_node("RayCast3D"):
+					# Check if the raycast is not colliding
+					if !collider.get_node("RayCast3D").is_colliding():
+						# Check if the vehicle has a method to flip
+						if collider.has_method("flip_vehicle"):
+							# Call the flip method
+							collider.flip_vehicle()
+
 		# Ⓧ/[E] _pressed_ (and the middle raycast is colliding)
 		if event.is_action_pressed("button_2") and player.raycast_use.is_colliding():
 			# Check that the collider is usable

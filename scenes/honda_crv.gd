@@ -24,6 +24,7 @@ var near_driver_door: int = false
 @onready var drivers_seat: Node3D = $DriverSeatPosition
 @onready var exit_driver_door: Node3D = $ExitDriverDoorEnd
 @onready var open_driver_door: Node3D = $OpenDriverDoorStart
+@onready var ray_cast_3d: RayCast3D = $RayCast3D
 @onready var sound_accelerate = preload("res://assets/honda_crv/Speed Up Inside Car_1.wav")
 @onready var sound_door_close = preload("res://assets/honda_crv/Door Close_1.wav")
 @onready var sound_door_open = preload("res://assets/honda_crv/Door Open_1.wav")
@@ -42,8 +43,8 @@ func _input(event: InputEvent) -> void:
 				# Log the time of the event
 				last_mouse_move_time = Time.get_ticks_msec() / 1000.0
 
-			# Ⓨ/[Ctrl] action _pressed_
-			if event.is_action_pressed("button_3"):
+			# Ⓨ/[Ctrl] action _pressed_ and the animation is not locked - Exit vehicle
+			if event.is_action_pressed("button_3") and !player.is_animation_locked:
 				# Check if the player is DRIVING
 				if player.is_driving:
 					# Stop the car immediately
@@ -105,7 +106,7 @@ func _input(event: InputEvent) -> void:
 					# Play the horn sound
 					audio_player2.play()
 
-			# [use] action _pressed_ (and no player is DRIVING)
+			# Ⓧ/[Ctrl] action _pressed_ (and no player is DRIVING)
 			if event.is_action_pressed("button_2"):
 
 				# Check if the player is near the driver's door
@@ -218,6 +219,16 @@ func _physics_process(delta: float) -> void:
 				if not audio_player.playing:
 					# Play the sound
 					audio_player.play()
+
+
+## Flips the vehicle upright.
+func flip_vehicle() -> void:
+	# Reset rotation to upright
+	rotation = Vector3.ZERO
+	# Reset linear velocity to prevent flying
+	linear_velocity = Vector3.ZERO
+	# Reset angular velocity to prevent spinning
+	angular_velocity = Vector3.ZERO
 
 
 ## Called when a Node3D enters the Area3D.

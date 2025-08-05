@@ -810,7 +810,7 @@ text = "Press (use)
 to \"drive\""
 
 [node name="Honda_CRV_2023" parent="." instance=ExtResource("15_5l67w")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 8, 0, 0)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 8.517638, -0.0449996, -4.5253387e-08)
 
 [node name="DuckLabel" type="Label3D" parent="."]
 transform = Transform3D(-4.371139e-08, 1, 0, 4.3711378e-08, 0, 1, 1, 4.371139e-08, -4.3711378e-08, 7, 0.01, 6)

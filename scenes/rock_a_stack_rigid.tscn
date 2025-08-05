@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://kvot350vxctj"]
+[gd_scene load_steps=21 format=4 uid="uid://kvot350vxctj"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_bhdki"]
 _surfaces = [{
@@ -28,6 +28,9 @@ size = Vector3(6, 1.4, 6)
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_hvgii"]
 height = 8.0
 radius = 0.3
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bhdki"]
+size = Vector3(0.1, 8, 0.4)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qslwj"]
 albedo_color = Color(1, 0, 0, 1)
@@ -138,6 +141,22 @@ shape = SubResource("BoxShape3D_hvgii")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Base"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 0)
 shape = SubResource("CylinderShape3D_hvgii")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Base"]
+transform = Transform3D(0.99254614, 0.12186935, 0, -0.12186935, 0.99254614, 0, 0, 0, 1, -0.69, 4.474, 0)
+shape = SubResource("BoxShape3D_bhdki")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Base"]
+transform = Transform3D(0.99254614, -0.12186935, 0, 0.12186935, 0.99254614, 0, 0, 0, 1, 0.69, 4.472, 0)
+shape = SubResource("BoxShape3D_bhdki")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="Base"]
+transform = Transform3D(-4.338557e-08, 5.3270783e-09, -1, 0.12186935, 0.99254614, 0, 0.99254614, -0.12186935, -4.371139e-08, 0, 4.472, 0.69)
+shape = SubResource("BoxShape3D_bhdki")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="Base"]
+transform = Transform3D(-4.338557e-08, 5.3270783e-09, 1, 0.12186935, 0.99254614, 0, -0.99254614, 0.12186935, -4.371139e-08, 0, 4.472, -0.69)
+shape = SubResource("BoxShape3D_bhdki")
 
 [node name="RingRed" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.315, 0)
