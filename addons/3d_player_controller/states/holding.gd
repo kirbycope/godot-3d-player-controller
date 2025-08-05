@@ -162,11 +162,41 @@ func move_held_object() -> void:
 				# Get the (normalized) direction of the ray
 				var direction = - player.raycast_lookat.global_transform.basis.z.normalized()
 
-				# Set the distance from the player that the object is held
-				var distance = 1
+				# Access the shape's size from the CollisionShape3D to calculate radius and height
+				var shape = held_node.get_node("CollisionShape3D").shape
+				var object_radius = 0.0
+				var object_height = 0.0
 
-				# Move the held object to the new position
-				held_node.global_position = origin + (direction * distance)
+				if shape is BoxShape3D:
+					# For box shapes, use the largest dimension as radius
+					var max_size = max(shape.size.x, max(shape.size.y, shape.size.z))
+					object_radius = max_size * 0.5
+					object_height = shape.size.y
+				elif shape is SphereShape3D:
+					object_radius = shape.radius
+					object_height = shape.radius * 2.0
+				elif shape is CapsuleShape3D:
+					object_radius = max(shape.radius, shape.height * 0.5)
+					object_height = shape.height + shape.radius * 2.0
+				else:
+					# Shape unknown, default to a 1m sphere
+					object_radius = 0.5
+					object_height = 1.0
+
+				# Calculate additional distance based on height if object is taller than 1m
+				var height_offset = 0.0
+				var vertical_offset = 0.0
+				if object_height > 1.0:
+					height_offset = (object_height/2) - 1.0
+					vertical_offset = (object_height/2) - 1.0
+
+				# Set the distance from the player that the object is held
+				var distance = 1 + object_radius
+
+				# Move the held object to the new position with vertical offset
+				var target_position = origin + (direction * distance)
+				target_position.y += vertical_offset
+				held_node.global_position = target_position
 
 		# Set rotation: combine manual rotations with player Y rotation
 		held_node.rotation.x = manual_rotation_x

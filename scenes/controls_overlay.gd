@@ -61,7 +61,7 @@ func _process(_delta: float) -> void:
 	$Flying.visible = player.is_flying
 	$Hanging.visible = player.is_hanging
 	$Holding.visible = player.is_holding and !player.is_rotating_object
-	$ItemEquipped.visible = (player.bone_attachement_left_foot.get_children().size() > 0) or (player.bone_attachement_right_foot.get_children().size() > 0)
+	$ItemEquipped.visible = (player.bone_attachment_left_foot.get_children().size() > 0) or (player.bone_attachment_right_foot.get_children().size() > 0)
 	$Rifling.visible = player.is_holding_rifle
 	$Rotating.visible = player.is_rotating_object
 	$Skateboarding.visible = player.is_skateboarding

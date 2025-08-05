@@ -130,10 +130,10 @@ var virtual_velocity: Vector3 = Vector3.ZERO ## The velocity of the player if th
 @onready var visuals_aux_scene = visuals.get_node("AuxScene")
 @onready var visuals_aux_scene_position = visuals_aux_scene.position
 @onready var player_skeleton = visuals_aux_scene.get_node("GeneralSkeleton")
-@onready var bone_attachement_left_foot = player_skeleton.get_node("BoneAttachment3D_LeftFoot")
-@onready var bone_attachement_right_foot = player_skeleton.get_node("BoneAttachment3D_RightFoot")
-@onready var bone_attachement_left_hand = player_skeleton.get_node("BoneAttachment3D_LeftHand")
-@onready var bone_attachement_right_hand = player_skeleton.get_node("BoneAttachment3D_RightHand")
+@onready var bone_attachment_left_foot = player_skeleton.get_node("BoneAttachment3D_LeftFoot")
+@onready var bone_attachment_right_foot = player_skeleton.get_node("BoneAttachment3D_RightFoot")
+@onready var bone_attachment_left_hand = player_skeleton.get_node("BoneAttachment3D_LeftHand")
+@onready var bone_attachment_right_hand = player_skeleton.get_node("BoneAttachment3D_RightHand")
 @onready var look_at_modifier = player_skeleton.get_node("LookAtModifier3D")
 # Initial Values
 @onready var initial_position = position
@@ -408,8 +408,8 @@ func check_tool_collision() -> void:
 	# Check if the player is holding a tool and swinging
 	if is_holding_tool and (is_swinging_left or is_swinging_right):
 		# Get the tool from the right hand bone attachment
-		if bone_attachement_right_hand.get_child_count() > 0:
-			var tool = bone_attachement_right_hand.get_child(0)
+		if bone_attachment_right_hand.get_child_count() > 0:
+			var tool = bone_attachment_right_hand.get_child(0)
 			# Check if the tool has the required Area3D structure
 			if tool.has_node("Visuals/Area3D"):
 				var tool_area = tool.get_node("Visuals/Area3D")
@@ -570,9 +570,30 @@ func reparent_held_item() -> void:
 		get_tree().current_scene.add_child(is_holding_onto)
 		# Stop holding the item
 		is_holding_onto = null
-		is_holding_fishing_rod = false
-		is_holding_rifle = false
-		is_holding_tool = false
+	# Remove any equipped items
+	#for child in bone_attachment_left_foot.get_children():
+	#	# Remove the item from the player
+	#	bone_attachment_left_foot.remove_child(child)
+	#	# Reparent the item to the main scene
+	#	get_tree().current_scene.add_child(child)
+	for child in bone_attachment_left_hand.get_children():
+		# Remove the item from the player
+		bone_attachment_left_hand.remove_child(child)
+		# Reparent the item to the main scene
+		get_tree().current_scene.add_child(child)
+	#for child in bone_attachment_right_foot.get_children():
+	#	# Remove the item from the player
+	#	bone_attachment_right_foot.remove_child(child)
+	#	# Reparent the item to the main scene
+	#	get_tree().current_scene.add_child(child)
+	for child in bone_attachment_right_hand.get_children():
+		# Remove the item from the player
+		bone_attachment_right_hand.remove_child(child)
+		# Reparent the item to the main scene
+		get_tree().current_scene.add_child(child)
+	is_holding_fishing_rod = false
+	is_holding_rifle = false
+	is_holding_tool = false
 
 
 ## Toggles the noclip mode.

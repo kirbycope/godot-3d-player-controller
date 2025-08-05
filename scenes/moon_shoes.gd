@@ -33,8 +33,8 @@ func _input(event: InputEvent) -> void:
 		# [button_13] "drop" button pressed
 		elif event.is_action_released("button_13"):
 			# Get the equipped items from both feet
-			var left_foot_children = player.bone_attachement_left_foot.get_children()
-			var right_foot_children = player.bone_attachement_right_foot.get_children()
+			var left_foot_children = player.bone_attachment_left_foot.get_children()
+			var right_foot_children = player.bone_attachment_right_foot.get_children()
 			# Create a new complete moon shoes instance to drop
 			var scene = load("res://scenes/moon_shoes.tscn")
 			var dropped_item = scene.instantiate()
@@ -83,7 +83,7 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 			# Set the player reference on the left instance (to handle the logic in the _input function)
 			left_instance.player = body
 			# Attach left shoe instance to left foot
-			body.bone_attachement_left_foot.add_child(left_instance)
+			body.bone_attachment_left_foot.add_child(left_instance)
 			# Instantiate the scene for the right foot
 			var right_instance = scene.instantiate()
 			# Disable the pickup collision on both instances
@@ -95,7 +95,7 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 			# Set the shoe's position to zero
 			right_instance.get_node("Shoe2").position = Vector3.ZERO
 			# Attach right shoe instance to right foot
-			body.bone_attachement_right_foot.add_child(right_instance)
+			body.bone_attachment_right_foot.add_child(right_instance)
 			# Modify player properties when equipping
 			body.collision_shape.position.y -= 0.2
 			body.shapecast.position.y -= 0.2
