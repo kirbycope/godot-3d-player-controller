@@ -63,7 +63,7 @@ func _process(_delta: float) -> void:
 				elif player.speed_running < player.speed_current:
 					# Set the sound effect speed
 					audio_player.pitch_scale = 1.25
-				
+
 				# Check if the audio player is not playing or if the stream is not a "skateboarding" sound effect
 				if not audio_player.playing or audio_player.stream not in [ollie_start_sound, ollie_land_sound, skateboarding_sound]:
 					# Check if the player is on the ground

@@ -59,12 +59,33 @@ func move_dropped_items_to_initial_position() -> void:
 			$PortalGun/AnimationPlayer.play("rotate")
 	# Check if there are moon shoes as a child of the current scene
 	if has_node("MoonShoes"):
-		# Check if the item (not equipped by the player) moved from its initial position
 		if $MoonShoes.global_position != moon_shoes_initial_transform.origin:
-			# Reset the item's position
-			$MoonShoes.global_transform = moon_shoes_initial_transform
+			# Check for each grandchild's name if it's "shoe" or "shoe2"
+			for child in get_children():
+				for grandchild in child.get_children():
+					if grandchild.name == "Shoe":
+						grandchild.queue_free()
+					elif grandchild.name == "Shoe2":
+						grandchild.queue_free()
+			# Remove the moon shoes from the scene to prevent duplicate creation
+			$MoonShoes.queue_free()
+			# Create a new complete moon shoes instance to drop
+			var scene = load("res://scenes/moon_shoes.tscn")
+			var dropped_item = scene.instantiate()
+			# Add the complete item to the current scene first
+			player.get_tree().current_scene.add_child(dropped_item)
+			# Now position the dropped item at its initial transform
+			dropped_item.global_transform = moon_shoes_initial_transform
 			# Enable the item's "pickup" collision
-			$MoonShoes/Area3D/CollisionShape3D.disabled = false
+			dropped_item.get_node("Area3D/CollisionShape3D").disabled = false
+			# [Hack] Reset player properties
+			player.position.y += 0.2
+			player.collision_shape.position.y += 0.2
+			player.shapecast.position.y += 0.2
+			# [Hack] Restore the original collision position for the crouching system
+			player.collision_position.y += 0.2
+			player.jump_velocity = 4.5
+
 	# Check if there is a skateboard as a child of the current scene
 	if has_node("Skateboard"):
 		# Check if the item (not equipped by the player) moved from its initial position
