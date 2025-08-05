@@ -571,21 +571,21 @@ func reparent_held_item() -> void:
 		# Stop holding the item
 		is_holding_onto = null
 	# Remove any equipped items
-	#for child in bone_attachment_left_foot.get_children():
-	#	# Remove the item from the player
-	#	bone_attachment_left_foot.remove_child(child)
-	#	# Reparent the item to the main scene
-	#	get_tree().current_scene.add_child(child)
+	for child in bone_attachment_left_foot.get_children():
+		# Remove the item from the player
+		bone_attachment_left_foot.remove_child(child)
+		# Reparent the item to the main scene
+		get_tree().current_scene.add_child(child)
 	for child in bone_attachment_left_hand.get_children():
 		# Remove the item from the player
 		bone_attachment_left_hand.remove_child(child)
 		# Reparent the item to the main scene
 		get_tree().current_scene.add_child(child)
-	#for child in bone_attachment_right_foot.get_children():
-	#	# Remove the item from the player
-	#	bone_attachment_right_foot.remove_child(child)
-	#	# Reparent the item to the main scene
-	#	get_tree().current_scene.add_child(child)
+	for child in bone_attachment_right_foot.get_children():
+		# Remove the item from the player
+		bone_attachment_right_foot.remove_child(child)
+		# Reparent the item to the main scene
+		get_tree().current_scene.add_child(child)
 	for child in bone_attachment_right_hand.get_children():
 		# Remove the item from the player
 		bone_attachment_right_hand.remove_child(child)
