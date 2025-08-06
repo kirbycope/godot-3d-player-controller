@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://dahniorwqc07r"]
+
+[ext_resource type="Texture2D" uid="uid://du4evfgxu710q" path="res://assets/textures/storabo.png" id="1_qiu73"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qiu73"]
+size = Vector3(66.517, 1, 37.465)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_argwr"]
+albedo_texture = ExtResource("1_qiu73")
+uv1_scale = Vector3(0.95, 0.95, 0.95)
+uv1_offset = Vector3(0.01, 0.02, 0.73)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1ichy"]
+material = SubResource("StandardMaterial3D_argwr")
+size = Vector2(66.517, 37.465)
+
+[node name="Storabo" type="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_qiu73")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_1ichy")
