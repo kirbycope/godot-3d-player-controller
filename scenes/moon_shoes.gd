@@ -77,8 +77,8 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body is CharacterBody3D and body.is_in_group("Player"):
 		# Check if the player is not skateboarding
 		if !body.is_skateboarding:
-			# Reparent the held item (if any)
-			body.reparent_held_item()
+			# Reparent any foot items
+			body.reparent_equipped_foot_items()
 			# Load the moon shoes scene
 			var scene = load("res://scenes/moon_shoes.tscn")
 			# Instantiate the scene for the left foot

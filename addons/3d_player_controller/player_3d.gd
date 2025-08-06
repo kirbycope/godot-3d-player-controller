@@ -578,29 +578,51 @@ func reparent_held_item() -> void:
 		visuals.get_node("HeldItemMount").remove_child(is_holding_onto)
 		# Reparent the item to the main scene
 		get_tree().current_scene.add_child(is_holding_onto)
+		# Reset holding state
+		is_holding = false
 		# Stop holding the item
 		is_holding_onto = null
-	# Remove any equipped items
+	# Reparent any foot items
+	reparent_equipped_foot_items()
+	# Reparent any hand items
+	reparent_equipped_hand_items()
+	# Reset the flags for holding items
+	is_holding_fishing_rod = false
+	is_holding_rifle = false
+	is_holding_tool = false
+
+
+## Reparents all items attached to the left and right foot bones to the main scene.
+func reparent_equipped_foot_items() -> void:
+	# Reparent the left foot items
 	for child in bone_attachment_left_foot.get_children():
 		# Remove the item from the player
 		bone_attachment_left_foot.remove_child(child)
 		# Reparent the item to the main scene
 		get_tree().current_scene.add_child(child)
-	for child in bone_attachment_left_hand.get_children():
-		# Remove the item from the player
-		bone_attachment_left_hand.remove_child(child)
-		# Reparent the item to the main scene
-		get_tree().current_scene.add_child(child)
+	# Reparent the right foot items
 	for child in bone_attachment_right_foot.get_children():
 		# Remove the item from the player
 		bone_attachment_right_foot.remove_child(child)
 		# Reparent the item to the main scene
 		get_tree().current_scene.add_child(child)
+
+
+## Reparents all items attached to the left and right hand bones to the main scene.
+func reparent_equipped_hand_items() -> void:
+	# Reparent the left hand items
+	for child in bone_attachment_left_hand.get_children():
+		# Remove the item from the player
+		bone_attachment_left_hand.remove_child(child)
+		# Reparent the item to the main scene
+		get_tree().current_scene.add_child(child)
+	# Reparent the right hand items
 	for child in bone_attachment_right_hand.get_children():
 		# Remove the item from the player
 		bone_attachment_right_hand.remove_child(child)
 		# Reparent the item to the main scene
 		get_tree().current_scene.add_child(child)
+	# Reset the flags for holding items
 	is_holding_fishing_rod = false
 	is_holding_rifle = false
 	is_holding_tool = false

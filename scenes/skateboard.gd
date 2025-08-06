@@ -110,8 +110,8 @@ func _process(_delta: float) -> void:
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	# Check if collider is the player
 	if body is CharacterBody3D and body.is_in_group("Player"):
-		# Reparent the held item (if any)
-		body.reparent_held_item()
+		# Reparent any foot items
+		body.reparent_equipped_foot_items()
 		# Load the scene
 		var scene = load("res://scenes/skateboard.tscn")
 		# Instantiate the scene

@@ -5,6 +5,8 @@ const ANIMATION_ENTERING_CAR := "Entering_Car" + "/mixamo_com"
 const ANIMATION_EXITING_CAR := "Exiting_Car" + "/mixamo_com"
 const NODE_NAME := "Driving"
 
+var time_driving: float = 0.0 ## The time spent driving the vehicle.
+
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -43,6 +45,9 @@ func start() -> void:
 	# Disable CollisionShape3D
 	player.collision_shape.disabled = true
 
+	# [Re]Set the driving time
+	time_driving = 0.0
+
 
 ## Stop "driving".
 func stop() -> void:
@@ -65,3 +70,6 @@ func stop() -> void:
 	await get_tree().physics_frame
 	await get_tree().physics_frame
 	player.collision_shape.disabled = false
+
+	# [Re]Set the driving time
+	time_driving = 0.0

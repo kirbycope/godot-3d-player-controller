@@ -31,6 +31,8 @@ var near_driver_door: int = false
 @onready var sound_idle = preload("res://assets/honda_crv/Engine Running Inside Car_1.wav")
 @onready var sound_horn = preload("res://assets/honda_crv/Honk_1.wav")
 
+var time_ungrounded: float = 0.0 ## Tracks the time the vehicle is not grounded.
+
 
 ## Called when there is an input event.
 func _input(event: InputEvent) -> void:
@@ -54,35 +56,49 @@ func _input(event: InputEvent) -> void:
 					# Stop all audio when exiting
 					audio_player.stop()
 					audio_player2.stop()
-					
-					# Don't set is_driving = false yet - keep it true to prevent gravity during exit
-					player.is_animation_locked = true
-					# Transition animation
-					player.global_position.y -= 0.15
-					player.animation_player.play("Exiting_Car" + "/mixamo_com")
-					
-					# Create a tween to synchronize player with car during exit animation
-					var sync_tween = create_tween()
-					sync_tween.set_loops()
-					sync_tween.tween_method(_sync_player_to_car, 0.0, 1.0, 0.016) # ~60fps updates
 
-					await get_tree().create_timer(1.0).timeout
-					animation_player.play("door_front_driver_open")
-					audio_player2.stream = player.is_driving_in.sound_door_open
-					audio_player2.play()
-					await get_tree().create_timer(2.3).timeout
-					animation_player.play_backwards("door_front_driver_open")
-					await get_tree().create_timer(1.0).timeout
-					audio_player2.stream = player.is_driving_in.sound_door_close
-					audio_player2.play()
-					await get_tree().create_timer(0.2).timeout
-					player.animation_player.stop()
-					sync_tween.kill() # Stop the synchronization tween
-					player.animation_player.play("Standing_Idle" + "/mixamo_com")
-					player.global_position = exit_driver_door.global_position
-					player.rotation = exit_driver_door.rotation
-					player.visuals.rotation = exit_driver_door.rotation
-					player.camera_mount.rotation = exit_driver_door.rotation
+					# Check if the vehicle is not on the ground
+					if !ray_cast_3d.is_colliding():
+						# Exit vehicle on top of the car
+						player.global_position = drivers_seat.global_position + Vector3(0, 1.0, 0)
+						player.global_rotation = get_tree().current_scene.rotation
+						player.visuals.rotation = player.rotation
+						player.camera_mount.rotation = player.rotation
+
+					# The vehicle must be grounded
+					else:
+						# Don't set is_driving = false yet - keep it true to prevent gravity during exit
+
+						# Flag the animation player as locked
+						player.is_animation_locked = true
+						# Transition animation
+						player.global_position.y -= 0.15
+						player.animation_player.play("Exiting_Car" + "/mixamo_com")
+						
+						# Create a tween to synchronize player with car during exit animation
+						var sync_tween = create_tween()
+						sync_tween.set_loops()
+						sync_tween.tween_method(_sync_player_to_car, 0.0, 1.0, 0.016) # ~60fps updates
+
+						await get_tree().create_timer(1.0).timeout
+						animation_player.play("door_front_driver_open")
+						audio_player2.stream = player.is_driving_in.sound_door_open
+						audio_player2.play()
+						await get_tree().create_timer(2.3).timeout
+						animation_player.play_backwards("door_front_driver_open")
+						await get_tree().create_timer(1.0).timeout
+						audio_player2.stream = player.is_driving_in.sound_door_close
+						audio_player2.play()
+						await get_tree().create_timer(0.2).timeout
+						player.animation_player.stop()
+						sync_tween.kill() # Stop the synchronization tween
+						player.animation_player.play("Standing_Idle" + "/mixamo_com")
+						player.global_position = exit_driver_door.global_position
+						player.rotation = exit_driver_door.rotation
+						player.visuals.rotation = exit_driver_door.rotation
+						player.camera_mount.rotation = exit_driver_door.rotation
+
+					# Reset player after exiting
 					player.velocity = Vector3.ZERO # Reset velocity to prevent flying
 					player.is_driving = false # Now set driving to false after positioning
 					player.collision_shape.disabled = false # Ensure collision is re-enabled
@@ -96,7 +112,7 @@ func _input(event: InputEvent) -> void:
 					# Start "standing"
 					player.base_state.transition("Driving", "Standing")
 
-			# Ⓐ/[Space] action _pressed_
+			# Ⓐ/[Space] action _pressed_ -> Honk the horn
 			if event.is_action_pressed("button_0"):
 				# Check if the player is DRIVING
 				if player.is_driving:
@@ -106,7 +122,7 @@ func _input(event: InputEvent) -> void:
 					# Play the horn sound
 					audio_player2.play()
 
-			# Ⓧ/[Ctrl] action _pressed_ (and no player is DRIVING)
+			# Ⓧ/[Ctrl] action _pressed_ (and no player is DRIVING) -> Enter vehicle
 			if event.is_action_pressed("button_2"):
 
 				# Check if the player is near the driver's door
@@ -219,6 +235,11 @@ func _physics_process(delta: float) -> void:
 				if not audio_player.playing:
 					# Play the sound
 					audio_player.play()
+
+		# Check if grounded
+		if ray_cast_3d.is_colliding():
+			# [Re]Set the ungrounded time
+			time_ungrounded = 0.0
 
 
 ## Flips the vehicle upright.
