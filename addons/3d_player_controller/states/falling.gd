@@ -5,6 +5,7 @@ const ANIMATION_JUMPING_HOLDING_RIFLE := "Rifle_Falling_Idle" + "/mixamo_com"
 const ANIMATION_JUMPING_HOLDING_TOOL := "Tool_Falling_Idle" + "/mixamo_com"
 const NODE_NAME := "Falling"
 
+var time_falling: float ## The time spent in the "falling" state.
 
 ## Called when there is an input event.
 func _input(event: InputEvent) -> void:
@@ -27,8 +28,8 @@ func _input(event: InputEvent) -> void:
 				transition(NODE_NAME, "Flying")
 
 
-## Called every frame. '_delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
+## Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
 	# Uncomment the next line if using GodotSteam
 	#if !is_multiplayer_authority(): return
 	# Check if the game is not paused
@@ -47,11 +48,19 @@ func _process(_delta: float) -> void:
 
 	# Check if the player is on the ground (and has no vertical velocity)
 	if player.is_on_floor() and player.velocity.y == 0.0:
-		# Start "standing"
-		transition(NODE_NAME, "Standing")
+		# It would take approximately 1.43 seconds to fall 10 meters under gravity = -9.8 m/s² (ignoring air resistance and assuming initial downward velocity is zero).
+		if time_falling > 1.43:
+			# Transition to ragdoll state for hard impacts
+			transition(NODE_NAME, "Ragdoll")
+		else:
+			# Start "standing"
+			transition(NODE_NAME, "Standing")
+
 
 	# Check if the player is "falling"
 	if player.is_falling:
+		# Increment the time spent in the "falling" state
+		time_falling += delta
 		# Play the animation
 		play_animation()
 
@@ -104,3 +113,6 @@ func stop() -> void:
 
 	# Flag the player as not "double jumping"
 	player.is_double_jumping = false
+
+	# Reset the time spent falling
+	time_falling = 0.0

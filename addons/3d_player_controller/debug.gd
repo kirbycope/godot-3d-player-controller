@@ -11,6 +11,14 @@ func _input(event) -> void:
 		# Toggle "debug" visibility
 		visible = !visible
 
+	# [R] key to trigger ragdoll for testing (only when debug panel is visible)
+	if visible and event is InputEventKey and event.pressed:
+		if event.keycode == KEY_R:
+			# Get the current state name and transition to ragdoll
+			var current_state_name = player.base_state.get_state_name(player.current_state)
+			# Transition to ragdoll state
+			player.base_state.transition(current_state_name, "Ragdoll")
+
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

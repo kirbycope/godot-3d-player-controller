@@ -136,6 +136,7 @@ var virtual_velocity: Vector3 = Vector3.ZERO ## The velocity of the player if th
 @onready var bone_attachment_left_hand = player_skeleton.get_node("BoneAttachment3D_LeftHand")
 @onready var bone_attachment_right_hand = player_skeleton.get_node("BoneAttachment3D_RightHand")
 @onready var look_at_modifier = player_skeleton.get_node("LookAtModifier3D")
+@onready var physical_bone_simulator = player_skeleton.get_node_or_null("PhysicalBoneSimulator3D")
 # Initial Values
 @onready var initial_position = position
 
@@ -155,6 +156,10 @@ func _ready() -> void:
 func _physics_process(delta) -> void:
 	# Uncomment the next line if using GodotSteam
 	#if !is_multiplayer_authority(): return
+
+	# Don't process physics if in ragdoll state - let the physics bones handle everything
+	if current_state == STATES.State.RAGDOLL:
+		return
 
 	# Apply gravity (but not if climbing, driving, hanging, swimming, or noclip)
 	if !is_climbing and !is_driving and !is_hanging:
@@ -515,6 +520,10 @@ func check_tool_collision() -> void:
 
 ## Moves the player based on velocity and shapecast collision.
 func move_player(delta: float) -> void:
+	# Don't move the player if in ragdoll state - let physics bones handle movement
+	if current_state == STATES.State.RAGDOLL:
+		return
+		
 	# Set the shapecast position to the player's potential new position
 	shapecast.global_position.x = global_position.x + velocity.x * delta
 	shapecast.global_position.z = global_position.z + velocity.z * delta

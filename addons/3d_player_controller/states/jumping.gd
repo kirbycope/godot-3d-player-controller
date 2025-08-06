@@ -22,7 +22,7 @@ func _input(event: InputEvent) -> void:
 					player.is_double_jumping = true
 
 		# Ⓐ/[Space] _pressed_ and flying is enabled --> Start "flying"
-		if event.is_action_pressed("button_0") and player.enable_flying and !player.is_flying:
+		if event.is_action_pressed("button_0") and player.enable_flying and !player.is_flying and !player.is_on_floor():
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
 				# Start "flying"
