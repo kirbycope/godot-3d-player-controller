@@ -17,6 +17,8 @@ func _process(delta: float) -> void:
 	# Check if the game is not paused
 	if !player.game_paused:
 		time_ragdoll += delta
+		# Move the player to their bones
+		player.global_position = player.player_skeleton.get_node("PhysicalBoneSimulator3D/Physical Bone Hips").global_position
 
 
 ## Start ragdoll state
