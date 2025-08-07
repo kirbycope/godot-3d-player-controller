@@ -1,6 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://bij47vxq4dovl"]
+[gd_scene load_steps=7 format=3 uid="uid://bij47vxq4dovl"]
 
-[ext_resource type="Texture2D" uid="uid://7trvk2d00bkv" path="res://assets/textures/Flame01.png" id="2_dlkw0"]
+[ext_resource type="Shader" uid="uid://b8mh63n7unn48" path="res://scenes/fire.gdshader" id="1_jjww4"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jjww4"]
 albedo_color = Color(0.6627451, 0.27058825, 0.27058825, 1)
@@ -12,49 +12,33 @@ material = SubResource("StandardMaterial3D_jjww4")
 inner_radius = 2.0
 outer_radius = 2.5
 
-[sub_resource type="Curve" id="Curve_u0s35"]
-_limits = [-1.0, 1.0, 0.0, 1.0]
-_data = [Vector2(0, -1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_2i85o"]
-curve = SubResource("Curve_u0s35")
-
-[sub_resource type="ParticleProcessMaterial" id="FireParticlesMaterial"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jjww4"]
 emission_shape = 6
 emission_ring_axis = Vector3(0, 0, 1)
-emission_ring_height = 0.2
+emission_ring_height = 0.5
 emission_ring_radius = 2.5
 emission_ring_inner_radius = 2.0
 emission_ring_cone_angle = 90.0
-angle_min = -15.0
-angle_max = 15.0
-direction = Vector3(0, 1, 0)
-initial_velocity_min = 1.5
-initial_velocity_max = 5.5
-angular_velocity_min = -1.0000161
-angular_velocity_max = 0.9999839
-gravity = Vector3(0, 0.5, 0)
-scale_min = 0.15
-scale_max = 0.7
-scale_curve = SubResource("CurveTexture_2i85o")
-color = Color(1, 0.69803923, 0.2, 0.78431374)
-hue_variation_min = -0.7
-hue_variation_max = 0.7
-hue_variation_curve = SubResource("CurveTexture_2i85o")
+gravity = Vector3(0, 0, 0)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_doso4"]
-transparency = 2
-alpha_scissor_threshold = 0.5
-alpha_antialiasing_mode = 0
-cull_mode = 2
-albedo_color = Color(1, 0.4122003, 0.29127973, 0.5)
-albedo_texture = ExtResource("2_dlkw0")
-emission_enabled = true
-emission = Color(1.0614078, 0.30674863, 4.768646e-07, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dlkw0"]
+render_priority = 0
+shader = ExtResource("1_jjww4")
+shader_parameter/detail_strength = 3.0
+shader_parameter/scroll_speed = 1.2
+shader_parameter/fire_height = 1.0
+shader_parameter/fire_shape = 1.5
+shader_parameter/fire_thickness = 0.55
+shader_parameter/fire_sharpness = 1.0
+shader_parameter/intensity = 1.0
+shader_parameter/noise_octaves = 6
+shader_parameter/noise_lacunarity = 3.0
+shader_parameter/noise_gain = 0.5
+shader_parameter/noise_amplitude = 1.0
+shader_parameter/noise_frequency = 1.5
 
 [sub_resource type="QuadMesh" id="QuadMesh_xpgf1"]
-material = SubResource("StandardMaterial3D_doso4")
+material = SubResource("ShaderMaterial_dlkw0")
 
 [node name="RingOfFire" type="Node3D"]
 
@@ -64,5 +48,6 @@ mesh = SubResource("TorusMesh_dlkw0")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 amount = 200
-process_material = SubResource("FireParticlesMaterial")
+lifetime = 3.0
+process_material = SubResource("ParticleProcessMaterial_jjww4")
 draw_pass_1 = SubResource("QuadMesh_xpgf1")

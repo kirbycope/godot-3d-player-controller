@@ -32,7 +32,6 @@ var barrel_roll_done: bool = false
 @onready var exit_driver_door: Node3D = $ExitDriverDoorEnd
 @onready var open_driver_door: Node3D = $OpenDriverDoorStart
 @onready var ray_cast_3d: RayCast3D = $RayCast3D
-@onready var do_a_barrel_roll = preload("res://assets/sounds/BANK_03_INSTR_000D_SND_0000.wav")
 @onready var notify_popup = preload("res://assets/sounds/NotifyPopup.wav")
 @onready var sound_accelerate = preload("res://assets/honda_crv/Speed Up Inside Car_1.wav")
 @onready var sound_door_close = preload("res://assets/honda_crv/Door Close_1.wav")
