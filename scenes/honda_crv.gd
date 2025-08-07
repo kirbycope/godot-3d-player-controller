@@ -12,10 +12,17 @@ const DRIVING = preload("res://addons/3d_player_controller/states/driving.gd")
 @export var traction_factor: float = 0.7
 @export var wheel_radius: float = 0.4
 
+
 var engine_power
 var last_mouse_move_time: float = 0.0
 var player: CharacterBody3D
 var near_driver_door: int = false
+
+# Barrel roll tracking
+var last_z_rotation: float = 0.0
+var accumulated_z_rotation: float = 0.0
+var barrel_roll_grounded_time: float = 0.0
+var barrel_roll_done: bool = false
 
 # Note: `@onready` variables are set when the scene is loaded.
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -25,6 +32,7 @@ var near_driver_door: int = false
 @onready var exit_driver_door: Node3D = $ExitDriverDoorEnd
 @onready var open_driver_door: Node3D = $OpenDriverDoorStart
 @onready var ray_cast_3d: RayCast3D = $RayCast3D
+@onready var do_a_barrel_roll = preload("res://assets/sounds/BANK_03_INSTR_000D_SND_0000.wav")
 @onready var sound_accelerate = preload("res://assets/honda_crv/Speed Up Inside Car_1.wav")
 @onready var sound_door_close = preload("res://assets/honda_crv/Door Close_1.wav")
 @onready var sound_door_open = preload("res://assets/honda_crv/Door Open_1.wav")
@@ -163,6 +171,7 @@ func _input(event: InputEvent) -> void:
 
 
 ## Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
 	# Convert HP to force in Newtons
 	engine_power = (horse_power * 5252 * gear_ratio * final_drive_ratio) / (max_rpm * wheel_radius)
@@ -174,9 +183,41 @@ func _ready() -> void:
 		physics_material.rough = true
 		physics_material_override = physics_material
 
+	# Initialize barrel roll tracking
+	last_z_rotation = rotation.z
+	accumulated_z_rotation = 0.0
+	barrel_roll_done = false
+
 
 ## Called during the physics processing step of the main loop.
+
 func _physics_process(delta: float) -> void:
+
+	# Barrel roll tracking
+	if not barrel_roll_done:
+		var current_z = rotation.z
+		var delta_z = wrapf(current_z - last_z_rotation, -PI, PI)
+		accumulated_z_rotation += delta_z
+		last_z_rotation = current_z
+
+		# If the car is grounded, increment the grounded timer; else, reset it
+		if ray_cast_3d.is_colliding():
+			barrel_roll_grounded_time += delta
+		else:
+			barrel_roll_grounded_time = 0.0
+
+		# Reset accumulated_z_rotation if grounded for more than 3 seconds or player is null
+		if player == null or barrel_roll_grounded_time > 3.0:
+			accumulated_z_rotation = 0.0
+			barrel_roll_grounded_time = 0.0
+
+		# Check for a full barrel roll (360 degrees = 2*PI radians)
+		if abs(accumulated_z_rotation) >= TAU:
+			player.audio_player.stream = do_a_barrel_roll
+			player.audio_player.play()
+			accumulated_z_rotation = 0.0 # Reset or handle as needed
+			barrel_roll_done = true
+
 	# Check if the player if not null
 	if player:
 		# Check if the player is DRIVING

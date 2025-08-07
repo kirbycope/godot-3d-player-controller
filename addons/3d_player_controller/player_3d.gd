@@ -52,7 +52,6 @@ const STATES = preload("res://addons/3d_player_controller/states/states.gd")
 @export var force_pushing_multiplier: float = 1.0 ## Global multiplier for all pushing/hitting forces
 @export var throw_force: float = 3.5 ## Force applied when throwing
 
-
 # State machine variables
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") ## Default gravity value
 var is_aiming: bool = false ## Is the player aiming?
