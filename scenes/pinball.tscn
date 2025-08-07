@@ -1,4 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://ctdlktrnwgsoy"]
+[gd_scene load_steps=5 format=3 uid="uid://ctdlktrnwgsoy"]
+
+[ext_resource type="Script" uid="uid://dvmkq0leqjcyp" path="res://scenes/pinball.gd" id="1_w5td1"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_bkwau"]
 margin = 1.35
@@ -19,6 +21,7 @@ height = 1.35
 
 [node name="Pinball" type="RigidBody3D"]
 mass = 5.0
+script = ExtResource("1_w5td1")
 
 [node name="ReflectionProbe" type="ReflectionProbe" parent="."]
 update_mode = 1
