@@ -193,37 +193,37 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 
-	# Barrel roll tracking
-	if not barrel_roll_done:
-		var current_z = rotation.z
-		var delta_z = wrapf(current_z - last_z_rotation, -PI, PI)
-		accumulated_z_rotation += delta_z
-		last_z_rotation = current_z
-
-		# If the car is grounded, increment the grounded timer; else, reset it
-		if ray_cast_3d.is_colliding():
-			barrel_roll_grounded_time += delta
-		else:
-			barrel_roll_grounded_time = 0.0
-
-		# Reset accumulated_z_rotation if grounded for more than 3 seconds or player is null
-		if player == null or barrel_roll_grounded_time > 3.0:
-			accumulated_z_rotation = 0.0
-			barrel_roll_grounded_time = 0.0
-
-		# Check for a full barrel roll (360 degrees = 2*PI radians)
-		if abs(accumulated_z_rotation) >= TAU:
-			player.audio_player.stream = notify_popup
-			player.audio_player.volume_db = -20 # -10 was loud
-			player.audio_player.play()
-			get_parent().get_node("ControlsOverlay/AchiementUnlocked/AnimationPlayer").play("toast")
-			accumulated_z_rotation = 0.0
-			barrel_roll_done = true
-
 	# Check if the player if not null
 	if player:
 		# Check if the player is DRIVING
 		if player.is_driving:
+			# Barrel roll tracking
+			if not barrel_roll_done:
+				var current_z = rotation.z
+				var delta_z = wrapf(current_z - last_z_rotation, -PI, PI)
+				accumulated_z_rotation += delta_z
+				last_z_rotation = current_z
+
+				# If the car is grounded, increment the grounded timer; else, reset it
+				if ray_cast_3d.is_colliding():
+					barrel_roll_grounded_time += delta
+				else:
+					barrel_roll_grounded_time = 0.0
+
+				# Reset accumulated_z_rotation if grounded for more than 3 seconds or player is null
+				if player == null or barrel_roll_grounded_time > 3.0:
+					accumulated_z_rotation = 0.0
+					barrel_roll_grounded_time = 0.0
+
+				# Check for a full barrel roll (360 degrees = 2*PI radians)
+				if abs(accumulated_z_rotation) >= TAU:
+					player.audio_player.stream = notify_popup
+					player.audio_player.volume_db = -20 # -10 was loud
+					player.audio_player.play()
+					get_parent().get_node("ControlsOverlay/AchiementUnlocked/AnimationPlayer").play("toast")
+					accumulated_z_rotation = 0.0
+					barrel_roll_done = true
+
 			# Check if the current animation is "DRIVING" (not getting in or getting out)
 			if player.animation_player.current_animation == DRIVING.ANIMATION_DRIVING:
 				# Calculate current speed
