@@ -33,6 +33,7 @@ var barrel_roll_done: bool = false
 @onready var open_driver_door: Node3D = $OpenDriverDoorStart
 @onready var ray_cast_3d: RayCast3D = $RayCast3D
 @onready var do_a_barrel_roll = preload("res://assets/sounds/BANK_03_INSTR_000D_SND_0000.wav")
+@onready var notify_popup = preload("res://assets/sounds/NotifyPopup.wav")
 @onready var sound_accelerate = preload("res://assets/honda_crv/Speed Up Inside Car_1.wav")
 @onready var sound_door_close = preload("res://assets/honda_crv/Door Close_1.wav")
 @onready var sound_door_open = preload("res://assets/honda_crv/Door Open_1.wav")
@@ -213,9 +214,11 @@ func _physics_process(delta: float) -> void:
 
 		# Check for a full barrel roll (360 degrees = 2*PI radians)
 		if abs(accumulated_z_rotation) >= TAU:
-			player.audio_player.stream = do_a_barrel_roll
+			player.audio_player.stream = notify_popup
+			player.audio_player.volume_db = -20 # -10 was loud
 			player.audio_player.play()
-			accumulated_z_rotation = 0.0 # Reset or handle as needed
+			get_parent().get_node("ControlsOverlay/AchiementUnlocked/AnimationPlayer").play("toast")
+			accumulated_z_rotation = 0.0
 			barrel_roll_done = true
 
 	# Check if the player if not null

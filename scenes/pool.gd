@@ -21,6 +21,17 @@ func _on_area_3d_body_entered(body: Node3D, area_node: Node3D) -> void:
 	if body is CharacterBody3D and body.is_in_group("Player"):
 
 		# Drop any equipment before swimming
+		if body.is_skateboarding:
+			# Remove any foot mounted equipment from the player
+			body.visuals.get_node("FootMount").remove_child(body.is_skateboarding_on)
+			# Reparent the skateboard to the main scene
+			get_tree().current_scene.add_child(body.is_skateboarding_on)
+			# Remove the player reference from the skateboard
+			body.is_skateboarding_on.player = null
+			# Clear the skateboard reference from the player
+			body.is_skateboarding_on = null
+
+		# Drop any equipment before swimming
 		body.reparent_held_item()
 
 		# Store which body the player is swimming in

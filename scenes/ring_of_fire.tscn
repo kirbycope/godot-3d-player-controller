@@ -1,0 +1,68 @@
+[gd_scene load_steps=9 format=3 uid="uid://bij47vxq4dovl"]
+
+[ext_resource type="Texture2D" uid="uid://7trvk2d00bkv" path="res://assets/textures/Flame01.png" id="2_dlkw0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jjww4"]
+albedo_color = Color(0.6627451, 0.27058825, 0.27058825, 1)
+metallic = 1.0
+roughness = 0.5
+
+[sub_resource type="TorusMesh" id="TorusMesh_dlkw0"]
+material = SubResource("StandardMaterial3D_jjww4")
+inner_radius = 2.0
+outer_radius = 2.5
+
+[sub_resource type="Curve" id="Curve_u0s35"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, -1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_2i85o"]
+curve = SubResource("Curve_u0s35")
+
+[sub_resource type="ParticleProcessMaterial" id="FireParticlesMaterial"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 0.2
+emission_ring_radius = 2.5
+emission_ring_inner_radius = 2.0
+emission_ring_cone_angle = 90.0
+angle_min = -15.0
+angle_max = 15.0
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 1.5
+initial_velocity_max = 5.5
+angular_velocity_min = -1.0000161
+angular_velocity_max = 0.9999839
+gravity = Vector3(0, 0.5, 0)
+scale_min = 0.15
+scale_max = 0.7
+scale_curve = SubResource("CurveTexture_2i85o")
+color = Color(1, 0.69803923, 0.2, 0.78431374)
+hue_variation_min = -0.7
+hue_variation_max = 0.7
+hue_variation_curve = SubResource("CurveTexture_2i85o")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_doso4"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+cull_mode = 2
+albedo_color = Color(1, 0.4122003, 0.29127973, 0.5)
+albedo_texture = ExtResource("2_dlkw0")
+emission_enabled = true
+emission = Color(1.0614078, 0.30674863, 4.768646e-07, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_xpgf1"]
+material = SubResource("StandardMaterial3D_doso4")
+
+[node name="RingOfFire" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("TorusMesh_dlkw0")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+amount = 200
+process_material = SubResource("FireParticlesMaterial")
+draw_pass_1 = SubResource("QuadMesh_xpgf1")

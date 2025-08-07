@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=76 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" uid="uid://c7agev1ouwnuu" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="Texture2D" uid="uid://e6rn4rs3cr0v" path="res://assets/kenney_nl/prototype_textures/PNG/Dark/texture_09.png" id="2_d2mly"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b23jvnkvbvg1b" path="res://scenes/cat.tscn" id="4_7pvfh"]
 [ext_resource type="Texture2D" uid="uid://yjfepubkyyyr" path="res://assets/kenney_nl/prototype_textures/PNG/Light/texture_08.png" id="4_bf4q0"]
 [ext_resource type="PackedScene" uid="uid://b00vkv565tcmq" path="res://scenes/information_sign.tscn" id="4_dp3eg"]
+[ext_resource type="Texture2D" uid="uid://cdeccf32ndjbh" path="res://assets/textures/achievement.png" id="5_c6pm6"]
 [ext_resource type="PackedScene" uid="uid://cog5lww47pkyv" path="res://scenes/portal_gun.tscn" id="5_k8xrp"]
 [ext_resource type="PackedScene" uid="uid://pjs50x7keevf" path="res://scenes/fishing_rod.tscn" id="6_byq53"]
 [ext_resource type="PackedScene" uid="uid://qi0jcm5uxbeu" path="res://scenes/bubble_tornado.tscn" id="6_fuf3a"]
@@ -38,6 +39,7 @@
 [ext_resource type="PackedScene" uid="uid://ctdlktrnwgsoy" path="res://scenes/pinball.tscn" id="33_5q0nq"]
 [ext_resource type="PackedScene" uid="uid://by6aakvda3r8i" path="res://scenes/bouncy_ball.tscn" id="34_dgi5k"]
 [ext_resource type="PackedScene" uid="uid://kvot350vxctj" path="res://scenes/rock_a_stack_rigid.tscn" id="35_j8jky"]
+[ext_resource type="PackedScene" uid="uid://bij47vxq4dovl" path="res://scenes/ring_of_fire.tscn" id="36_5he1u"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yu8tv"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -58,6 +60,71 @@ uv1_triplanar = true
 [sub_resource type="LabelSettings" id="LabelSettings_gqmmt"]
 outline_size = 8
 outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_5he1u"]
+resource_name = "toast"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(434.75, -80), Vector2(434.75, 0), Vector2(434.75, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_5poiv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(434.75, -80)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2cjbq"]
+_data = {
+&"RESET": SubResource("Animation_5poiv"),
+&"toast": SubResource("Animation_5he1u")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_chjal"]
+font_size = 48
+font_color = Color(0.827451, 0.7882353, 0.7647059, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jbj1t"]
 size = Vector3(0.2, 1.1, 0.2)
@@ -189,7 +256,7 @@ script = ExtResource("4_0ld40")
 
 [node name="Climbing" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = 6
+anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -205,7 +272,7 @@ label_settings = SubResource("LabelSettings_gqmmt")
 
 [node name="Driving" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = 6
+anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -220,7 +287,7 @@ label_settings = SubResource("LabelSettings_gqmmt")
 
 [node name="Fishing" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = 6
+anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -238,7 +305,7 @@ horizontal_alignment = 2
 
 [node name="Flying" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = 6
+anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -256,7 +323,7 @@ label_settings = SubResource("LabelSettings_gqmmt")
 
 [node name="Hanging" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = 6
+anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -272,7 +339,7 @@ label_settings = SubResource("LabelSettings_gqmmt")
 
 [node name="Holding" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = 6
+anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -290,7 +357,7 @@ label_settings = SubResource("LabelSettings_gqmmt")
 
 [node name="ItemEquipped" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = 6
+anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -305,7 +372,7 @@ label_settings = SubResource("LabelSettings_gqmmt")
 
 [node name="Rotating" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = 6
+anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -324,7 +391,7 @@ horizontal_alignment = 2
 
 [node name="Rifling" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = 6
+anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -342,7 +409,7 @@ horizontal_alignment = 2
 
 [node name="Skateboarding" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = 6
+anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -360,7 +427,7 @@ horizontal_alignment = 2
 
 [node name="Swimming" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = 6
+anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -376,7 +443,7 @@ label_settings = SubResource("LabelSettings_gqmmt")
 
 [node name="ToolEquipped" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = 6
+anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -391,6 +458,34 @@ text = "(L2) | [R-Click]           Swing
 (D-Down) | [Q]                      Drop"
 label_settings = SubResource("LabelSettings_gqmmt")
 horizontal_alignment = 2
+
+[node name="AchiementUnlocked" type="TextureRect" parent="ControlsOverlay"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -205.25
+offset_top = -80.0
+offset_right = 615.75
+offset_bottom = 77.0
+grow_horizontal = 2
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_c6pm6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ControlsOverlay/AchiementUnlocked"]
+libraries = {
+&"": SubResource("AnimationLibrary_2cjbq")
+}
+
+[node name="Label" type="Label" parent="ControlsOverlay/AchiementUnlocked"]
+layout_mode = 0
+offset_left = 206.5
+offset_top = 80.0
+offset_right = 706.5
+offset_bottom = 147.0
+text = "Do a barrel roll!"
+label_settings = SubResource("LabelSettings_chjal")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ControlsOnFootController" parent="." instance=ExtResource("4_dp3eg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
@@ -890,6 +985,9 @@ transform = Transform3D(0, 4.371139e-08, -1, 1, -4.371139e-08, 0, -4.371139e-08,
 
 [node name="LincolnLog2NotchRigid" parent="." instance=ExtResource("26_vxglm")]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -14, 2.873, 11.208)
+
+[node name="RingOfFire" parent="." instance=ExtResource("36_5he1u")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 20.300001, 3, 2.5)
 
 [node name="PianoOctave" parent="." instance=ExtResource("29_yq6so")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0.5550005, 0)
