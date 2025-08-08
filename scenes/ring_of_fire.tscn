@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://bij47vxq4dovl"]
+[gd_scene load_steps=8 format=3 uid="uid://bij47vxq4dovl"]
 
 [ext_resource type="Shader" uid="uid://b8mh63n7unn48" path="res://scenes/fire.gdshader" id="1_jjww4"]
+[ext_resource type="AudioStream" uid="uid://b8art8vc7eqys" path="res://assets/sounds/569345__backhzsound__gas-firepit-burning.wav" id="2_dlkw0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jjww4"]
 albedo_color = Color(0.6627451, 0.27058825, 0.27058825, 1)
@@ -51,3 +52,8 @@ amount = 200
 lifetime = 3.0
 process_material = SubResource("ParticleProcessMaterial_jjww4")
 draw_pass_1 = SubResource("QuadMesh_xpgf1")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_dlkw0")
+autoplay = true
+max_distance = 5.0

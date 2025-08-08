@@ -1,4 +1,6 @@
-[gd_scene load_steps=17 format=4 uid="uid://bra5h4ewvogkf"]
+[gd_scene load_steps=18 format=4 uid="uid://bra5h4ewvogkf"]
+
+[ext_resource type="Script" uid="uid://ds2t64lwieatj" path="res://scenes/punching_bag.gd" id="1_je6af"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m533g"]
 albedo_color = Color(0, 0, 0, 1)
@@ -77,6 +79,9 @@ _surfaces = [{
 
 [node name="PunchingBag" type="StaticBody3D"]
 
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+volume_db = -10.0
+
 [node name="TopBar" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 2.125, -0.4999999)
 mesh = SubResource("BoxMesh_m533g")
@@ -126,6 +131,7 @@ shape = SubResource("BoxShape3D_drmsc")
 [node name="Bag" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.049999982, 0)
 mass = 5.0
+script = ExtResource("1_je6af")
 
 [node name="TopBand" type="MeshInstance3D" parent="Bag"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)

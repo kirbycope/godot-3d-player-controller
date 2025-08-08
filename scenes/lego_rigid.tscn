@@ -138,25 +138,29 @@ _surfaces = [{
 }]
 
 [node name="LegoRigid" type="RigidBody3D" groups=["Lego"]]
+contact_monitor = true
+max_contacts_reported = 1
 script = ExtResource("1_x8p3r")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_2asgh")
 
 [node name="Base" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0047742426, 0.0002489835, 0.01023823)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.005, 0, 0)
 mesh = SubResource("ArrayMesh_srtwm")
 
 [node name="BottomStud" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0047742426, -0.049751014, 0.01023823)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.005, -0.05, 0)
 mesh = SubResource("ArrayMesh_hewym")
 
 [node name="BottomStud2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.39522576, -0.049751014, 0.01023823)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.395, -0.05, 0)
 mesh = SubResource("ArrayMesh_xjwsf")
 
 [node name="BottomStud3" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.40477425, -0.049751014, 0.01023823)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.405, -0.05, 0)
 mesh = SubResource("ArrayMesh_i1p84")
 
 [node name="TopStud" type="MeshInstance3D" parent="."]

@@ -45,6 +45,9 @@ _surfaces = [{
 }]
 
 [node name="LincolnLog1NotchRigid" type="RigidBody3D"]
+mass = 1.0
+contact_monitor = true
+max_contacts_reported = 1
 script = ExtResource("1_ixp8q")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
@@ -82,4 +85,4 @@ shape = SubResource("BoxShape3D_mipjf")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.715, -0.295, 0)
 shape = SubResource("BoxShape3D_mipjf")
 
-[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

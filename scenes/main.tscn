@@ -941,21 +941,6 @@ material = SubResource("StandardMaterial3D_jbj1t")
 [node name="Lego" parent="." instance=ExtResource("20_gqmmt")]
 transform = Transform3D(-4.371139e-07, -10, 0, 10, -4.371139e-07, 0, 0, 0, 10, -11, 7.9, 0)
 
-[node name="LegoRigid2" parent="." instance=ExtResource("21_yc10j")]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 3.4969112e-08, 0.8, -8)
-contact_monitor = true
-script = null
-
-[node name="LegoRigid3" parent="." instance=ExtResource("21_yc10j")]
-transform = Transform3D(-4.371139e-08, -1, 5.9604645e-08, -1, 4.371139e-08, 0, 0, -5.9604645e-08, -1, -0.99999994, 0.8, -8)
-contact_monitor = true
-script = null
-
-[node name="LegoRigid4" parent="." instance=ExtResource("21_yc10j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.8, -8)
-contact_monitor = true
-script = null
-
 [node name="SlimeBall" parent="." instance=ExtResource("22_pm3ni")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, -7)
 
@@ -972,7 +957,7 @@ transform = Transform3D(-0.7071067, 0, 0.7071068, 0, 1, 0, -0.7071068, 0, -0.707
 transform = Transform3D(-0.99999994, 0, 8.742277e-08, 0, 1, 0, -8.742277e-08, 0, -0.99999994, 11.035534, 1.2550012, 13.464466)
 
 [node name="LegoRigid" parent="." instance=ExtResource("21_yc10j")]
-transform = Transform3D(-4.371139e-08, 1, -8.742278e-08, 1, 4.371139e-08, -3.821371e-15, 0, -8.742278e-08, -1, -7, 0.79999995, 11.285)
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -7, 0.8, 11.2)
 
 [node name="DominoRigid" parent="." instance=ExtResource("26_fv21b")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -8.5, 1.255, 11.206095)
@@ -1005,3 +990,33 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -6.1
 
 [node name="RockAStackRigid" parent="." instance=ExtResource("35_j8jky")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0.805, 16)
+
+[node name="Legos" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -11)
+
+[node name="LegoRigid2" parent="Legos" instance=ExtResource("21_yc10j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8400012, 0)
+
+[node name="LegoRigid3" parent="Legos" instance=ExtResource("21_yc10j")]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.55, 0.8, 0)
+
+[node name="LegoRigid4" parent="Legos" instance=ExtResource("21_yc10j")]
+transform = Transform3D(1.3113416e-07, -1, -5.9604645e-08, -1, -1.3113416e-07, -3.5527137e-15, 0, 5.9604645e-08, -1, -0.56, 0.8, 0)
+
+[node name="LegoRigid5" parent="Legos" instance=ExtResource("21_yc10j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.840001, 0)
+
+[node name="LegoRigid6" parent="Legos" instance=ExtResource("21_yc10j")]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.55, 2.8, 0)
+
+[node name="LegoRigid7" parent="Legos" instance=ExtResource("21_yc10j")]
+transform = Transform3D(1.3113416e-07, -1, -5.9604645e-08, -1, -1.3113416e-07, -3.5527137e-15, 0, 5.9604645e-08, -1, -0.56, 2.8, 0)
+
+[node name="LegoRigid8" parent="Legos" instance=ExtResource("21_yc10j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.840001, 0)
+
+[node name="LegoRigid9" parent="Legos" instance=ExtResource("21_yc10j")]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.55, 4.8, 0)
+
+[node name="LegoRigid10" parent="Legos" instance=ExtResource("21_yc10j")]
+transform = Transform3D(1.3113416e-07, -1, -5.9604645e-08, -1, -1.3113416e-07, -3.5527137e-15, 0, 5.9604645e-08, -1, -0.56, 4.8, 0)

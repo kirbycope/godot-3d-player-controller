@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://by6aakvda3r8i"]
+[gd_scene load_steps=7 format=3 uid="uid://by6aakvda3r8i"]
 
 [ext_resource type="Texture2D" uid="uid://b1xhtsiv0obp3" path="res://assets/textures/bouncy_ball_bg.png" id="1_6k5h2"]
+[ext_resource type="Script" uid="uid://6x1e0i5fdmt3" path="res://scenes/bouncy_ball.gd" id="1_x5kq6"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_5lnoa"]
 friction = 0.5
 bounce = 0.9
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_x5kq6"]
+radius = 0.475
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x5kq6"]
 transparency = 1
@@ -18,14 +22,19 @@ material = SubResource("StandardMaterial3D_x5kq6")
 radius = 0.475
 height = 0.95
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_x5kq6"]
-radius = 0.475
-
 [node name="BouncyBall" type="RigidBody3D"]
 physics_material_override = SubResource("PhysicsMaterial_5lnoa")
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_x5kq6")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_x5kq6")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_6k5h2")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("SphereShape3D_x5kq6")
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

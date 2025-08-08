@@ -61,6 +61,8 @@ size = Vector3(0.5, 0.237, 2.86)
 
 [node name="LincolnLog2NotchRigid" type="RigidBody3D"]
 mass = 2.0
+contact_monitor = true
+max_contacts_reported = 1
 script = ExtResource("1_8kp13")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
@@ -114,4 +116,4 @@ shape = SubResource("BoxShape3D_ylm7q")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.618, -0.295, 0)
 shape = SubResource("BoxShape3D_ylm7q")
 
-[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

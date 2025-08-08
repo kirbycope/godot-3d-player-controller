@@ -280,21 +280,19 @@ func check_kick_collision() -> void:
 			# Apply the force to the SoftBody3D
 			stored_collider.apply_central_impulse(impulse)
 
-		# Check if the collider is a CharacterBody3D (apply hit animation immediately)
-		if stored_collider is CharacterBody3D:
-			# Check if kicking left
-			if is_kicking_left:
-				# Check if the collider has the appropriate function
-				if stored_collider.has_method("animate_hit_low_left"):
-					# Play the appropriate hit animation
-					stored_collider.call("animate_hit_low_left")
+		# Check if kicking left
+		if is_kicking_left:
+			# Check if the collider has the appropriate function
+			if stored_collider.has_method("animate_hit_low_left"):
+				# Play the appropriate hit animation
+				stored_collider.call("animate_hit_low_left")
 
-			# Must be kicking right
-			else:
-				# Check if the collider has the appropriate function
-				if stored_collider.has_method("animate_hit_low_right"):
-					# Play the appropriate hit animation
-					stored_collider.call("animate_hit_low_right")
+		# Must be kicking right
+		else:
+			# Check if the collider has the appropriate function
+			if stored_collider.has_method("animate_hit_low_right"):
+				# Play the appropriate hit animation
+				stored_collider.call("animate_hit_low_right")
 
 		# Check if controller vibration is enabled
 		if enable_vibration:
@@ -376,21 +374,19 @@ func check_punch_collision() -> void:
 			# Apply the force to the SoftBody3D
 			stored_collider.apply_central_impulse(impulse)
 
-		# Check if the collider is a CharacterBody3D (apply hit animation immediately)
-		if stored_collider is CharacterBody3D:
-			# Check if punching left
-			if is_punching_left:
-				# Check if the collider has the appropriate function
-				if stored_collider.has_method("animate_hit_high_left"):
-					# Play the appropriate hit animation
-					stored_collider.call("animate_hit_high_left")
+		# Check if punching left
+		if is_punching_left:
+			# Check if the collider has the appropriate function
+			if stored_collider.has_method("animate_hit_high_left"):
+				# Play the appropriate hit animation
+				stored_collider.call("animate_hit_high_left")
 
-			# Must be punching right
-			else:
-				# Check if the collider has the appropriate function
-				if stored_collider.has_method("animate_hit_high_right"):
-					# Play the appropriate hit animation
-					stored_collider.call("animate_hit_high_right")
+		# Must be punching right
+		else:
+			# Check if the collider has the appropriate function
+			if stored_collider.has_method("animate_hit_high_right"):
+				# Play the appropriate hit animation
+				stored_collider.call("animate_hit_high_right")
 
 		# Check if controller vibration is enabled
 		if enable_vibration:
@@ -480,20 +476,18 @@ func check_tool_collision() -> void:
 								# Apply the force to the SoftBody3D
 								stored_body.apply_central_impulse(impulse)
 
-							# Check if the body is a CharacterBody3D (apply hit animation immediately)
-							if stored_body is CharacterBody3D:
-								# Check if swinging left
-								if is_swinging_left:
-									# Check if the body has the appropriate function
-									if stored_body.has_method("animate_hit_high_left"):
-										# Play the appropriate hit animation
-										stored_body.call("animate_hit_high_left")
-								# Must be swinging right
-								else:
-									# Check if the body has the appropriate function
-									if stored_body.has_method("animate_hit_high_right"):
-										# Play the appropriate hit animation
-										stored_body.call("animate_hit_high_right")
+							# Check if swinging left
+							if is_swinging_left:
+								# Check if the body has the appropriate function
+								if stored_body.has_method("animate_hit_high_left"):
+									# Play the appropriate hit animation
+									stored_body.call("animate_hit_high_left")
+							# Must be swinging right
+							else:
+								# Check if the body has the appropriate function
+								if stored_body.has_method("animate_hit_high_right"):
+									# Play the appropriate hit animation
+									stored_body.call("animate_hit_high_right")
 
 							# Check if controller vibration is enabled
 							if enable_vibration:
