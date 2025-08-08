@@ -1,5 +1,6 @@
-[gd_scene load_steps=12 format=4 uid="uid://m4ahueh0shhm"]
+[gd_scene load_steps=13 format=4 uid="uid://m4ahueh0shhm"]
 
+[ext_resource type="Script" uid="uid://bdqgxgjdh5iv8" path="res://scenes/lincoln_log.gd" id="1_8kp13"]
 [ext_resource type="Texture2D" uid="uid://dfu636lpftagg" path="res://assets/textures/Wood026_1K-JPG_Color.jpg" id="1_ylm7q"]
 [ext_resource type="Texture2D" uid="uid://b7i502ojap4ao" path="res://assets/textures/Wood026_1K-JPG_Displacement.jpg" id="2_jud68"]
 [ext_resource type="Texture2D" uid="uid://kp0vlsylhe3d" path="res://assets/textures/Wood026_1K-JPG_NormalGL.jpg" id="3_u35bv"]
@@ -60,6 +61,10 @@ size = Vector3(0.5, 0.237, 2.86)
 
 [node name="LincolnLog2NotchRigid" type="RigidBody3D"]
 mass = 2.0
+script = ExtResource("1_8kp13")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+volume_db = -10.0
 
 [node name="End" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.3113416e-07, -1, 0, -4.371139e-08, -3.5527137e-15, -1, 1, 1.3113416e-07, -4.3711385e-08, 2.618, 0, 0)
@@ -108,3 +113,5 @@ shape = SubResource("BoxShape3D_ylm7q")
 [node name="CollisionShape3D7" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.618, -0.295, 0)
 shape = SubResource("BoxShape3D_ylm7q")
+
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

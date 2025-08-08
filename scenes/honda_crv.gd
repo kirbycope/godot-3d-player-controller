@@ -60,7 +60,7 @@ func _input(event: InputEvent) -> void:
 					# Stop the car immediately
 					engine_force = 0
 					brake = 1.0
-					
+
 					# Stop all audio when exiting
 					audio_player.stop()
 					audio_player2.stop()
@@ -75,19 +75,11 @@ func _input(event: InputEvent) -> void:
 
 					# The vehicle must be grounded
 					else:
-						# Don't set is_driving = false yet - keep it true to prevent gravity during exit
-
 						# Flag the animation player as locked
 						player.is_animation_locked = true
 						# Transition animation
 						player.global_position.y -= 0.15
 						player.animation_player.play("Exiting_Car" + "/mixamo_com")
-						
-						# Create a tween to synchronize player with car during exit animation
-						var sync_tween = create_tween()
-						sync_tween.set_loops()
-						sync_tween.tween_method(_sync_player_to_car, 0.0, 1.0, 0.016) # ~60fps updates
-
 						await get_tree().create_timer(1.0).timeout
 						animation_player.play("door_front_driver_open")
 						audio_player2.stream = player.is_driving_in.sound_door_open
@@ -99,7 +91,6 @@ func _input(event: InputEvent) -> void:
 						audio_player2.play()
 						await get_tree().create_timer(0.2).timeout
 						player.animation_player.stop()
-						sync_tween.kill() # Stop the synchronization tween
 						player.animation_player.play("Standing_Idle" + "/mixamo_com")
 						player.global_position = exit_driver_door.global_position
 						player.rotation = exit_driver_door.rotation
@@ -107,14 +98,14 @@ func _input(event: InputEvent) -> void:
 						player.camera_mount.rotation = exit_driver_door.rotation
 
 					# Reset player after exiting
-					player.velocity = Vector3.ZERO # Reset velocity to prevent flying
-					player.is_driving = false # Now set driving to false after positioning
-					player.collision_shape.disabled = false # Ensure collision is re-enabled
+					player.velocity = Vector3.ZERO
+					player.is_driving = false
+					player.collision_shape.disabled = false
 					player.is_animation_locked = false
 
 					# Reset car controls after exiting
-					engine_force = 0
 					brake = 0
+					engine_force = 0
 					steering = 0
 
 					# Start "standing"
@@ -132,7 +123,6 @@ func _input(event: InputEvent) -> void:
 
 			# Ⓧ/[Ctrl] action _pressed_ (and no player is DRIVING) -> Enter vehicle
 			if event.is_action_pressed("button_2"):
-
 				# Check if the player is near the driver's door
 				if near_driver_door:
 					# Store the vehicle with the player
@@ -171,7 +161,6 @@ func _input(event: InputEvent) -> void:
 
 
 ## Called when the node enters the scene tree for the first time.
-
 func _ready() -> void:
 	# Convert HP to force in Newtons
 	engine_power = (horse_power * 5252 * gear_ratio * final_drive_ratio) / (max_rpm * wheel_radius)
@@ -190,9 +179,7 @@ func _ready() -> void:
 
 
 ## Called during the physics processing step of the main loop.
-
 func _physics_process(delta: float) -> void:
-
 	# Check if the player if not null
 	if player:
 		# Check if the player is DRIVING
@@ -312,10 +299,3 @@ func _on_area_3d_body_exited(body: Node3D) -> void:
 	if body.is_in_group("Player"):
 		# Flag the player as not near the driver's door
 		near_driver_door = false
-
-
-## Helper method to sync player position with car during exit animation
-func _sync_player_to_car(_value: float) -> void:
-	if player and player.animation_player.current_animation == "Exiting_Car" + "/mixamo_com":
-		player.global_position = drivers_seat.global_position
-		player.global_position.y -= 0.15 # Maintain the offset
