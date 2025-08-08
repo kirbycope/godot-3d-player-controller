@@ -1,4 +1,9 @@
-[gd_scene load_steps=5 format=4 uid="uid://cflmbgbra5sj5"]
+[gd_scene load_steps=6 format=4 uid="uid://cflmbgbra5sj5"]
+
+[ext_resource type="Script" uid="uid://bi7bmel27hg7f" path="res://scenes/domino.gd" id="1_og2eu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lynkh"]
+size = Vector3(1.25, 2.5, 0.35)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bujxi"]
 roughness = 0.5
@@ -36,14 +41,19 @@ _surfaces = [{
 "vertex_data": PackedByteArray("AAAgv5yYmD8zMzO+ODERvwAAoD8zMzO+ODERvwAAoD8zMzM+AAAgv5yYmD8zMzM+AAAgv5yYmD8zMzO+ODERvwAAoD8zMzM+OTERPwAAoD8zMzO+AAAgP5yYmD8zMzO+AAAgP5yYmD8zMzM+OTERPwAAoD8zMzM+OTERPwAAoD8zMzO+AAAgP5yYmD8zMzM+OTERvwAAoL8zMzO+AAAgv5yYmL8zMzO+AAAgv5yYmL8zMzM+AAAgv5yYmL8zMzM+OTERvwAAoL8zMzM+OTERvwAAoL8zMzO+OTERPwAAoL8zMzO+OTERPwAAoL8zMzM+AAAgP5yYmL8zMzO+OTERPwAAoL8zMzM+AAAgP5yYmL8zMzM+AAAgP5yYmL8zMzO+/z//v///////P/+///////8//7///////z//v///////P/+///////8//7///////7//v///////v/+///////+//7///////7//v///////v/+///////+//7///////z//P///////P/8///////8//z///////z//P///////P/8///////8//z///////7//P///////v/8///////+//z///////7//P///////v/8///////+//z//////")
 }]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_lynkh"]
-size = Vector3(1.25, 2.5, 0.35)
-
 [node name="DominoRigid" type="RigidBody3D"]
 mass = 5.0
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_og2eu")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_lynkh")
 
 [node name="CSGBakedMeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_og2eu")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("BoxShape3D_lynkh")
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

@@ -6,14 +6,22 @@ const LOG_3 = preload("res://assets/sounds/log/258066__jagadamba__large-piece-of
 
 @onready var audio_stream_player_3d: AudioStreamPlayer3D = $AudioStreamPlayer3D
 
-var last_audio_time: float = 0.0
 var audio_cooldown: float = 0.2
+var last_audio_time: float = 0.0
+var scene_start_time: float = 0.0
+
+
+func _ready() -> void:
+	scene_start_time = Time.get_ticks_msec() / 1000.0
 
 
 func _on_body_shape_entered(_body_rid: RID, body: Node, _body_shape_index: int, _local_shape_index: int) -> void:
+	# Don't play sound in the first few seconds after scene loading
+	var current_time = Time.get_ticks_msec() / 1000.0
+	if current_time - scene_start_time < 5.0:
+		return
 	# Ignore player and soft body collisions (for now)
 	if body is not CharacterBody3D and not body is SoftBody3D:
-		var current_time = Time.get_ticks_msec() / 1000.0
 		# Check if the time is past the cool down
 		if current_time - last_audio_time > audio_cooldown:
 			# Chose 1 of 2 sound files

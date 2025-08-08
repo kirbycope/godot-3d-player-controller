@@ -26,6 +26,8 @@ size = Vector3(3.75, 0.75, 1.25)
 
 [node name="JengaBlock" type="RigidBody3D"]
 mass = 5.0
+contact_monitor = true
+max_contacts_reported = 1
 script = ExtResource("1_0w8n3")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
@@ -52,4 +54,4 @@ text = "Not Jenga"
 font_size = 64
 outline_size = 6
 
-[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

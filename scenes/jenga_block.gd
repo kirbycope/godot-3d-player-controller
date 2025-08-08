@@ -5,14 +5,23 @@ const WOOD_2 = preload("res://assets/sounds/wood/653128__marb7e__wood_plank_impa
 
 @onready var audio_stream_player_3d: AudioStreamPlayer3D = $AudioStreamPlayer3D
 
-var last_audio_time: float = 0.0
 var audio_cooldown: float = 0.2
+var last_audio_time: float = 0.0
+var scene_start_time: float = 0.0
 
 
-func _on_body_shape_entered(_body_rid: RID, body: Node, _body_shape_index: int, _local_shape_index: int) -> void:
+func _ready() -> void:
+	scene_start_time = Time.get_ticks_msec() / 1000.0
+
+
+func _on_body_entered(body: Node) -> void:
+	# Don't play sound in the first few seconds after scene loading
+	var current_time = Time.get_ticks_msec() / 1000.0
+	if current_time - scene_start_time < 5.0:
+		return
+
 	# Ignore player and soft body collisions (for now)
 	if body is not CharacterBody3D and not body is SoftBody3D:
-		var current_time = Time.get_ticks_msec() / 1000.0
 		# Check if the time is past the cool down
 		if current_time - last_audio_time > audio_cooldown:
 			# Chose 1 of 2 sound files
@@ -22,7 +31,7 @@ func _on_body_shape_entered(_body_rid: RID, body: Node, _body_shape_index: int, 
 					audio_stream_player_3d.stream = WOOD_1
 				1:
 					audio_stream_player_3d.stream = WOOD_2
-			# Play the selected sound
+			# Play the sound effct
 			audio_stream_player_3d.play()
 			# Note when the sound was played
 			last_audio_time = current_time
