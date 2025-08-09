@@ -100,8 +100,10 @@ func _input(event: InputEvent) -> void:
 					# Reset player after exiting
 					player.velocity = Vector3.ZERO
 					player.is_driving = false
-					player.collision_shape.disabled = false
 					player.is_animation_locked = false
+					# Wait a moment for to enable collision
+					await get_tree().create_timer(0.1).timeout
+					if player: player.collision_shape.disabled = false
 
 					# Reset car controls after exiting
 					brake = 0
@@ -121,8 +123,8 @@ func _input(event: InputEvent) -> void:
 					# Play the horn sound
 					audio_player2.play()
 
-			# Ⓧ/[Ctrl] action _pressed_ (and no player is DRIVING) -> Enter vehicle
-			if event.is_action_pressed("button_2"):
+			# Ⓧ/[Ctrl] action _pressed_ and the animation is not locked -> Enter vehicle
+			if event.is_action_pressed("button_2") and !player.is_animation_locked:
 				# Check if the player is near the driver's door
 				if near_driver_door:
 					# Store the vehicle with the player
@@ -270,6 +272,10 @@ func _physics_process(delta: float) -> void:
 		if ray_cast_3d.is_colliding():
 			# [Re]Set the ungrounded time
 			time_ungrounded = 0.0
+
+	# Reset barrel roll state
+	barrel_roll_done = false
+	accumulated_z_rotation = 0.0
 
 
 ## Flips the vehicle upright.

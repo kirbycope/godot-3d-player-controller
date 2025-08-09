@@ -913,7 +913,7 @@ text = "Get in range
 to be followed"
 
 [node name="Duck" parent="." instance=ExtResource("11_11ve4")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 8.022619, 3.26335e-05, 5.9329014)
+transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 8.022619, 0.05519995, 5.9329014)
 
 [node name="ClimbingWallLabel" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 3.5527137e-15, -4.371138e-08, 1, 0, -1, -4.3711374e-08, -3.9999995, 0.009999475, -6.0000005)

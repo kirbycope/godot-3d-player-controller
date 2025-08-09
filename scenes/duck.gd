@@ -13,6 +13,15 @@ const quack_2 = preload("res://assets/duck/quack_2.wav")
 @onready var audio_player: AudioStreamPlayer3D = $AudioStreamPlayer3D
 
 
+func _ready() -> void:
+	# Get scale of _this_ node (assuming locked component ratio)
+	var s: float = scale.x
+	# Pitch (bigger = deeper)
+	audio_player.pitch_scale = 1.0 / s
+	# Volume (duck = louder)
+	audio_player.volume_db = 20.0 * log(s) / log(10.0)
+
+
 func _on_area_3d_body_entered(body: Node3D) -> void:
 
 	# Check if the body is a Player
