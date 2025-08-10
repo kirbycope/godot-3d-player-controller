@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=76 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" uid="uid://c7agev1ouwnuu" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="Texture2D" uid="uid://e6rn4rs3cr0v" path="res://assets/kenney_nl/prototype_textures/PNG/Dark/texture_09.png" id="2_d2mly"]
@@ -40,7 +40,6 @@
 [ext_resource type="PackedScene" uid="uid://by6aakvda3r8i" path="res://scenes/bouncy_ball.tscn" id="34_dgi5k"]
 [ext_resource type="PackedScene" uid="uid://kvot350vxctj" path="res://scenes/rock_a_stack_rigid.tscn" id="35_j8jky"]
 [ext_resource type="PackedScene" uid="uid://bij47vxq4dovl" path="res://scenes/ring_of_fire.tscn" id="36_5he1u"]
-[ext_resource type="PackedScene" uid="uid://8m0vytql1oxq" path="res://scenes/curved_bar.tscn" id="41_5poiv"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yu8tv"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -1021,11 +1020,3 @@ transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.55
 
 [node name="LegoRigid10" parent="Legos" instance=ExtResource("21_yc10j")]
 transform = Transform3D(1.3113416e-07, -1, -5.9604645e-08, -1, -1.3113416e-07, -3.5527137e-15, 0, 5.9604645e-08, -1, -0.56, 4.8, 0)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
-use_collision = true
-size = Vector3(6, 0.2, 0.2)
-
-[node name="CurvedBar" parent="." instance=ExtResource("41_5poiv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1000001, 6.6)

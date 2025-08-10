@@ -76,9 +76,8 @@ func move_character() -> void:
 	var wall_normal = player.raycast_high.get_collision_normal()
 	# Calculate the right vector (perpendicular to wall normal and up)
 	var wall_right = Vector3.UP.cross(wall_normal).normalized()
-
+	# Initialize movement direction
 	var move_direction = Vector3.ZERO
-
 	# Check current input states to support diagonal movement
 	if Input.is_action_pressed("move_left"):
 		move_direction += wall_right * -1
@@ -88,14 +87,18 @@ func move_character() -> void:
 		move_direction += Vector3.UP
 	if Input.is_action_pressed("move_down"):
 		move_direction += Vector3.UP * -1
-
 	# Normalize for consistent speed when moving diagonally
 	if move_direction.length() > 0:
 		move_direction = move_direction.normalized()
-
 	# Scale the speed based on the player's size
 	var speed_current_scaled = player.speed_current * player.scale.x
-
+	# Rotate the player to face the wall (opposite of the collision normal)
+	var wall_direction = -wall_normal
+	# Ensure the wall direction is horizontal (remove any vertical component)
+	wall_direction.y = 0.0
+	wall_direction = wall_direction.normalized()
+	# Make the player face the wall while keeping upright
+	player.visuals.look_at(player.position + wall_direction, Vector3.UP)
 	# Apply movement
 	player.velocity = move_direction * speed_current_scaled
 	player.move_and_slide()
@@ -104,51 +107,68 @@ func move_character() -> void:
 ## Plays the appropriate animation based on player state.
 func play_animation() -> void:
 	if !player.is_animation_locked:
+		# Check if the player's hang is braced (the collider has somewhere for the player's footing)
+		player.is_braced = player.raycast_low.is_colliding()
 		# Check if the player is shimmying
 		player.is_shimmying = Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right")
 
-		# If not moving, just pause current animation
+		# Check if the player is not moving -> Pause current animation
 		if player.velocity == Vector3.ZERO:
+			# Pause the animation player
 			player.animation_player.pause()
+			# Stop processing animations
 			return
-		
-		# Set animation playback speed according to player movement speed
+
+		# Check if the player's current speed -> Adjust animation speed
 		if player.speed_current == player.speed_crawling:
+			# The player is "sprinting" while climbing
 			player.animation_player.speed_scale = 2.25
 		else:
+			# The player is climbing "normally"
 			player.animation_player.speed_scale = 1.5
 
+		# Check if the player is moving left -> Play "shimmy left" animation
 		if Input.is_action_pressed("move_left"):
-			player.visuals_aux_scene.position.y = -1.0 # Adjust visuals for left shimmy
+			# [Hack] Adjust visuals for shimmying
+			player.visuals_aux_scene.position.x = 0.0
+			player.visuals_aux_scene.position.y = -1.0
+			player.visuals_aux_scene.position.z = 0.0
+			# Check if playing the "braced hang, shimmy left" animation
 			if player.animation_player.current_animation != ANIMATION_BRACED_HANG_SHIMMY_LEFT:
+				# Play the "braced hang, shimmy left" animation
 				player.animation_player.play(ANIMATION_BRACED_HANG_SHIMMY_LEFT)
-			else:
-				player.animation_player.play()
-			return
 
+		# Check if the player is moving right -> Play "shimmy right" animation
 		if Input.is_action_pressed("move_right"):
-			player.visuals_aux_scene.position.y = -1.0 # Adjust visuals for right shimmy
+			# [Hack] Adjust visuals for shimmying
+			player.visuals_aux_scene.position.x = 0.0
+			player.visuals_aux_scene.position.y = -1.0
+			player.visuals_aux_scene.position.z = 0.0
+			# Check if playing the "braced hang, shimmy right" animation
 			if player.animation_player.current_animation != ANIMATION_BRACED_HANG_SHIMMY_RIGHT:
 				player.animation_player.play(ANIMATION_BRACED_HANG_SHIMMY_RIGHT)
-			else:
-				player.animation_player.play()
-			return
 
+		# Check if the player is moving up -> Play "climbing up" animation
 		if Input.is_action_pressed("move_up"):
-			player.visuals_aux_scene.position.y = -0.4 # Adjust visuals for climbing up
+			# [Hack] Adjust visuals for climbing
+			player.visuals_aux_scene.position.x = 0.0
+			player.visuals_aux_scene.position.y = -0.4
+			player.visuals_aux_scene.position.z = 0.0
+			# Check if playing the "climbing" animation
 			if player.animation_player.current_animation != ANIMATION_CLIMBING_IN_PLACE:
+				# Play the "climbing" animation
 				player.animation_player.play(ANIMATION_CLIMBING_IN_PLACE)
-			else:
-				player.animation_player.play()
-			return
 
+		# Check if the player is moving down -> Play "climbing down" animation
 		if Input.is_action_pressed("move_down"):
-			player.visuals_aux_scene.position.y = -0.4 # Adjust visuals for climbing down
+			# [Hack] Adjust visuals for climbing
+			player.visuals_aux_scene.position.x = 0.0
+			player.visuals_aux_scene.position.y = -0.4 
+			player.visuals_aux_scene.position.z = 0.0
+			# Check if playing the "climbing" animation
 			if player.animation_player.current_animation != ANIMATION_CLIMBING_IN_PLACE:
+				# Play the "climbing" animation (backwards)
 				player.animation_player.play_backwards(ANIMATION_CLIMBING_IN_PLACE)
-			else:
-				player.animation_player.play_backwards()
-			return
 
 
 ## Start "climbing".
@@ -238,6 +258,8 @@ func stop() -> void:
 	player.is_climbing = false
 
 	# [Hack] Reset player visuals for animation
-	player.animation_player.speed_scale = 1.0
-	player.animation_player.playback_default_blend_time = 0.2
+	player.visuals_aux_scene.position.x = 0.0
 	player.visuals_aux_scene.position.y = 0.0
+	player.visuals_aux_scene.position.z = 0.0
+	player.animation_player.playback_default_blend_time = 0.2
+	player.animation_player.speed_scale = 1.0

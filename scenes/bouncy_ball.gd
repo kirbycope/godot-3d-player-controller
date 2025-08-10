@@ -57,7 +57,3 @@ func _on_body_entered(body: Node) -> void:
 			audio_stream_player_3d.play()
 			# Note when the sound was played
 			last_audio_time = current_time
-
-
-func _on_body_exited(body: Node) -> void:
-	pass # Replace with function body.

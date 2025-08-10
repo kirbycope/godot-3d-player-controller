@@ -79,22 +79,25 @@ func move_character() -> void:
 	var wall_normal = player.raycast_high.get_collision_normal()
 	# Calculate the right vector (perpendicular to wall normal and up)
 	var wall_right = Vector3.UP.cross(wall_normal).normalized()
-
+	# Initialize movement direction
 	var move_direction = Vector3.ZERO
-
 	# Check current input states to support diagonal movement
 	if Input.is_action_pressed("move_left"):
 		move_direction += wall_right * -1
 	if Input.is_action_pressed("move_right"):
 		move_direction += wall_right
-
 	# Normalize for consistent speed when moving diagonally
 	if move_direction.length() > 0:
 		move_direction = move_direction.normalized()
-
 	# Scale the speed based on the player's size
 	var speed_current_scaled = player.speed_current * player.scale.x
-
+	# Rotate the player to face the wall (opposite of the collision normal)
+	var wall_direction = -wall_normal
+	# Ensure the wall direction is horizontal (remove any vertical component)
+	wall_direction.y = 0.0
+	wall_direction = wall_direction.normalized()
+	# Make the player face the wall while keeping upright
+	player.visuals.look_at(player.position + wall_direction, Vector3.UP)
 	# Apply movement
 	player.velocity = move_direction * speed_current_scaled
 	player.move_and_slide()
@@ -155,6 +158,7 @@ func play_animation() -> void:
 					# Play the "hanging, shimmy left" animation
 					player.animation_player.play(ANIMATION_HANGING_SHIMMY_LEFT)
 
+		# Check if the player is moving right -> Play "shimmy right" animation
 		if Input.is_action_pressed("move_right"):
 			# Check if the player is braced
 			if player.is_braced:
