@@ -3,13 +3,13 @@
 importer="animation_library"
 importer_version=1
 type="AnimationLibrary"
-uid="uid://crpvgi4plu44c"
-path="res://.godot/imported/Hanging_Idle.fbx-eb2e415add7ec05c56b34fb4e06fba41.res"
+uid="uid://c5pwswpv77h75"
+path="res://.godot/imported/Braced_Hang_Idle.fbx-72434802ff78161748d9c52c87aebb05.res"
 
 [deps]
 
-source_file="res://addons/3d_player_controller/assets/animations/Hanging_Idle.fbx"
-dest_files=["res://.godot/imported/Hanging_Idle.fbx-eb2e415add7ec05c56b34fb4e06fba41.res"]
+source_file="res://addons/3d_player_controller/assets/animations/Braced_Hang_Idle.fbx"
+dest_files=["res://.godot/imported/Braced_Hang_Idle.fbx-72434802ff78161748d9c52c87aebb05.res"]
 
 [params]
 
@@ -49,4 +49,4 @@ _subresources={
 fbx/importer=0
 fbx/allow_geometry_helper_nodes=false
 fbx/embedded_image_handling=1
-fbx/naming_version=2
+fbx/naming_version=1

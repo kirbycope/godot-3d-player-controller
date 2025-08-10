@@ -14,12 +14,8 @@ const quack_2 = preload("res://assets/duck/quack_2.wav")
 
 
 func _ready() -> void:
-	# Get scale of _this_ node (assuming locked component ratio)
-	var s: float = scale.x
-	# Pitch (bigger = deeper)
-	audio_player.pitch_scale = 1.0 / s
-	# Volume (duck = louder)
-	audio_player.volume_db = 20.0 * log(s) / log(10.0)
+	# Scale audio volume with node size
+	audio_player.volume_db *= scale.x
 
 
 func _on_area_3d_body_entered(body: Node3D) -> void:

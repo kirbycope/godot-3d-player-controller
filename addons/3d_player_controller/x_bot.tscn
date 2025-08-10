@@ -17,7 +17,7 @@
 [ext_resource type="AnimationLibrary" uid="uid://bvx34fa5oklal" path="res://addons/3d_player_controller/assets/animations/Fishing_Reel.fbx" id="15_3q5vi"]
 [ext_resource type="AnimationLibrary" uid="uid://b7oesxk6xal2j" path="res://addons/3d_player_controller/assets/animations/Flying_Fast_In_Place.fbx" id="16_nq1hd"]
 [ext_resource type="AnimationLibrary" uid="uid://c3ibsiusxp6vw" path="res://addons/3d_player_controller/assets/animations/Flying_In_Place.fbx" id="17_hjn2t"]
-[ext_resource type="AnimationLibrary" uid="uid://c5pwswpv77h75" path="res://addons/3d_player_controller/assets/animations/Hanging_Idle.fbx" id="18_jaqgt"]
+[ext_resource type="AnimationLibrary" uid="uid://c5pwswpv77h75" path="res://addons/3d_player_controller/assets/animations/Braced_Hang_Idle.fbx" id="18_jaqgt"]
 [ext_resource type="AnimationLibrary" uid="uid://bdv81a17xpmx2" path="res://addons/3d_player_controller/assets/animations/Honking_Horn.fbx" id="19_u3xr4"]
 [ext_resource type="AnimationLibrary" uid="uid://bmdr3nj3mow1y" path="res://addons/3d_player_controller/assets/animations/Kicking_High_Left.fbx" id="20_rrcpc"]
 [ext_resource type="AnimationLibrary" uid="uid://n6qewjjwvgmd" path="res://addons/3d_player_controller/assets/animations/Kicking_High_Right.fbx" id="21_cefq1"]

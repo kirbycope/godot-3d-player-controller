@@ -1,8 +1,8 @@
 extends BaseState
 
 const ANIMATION_CLIMBING_IN_PLACE = "Climbing_Up_Wall_In_Place" + "/mixamo_com"
-const ANIMATION_HANGING_SHIMMY_LEFT := "Braced_Hang_Shimmy_Left_In_Place" + "/mixamo_com"
-const ANIMATION_HANGING_SHIMMY_RIGHT := "Braced_Hang_Shimmy_Right_In_Place" + "/mixamo_com"
+const ANIMATION_BRACED_HANG_SHIMMY_LEFT := "Braced_Hang_Shimmy_Left_In_Place" + "/mixamo_com"
+const ANIMATION_BRACED_HANG_SHIMMY_RIGHT := "Braced_Hang_Shimmy_Right_In_Place" + "/mixamo_com"
 const NODE_NAME := "Climbing"
 
 
@@ -120,16 +120,16 @@ func play_animation() -> void:
 
 		if Input.is_action_pressed("move_left"):
 			player.visuals_aux_scene.position.y = -1.0 # Adjust visuals for left shimmy
-			if player.animation_player.current_animation != ANIMATION_HANGING_SHIMMY_LEFT:
-				player.animation_player.play(ANIMATION_HANGING_SHIMMY_LEFT)
+			if player.animation_player.current_animation != ANIMATION_BRACED_HANG_SHIMMY_LEFT:
+				player.animation_player.play(ANIMATION_BRACED_HANG_SHIMMY_LEFT)
 			else:
 				player.animation_player.play()
 			return
 
 		if Input.is_action_pressed("move_right"):
 			player.visuals_aux_scene.position.y = -1.0 # Adjust visuals for right shimmy
-			if player.animation_player.current_animation != ANIMATION_HANGING_SHIMMY_RIGHT:
-				player.animation_player.play(ANIMATION_HANGING_SHIMMY_RIGHT)
+			if player.animation_player.current_animation != ANIMATION_BRACED_HANG_SHIMMY_RIGHT:
+				player.animation_player.play(ANIMATION_BRACED_HANG_SHIMMY_RIGHT)
 			else:
 				player.animation_player.play()
 			return

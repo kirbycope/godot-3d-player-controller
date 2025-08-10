@@ -1,8 +1,11 @@
 extends BaseState
 
+const ANIMATION_BRACED_HANG := "Braced_Hang_Idle" + "/mixamo_com"
+const ANIMATION_BRACED_HANG_SHIMMY_LEFT := "Braced_Hang_Shimmy_Left_In_Place" + "/mixamo_com"
+const ANIMATION_BRACED_HANG_SHIMMY_RIGHT := "Braced_Hang_Shimmy_Right_In_Place" + "/mixamo_com"
 const ANIMATION_HANGING := "Hanging_Idle" + "/mixamo_com"
-const ANIMATION_HANGING_SHIMMY_LEFT := "Braced_Hang_Shimmy_Left_In_Place" + "/mixamo_com"
-const ANIMATION_HANGING_SHIMMY_RIGHT := "Braced_Hang_Shimmy_Right_In_Place" + "/mixamo_com"
+const ANIMATION_HANGING_SHIMMY_LEFT := "Hanging_Shimmy_Left_In_Place" + "/mixamo_com"
+const ANIMATION_HANGING_SHIMMY_RIGHT := "Hanging_Shimmy_Right_In_Place" + "/mixamo_com"
 const NODE_NAME := "Hanging"
 
 
@@ -101,33 +104,78 @@ func move_character() -> void:
 func play_animation() -> void:
 	# Check if the animation player is not locked
 	if !player.is_animation_locked:
+		# Check if the player's hang is braced (the collider has somewhere for the player's footing)
+		player.is_braced = player.raycast_low.is_colliding()
 		# Check if the player is shimmying
 		player.is_shimmying = Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right")
 
-		# If not moving, just pause current animation
+		# Check if the player is not moving -> Play "hanging" animation
 		if player.velocity == Vector3.ZERO:
-			player.visuals_aux_scene.position.y = -0.55 # Adjust visuals for hanging
-			if player.animation_player.current_animation != ANIMATION_HANGING:
-				player.animation_player.play(ANIMATION_HANGING)
+			# Check if the player is braced
+			if player.is_braced:
+				# Check if the current animation is not "braced hang idle"
+				if player.animation_player.current_animation != ANIMATION_BRACED_HANG:
+					# [Hack] Adjust visuals for animation
+					player.visuals_aux_scene.position.x = 0.0
+					player.visuals_aux_scene.position.y = -0.55
+					player.visuals_aux_scene.position.z = 0.0
+					# Play the "braced hang idle" animation
+					player.animation_player.play(ANIMATION_BRACED_HANG)
+			# The player must not be braced
 			else:
-				player.animation_player.play()
-			return
+				# Check if playing the "hanging idle" animation
+				if player.animation_player.current_animation != ANIMATION_HANGING:
+					# [Hack] Adjust visuals for hanging
+					player.visuals_aux_scene.position.x = 0.0
+					player.visuals_aux_scene.position.y = -0.9
+					player.visuals_aux_scene.position.z = -0.3
+					# Play the "hanging idle" animation
+					player.animation_player.play(ANIMATION_HANGING)
 
+		# Check if the player is moving left -> Play "shimmy left" animation
 		if Input.is_action_pressed("move_left"):
-			player.visuals_aux_scene.position.y = -1.0 # Adjust visuals for left shimmy
-			if player.animation_player.current_animation != ANIMATION_HANGING_SHIMMY_LEFT:
-				player.animation_player.play(ANIMATION_HANGING_SHIMMY_LEFT)
+			# Check if the player is braced
+			if player.is_braced:
+				# [Hack] Adjust visuals for shimmying
+				player.visuals_aux_scene.position.x = 0.0
+				player.visuals_aux_scene.position.y = -1.0
+				player.visuals_aux_scene.position.z = 0.0
+				# Check if playing the "braced hang, shimmy left" animation
+				if player.animation_player.current_animation != ANIMATION_BRACED_HANG_SHIMMY_LEFT:
+					# Play the "braced hang, shimmy left" animation
+					player.animation_player.play(ANIMATION_BRACED_HANG_SHIMMY_LEFT)
+			# The player must not be braced
 			else:
-				player.animation_player.play()
-			return
+				# [Hack] Adjust visuals for shimmying
+				player.visuals_aux_scene.position.x = 0.0
+				player.visuals_aux_scene.position.y = -0.9
+				player.visuals_aux_scene.position.z = -0.3
+				# Check if playing the "hanging, shimmy left" animation
+				if player.animation_player.current_animation != ANIMATION_HANGING_SHIMMY_LEFT:
+					# Play the "hanging, shimmy left" animation
+					player.animation_player.play(ANIMATION_HANGING_SHIMMY_LEFT)
 
 		if Input.is_action_pressed("move_right"):
-			player.visuals_aux_scene.position.y = -1.0 # Adjust visuals for right shimmy
-			if player.animation_player.current_animation != ANIMATION_HANGING_SHIMMY_RIGHT:
-				player.animation_player.play(ANIMATION_HANGING_SHIMMY_RIGHT)
+			# Check if the player is braced
+			if player.is_braced:
+				# [Hack] Adjust visuals for shimmying
+				player.visuals_aux_scene.position.x = 0.0
+				player.visuals_aux_scene.position.y = -1.0
+				player.visuals_aux_scene.position.z = 0.0
+				# Check if playing the "braced hang, shimmy right" animation
+				if player.animation_player.current_animation != ANIMATION_BRACED_HANG_SHIMMY_RIGHT:
+					# Play the "braced hang, shimmy right" animation
+					player.animation_player.play(ANIMATION_BRACED_HANG_SHIMMY_RIGHT)
+				# The player must not be braced
 			else:
-				player.animation_player.play()
-			return
+				# [Hack] Adjust visuals for shimmying
+				player.visuals_aux_scene.position.x = 0.0
+				player.visuals_aux_scene.position.y = -0.9
+				player.visuals_aux_scene.position.z = -0.3
+				# Check if playing the "hanging, shimmy right" animation
+				if player.animation_player.current_animation != ANIMATION_HANGING_SHIMMY_RIGHT:
+					# Play the "hanging, shimmy right" animation
+					player.animation_player.play(ANIMATION_HANGING_SHIMMY_RIGHT)
 
 
 ## Start "hanging".
@@ -142,7 +190,7 @@ func start() -> void:
 	player.is_hanging = true
 
 	# Set the player's movement speed
-	player.speed_current = player.speed_climbing
+	player.speed_current = player.speed_hanging
 
 	# Get the player's height
 	var player_height = player.get_node("CollisionShape3D").shape.height
@@ -221,5 +269,7 @@ func stop() -> void:
 	player.velocity.y = - player.gravity
 
 	# [Hack] Reset player visuals for animation
+	player.visuals_aux_scene.position.x = 0.0
 	player.visuals_aux_scene.position.y = 0.0
+	player.visuals_aux_scene.position.z = 0.0
 	player.animation_player.playback_default_blend_time = 0.2

@@ -3,13 +3,13 @@
 importer="animation_library"
 importer_version=1
 type="AnimationLibrary"
-uid="uid://crpvgi4plu44c"
-path="res://.godot/imported/Hanging_Idle.fbx-eb2e415add7ec05c56b34fb4e06fba41.res"
+uid="uid://ddgrgm21pqn6d"
+path="res://.godot/imported/Hanging_Shimmy_Left_In_Place.fbx-adb703f1f7d3d01d95b37c917e527644.res"
 
 [deps]
 
-source_file="res://addons/3d_player_controller/assets/animations/Hanging_Idle.fbx"
-dest_files=["res://.godot/imported/Hanging_Idle.fbx-eb2e415add7ec05c56b34fb4e06fba41.res"]
+source_file="res://addons/3d_player_controller/assets/animations/Hanging_Shimmy_Left_In_Place.fbx"
+dest_files=["res://.godot/imported/Hanging_Shimmy_Left_In_Place.fbx-adb703f1f7d3d01d95b37c917e527644.res"]
 
 [params]
 
