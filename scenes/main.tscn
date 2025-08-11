@@ -248,7 +248,6 @@ shadow_enabled = true
 environment = SubResource("Environment_lhrw0")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00439405, 4.76837e-07, 0.00953203)
 use_collision = true
 size = Vector3(128, 0.01, 128)
 material = SubResource("StandardMaterial3D_j64gc")
@@ -669,17 +668,22 @@ transform = Transform3D(-4.371139e-08, 1, -4.371138e-08, 8.742276e-08, 4.3711392
 [node name="PunchingBag" parent="." instance=ExtResource("11_kmb1v")]
 transform = Transform3D(-0.7071067, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, -0.7071067, 4, 0, 4)
 
+[node name="BagLabel" type="Label3D" parent="PunchingBag"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.009999991, 0.7)
+text = "[Punch]
+and [Kick]"
+
 [node name="PoolLabel" type="Label3D" parent="."]
-transform = Transform3D(-1, 8.742278e-08, 0, 0, 4.371138e-08, 1, 8.742278e-08, 1, -4.371138e-08, 0, 0.01, 7.25)
+transform = Transform3D(-1, 8.742278e-08, 0, 0, 4.371138e-08, 1, 8.742278e-08, 1, -4.371138e-08, 2.360415e-07, 0.010000118, 9.95)
 text = "Walk into
 to \"swim\""
 
 [node name="Pool" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10.5)
 script = ExtResource("12_71twb")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Pool"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 7.9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 4.9)
 mesh = SubResource("BoxMesh_y86t8")
 surface_material_override/0 = SubResource("ShaderMaterial_kmb1v")
 
@@ -689,23 +693,23 @@ surface_material_override/0 = SubResource("ShaderMaterial_kmb1v")
 shape = SubResource("BoxShape3D_ku3gi")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Pool"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2.85038)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -0.14962006)
 mesh = SubResource("BoxMesh_0silw")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="Pool"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 12.95)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 9.95)
 mesh = SubResource("BoxMesh_0silw")
 
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="Pool"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.55, 1, 7.9)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.5499997, 1, 4.9)
 mesh = SubResource("BoxMesh_ws3r6")
 
 [node name="MeshInstance3D5" type="MeshInstance3D" parent="Pool"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.54955, 1, 7.9)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.5495503, 1, 4.9)
 mesh = SubResource("BoxMesh_ws3r6")
 
 [node name="DivingBoard" type="CSGBox3D" parent="Pool"]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 2.45, 11.799999)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 2.4499998, 8.799999)
 use_collision = true
 size = Vector3(1, 2.5, 0.1)
 
@@ -1025,10 +1029,10 @@ transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.55
 [node name="LegoRigid10" parent="Legos" instance=ExtResource("21_yc10j")]
 transform = Transform3D(1.3113416e-07, -1, -5.9604645e-08, -1, -1.3113416e-07, -3.5527137e-15, 0, 5.9604645e-08, -1, -0.56, 4.8, 0)
 
-[node name="Node3D" type="Node3D" parent="."]
+[node name="HangingBar" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
 
-[node name="StraightBar" type="CSGCylinder3D" parent="Node3D"]
+[node name="StraightBar" type="CSGCylinder3D" parent="HangingBar"]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 2.2, 0)
 use_collision = true
 radius = 0.05
@@ -1036,12 +1040,17 @@ height = 4.0
 sides = 16
 material = SubResource("StandardMaterial3D_5he1u")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Node3D"]
+[node name="Post" type="CSGBox3D" parent="HangingBar"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.949, 1.1, 0)
 use_collision = true
 size = Vector3(0.1, 2.2, 0.1)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="Node3D"]
+[node name="Post2" type="CSGBox3D" parent="HangingBar"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.949, 1.1, 0)
 use_collision = true
 size = Vector3(0.1, 2.2, 0.1)
+
+[node name="BarLabel" type="Label3D" parent="HangingBar"]
+transform = Transform3D(-1, -8.742278e-08, 0, 0, -4.371139e-08, 1, -8.742277e-08, 1, 4.371139e-08, 0, 0.01, 0)
+text = "Press [jump]
+to \"hang\""

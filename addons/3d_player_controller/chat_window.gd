@@ -32,8 +32,8 @@ func _process(_delta: float) -> void:
 
 ## Called when there is an input event.
 func _input(event: InputEvent) -> void:
-	# [chat] button _released_ and not rotating an object
-	if event.is_action_released("button_15") and !player.game_paused and !player.is_rotating_object:
+	# [chat] button _released_ and not selecting an emote and not rotating an object
+	if event.is_action_released("button_15") and !player.game_paused and !player.emotes_menu.visible and !player.is_rotating_object:
 
 		# Show the chat input
 		input_container.show()

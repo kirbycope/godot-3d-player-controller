@@ -107,6 +107,7 @@ var virtual_velocity: Vector3 = Vector3.ZERO ## The velocity of the player if th
 @onready var camera_mount = $CameraMount
 @onready var camera = camera_mount.get_node("Camera3D")
 # UI Elements
+@onready var emotes_menu = camera.get_node("Emotes")
 @onready var chat_window = camera.get_node("ChatWindow")
 @onready var menu_pause = camera.get_node("Pause")
 @onready var menu_settings = menu_pause.get_node("../Settings")
