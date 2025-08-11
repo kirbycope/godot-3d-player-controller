@@ -29,7 +29,7 @@ func _process(_delta: float) -> void:
 	# Check if the player is "climbing"
 	if player.is_climbing:
 		# Check if the player has no raycast collision
-		if !player.raycast_high.is_colliding():
+		if !player.raycast_top.is_colliding() and !player.raycast_high.is_colliding():
 			# Start falling
 			transition(NODE_NAME, "Falling")
 			return
@@ -76,29 +76,44 @@ func move_character() -> void:
 	var wall_normal = player.raycast_high.get_collision_normal()
 	# Calculate the right vector (perpendicular to wall normal and up)
 	var wall_right = Vector3.UP.cross(wall_normal).normalized()
+	
 	# Initialize movement direction
 	var move_direction = Vector3.ZERO
 	# Check current input states to support diagonal movement
 	if Input.is_action_pressed("move_left"):
-		move_direction += wall_right * -1
+		move_direction -= wall_right
 	if Input.is_action_pressed("move_right"):
 		move_direction += wall_right
 	if Input.is_action_pressed("move_up"):
 		move_direction += Vector3.UP
 	if Input.is_action_pressed("move_down"):
-		move_direction += Vector3.UP * -1
+		move_direction -= Vector3.UP
+	
 	# Normalize for consistent speed when moving diagonally
 	if move_direction.length() > 0:
 		move_direction = move_direction.normalized()
+	
 	# Scale the speed based on the player's size
 	var speed_current_scaled = player.speed_current * player.scale.x
-	# Rotate the player to face the wall (opposite of the collision normal)
+	
+	# Calculate wall direction (opposite of the collision normal, horizontal only)
 	var wall_direction = -wall_normal
-	# Ensure the wall direction is horizontal (remove any vertical component)
 	wall_direction.y = 0.0
 	wall_direction = wall_direction.normalized()
+	
+	# Move player to the wall if needed
+	var collision_point = player.raycast_high.get_collision_point()
+	var distance = player.raycast_high.global_position.distance_to(collision_point)
+	if distance > player.collision_radius + 0.2:
+		# Move the player to 0.2 away from the wall
+		player.position += wall_direction * (distance - (player.collision_radius + 0.2))
+
 	# Make the player face the wall while keeping upright
-	player.visuals.look_at(player.position + wall_direction, Vector3.UP)
+	var forward = -wall_normal
+	var right = Vector3.UP.cross(forward).normalized()
+	var adjusted_up = forward.cross(right).normalized()
+	player.visuals.look_at(player.position + forward, adjusted_up)
+	
 	# Apply movement
 	player.velocity = move_direction * speed_current_scaled
 	player.move_and_slide()
@@ -129,46 +144,59 @@ func play_animation() -> void:
 
 		# Check if the player is moving left -> Play "shimmy left" animation
 		if Input.is_action_pressed("move_left"):
-			# [Hack] Adjust visuals for shimmying
-			player.visuals_aux_scene.position.x = 0.0
-			player.visuals_aux_scene.position.y = -1.0
-			player.visuals_aux_scene.position.z = 0.0
 			# Check if playing the "braced hang, shimmy left" animation
 			if player.animation_player.current_animation != ANIMATION_BRACED_HANG_SHIMMY_LEFT:
+				# [Hack] Adjust visuals for shimmying
+				player.visuals_aux_scene.position.x = 0.0
+				player.visuals_aux_scene.position.y = -1.0
+				player.visuals_aux_scene.position.z = 0.0
 				# Play the "braced hang, shimmy left" animation
 				player.animation_player.play(ANIMATION_BRACED_HANG_SHIMMY_LEFT)
+			else:
+				player.animation_player.play()
+			# Return early so that up/down animations are skipped
+			return
 
 		# Check if the player is moving right -> Play "shimmy right" animation
 		if Input.is_action_pressed("move_right"):
-			# [Hack] Adjust visuals for shimmying
-			player.visuals_aux_scene.position.x = 0.0
-			player.visuals_aux_scene.position.y = -1.0
-			player.visuals_aux_scene.position.z = 0.0
 			# Check if playing the "braced hang, shimmy right" animation
 			if player.animation_player.current_animation != ANIMATION_BRACED_HANG_SHIMMY_RIGHT:
+				# [Hack] Adjust visuals for shimmying
+				player.visuals_aux_scene.position.x = 0.0
+				player.visuals_aux_scene.position.y = -1.0
+				player.visuals_aux_scene.position.z = 0.0
+				# Play the "braced hang, shimmy right" animation
 				player.animation_player.play(ANIMATION_BRACED_HANG_SHIMMY_RIGHT)
+			else:
+				player.animation_player.play()
+			# Return early so that up/down animations are skipped
+			return
 
 		# Check if the player is moving up -> Play "climbing up" animation
 		if Input.is_action_pressed("move_up"):
-			# [Hack] Adjust visuals for climbing
-			player.visuals_aux_scene.position.x = 0.0
-			player.visuals_aux_scene.position.y = -0.4
-			player.visuals_aux_scene.position.z = 0.0
 			# Check if playing the "climbing" animation
 			if player.animation_player.current_animation != ANIMATION_CLIMBING_IN_PLACE:
+				# [Hack] Adjust visuals for climbing
+				player.visuals_aux_scene.position.x = 0.0
+				player.visuals_aux_scene.position.y = -0.4
+				player.visuals_aux_scene.position.z = 0.0
 				# Play the "climbing" animation
 				player.animation_player.play(ANIMATION_CLIMBING_IN_PLACE)
+			else:
+				player.animation_player.play()
 
 		# Check if the player is moving down -> Play "climbing down" animation
 		if Input.is_action_pressed("move_down"):
-			# [Hack] Adjust visuals for climbing
-			player.visuals_aux_scene.position.x = 0.0
-			player.visuals_aux_scene.position.y = -0.4 
-			player.visuals_aux_scene.position.z = 0.0
 			# Check if playing the "climbing" animation
 			if player.animation_player.current_animation != ANIMATION_CLIMBING_IN_PLACE:
+				# [Hack] Adjust visuals for climbing
+				player.visuals_aux_scene.position.x = 0.0
+				player.visuals_aux_scene.position.y = -0.4 
+				player.visuals_aux_scene.position.z = 0.0
 				# Play the "climbing" animation (backwards)
 				player.animation_player.play_backwards(ANIMATION_CLIMBING_IN_PLACE)
+			else:
+				player.animation_player.play_backwards()
 
 
 ## Start "climbing".
@@ -261,5 +289,6 @@ func stop() -> void:
 	player.visuals_aux_scene.position.x = 0.0
 	player.visuals_aux_scene.position.y = 0.0
 	player.visuals_aux_scene.position.z = 0.0
+	player.visuals.rotation = Vector3.ZERO
 	player.animation_player.playback_default_blend_time = 0.2
 	player.animation_player.speed_scale = 1.0

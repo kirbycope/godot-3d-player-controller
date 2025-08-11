@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=77 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" uid="uid://c7agev1ouwnuu" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="Texture2D" uid="uid://e6rn4rs3cr0v" path="res://assets/kenney_nl/prototype_textures/PNG/Dark/texture_09.png" id="2_d2mly"]
@@ -232,6 +232,11 @@ uv1_triplanar = true
 vertex_color_use_as_albedo = true
 albedo_color = Color(0.5882353, 0.29411766, 0, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5he1u"]
+albedo_color = Color(0.7199062, 0.87451965, 0.9983962, 1)
+metallic = 1.0
+roughness = 0.0
+
 [node name="Main" type="Node3D"]
 script = ExtResource("1_oaegt")
 
@@ -249,7 +254,6 @@ size = Vector3(128, 0.01, 128)
 material = SubResource("StandardMaterial3D_j64gc")
 
 [node name="Player" parent="." instance=ExtResource("3_wj83s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="ControlsOverlay" type="CanvasLayer" parent="."]
 script = ExtResource("4_0ld40")
@@ -1020,3 +1024,24 @@ transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.55
 
 [node name="LegoRigid10" parent="Legos" instance=ExtResource("21_yc10j")]
 transform = Transform3D(1.3113416e-07, -1, -5.9604645e-08, -1, -1.3113416e-07, -3.5527137e-15, 0, 5.9604645e-08, -1, -0.56, 4.8, 0)
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+
+[node name="StraightBar" type="CSGCylinder3D" parent="Node3D"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 2.2, 0)
+use_collision = true
+radius = 0.05
+height = 4.0
+sides = 16
+material = SubResource("StandardMaterial3D_5he1u")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.949, 1.1, 0)
+use_collision = true
+size = Vector3(0.1, 2.2, 0.1)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.949, 1.1, 0)
+use_collision = true
+size = Vector3(0.1, 2.2, 0.1)

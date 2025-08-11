@@ -131,9 +131,11 @@ func play_animation() -> void:
 					# [Hack] Adjust visuals for hanging
 					player.visuals_aux_scene.position.x = 0.0
 					player.visuals_aux_scene.position.y = -0.9
-					player.visuals_aux_scene.position.z = -0.3
+					player.visuals_aux_scene.position.z = -0.35
 					# Play the "hanging idle" animation
 					player.animation_player.play(ANIMATION_HANGING)
+				else:
+					player.animation_player.play()
 
 		# Check if the player is moving left -> Play "shimmy left" animation
 		if Input.is_action_pressed("move_left"):
@@ -149,14 +151,16 @@ func play_animation() -> void:
 					player.animation_player.play(ANIMATION_BRACED_HANG_SHIMMY_LEFT)
 			# The player must not be braced
 			else:
-				# [Hack] Adjust visuals for shimmying
-				player.visuals_aux_scene.position.x = 0.0
-				player.visuals_aux_scene.position.y = -0.9
-				player.visuals_aux_scene.position.z = -0.3
 				# Check if playing the "hanging, shimmy left" animation
 				if player.animation_player.current_animation != ANIMATION_HANGING_SHIMMY_LEFT:
+					# [Hack] Adjust visuals for shimmying
+					player.visuals_aux_scene.position.x = 0.0
+					player.visuals_aux_scene.position.y = -0.9
+					player.visuals_aux_scene.position.z = -0.35
 					# Play the "hanging, shimmy left" animation
 					player.animation_player.play(ANIMATION_HANGING_SHIMMY_LEFT)
+				else:
+					player.animation_player.play()
 
 		# Check if the player is moving right -> Play "shimmy right" animation
 		if Input.is_action_pressed("move_right"):
@@ -175,11 +179,13 @@ func play_animation() -> void:
 				# [Hack] Adjust visuals for shimmying
 				player.visuals_aux_scene.position.x = 0.0
 				player.visuals_aux_scene.position.y = -0.9
-				player.visuals_aux_scene.position.z = -0.3
+				player.visuals_aux_scene.position.z = -0.35
 				# Check if playing the "hanging, shimmy right" animation
 				if player.animation_player.current_animation != ANIMATION_HANGING_SHIMMY_RIGHT:
 					# Play the "hanging, shimmy right" animation
 					player.animation_player.play(ANIMATION_HANGING_SHIMMY_RIGHT)
+				else:
+					player.animation_player.play()
 
 
 ## Start "hanging".
