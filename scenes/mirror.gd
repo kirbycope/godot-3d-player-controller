@@ -187,3 +187,10 @@ func mark_config_dirty() -> void:
 ## Forces the mirror to update on the next frame regardless of max_fps.
 func force_update() -> void:
 	time_update_dirty = true
+
+
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	if body is RigidBody3D:
+		print("shattering mirror")
+		# ToDo shatter mirror
+		# Split MeshInstance3D into Voronoi shards
