@@ -11,7 +11,7 @@ func _input(event: InputEvent) -> void:
 	# Check if the game is not paused
 	if !player.game_paused:
 		# Ⓐ/[Space] _pressed_ and jumping is enabled -> Start "jumping"
-		if event.is_action_pressed("button_0") and player.enable_jumping:
+		if event.is_action_pressed("button_0") and player.enable_jumping and !player.is_animation_locked:
 			# Start "jumping"
 			transition(NODE_NAME, "Jumping")
 

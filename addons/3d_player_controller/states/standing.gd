@@ -30,7 +30,7 @@ func _input(event: InputEvent) -> void:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 		# Ⓐ/[Space] _pressed_ and jumping is enabled -> Start "jumping"
-		if event.is_action_pressed("button_0") and player.enable_jumping:
+		if event.is_action_pressed("button_0") and player.enable_jumping and !player.is_animation_locked:
 			# Start "jumping"
 			transition(NODE_NAME, "Jumping")
 
@@ -56,7 +56,7 @@ func _input(event: InputEvent) -> void:
 				player.is_using = true
 
 		# Ⓨ/[Ctrl] _pressed_ and crouching is enabled -> Start "crouching"
-		if event.is_action_pressed("button_3") and player.enable_crouching:
+		if event.is_action_pressed("button_3") and player.enable_crouching and !player.is_animation_locked:
 			# Start "crouching"
 			transition(NODE_NAME, "Crouching")
 
@@ -265,7 +265,7 @@ func _process(_delta: float) -> void:
 					transition(NODE_NAME, "Sprinting")
 
 		# Check if the player is not moving but input is pressed and blocked by obstacle
-		elif Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right") or Input.is_action_pressed("move_up") or Input.is_action_pressed("move_down"):
+		elif not player.is_animation_locked and (Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right") or Input.is_action_pressed("move_up") or Input.is_action_pressed("move_down")):
 			# Check if there is something in front of the player
 			if player.raycast_middle.is_colliding() or player.raycast_high.is_colliding():
 				# Start "pushing"

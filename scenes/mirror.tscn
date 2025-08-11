@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=3 uid="uid://bwd3k6206h3um"]
+
+[ext_resource type="Script" uid="uid://bn428i2p801do" path="res://scenes/mirror.gd" id="1_5o7h0"]
+[ext_resource type="Shader" uid="uid://cukdhp2kce7m6" path="res://scenes/mirror.gdshader" id="2_mirror"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_652kc"]
+size = Vector3(2, 0.001, 2)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_652kc"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mirror"]
+render_priority = 0
+shader = ExtResource("2_mirror")
+shader_parameter/color = Color(0.9, 0.97, 0.94, 1)
+shader_parameter/mirror_texture_linear = SubResource("ViewportTexture_652kc")
+shader_parameter/use_mirror_texture_linear = true
+shader_parameter/distortion_strength = 0.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_652kc"]
+material = SubResource("ShaderMaterial_mirror")
+size = Vector2(2, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_652kc"]
+albedo_color = Color(0, 0, 0, 1)
+
+[node name="Mirror3D" type="StaticBody3D"]
+script = ExtResource("1_5o7h0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_652kc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("QuadMesh_652kc")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(400, 400)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0.7049678, -3.062132, 2.475151)
+projection = 2
+current = true
+size = 2.0
+frustum_offset = Vector2(-0.7049678, -2.475151)
+near = 3.1121318
+far = 54.0
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.95, 0, 0)
+size = Vector3(0.1, 0.01, 2)
+material = SubResource("StandardMaterial3D_652kc")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95, 0, 0)
+size = Vector3(0.1, 0.01, 2)
+material = SubResource("StandardMaterial3D_652kc")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0.95)
+size = Vector3(0.1, 0.01, 2)
+material = SubResource("StandardMaterial3D_652kc")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, -0.95)
+size = Vector3(0.1, 0.01, 2)
+material = SubResource("StandardMaterial3D_652kc")

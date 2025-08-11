@@ -32,7 +32,7 @@ func _process(_delta: float) -> void:
 				transition(NODE_NAME, "Sprinting")
 
 		# [sprint] button _pressed_
-		if Input.is_action_pressed("button_1"):
+		if Input.is_action_pressed("button_1") and !player.is_animation_locked:
 			# Start "sprinting"
 			transition(NODE_NAME, "Sprinting")
 

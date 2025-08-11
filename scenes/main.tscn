@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=78 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" uid="uid://c7agev1ouwnuu" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="Texture2D" uid="uid://e6rn4rs3cr0v" path="res://assets/kenney_nl/prototype_textures/PNG/Dark/texture_09.png" id="2_d2mly"]
@@ -40,6 +40,7 @@
 [ext_resource type="PackedScene" uid="uid://by6aakvda3r8i" path="res://scenes/bouncy_ball.tscn" id="34_dgi5k"]
 [ext_resource type="PackedScene" uid="uid://kvot350vxctj" path="res://scenes/rock_a_stack_rigid.tscn" id="35_j8jky"]
 [ext_resource type="PackedScene" uid="uid://bij47vxq4dovl" path="res://scenes/ring_of_fire.tscn" id="36_5he1u"]
+[ext_resource type="PackedScene" uid="uid://bwd3k6206h3um" path="res://scenes/mirror.tscn" id="41_5poiv"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yu8tv"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -1054,3 +1055,6 @@ size = Vector3(0.1, 2.2, 0.1)
 transform = Transform3D(-1, -8.742278e-08, 0, 0, -4.371139e-08, 1, -8.742277e-08, 1, 4.371139e-08, 0, 0.01, 0)
 text = "Press [jump]
 to \"hang\""
+
+[node name="Mirror3D" parent="." instance=ExtResource("41_5poiv")]
+transform = Transform3D(-4.371138e-08, 1, 0, -1, -4.371139e-08, -5.463399e-15, 0, 0, 1, 4.7, 1.2499998, 1.4999998)

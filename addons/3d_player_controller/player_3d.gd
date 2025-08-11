@@ -189,12 +189,11 @@ func _physics_process(delta) -> void:
 		is_swinging_left = false
 		is_swinging_right = false
 
-	# Check if the game is not paused
-	if !game_paused:
-		# Check if player is not hanging or climbing (these states handle their own movement)
-		if !is_hanging and !is_climbing:
-			# Handle player movement (input-based movement)
-			update_velocity()
+	# Check if player is not hanging or climbing (these states handle their own movement)
+	# Also check if animation is not locked (prevents movement during transitions)
+	if !is_hanging and !is_climbing and !is_animation_locked:
+		# Handle player movement (input-based movement when not paused, gradual stopping when paused)
+		update_velocity()
 
 	# Move player (physics movement)
 	move_player(delta)
@@ -631,6 +630,24 @@ func toggle_noclip() -> void:
 
 ## Update the player's velocity based on input and status.
 func update_velocity() -> void:
+	# If the game is paused, gradually stop horizontal movement but preserve vertical physics
+	if game_paused:
+		# Only stop horizontal movement if the player is on the ground
+		# This preserves jump momentum and allows natural jump arcs to complete
+		if is_on_floor():
+			# Scale the speed based on the player's size for consistent stopping
+			var speed_current_scaled = speed_current * scale.x
+			
+			# Gradually reduce horizontal velocity to zero
+			velocity.x = move_toward(velocity.x, 0, speed_current_scaled)
+			velocity.z = move_toward(velocity.z, 0, speed_current_scaled)
+		
+		# Update [virtual] velocity to zero as well
+		virtual_velocity = Vector3.ZERO
+		
+		# Don't process any input when paused
+		return
+	
 	# Get an input vector by specifying four actions for the positive and negative X and Y axes
 	var input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 

@@ -17,7 +17,7 @@ func _input(event: InputEvent) -> void:
 			transition(NODE_NAME, "Crouching")
 
 		# Ⓐ/[Space] button just _pressed_ and jumping is enabled -> Start "jumping"
-		if event.is_action_pressed("button_0") and player.enable_jumping:
+		if event.is_action_pressed("button_0") and player.enable_jumping and !player.is_animation_locked:
 			# Start "jumping"
 			transition(NODE_NAME, "Jumping")
 
@@ -46,7 +46,7 @@ func _process(_delta: float) -> void:
 				transition(NODE_NAME, "Sprinting")
 
 	# [sprint] button _pressed_
-	if Input.is_action_pressed("button_1"):
+	if Input.is_action_pressed("button_1") and !player.is_animation_locked:
 		# Check if sprinting is enabled
 		if player.enable_sprinting:
 			# Start "sprinting"

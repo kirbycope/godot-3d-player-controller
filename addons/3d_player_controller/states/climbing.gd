@@ -17,7 +17,7 @@ func _input(event: InputEvent) -> void:
 			return
 
 		# Ⓐ/[Space] _pressed_ and jumping is enabled -> Start "jumping"
-		if event.is_action_pressed("button_0") and player.enable_jumping:
+		if event.is_action_pressed("button_0") and player.enable_jumping and !player.is_animation_locked:
 			# ToDo: Jump up and climb higher
 			pass
 
