@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://delu2qjrw6teu"]
+
+[ext_resource type="Script" uid="uid://ctd4r0bvuy052" path="res://addons/Mirror3D/Mirror3D.gd" id="1_mtvun"]
+[ext_resource type="Shader" uid="uid://bjf6fmae00yno" path="res://addons/Mirror3D/Mirror3D.gdshader" id="2_qi7e4"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4kaam"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_707dm"]
+noise = SubResource("FastNoiseLite_4kaam")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_4kaam"]
+viewport_path = NodePath("Viewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iv7pg"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_qi7e4")
+shader_parameter/color = Color(0.9, 0.97, 0.94, 1)
+shader_parameter/mirror_texture_linear = SubResource("ViewportTexture_4kaam")
+shader_parameter/use_mirror_texture_linear = true
+shader_parameter/distortion_texture = SubResource("NoiseTexture2D_707dm")
+shader_parameter/distortion_strength = 0.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_5i7m6"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_iv7pg")
+
+[node name="Mirror3D" type="Node3D"]
+script = ExtResource("1_mtvun")
+distortion_texture = SubResource("NoiseTexture2D_707dm")
+
+[node name="Viewport" type="SubViewport" parent="."]
+size = Vector2i(200, 200)
+
+[node name="Camera" type="Camera3D" parent="Viewport"]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0.1331, 0.321655, -2.57144)
+keep_aspect = 0
+projection = 2
+frustum_offset = Vector2(0.1331, -0.321655)
+near = 2.62144
+far = 52.5949
+
+[node name="Quad" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_5i7m6")
