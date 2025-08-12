@@ -62,9 +62,9 @@ func _input(event: InputEvent) -> void:
 			elif event.is_action_released("button_15"):
 				$MicrosoftController/White/Button15.visible = true
 			# Ⓐ
-			if event.is_action_pressed("button_0"):
+			if event.is_action_pressed("jump"):
 				$MicrosoftController/White/Button0.visible = false
-			elif event.is_action_released("button_0"):
+			elif event.is_action_released("jump"):
 				$MicrosoftController/White/Button0.visible = true
 			# Ⓑ
 			if event.is_action_pressed("button_1"):
@@ -145,9 +145,9 @@ func _input(event: InputEvent) -> void:
 			elif event.is_action_released("button_1"):
 				$NintendoController/White/Button0.visible = true
 			# Ⓑ
-			if event.is_action_pressed("button_0"):
+			if event.is_action_pressed("jump"):
 				$NintendoController/White/Button1.visible = false
-			elif event.is_action_released("button_0"):
+			elif event.is_action_released("jump"):
 				$NintendoController/White/Button1.visible = true
 			# Ⓧ
 			if event.is_action_pressed("button_2"):
@@ -218,9 +218,9 @@ func _input(event: InputEvent) -> void:
 			elif event.is_action_released("button_15"):
 				$SonyController/White/Button15.visible = true
 			# ⮾ (Cross)
-			if event.is_action_pressed("button_0"):
+			if event.is_action_pressed("jump"):
 				$SonyController/White/Button0.visible = false
-			elif event.is_action_released("button_0"):
+			elif event.is_action_released("jump"):
 				$SonyController/White/Button0.visible = true
 			# 🄋 (Circle)
 			if event.is_action_pressed("button_1"):
