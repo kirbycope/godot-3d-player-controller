@@ -517,7 +517,6 @@ func move_player(delta: float) -> void:
 	# Don't move the player if in ragdoll state - let physics bones handle movement
 	if current_state == STATES.State.RAGDOLL:
 		return
-		
 	# Set the shapecast position to the player's potential new position
 	shapecast.global_position.x = global_position.x + velocity.x * delta
 	shapecast.global_position.z = global_position.z + velocity.z * delta
@@ -561,7 +560,8 @@ func move_player(delta: float) -> void:
 		velocity.y = 0.0
 
 	# Moves the body based on velocity.
-	move_and_slide()
+	if !is_driving:
+		move_and_slide()
 
 
 ## Reparent the held item to the root of the scene tree.
@@ -637,17 +637,17 @@ func update_velocity() -> void:
 		if is_on_floor():
 			# Scale the speed based on the player's size for consistent stopping
 			var speed_current_scaled = speed_current * scale.x
-			
+
 			# Gradually reduce horizontal velocity to zero
 			velocity.x = move_toward(velocity.x, 0, speed_current_scaled)
 			velocity.z = move_toward(velocity.z, 0, speed_current_scaled)
-		
+
 		# Update [virtual] velocity to zero as well
 		virtual_velocity = Vector3.ZERO
-		
+
 		# Don't process any input when paused
 		return
-	
+
 	# Get an input vector by specifying four actions for the positive and negative X and Y axes
 	var input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 

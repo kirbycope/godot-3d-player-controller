@@ -98,7 +98,6 @@ func _input(event: InputEvent) -> void:
 						player.camera_mount.rotation = exit_driver_door.rotation
 
 					# Reset player after exiting
-					player.velocity = Vector3.ZERO
 					player.is_driving = false
 					player.is_animation_locked = false
 					# Wait a moment for to enable collision
@@ -139,6 +138,7 @@ func _input(event: InputEvent) -> void:
 					player.visuals.look_at(look_at_target, Vector3.UP)
 
 					# Transition animation
+					player.velocity = Vector3.ZERO
 					player.animation_player.play("Entering_Car" + "/mixamo_com")
 					await get_tree().create_timer(1.0).timeout
 					animation_player.play("door_front_driver_open")
@@ -154,6 +154,7 @@ func _input(event: InputEvent) -> void:
 					player.collision_shape.disabled = true
 					player.animation_player.stop()
 					player.animation_player.play(DRIVING.ANIMATION_DRIVING)
+					player.is_animation_locked = false
 
 					# Get the string name of the player's current state
 					var current_state = player.base_state.get_state_name(player.current_state)
@@ -272,6 +273,12 @@ func _physics_process(delta: float) -> void:
 		if ray_cast_3d.is_colliding():
 			# [Re]Set the ungrounded time
 			time_ungrounded = 0.0
+
+		# Handle player driving state, leaving the car
+		if player.is_driving and player.is_animation_locked:
+			# Update player position and rotation
+			player.global_position = drivers_seat.global_position
+			player.visuals.global_rotation = drivers_seat.global_rotation
 
 	# Reset barrel roll state
 	barrel_roll_done = false

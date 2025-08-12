@@ -25,7 +25,7 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	# Check if player is set
 	if player != null:
-		# [button_0] "jump" button pressed
+		# [button_0] "button_0 button pressed
 		if event.is_action_pressed("button_0"):
 			if player.is_on_floor():
 				audio_stream_player_3d.play()
