@@ -158,15 +158,9 @@ func move_camera_to_head():
 	var bone_world_pos = player.player_skeleton.global_transform * bone_pose.origin
 	# Set the camera mount's position to the bone's world position
 	camera_mount.global_position = bone_world_pos
+
 	# [Hack] Apply an offset in the camera's look direction
 	camera_mount.global_position += camera_mount.global_transform.basis.z * -0.1
-
-	# [Hack] Adjust camera for first person
-	if player.perspective == 1:
-		if player.is_shimmying:
-			camera_mount.global_position.y -= 1.0 # Adjust visuals for shimmying
-		elif player.is_hanging:
-			camera_mount.global_position.y -= 0.55 # Adjust visuals for hanging
 
 
 ## Switches the player perspective to "first" person.
