@@ -156,7 +156,10 @@ func move_camera_to_head():
 
 	# Convert the bone's local position to world space, then back to camera mount's local space
 	var bone_world_pos = player.player_skeleton.global_transform * bone_pose.origin
+	# Set the camera mount's position to the bone's world position
 	camera_mount.global_position = bone_world_pos
+	# [Hack] Apply an offset in the camera's look direction
+	camera_mount.global_position += camera_mount.global_transform.basis.z * -0.1
 
 	# [Hack] Adjust camera for first person
 	if player.perspective == 1:
