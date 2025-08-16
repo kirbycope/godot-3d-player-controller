@@ -62,6 +62,7 @@ func shatter_mirror():
 			
 			# Create a collision shape for the piece
 			var collision_shape = CollisionShape3D.new()
+			collision_shape.name = "CollisionShape3D"  # Ensure consistent naming
 			
 			# Try using a simpler box collision shape first
 			var box_shape = BoxShape3D.new()

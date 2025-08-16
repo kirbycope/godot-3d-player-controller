@@ -139,7 +139,10 @@ func move_held_object() -> void:
 				var direction = player.raycast_lookat.global_transform.basis.z.normalized()
 
 				# Access the shape's size from the CollisionShape3D
-				var shape = held_node.get_node("CollisionShape3D").shape
+				var collision_shape_node = held_node.get_node("CollisionShape3D") if held_node.has_node("CollisionShape3D") else held_node.find_child("CollisionShape3D", true)
+				if not collision_shape_node:
+					return  # Exit if no collision shape found
+				var shape = collision_shape_node.shape
 				var object_depth = 0.0
 
 				if shape is BoxShape3D:
@@ -163,7 +166,10 @@ func move_held_object() -> void:
 				var direction = - player.raycast_lookat.global_transform.basis.z.normalized()
 
 				# Access the shape's size from the CollisionShape3D to calculate radius and height
-				var shape = held_node.get_node("CollisionShape3D").shape
+				var collision_shape_node = held_node.get_node("CollisionShape3D") if held_node.has_node("CollisionShape3D") else held_node.find_child("CollisionShape3D", true)
+				if not collision_shape_node:
+					return  # Exit if no collision shape found
+				var shape = collision_shape_node.shape
 				var object_radius = 0.0
 				var object_height = 0.0
 
