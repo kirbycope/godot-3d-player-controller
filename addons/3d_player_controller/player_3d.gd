@@ -140,6 +140,7 @@ var virtual_velocity: Vector3 = Vector3.ZERO ## The velocity of the player if th
 @onready var physical_bone_simulator = player_skeleton.get_node_or_null("PhysicalBoneSimulator3D")
 # Initial Values
 @onready var initial_position = position
+@onready var initial_shapecast_target_position = shapecast.target_position
 
 
 ## Called when the node enters the scene tree for the first time.
@@ -523,17 +524,19 @@ func move_player(delta: float) -> void:
 
 	# Check if the player is grounded
 	if is_on_floor():
-		shapecast.target_position.y = -0.5
+		# Adjust the position to be at the player's feet
+		shapecast.target_position.y = initial_shapecast_target_position.y
 	else:
-		shapecast.target_position.y = 0.55
+		# [Hack] Move the shapecast up to avoid most collisions
+		shapecast.target_position.y = 0.0
 
 	# Create a new physics query object used for checking collisions in 3D space
 	var query = PhysicsShapeQueryParameters3D.new()
 
-	# Tell the physics query to ignore the current object (self) when checking for collisions
+	# Tell the physics query to ignore _this_ node when checking for collisions
 	query.exclude = [self]
 
-	# Set the collision shape to match a "shapecast" object's shape
+	# Set the collision shape to match the "shapecast" object's shape
 	query.shape = shapecast.shape
 
 	# Set the position and rotation (transform) to match where the shapecast is in global space
