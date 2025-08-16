@@ -1,9 +1,23 @@
-[gd_scene load_steps=15 format=4 uid="uid://blacmq3pm0bqy"]
+[gd_scene load_steps=19 format=4 uid="uid://blacmq3pm0bqy"]
 
 [ext_resource type="Script" uid="uid://dqn4roena3gdw" path="res://scenes/lego_rigid.gd" id="1_x8p3r"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2asgh"]
-size = Vector3(1.59, 0.48, 0.79)
+size = Vector3(1.59, 0.1, 0.79)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_srtwm"]
+size = Vector3(0.045, 0.48, 0.79)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hewym"]
+size = Vector3(0.045, 0.48, 1.59)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_2asgh"]
+height = 0.08
+radius = 0.12
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_srtwm"]
+height = 0.4
+radius = 0.163
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_srtwm"]
 _surfaces = [{
@@ -145,7 +159,68 @@ script = ExtResource("1_x8p3r")
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.005, 0.19, 0)
 shape = SubResource("BoxShape3D_2asgh")
+
+[node name="CollisionShape3D10" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.778, 0, 0)
+shape = SubResource("BoxShape3D_srtwm")
+
+[node name="CollisionShape3D11" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.767, 0, 0)
+shape = SubResource("BoxShape3D_srtwm")
+
+[node name="CollisionShape3D12" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.005, 0, -0.373)
+shape = SubResource("BoxShape3D_hewym")
+
+[node name="CollisionShape3D13" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.005, 0, 0.373)
+shape = SubResource("BoxShape3D_hewym")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.60466635, 0.282249, -0.19046958)
+shape = SubResource("CylinderShape3D_2asgh")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.20466632, 0.282249, -0.19046958)
+shape = SubResource("CylinderShape3D_2asgh")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19533369, 0.282249, -0.19046958)
+shape = SubResource("CylinderShape3D_2asgh")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5953337, 0.282249, -0.19046958)
+shape = SubResource("CylinderShape3D_2asgh")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.60466635, 0.282249, 0.20953043)
+shape = SubResource("CylinderShape3D_2asgh")
+
+[node name="CollisionShape3D7" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.20466632, 0.282249, 0.20953043)
+shape = SubResource("CylinderShape3D_2asgh")
+
+[node name="CollisionShape3D8" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19533369, 0.282249, 0.20953043)
+shape = SubResource("CylinderShape3D_2asgh")
+
+[node name="CollisionShape3D9" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5953337, 0.282249, 0.20953043)
+shape = SubResource("CylinderShape3D_2asgh")
+
+[node name="CollisionShape3D14" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.005, -0.05, 0)
+shape = SubResource("CylinderShape3D_srtwm")
+
+[node name="CollisionShape3D15" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.395, -0.05, 0)
+shape = SubResource("CylinderShape3D_srtwm")
+
+[node name="CollisionShape3D16" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.405, -0.05, 0)
+shape = SubResource("CylinderShape3D_srtwm")
 
 [node name="Base" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.005, 0, 0)
