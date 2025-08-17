@@ -1,5 +1,4 @@
 # Godot Addon Requirements
 # Format: <addon_directory_name> <repository_url> [branch]
 # Lines starting with # are comments
-Mirror3D https://github.com/Joy-less/Mirror3D.git main
 virtual_controller https://github.com/kirbycope/godot-virtual-controller.git main

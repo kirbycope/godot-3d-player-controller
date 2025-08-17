@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=59 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" uid="uid://c7agev1ouwnuu" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="Texture2D" uid="uid://e6rn4rs3cr0v" path="res://assets/kenney_nl/prototype_textures/PNG/Dark/texture_09.png" id="2_d2mly"]
@@ -10,13 +10,11 @@
 [ext_resource type="Texture2D" uid="uid://cdeccf32ndjbh" path="res://assets/textures/achievement.png" id="5_c6pm6"]
 [ext_resource type="PackedScene" uid="uid://cog5lww47pkyv" path="res://scenes/portal_gun.tscn" id="5_k8xrp"]
 [ext_resource type="PackedScene" uid="uid://pjs50x7keevf" path="res://scenes/fishing_rod.tscn" id="6_byq53"]
-[ext_resource type="PackedScene" uid="uid://qi0jcm5uxbeu" path="res://scenes/bubble_tornado.tscn" id="6_fuf3a"]
 [ext_resource type="Texture2D" uid="uid://b0v08nrfse8c5" path="res://assets/kenney_nl/prototype_textures/PNG/Purple/texture_02.png" id="6_moi5b"]
 [ext_resource type="PackedScene" uid="uid://bgw2mr57wh170" path="res://scenes/foam_sword.tscn" id="7_pibwh"]
 [ext_resource type="Texture2D" uid="uid://ci020ecabgbvq" path="res://assets/kenney_nl/prototype_textures/PNG/Orange/texture_02.png" id="7_uwbdk"]
 [ext_resource type="Texture2D" uid="uid://ba2orr1vybqao" path="res://assets/kenney_nl/prototype_textures/PNG/Red/texture_02.png" id="8_px2wr"]
 [ext_resource type="PackedScene" uid="uid://d3afb22wm1k4h" path="res://scenes/moon_shoes.tscn" id="10_5q0nq"]
-[ext_resource type="PackedScene" uid="uid://c367hft1v0u2w" path="res://scenes/duck.tscn" id="11_11ve4"]
 [ext_resource type="Texture2D" uid="uid://rp4815bjrm1x" path="res://assets/kenney_nl/prototype_textures/PNG/Green/texture_10.png" id="11_h4p86"]
 [ext_resource type="PackedScene" uid="uid://bra5h4ewvogkf" path="res://scenes/punching_bag.tscn" id="11_kmb1v"]
 [ext_resource type="Script" uid="uid://d1r8wjghxyidm" path="res://scenes/pool.gd" id="12_71twb"]
@@ -24,23 +22,6 @@
 [ext_resource type="PackedScene" uid="uid://cqwgvb8l36ahu" path="res://scenes/skateboard.tscn" id="14_5m2ip"]
 [ext_resource type="PackedScene" uid="uid://drj7qejya7pr0" path="res://scenes/honda_crv.tscn" id="15_5l67w"]
 [ext_resource type="Texture2D" uid="uid://bdtte10ghbme5" path="res://assets/kenney_nl/prototype_textures/PNG/Red/texture_01.png" id="17_muem4"]
-[ext_resource type="PackedScene" uid="uid://bgl6bo6l055fa" path="res://scenes/lego.tscn" id="20_gqmmt"]
-[ext_resource type="PackedScene" uid="uid://blacmq3pm0bqy" path="res://scenes/lego_rigid.tscn" id="21_yc10j"]
-[ext_resource type="PackedScene" uid="uid://df87830b4ccrl" path="res://scenes/slime_ball.tscn" id="22_pm3ni"]
-[ext_resource type="PackedScene" uid="uid://dduy3hngy8xk3" path="res://scenes/kickball.tscn" id="23_pm3ni"]
-[ext_resource type="PackedScene" uid="uid://bhi3g10yf0six" path="res://scenes/jenga_tower.tscn" id="24_y6deb"]
-[ext_resource type="PackedScene" uid="uid://3ktvjr6ui3vk" path="res://scenes/lincoln_log_house.tscn" id="25_og1vs"]
-[ext_resource type="PackedScene" uid="uid://b7wnthj3i5cl5" path="res://scenes/jenga_block.tscn" id="26_2wyq8"]
-[ext_resource type="PackedScene" uid="uid://cflmbgbra5sj5" path="res://scenes/domino_rigid.tscn" id="26_fv21b"]
-[ext_resource type="PackedScene" uid="uid://bifv6c704eb3g" path="res://scenes/dominos_trail.tscn" id="26_tel4y"]
-[ext_resource type="PackedScene" uid="uid://m4ahueh0shhm" path="res://scenes/lincoln_log_2_notch_rigid.tscn" id="26_vxglm"]
-[ext_resource type="PackedScene" uid="uid://c0xr10lkn0418" path="res://scenes/crayon_rigid.tscn" id="28_2f3dj"]
-[ext_resource type="PackedScene" uid="uid://p5psdprmw6l7" path="res://scenes/piano_octave.tscn" id="29_yq6so"]
-[ext_resource type="PackedScene" uid="uid://ctdlktrnwgsoy" path="res://scenes/pinball.tscn" id="33_5q0nq"]
-[ext_resource type="PackedScene" uid="uid://by6aakvda3r8i" path="res://scenes/bouncy_ball.tscn" id="34_dgi5k"]
-[ext_resource type="PackedScene" uid="uid://kvot350vxctj" path="res://scenes/rock_a_stack_rigid.tscn" id="35_j8jky"]
-[ext_resource type="PackedScene" uid="uid://bij47vxq4dovl" path="res://scenes/ring_of_fire.tscn" id="36_5he1u"]
-[ext_resource type="PackedScene" uid="uid://bwd3k6206h3um" path="res://scenes/mirror.tscn" id="41_5poiv"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yu8tv"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -581,9 +562,6 @@ line_spacing = -5.0
 autowrap_mode = 3
 width = 220.0
 
-[node name="BubbleTornado" parent="." instance=ExtResource("6_fuf3a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
-
 [node name="ButtonLabel" type="Label3D" parent="."]
 transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5, 0.009999912, -4)
 text = "Stand in circle
@@ -917,14 +895,6 @@ to \"drive\""
 [node name="Honda_CRV_2023" parent="." instance=ExtResource("15_5l67w")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 8.517638, -0.0449996, -4.5253387e-08)
 
-[node name="DuckLabel" type="Label3D" parent="."]
-transform = Transform3D(-4.371139e-08, 1, 0, 4.3711378e-08, 0, 1, 1, 4.371139e-08, -4.3711378e-08, 7, 0.01, 6)
-text = "Get in range
-to be followed"
-
-[node name="Duck" parent="." instance=ExtResource("11_11ve4")]
-transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 8.022619, 0.05519995, 5.9329014)
-
 [node name="ClimbingWallLabel" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 3.5527137e-15, -4.371138e-08, 1, 0, -1, -4.3711374e-08, -3.9999995, 0.009999475, -6.0000005)
 text = "Press [jump]
@@ -947,101 +917,6 @@ material_override = SubResource("StandardMaterial3D_dp3eg")
 use_collision = true
 size = Vector3(3, 5.5, 1)
 material = SubResource("StandardMaterial3D_jbj1t")
-
-[node name="Lego" parent="." instance=ExtResource("20_gqmmt")]
-transform = Transform3D(-4.371139e-07, -10, 0, 10, -4.371139e-07, 0, 0, 0, 10, -11, 7.9, 0)
-
-[node name="SlimeBall" parent="." instance=ExtResource("22_pm3ni")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, -7)
-
-[node name="Kickball" parent="." instance=ExtResource("23_pm3ni")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 6.3550005, -16)
-
-[node name="JengaTower" parent="." instance=ExtResource("24_y6deb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16)
-
-[node name="LincolnLogHouse" parent="." instance=ExtResource("25_og1vs")]
-transform = Transform3D(-0.7071067, 0, 0.7071068, 0, 1, 0, -0.7071068, 0, -0.7071067, -14, 0.41850045, -12)
-
-[node name="DominosTrail" parent="." instance=ExtResource("26_tel4y")]
-transform = Transform3D(-0.99999994, 0, 8.742277e-08, 0, 1, 0, -8.742277e-08, 0, -0.99999994, 11.035534, 1.2550012, 13.464466)
-
-[node name="LegoRigid" parent="." instance=ExtResource("21_yc10j")]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -7, 0.8, 11.2)
-
-[node name="DominoRigid" parent="." instance=ExtResource("26_fv21b")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -8.5, 1.255, 11.206095)
-
-[node name="JengaBlock" parent="." instance=ExtResource("26_2wyq8")]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -10, 1.88, 11.208)
-
-[node name="CrayonRigid" parent="." instance=ExtResource("28_2f3dj")]
-transform = Transform3D(0, 4.371139e-08, -1, 1, -4.371139e-08, 0, -4.371139e-08, -1, -4.3711385e-08, -11.5, 2.355, 11.266)
-
-[node name="LincolnLog2NotchRigid" parent="." instance=ExtResource("26_vxglm")]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -13, 2.873, 11.208)
-
-[node name="RingOfFire" parent="." instance=ExtResource("36_5he1u")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 20.300001, 3, 2.5)
-
-[node name="PianoOctave" parent="." instance=ExtResource("29_yq6so")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0.5550005, 0)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="PianoOctave"]
-transform = Transform3D(0.9961947, 0.08715574, 0, -0.08715574, 0.9961947, 0, 0, 0, 1, 13.443087, -0.81313443, 2.5)
-use_collision = true
-size = Vector3(19, 2, 3)
-
-[node name="Pinball" parent="." instance=ExtResource("33_5q0nq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 0.68, 11.25)
-
-[node name="BouncyBall" parent="." instance=ExtResource("34_dgi5k")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -6.119594e-07, 6, -11)
-
-[node name="RockAStackRigid" parent="." instance=ExtResource("35_j8jky")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0.805, 16)
-
-[node name="Legos" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -11)
-
-[node name="LegoRigid2" parent="Legos" instance=ExtResource("21_yc10j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8400012, 0)
-
-[node name="LegoRigid3" parent="Legos" instance=ExtResource("21_yc10j")]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.55, 0.8, 0)
-
-[node name="LegoRigid4" parent="Legos" instance=ExtResource("21_yc10j")]
-transform = Transform3D(1.3113416e-07, -1, -5.9604645e-08, -1, -1.3113416e-07, -3.5527137e-15, 0, 5.9604645e-08, -1, -0.56, 0.8, 0)
-
-[node name="LegoRigid5" parent="Legos" instance=ExtResource("21_yc10j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.040001, 0)
-
-[node name="LegoRigid6" parent="Legos" instance=ExtResource("21_yc10j")]
-transform = Transform3D(0.0046250625, 0.99998933, 0, -0.99998933, 0.0046250625, 0, 0, 0, 1, 0.55, 2.9999998, 0)
-
-[node name="LegoRigid7" parent="Legos" instance=ExtResource("21_yc10j")]
-transform = Transform3D(1.3113416e-07, -1, -5.9604645e-08, -1, -1.3113416e-07, -3.5527137e-15, 0, 5.9604645e-08, -1, -0.56, 3, 0)
-
-[node name="LegoRigid8" parent="Legos" instance=ExtResource("21_yc10j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.2400007, 0)
-
-[node name="LegoRigid9" parent="Legos" instance=ExtResource("21_yc10j")]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.55, 5.2, 0)
-
-[node name="LegoRigid10" parent="Legos" instance=ExtResource("21_yc10j")]
-transform = Transform3D(1.3113416e-07, -1, -5.9604645e-08, -1, -1.3113416e-07, -3.5527137e-15, 0, 5.9604645e-08, -1, -0.56, 5.2, 0)
-
-[node name="LegoRigid11" parent="Legos" instance=ExtResource("21_yc10j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.34000123, 0)
-
-[node name="LegoRigid12" parent="Legos" instance=ExtResource("21_yc10j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.8400012, 0)
-
-[node name="LegoRigid13" parent="Legos" instance=ExtResource("21_yc10j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1.3400012, 0)
-
-[node name="LegoRigid14" parent="Legos" instance=ExtResource("21_yc10j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1.8400012, 0)
 
 [node name="HangingBar" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
@@ -1068,6 +943,3 @@ size = Vector3(0.1, 2.2, 0.1)
 transform = Transform3D(-1, -8.742278e-08, 0, 0, -4.371139e-08, 1, -8.742277e-08, 1, 4.371139e-08, 0, 0.01, 0)
 text = "Press [jump]
 to \"hang\""
-
-[node name="Mirror" parent="." instance=ExtResource("41_5poiv")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 4.5, 1, 2)

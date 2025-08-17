@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://byo0kvge12in" path="res://scenes/cat.gd" id="1_woned"]
 [ext_resource type="Texture2D" uid="uid://dt8e0yj144ifs" path="res://assets/cat/Cat_Metall.png" id="2_y2dgp"]
 [ext_resource type="Texture2D" uid="uid://6ucvwsejgca" path="res://assets/cat/Cat_Normal.png" id="3_u2h1t"]
-[ext_resource type="AudioStream" uid="uid://eyb66sg3bl8m" path="res://assets/cat/131595__loafdv__cat-purr-meow.wav" id="5_bdcqd"]
+[ext_resource type="AudioStream" uid="uid://bxjtmw7f0rasf" path="res://assets/cat/131595__loafdv__cat-purr-meow.mp3" id="5_cxap7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bsmwj"]
 resource_name = "Cat_color_bl"
@@ -15701,4 +15701,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.002, 0.175049, 0)
 shape = SubResource("BoxShape3D_ncavw")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("5_bdcqd")
+stream = ExtResource("5_cxap7")
