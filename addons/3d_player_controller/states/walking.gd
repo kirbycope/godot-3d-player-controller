@@ -46,26 +46,38 @@ func _process(_delta: float) -> void:
 func play_animation() -> void:
 	# Check if the animation player is not locked
 	if !player.is_animation_locked:
+		# Check if in first person and moving backwards
+		var play_backwards = player.perspective == 1 and Input.is_action_pressed("move_down")
+		
 		# Check if the player is "holding a rifle"
 		if player.is_holding_rifle:
 			# Check if the animation player is not already playing the appropriate animation
 			if player.animation_player.current_animation != ANIMATION_WALKING_HOLDING_RIFLE:
 				# Play the "walking, holding rifle" animation
-				player.animation_player.play(ANIMATION_WALKING_HOLDING_RIFLE)
+				if play_backwards:
+					player.animation_player.play_backwards(ANIMATION_WALKING_HOLDING_RIFLE)
+				else:
+					player.animation_player.play(ANIMATION_WALKING_HOLDING_RIFLE)
 
 		# Check if the player is "holding a tool"
-		if player.is_holding_tool:
+		elif player.is_holding_tool:
 			# Check if the animation player is not already playing the appropriate animation
 			if player.animation_player.current_animation != ANIMATION_WALKING_HOLDING_TOOL:
 				# Play the "walking, holding a tool" animation
-				player.animation_player.play(ANIMATION_WALKING_HOLDING_TOOL)
+				if play_backwards:
+					player.animation_player.play_backwards(ANIMATION_WALKING_HOLDING_TOOL)
+				else:
+					player.animation_player.play(ANIMATION_WALKING_HOLDING_TOOL)
 
 		# The player must be unarmed
 		else:
 			# Check if the animation player is not already playing the appropriate animation
 			if player.animation_player.current_animation != ANIMATION_WALKING:
 				# Play the "walking" animation
-				player.animation_player.play(ANIMATION_WALKING)
+				if play_backwards:
+					player.animation_player.play_backwards(ANIMATION_WALKING)
+				else:
+					player.animation_player.play(ANIMATION_WALKING)
 
 
 ## Start "walking".

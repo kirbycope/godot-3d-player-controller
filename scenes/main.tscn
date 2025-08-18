@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=64 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" uid="uid://c7agev1ouwnuu" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="Texture2D" uid="uid://e6rn4rs3cr0v" path="res://assets/kenney_nl/prototype_textures/PNG/Dark/texture_09.png" id="2_d2mly"]
@@ -22,6 +22,8 @@
 [ext_resource type="PackedScene" uid="uid://cqwgvb8l36ahu" path="res://scenes/skateboard.tscn" id="14_5m2ip"]
 [ext_resource type="PackedScene" uid="uid://drj7qejya7pr0" path="res://scenes/honda_crv.tscn" id="15_5l67w"]
 [ext_resource type="Texture2D" uid="uid://bdtte10ghbme5" path="res://assets/kenney_nl/prototype_textures/PNG/Red/texture_01.png" id="17_muem4"]
+[ext_resource type="Texture2D" uid="uid://b2gy0lssms413" path="res://assets/kenney_nl/prototype_textures/PNG/Orange/texture_01.png" id="23_pm3ni"]
+[ext_resource type="Texture2D" uid="uid://b1tgrabv8rwvq" path="res://assets/kenney_nl/prototype_textures/PNG/Green/texture_02.png" id="24_y6deb"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yu8tv"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -205,6 +207,11 @@ albedo_color = Color(0.490196, 0.490196, 0.490196, 1)
 albedo_texture = ExtResource("11_h4p86")
 uv1_triplanar = true
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5he1u"]
+albedo_color = Color(0.7199062, 0.87451965, 0.9983962, 1)
+metallic = 1.0
+roughness = 0.0
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dp3eg"]
 albedo_texture = ExtResource("17_muem4")
 uv1_offset = Vector3(0.5, 0.25, 0)
@@ -214,10 +221,16 @@ uv1_triplanar = true
 vertex_color_use_as_albedo = true
 albedo_color = Color(0.5882353, 0.29411766, 0, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5he1u"]
-albedo_color = Color(0.7199062, 0.87451965, 0.9983962, 1)
-metallic = 1.0
-roughness = 0.0
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y6deb"]
+albedo_texture = ExtResource("23_pm3ni")
+uv1_triplanar = true
+
+[sub_resource type="PrismMesh" id="PrismMesh_og1vs"]
+size = Vector3(3, 5, 3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2wyq8"]
+albedo_texture = ExtResource("24_y6deb")
+uv1_triplanar = true
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_oaegt")
@@ -911,13 +924,6 @@ transform = Transform3D(1, -2.1175826e-22, 0, 3.5527133e-15, -4.371138e-08, 1, 0
 text = "Press [jump]
 to \"mantle\""
 
-[node name="ClimbingWall" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2.75, -7)
-material_override = SubResource("StandardMaterial3D_dp3eg")
-use_collision = true
-size = Vector3(3, 5.5, 1)
-material = SubResource("StandardMaterial3D_jbj1t")
-
 [node name="HangingBar" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
 
@@ -943,3 +949,24 @@ size = Vector3(0.1, 2.2, 0.1)
 transform = Transform3D(-1, -8.742278e-08, 0, 0, -4.371139e-08, 1, -8.742277e-08, 1, 4.371139e-08, 0, 0.01, 0)
 text = "Press [jump]
 to \"hang\""
+
+[node name="ClimbingWall" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2.75, -7)
+material_override = SubResource("StandardMaterial3D_dp3eg")
+use_collision = true
+size = Vector3(3, 5.5, 1)
+material = SubResource("StandardMaterial3D_jbj1t")
+
+[node name="ClimbingCylinder" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2.5, -10)
+use_collision = true
+radius = 2.0
+height = 5.0
+sides = 16
+material = SubResource("StandardMaterial3D_y6deb")
+
+[node name="ClimbingMesh" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2, -14)
+use_collision = true
+mesh = SubResource("PrismMesh_og1vs")
+material = SubResource("StandardMaterial3D_2wyq8")

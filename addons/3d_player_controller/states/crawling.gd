@@ -39,19 +39,28 @@ func _process(_delta: float) -> void:
 func play_animation() -> void:
 	# Check if the animation player is not locked
 	if !player.is_animation_locked:
+		# Check if in first person and moving backwards
+		var play_backwards = player.perspective == 1 and Input.is_action_pressed("move_down")
+		
 		# Check if the player is "holding a rifle"
 		if player.is_holding_rifle:
 			# Check if the animation player is not already playing the appropriate animation
 			if player.animation_player.current_animation != ANIMATION_CROUCHING_MOVE_HOLDING_RIFLE:
 				# Play the "crouching and moving, holding a rifle" animation
-				player.animation_player.play(ANIMATION_CROUCHING_MOVE_HOLDING_RIFLE, -1, 0.75)
+				if play_backwards:
+					player.animation_player.play_backwards(ANIMATION_CROUCHING_MOVE_HOLDING_RIFLE)
+				else:
+					player.animation_player.play(ANIMATION_CROUCHING_MOVE_HOLDING_RIFLE, -1, 0.75)
 
 		# The player must be unarmed
 		else:
 			# Check if the animation player is not already playing the appropriate animation
 			if player.animation_player.current_animation != ANIMATION_CRAWLING:
 				# Play the "crawling" animation
-				player.animation_player.play(ANIMATION_CRAWLING)
+				if play_backwards:
+					player.animation_player.play_backwards(ANIMATION_CRAWLING)
+				else:
+					player.animation_player.play(ANIMATION_CRAWLING)
 
 
 ## Start "crawling".
