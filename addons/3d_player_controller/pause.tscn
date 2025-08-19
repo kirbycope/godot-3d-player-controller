@@ -1,11 +1,11 @@
 [gd_scene load_steps=8 format=3 uid="uid://bf6dhhwfpuau6"]
 
 [ext_resource type="Script" uid="uid://br0qym2354jy2" path="res://addons/3d_player_controller/pause.gd" id="1_ef46y"]
-[ext_resource type="Texture2D" uid="uid://62prm5gy7ehu" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/1x/cross.png" id="2_1s3bm"]
-[ext_resource type="Texture2D" uid="uid://cmqsc78wj18cx" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/2x/home.png" id="3_hblcw"]
-[ext_resource type="Texture2D" uid="uid://p7vujqgkgo3v" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/1x/exitLeft.png" id="3_ymsbp"]
-[ext_resource type="Texture2D" uid="uid://b2gt6xlau67im" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/2x/gear.png" id="4_7k071"]
-[ext_resource type="Texture2D" uid="uid://7p5hgmakuehy" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/2x/return.png" id="4_21pvn"]
+[ext_resource type="Texture2D" uid="uid://62prm5gy7ehu" path="res://addons/3d_player_controller/assets/textures/game_icons/PNG/White/1x/cross.png" id="2_1s3bm"]
+[ext_resource type="Texture2D" uid="uid://cmqsc78wj18cx" path="res://addons/3d_player_controller/assets/textures/game_icons/PNG/White/2x/home.png" id="3_hblcw"]
+[ext_resource type="Texture2D" uid="uid://p7vujqgkgo3v" path="res://addons/3d_player_controller/assets/textures/game_icons/PNG/White/1x/exitLeft.png" id="3_ymsbp"]
+[ext_resource type="Texture2D" uid="uid://b2gt6xlau67im" path="res://addons/3d_player_controller/assets/textures/game_icons/PNG/White/2x/gear.png" id="4_7k071"]
+[ext_resource type="Texture2D" uid="uid://7p5hgmakuehy" path="res://addons/3d_player_controller/assets/textures/game_icons/PNG/White/2x/return.png" id="4_21pvn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7k071"]
 size = Vector2(200, 40)

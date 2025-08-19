@@ -37,14 +37,8 @@ func _input(event: InputEvent) -> void:
 
 		# (D-Pad Down)/[Q] _pressed_ -> Drop skateboard
 		if event.is_action_pressed("button_13"):
-			# Slow to a stop
-			player.velocity = Vector3.ZERO
-			# Get the skateboard
-			var item = player.foot_mount.get_children()[0]
-			# Remove the skateboard from the player
-			player.foot_mount.remove_child(item)
 			# Reparent the skateboard from the player to current scene
-			player.get_tree().current_scene.add_child(item)
+			player.reparent_equipped_foot_items()
 			# Check if the player is on the ground
 			if player.is_on_floor():
 				# Start standing
@@ -128,10 +122,8 @@ func play_animation() -> void:
 func start() -> void:
 	# Enable _this_ state node
 	process_mode = PROCESS_MODE_INHERIT
-
 	# Set the player's new state
 	player.current_state = STATES.State.SKATEBOARDING
-
 	# Flag the player as "skateboarding"
 	player.is_skateboarding = true
 
@@ -140,12 +132,9 @@ func start() -> void:
 func stop() -> void:
 	# Disable _this_ state node
 	process_mode = PROCESS_MODE_DISABLED
-
 	# [Re]Set the player animation speed
 	player.animation_player.speed_scale = 1.0
-
 	# [Re]Set audio player pitch
 	player.audio_player.pitch_scale = 1.0
-
 	# Flag the player as not "skateboarding"
 	player.is_skateboarding = false

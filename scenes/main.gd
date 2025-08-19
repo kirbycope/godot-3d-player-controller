@@ -3,6 +3,7 @@ extends Node3D
 @onready var foam_sword_initial_transform: Transform3D
 @onready var fishing_rod_initial_transform: Transform3D
 @onready var player: CharacterBody3D = $Player
+@onready var paraglider_initial_transform: Transform3D
 @onready var portal_gun_initial_transform: Transform3D
 @onready var moon_shoes_initial_transform: Transform3D
 @onready var skateboard_initial_transform: Transform3D
@@ -16,6 +17,7 @@ func _ready() -> void:
 	# Get the transform of the not held items
 	foam_sword_initial_transform = $FoamSword.global_transform
 	fishing_rod_initial_transform = $FishingRod.global_transform
+	paraglider_initial_transform = $Paraglider.global_transform
 	portal_gun_initial_transform = $PortalGun.global_transform
 	moon_shoes_initial_transform = $MoonShoes.global_transform
 	skateboard_initial_transform = $Skateboard.global_transform
@@ -47,6 +49,14 @@ func move_dropped_items_to_initial_position() -> void:
 			$FishingRod/Area3D/CollisionShape3D.disabled = false
 			# Stop any animations
 			$FishingRod/AnimationPlayer.stop()
+	# Check if there is a paraglider as a child of the current scene
+	if has_node("Paraglider"):
+		# Check if the item (not held by the player) moved from its initial position
+		if $Paraglider.global_position != paraglider_initial_transform.origin:
+			# Reset the item's position
+			$Paraglider.global_transform = paraglider_initial_transform
+			# Enable the item's "pickup" collision
+			$Paraglider/Area3D/CollisionShape3D.disabled = false
 	# Check if there is a portal gun as a child of the current scene
 	if has_node("PortalGun"):
 		# Check if the item (not held by the player) moved from its initial position

@@ -20,6 +20,7 @@ const STATES = preload("res://addons/3d_player_controller/states/states.gd")
 @export var enable_jumping: bool = true ## Enable jumping
 @export var enable_kicking: bool = true ## Enable kicking
 @export var enable_noclip: bool = false ## Enable noclip
+@export var enable_paragliding: bool = true ## Enable paragliding
 @export var enable_punching: bool = true ## Enable punching
 @export var enable_sprinting: bool = true ## Enable sprinting
 @export var enable_vibration: bool = false ## Enable controller vibration
@@ -78,7 +79,6 @@ var is_jumping: bool = false ## Is the player jumping?
 var is_kicking_left: bool = false ## Is the player kicking with the left foot?
 var is_kicking_right: bool = false ## Is the player kicking with the right foot?
 var is_paragliding: bool = false ## Is the player paragliding?
-var is_paragliding_on: Node3D = null ## The Node the player is paragliding on.
 var is_punching_left: bool = false ## Is the player punching with the left hand?
 var is_punching_right: bool = false ## Is the player punching with the right hand?
 var is_pushing: bool = false ## Is the player pushing something?
@@ -576,14 +576,29 @@ func reparent_held_item() -> void:
 
 ## Reparents all items attached to the left and right foot bones to the main scene.
 func reparent_equipped_foot_items() -> void:
+	# Reparent the under foot items
+	for child in foot_mount.get_children():
+		# Remove the player from the item
+		if "player" in child:
+			child.player = null
+		# Remove the item from the player
+		foot_mount.remove_child(child)
+		# Reparent the item to the main scene
+		get_tree().current_scene.add_child(child)
 	# Reparent the left foot items
 	for child in bone_attachment_left_foot.get_children():
+		# Remove the player from the item
+		if "player" in child:
+			child.player = null
 		# Remove the item from the player
 		bone_attachment_left_foot.remove_child(child)
 		# Reparent the item to the main scene
 		get_tree().current_scene.add_child(child)
 	# Reparent the right foot items
 	for child in bone_attachment_right_foot.get_children():
+		# Remove the player from the item
+		if "player" in child:
+			child.player = null
 		# Remove the item from the player
 		bone_attachment_right_foot.remove_child(child)
 		# Reparent the item to the main scene
@@ -594,12 +609,18 @@ func reparent_equipped_foot_items() -> void:
 func reparent_equipped_hand_items() -> void:
 	# Reparent the left hand items
 	for child in bone_attachment_left_hand.get_children():
+		# Remove the player from the item
+		if "player" in child:
+			child.player = null
 		# Remove the item from the player
 		bone_attachment_left_hand.remove_child(child)
 		# Reparent the item to the main scene
 		get_tree().current_scene.add_child(child)
 	# Reparent the right hand items
 	for child in bone_attachment_right_hand.get_children():
+		# Remove the player from the item
+		if "player" in child:
+			child.player = null
 		# Remove the item from the player
 		bone_attachment_right_hand.remove_child(child)
 		# Reparent the item to the main scene
@@ -614,6 +635,9 @@ func reparent_equipped_hand_items() -> void:
 func reparent_equipped_head_items() -> void:
 	# Reparent the overhead items
 	for child in head_mount.get_children():
+		# Remove the player from the item
+		if "player" in child:
+			child.player = null
 		# Remove the item from the player
 		head_mount.remove_child(child)
 		# Reparent the item to the main scene

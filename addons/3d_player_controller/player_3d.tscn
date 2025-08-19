@@ -15,7 +15,7 @@
 [ext_resource type="Script" uid="uid://dgr1stgatu2la" path="res://addons/3d_player_controller/states/crouching.gd" id="7_2pwpa"]
 [ext_resource type="Script" uid="uid://da2abedbjpere" path="res://addons/3d_player_controller/states/falling.gd" id="8_50ucx"]
 [ext_resource type="Script" uid="uid://b1b2rgyyrsjig" path="res://addons/3d_player_controller/states/flying.gd" id="9_2t1yj"]
-[ext_resource type="Texture2D" uid="uid://c4wibovgpj7xy" path="res://addons/3d_player_controller/textures/reticle.png" id="10_0pvj7"]
+[ext_resource type="Texture2D" uid="uid://c4wibovgpj7xy" path="res://addons/3d_player_controller/assets/textures/reticle.png" id="10_0pvj7"]
 [ext_resource type="Script" uid="uid://d31ddqb4hyuqm" path="res://addons/3d_player_controller/states/hanging.gd" id="10_eblo2"]
 [ext_resource type="Script" uid="uid://dodroqwgmf811" path="res://addons/3d_player_controller/states/states.gd" id="10_x07tl"]
 [ext_resource type="Script" uid="uid://cyls4atmagils" path="res://addons/3d_player_controller/states/holding.gd" id="11_ekkl0"]

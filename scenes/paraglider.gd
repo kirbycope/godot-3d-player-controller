@@ -6,6 +6,20 @@ var player: CharacterBody3D
 @onready var audio_player: AudioStreamPlayer3D = $AudioStreamPlayer3D
 
 
+## Called every frame. '_delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+	# Check if the player is not null
+	if player != null:
+		# Check if the player is not paragliding
+		if !player.is_paragliding:
+			# Hide the paraglider
+			hide()
+		# The player must not be paragliding
+		else:
+			# hide the paraglider
+			show()
+
+
 ## Called when a Node3D enters the Area3D.
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	# Check if collider is the player
@@ -25,8 +39,6 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 		# [Hack] Adjust visuals
 		instance.rotation.y = deg_to_rad(180)
 		instance.position.y += 0.55
-		# Save the instance to the player
-		body.is_paragliding_on = instance
 		# Remove _this_ instance
 		queue_free()
 		# Get the string name of the player's current state

@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://b4e68syey7fke"]
 
 [ext_resource type="Script" uid="uid://jbgi85ivvf27" path="res://addons/3d_player_controller/settings.gd" id="1_famuw"]
-[ext_resource type="Texture2D" uid="uid://dhbfxkfnc4auv" path="res://addons/3d_player_controller/textures/game_icons/PNG/White/2x/cross.png" id="2_iuyi1"]
+[ext_resource type="Texture2D" uid="uid://dhbfxkfnc4auv" path="res://addons/3d_player_controller/assets/textures/game_icons/PNG/White/2x/cross.png" id="2_iuyi1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6cb56"]
 size = Vector2(200, 30)
