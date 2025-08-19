@@ -1,0 +1,118 @@
+[gd_scene load_steps=13 format=3 uid="uid://b8075g2sq32af"]
+
+[ext_resource type="Script" uid="uid://d1r8wjghxyidm" path="res://scenes/pool.gd" id="1_c2vhv"]
+[ext_resource type="Shader" uid="uid://dtltd1rk71y13" path="res://scenes/water.gdshader" id="2_fu8a5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c2vhv"]
+size = Vector3(5, 2, 10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_whsje"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j8jky"]
+albedo_color = Color(0.6, 0.60784316, 0.60784316, 1)
+roughness = 0.5
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_g258y"]
+material = SubResource("StandardMaterial3D_j8jky")
+top_radius = 0.05
+bottom_radius = 0.05
+height = 2.5
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_rfqkl"]
+material = SubResource("StandardMaterial3D_j8jky")
+top_radius = 0.05
+bottom_radius = 0.05
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1sf67"]
+transparency = 1
+albedo_color = Color(0.00392157, 0.482353, 0.572549, 0.607843)
+
+[sub_resource type="BoxMesh" id="BoxMesh_he5t5"]
+lightmap_size_hint = Vector2i(79, 76)
+material = SubResource("StandardMaterial3D_1sf67")
+size = Vector3(5, 2, 10)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rdlcb"]
+render_priority = 0
+shader = ExtResource("2_fu8a5")
+shader_parameter/uv_scale = 1.0
+shader_parameter/color_alpha = 1.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_5yltl"]
+size = Vector3(5, 2, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_55aw4"]
+size = Vector3(10.2, 2, 0.1)
+
+[node name="Pool" type="Node3D"]
+script = ExtResource("1_c2vhv")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_c2vhv")
+
+[node name="DivingBoard" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 1.4499998, 3.8999991)
+use_collision = true
+size = Vector3(1, 2.5, 0.1)
+
+[node name="DivingBoardWall" type="CSGBox3D" parent="DivingBoard"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -1.2000008, -1.2000002)
+use_collision = true
+size = Vector3(1, 2.5, 0.1)
+material = SubResource("StandardMaterial3D_whsje")
+
+[node name="Pole" type="MeshInstance3D" parent="DivingBoard"]
+transform = Transform3D(-4.3711385e-08, -4.371139e-08, -1, -1, 0, 4.371139e-08, 0, 1, -4.371139e-08, -0.4999999, -1.1999992, -1.2)
+mesh = SubResource("CylinderMesh_g258y")
+
+[node name="Pole2" type="MeshInstance3D" parent="DivingBoard"]
+transform = Transform3D(-4.3711385e-08, -4.371139e-08, -1, -1, 0, 4.371139e-08, 0, 1, -4.371139e-08, 0.5000001, -1.1999992, -1.2)
+mesh = SubResource("CylinderMesh_g258y")
+
+[node name="Rail" type="MeshInstance3D" parent="DivingBoard"]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 3.496911e-08, -1.1999999, 0)
+mesh = SubResource("CylinderMesh_rfqkl")
+
+[node name="Rail4" type="MeshInstance3D" parent="DivingBoard"]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 3.496911e-08, -1.1999999, -0.5)
+mesh = SubResource("CylinderMesh_rfqkl")
+
+[node name="Rail2" type="MeshInstance3D" parent="DivingBoard"]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 3.496911e-08, -1.1999999, -1)
+mesh = SubResource("CylinderMesh_rfqkl")
+
+[node name="Rail5" type="MeshInstance3D" parent="DivingBoard"]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 3.496911e-08, -1.1999999, -1.5)
+mesh = SubResource("CylinderMesh_rfqkl")
+
+[node name="Rail3" type="MeshInstance3D" parent="DivingBoard"]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 3.496911e-08, -1.1999999, -2)
+mesh = SubResource("CylinderMesh_rfqkl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_he5t5")
+surface_material_override/0 = SubResource("ShaderMaterial_rdlcb")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.05)
+mesh = SubResource("BoxMesh_5yltl")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.05)
+mesh = SubResource("BoxMesh_5yltl")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.55, 0, 0.0019567497)
+mesh = SubResource("BoxMesh_55aw4")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.55, 0, 0.002)
+mesh = SubResource("BoxMesh_55aw4")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

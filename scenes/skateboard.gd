@@ -122,8 +122,6 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 		instance.get_node("Area3D/CollisionShape3D").disabled = true
 		# Add the instance to the player scene
 		body.foot_mount.add_child(instance)
-		# Save the instance to the player
-		body.is_skateboarding_on = instance
 		# Remove _this_ instance
 		queue_free()
 		# Get the string name of the player's current state

@@ -87,7 +87,6 @@ var is_rotating_object: bool = false ## Is the player rotating an object being h
 var is_running: bool = false ## Is the player running?
 var is_shimmying: bool = false ## Is the player shimmying along a ledge?
 var is_skateboarding: bool = false ## Is the player skateboarding?
-var is_skateboarding_on ## The Node the player is skateboarding on.
 var is_sprinting: bool = false ## Is the player sprinting?
 var is_standing: bool = false ## Is the player standing?
 var is_swinging_left: bool = false ## Is the player swinging with the left arm?
@@ -148,8 +147,6 @@ var virtual_velocity: Vector3 = Vector3.ZERO ## The velocity of the player if th
 
 ## Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# Uncomment the next line if using GodotSteam
-	#camera.current = is_multiplayer_authority()
 	# Set the canvas layer behind all other Control nodes
 	$Controls.layer = -1
 
@@ -159,9 +156,6 @@ func _ready() -> void:
 
 ## Called each physics frame with the time since the last physics frame as argument (delta, in seconds).
 func _physics_process(delta) -> void:
-	# Uncomment the next line if using GodotSteam
-	#if !is_multiplayer_authority(): return
-
 	# Don't process physics if in ragdoll state - let the physics bones handle everything
 	if current_state == STATES.State.RAGDOLL:
 		return
@@ -205,8 +199,6 @@ func _physics_process(delta) -> void:
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	# Uncomment the next line if using GodotSteam
-	#if !is_multiplayer_authority(): return
 	# Check if the game is not paused
 	if !game_paused:
 		# Check if the noclip mode is enabled

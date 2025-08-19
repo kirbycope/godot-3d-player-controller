@@ -191,6 +191,11 @@ script = ExtResource("16_70kcl")
 [node name="AuxScene" parent="Visuals" instance=ExtResource("4_swcjt")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 
+[node name="FootMount" type="Node3D" parent="Visuals"]
+
+[node name="HeadMount" type="Node3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+
 [node name="RayCast3D_JumpTarget" type="RayCast3D" parent="Visuals"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, -0.6)
 
@@ -215,8 +220,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 target_position = Vector3(0, 0, -1)
 
 [node name="RayCast3D_BelowPlayer" type="RayCast3D" parent="Visuals"]
-
-[node name="FootMount" type="Node3D" parent="Visuals"]
-
-[node name="HeadMount" type="Node3D" parent="Visuals"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)

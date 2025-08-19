@@ -60,8 +60,6 @@ func _input(event) -> void:
 
 ## Called each physics frame with the time since the last physics frame as argument (delta, in seconds).
 func _physics_process(delta) -> void:
-	# Uncomment the next line if using GodotSteam
-	#if !is_multiplayer_authority(): return
 	# If the game is not paused...
 	if !player.game_paused:
 		# Handle [look_*] using controller

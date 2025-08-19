@@ -45,9 +45,6 @@ func _input(event: InputEvent) -> void:
 			player.foot_mount.remove_child(item)
 			# Reparent the skateboard from the player to current scene
 			player.get_tree().current_scene.add_child(item)
-			# Clear the references
-			player.is_skateboarding_on.player = null
-			player.is_skateboarding_on = null
 			# Check if the player is on the ground
 			if player.is_on_floor():
 				# Start standing
@@ -60,8 +57,6 @@ func _input(event: InputEvent) -> void:
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	# Uncomment the next line if using GodotSteam
-	#if !is_multiplayer_authority(): return
 	# Check if the player is not "skateboarding"
 	if !player.is_skateboarding:
 		# Start "standing"
@@ -154,6 +149,3 @@ func stop() -> void:
 
 	# Flag the player as not "skateboarding"
 	player.is_skateboarding = false
-
-	# Remove the skateboard with the player
-	player.is_skateboarding_on = null
