@@ -40,9 +40,9 @@ func _input(event: InputEvent) -> void:
 			# Slow to a stop
 			player.velocity = Vector3.ZERO
 			# Get the skateboard
-			var item = player.visuals.get_node("FootMount").get_children()[0]
+			var item = player.foot_mount.get_children()[0]
 			# Remove the skateboard from the player
-			player.visuals.get_node("FootMount").remove_child(item)
+			player.foot_mount.remove_child(item)
 			# Reparent the skateboard from the player to current scene
 			player.get_tree().current_scene.add_child(item)
 			# Clear the references
@@ -122,11 +122,11 @@ func play_animation() -> void:
 
 		# The player must not be moving
 		else:
-				# Play the "slow skateboarding" animation
-				player.animation_player.play(ANIMATION_SKATEBOARDING_SLOW)
+			# Play the "slow skateboarding" animation
+			player.animation_player.play(ANIMATION_SKATEBOARDING_SLOW)
 
-				# Slow down the animation player
-				player.animation_player.speed_scale = 0.5
+			# Slow down the animation player
+			player.animation_player.speed_scale = 0.5
 
 
 ## Start "skateboarding".

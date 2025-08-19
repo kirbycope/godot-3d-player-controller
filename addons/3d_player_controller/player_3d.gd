@@ -71,13 +71,14 @@ var is_firing: bool = false ## Is the player firing a weapon?
 var is_flying: bool = false ## Is the player flying?
 var is_hanging: bool = false ## Is the player hanging from a ledge?
 var is_holding: bool = false ## Is the player holding an object in front of them?
-var is_holding_onto ## The object the player is holding in front of them.
 var is_holding_fishing_rod: bool = false ## Is the player holding a fishing rod?
 var is_holding_rifle: bool = false ## Is the player holding a rifle?
 var is_holding_tool: bool = false ## Is the player holding a tool?
 var is_jumping: bool = false ## Is the player jumping?
 var is_kicking_left: bool = false ## Is the player kicking with the left foot?
 var is_kicking_right: bool = false ## Is the player kicking with the right foot?
+var is_paragliding: bool = false ## Is the player paragliding?
+var is_paragliding_on: Node3D = null ## The Node the player is paragliding on.
 var is_punching_left: bool = false ## Is the player punching with the left hand?
 var is_punching_right: bool = false ## Is the player punching with the right hand?
 var is_pushing: bool = false ## Is the player pushing something?
@@ -128,6 +129,8 @@ var virtual_velocity: Vector3 = Vector3.ZERO ## The velocity of the player if th
 @onready var raycast_below = raycast_top.get_node("../RayCast3D_BelowPlayer")
 # Visuals and Skeleton
 @onready var visuals = $Visuals
+@onready var foot_mount = visuals.get_node("FootMount")
+@onready var head_mount = visuals.get_node("HeadMount")
 @onready var visuals_offset = visuals.position
 @onready var visuals_aux_scene = visuals.get_node("AuxScene")
 @onready var visuals_aux_scene_position = visuals_aux_scene.position
@@ -569,24 +572,14 @@ func move_player(delta: float) -> void:
 
 ## Reparent the held item to the root of the scene tree.
 func reparent_held_item() -> void:
-	# Check if the player is holding an item
-	if is_holding_onto != null:
-		# Remove the item from the player
-		visuals.get_node("HeldItemMount").remove_child(is_holding_onto)
-		# Reparent the item to the main scene
-		get_tree().current_scene.add_child(is_holding_onto)
-		# Reset holding state
-		is_holding = false
-		# Stop holding the item
-		is_holding_onto = null
+	# Reset holding state
+	is_holding = false
 	# Reparent any foot items
 	reparent_equipped_foot_items()
 	# Reparent any hand items
 	reparent_equipped_hand_items()
-	# Reset the flags for holding items
-	is_holding_fishing_rod = false
-	is_holding_rifle = false
-	is_holding_tool = false
+	# Reparent any head items
+	reparent_equipped_head_items()
 
 
 ## Reparents all items attached to the left and right foot bones to the main scene.
@@ -623,6 +616,16 @@ func reparent_equipped_hand_items() -> void:
 	is_holding_fishing_rod = false
 	is_holding_rifle = false
 	is_holding_tool = false
+
+
+## Reparent the overhead item to the root of the scene tree.
+func reparent_equipped_head_items() -> void:
+	# Reparent the overhead items
+	for child in head_mount.get_children():
+		# Remove the item from the player
+		head_mount.remove_child(child)
+		# Reparent the item to the main scene
+		get_tree().current_scene.add_child(child)
 
 
 ## Toggles the noclip mode.

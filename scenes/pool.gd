@@ -23,7 +23,7 @@ func _on_area_3d_body_entered(body: Node3D, area_node: Node3D) -> void:
 		# Drop any equipment before swimming
 		if body.is_skateboarding:
 			# Remove any foot mounted equipment from the player
-			body.visuals.get_node("FootMount").remove_child(body.is_skateboarding_on)
+			body.foot_mount.remove_child(body.is_skateboarding_on)
 			# Reparent the skateboard to the main scene
 			get_tree().current_scene.add_child(body.is_skateboarding_on)
 			# Remove the player reference from the skateboard

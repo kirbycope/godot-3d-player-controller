@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://bdtte10ghbme5" path="res://assets/kenney_nl/prototype_textures/PNG/Red/texture_01.png" id="17_muem4"]
 [ext_resource type="Texture2D" uid="uid://b2gy0lssms413" path="res://assets/kenney_nl/prototype_textures/PNG/Orange/texture_01.png" id="23_pm3ni"]
 [ext_resource type="Texture2D" uid="uid://b1tgrabv8rwvq" path="res://assets/kenney_nl/prototype_textures/PNG/Green/texture_02.png" id="24_y6deb"]
+[ext_resource type="PackedScene" uid="uid://b5331vjncmol6" path="res://scenes/paraglider.tscn" id="25_og1vs"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yu8tv"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -217,16 +218,13 @@ albedo_texture = ExtResource("17_muem4")
 uv1_offset = Vector3(0.5, 0.25, 0)
 uv1_triplanar = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jbj1t"]
-vertex_color_use_as_albedo = true
-albedo_color = Color(0.5882353, 0.29411766, 0, 1)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y6deb"]
 albedo_texture = ExtResource("23_pm3ni")
+uv1_offset = Vector3(0.5, 0.25, 0)
 uv1_triplanar = true
 
 [sub_resource type="PrismMesh" id="PrismMesh_og1vs"]
-size = Vector3(3, 5, 3)
+size = Vector3(3, 5.5, 3)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2wyq8"]
 albedo_texture = ExtResource("24_y6deb")
@@ -952,21 +950,23 @@ to \"hang\""
 
 [node name="ClimbingWall" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2.75, -7)
-material_override = SubResource("StandardMaterial3D_dp3eg")
 use_collision = true
 size = Vector3(3, 5.5, 1)
-material = SubResource("StandardMaterial3D_jbj1t")
+material = SubResource("StandardMaterial3D_dp3eg")
 
 [node name="ClimbingCylinder" type="CSGCylinder3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2.5, -10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2.75, -10)
 use_collision = true
 radius = 2.0
-height = 5.0
-sides = 16
+height = 5.5
+sides = 32
 material = SubResource("StandardMaterial3D_y6deb")
 
 [node name="ClimbingMesh" type="CSGMesh3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2, -14)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2.75, -14)
 use_collision = true
 mesh = SubResource("PrismMesh_og1vs")
 material = SubResource("StandardMaterial3D_2wyq8")
+
+[node name="Paraglider" parent="." instance=ExtResource("25_og1vs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)

@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://bpi8eknf02wjl" path="res://scenes/moon_shoes.gd" id="1_l1chj"]
 [ext_resource type="AudioStream" uid="uid://0sldyjx0sr6e" path="res://assets/sounds/751698__el_boss__game-jump-sound-boing-1-of-2.wav" id="2_l1chj"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_l1chj"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_opfsp"]
 albedo_color = Color(0, 0, 0, 1)
 
@@ -25,10 +27,14 @@ height = 0.225
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o7i6b"]
 albedo_color = Color(0.5019608, 0.7372549, 0.34117648, 1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_l1chj"]
-
 [node name="MoonShoes" type="Node3D"]
 script = ExtResource("1_l1chj")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.175)
+shape = SubResource("BoxShape3D_l1chj")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("2_l1chj")
@@ -148,11 +154,5 @@ inner_radius = 0.04
 outer_radius = 0.075
 sides = 16
 material = SubResource("StandardMaterial3D_o7i6b")
-
-[node name="Area3D" type="Area3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.175)
-shape = SubResource("BoxShape3D_l1chj")
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

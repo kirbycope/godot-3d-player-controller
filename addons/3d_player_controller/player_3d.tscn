@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://ujh51l2wv1vk"]
+[gd_scene load_steps=33 format=3 uid="uid://ujh51l2wv1vk"]
 
 [ext_resource type="Script" uid="uid://2iaqywmqcahl" path="res://addons/3d_player_controller/player_3d.gd" id="1_f3dlg"]
 [ext_resource type="PackedScene" uid="uid://cx7x0f3lh4aus" path="res://addons/virtual_controller/scenes/canvas_layer.tscn" id="2_j65kv"]
@@ -27,6 +27,7 @@
 [ext_resource type="Script" uid="uid://b6rci3sxt5iq3" path="res://addons/3d_player_controller/states/walking.gd" id="16_70kcl"]
 [ext_resource type="Script" uid="uid://ckird2kckfr8r" path="res://addons/3d_player_controller/states/skateboarding.gd" id="16_s605i"]
 [ext_resource type="Script" uid="uid://bxwk8hsio3fh4" path="res://addons/3d_player_controller/states/swimming.gd" id="17_kn3kj"]
+[ext_resource type="Script" uid="uid://cssr4hanw302t" path="res://addons/3d_player_controller/states/paragliding.gd" id="21_0pvj7"]
 [ext_resource type="Script" uid="uid://cdbvv0by1c45u" path="res://addons/3d_player_controller/states/pushing.gd" id="21_1p282"]
 [ext_resource type="Script" uid="uid://de38jw4t4nf84" path="res://addons/3d_player_controller/states/ragdoll.gd" id="22_vdjk1"]
 
@@ -150,6 +151,10 @@ script = ExtResource("11_ekkl0")
 process_mode = 4
 script = ExtResource("12_bhakt")
 
+[node name="Paragliding" type="Node" parent="States"]
+process_mode = 4
+script = ExtResource("21_0pvj7")
+
 [node name="Pushing" type="Node" parent="States"]
 process_mode = 4
 script = ExtResource("21_1p282")
@@ -212,3 +217,6 @@ target_position = Vector3(0, 0, -1)
 [node name="RayCast3D_BelowPlayer" type="RayCast3D" parent="Visuals"]
 
 [node name="FootMount" type="Node3D" parent="Visuals"]
+
+[node name="HeadMount" type="Node3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
