@@ -30,9 +30,9 @@ sides = 16
 material = SubResource("StandardMaterial3D_jp48i")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="CSGTorus3D"]
-transform = Transform3D(1, 0, 0, 0, 0.9999994, 1.4901161e-08, 0, -1.4901161e-08, 0.9999994, -2.9802322e-08, 0.07764566, -0.47351766)
+transform = Transform3D(1, 0, 0, 0, 0.9999994, 1.4901161e-08, 0, -1.4901161e-08, 0.9999994, -2.9802322e-08, 0.07764572, -0.59851754)
 operation = 2
-size = Vector3(2.6, 1, 1.25)
+size = Vector3(2.6, 1, 1.5)
 material = SubResource("StandardMaterial3D_jp48i")
 
 [node name="CSGTorus3D2" type="CSGTorus3D" parent="."]
@@ -43,9 +43,9 @@ sides = 16
 material = SubResource("StandardMaterial3D_jp48i")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="CSGTorus3D2"]
-transform = Transform3D(0.9062968, -0.10938161, 0.40821502, 0.10938137, 0.99372363, 0.02342312, -0.40821707, 0.02342318, 0.91258353, 0.28259128, 0.08141494, -0.053844713)
+transform = Transform3D(0.9062949, -0.10938149, 0.40821406, 0.10938137, 0.9937232, 0.02342312, -0.40821707, 0.023423046, 0.91258353, 0.2621805, 0.080243796, -0.0994739)
 operation = 2
-size = Vector3(1, 1, 1.5)
+size = Vector3(1, 1, 1.6)
 material = SubResource("StandardMaterial3D_jp48i")
 
 [node name="CSGTorus3D3" type="CSGTorus3D" parent="."]
@@ -56,9 +56,9 @@ sides = 16
 material = SubResource("StandardMaterial3D_jp48i")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="CSGTorus3D3"]
-transform = Transform3D(0.9062968, -0.10938161, 0.40821502, 0.10938137, 0.99372363, 0.02342312, -0.40821707, 0.02342318, 0.91258353, 0.28259128, 0.08141494, -0.053844713)
+transform = Transform3D(0.9062968, -0.10938174, 0.40821502, 0.10938131, 0.9937235, 0.023423105, -0.40821663, 0.023423597, 0.9125835, 0.2621805, 0.080243796, -0.09947388)
 operation = 2
-size = Vector3(1, 1, 1.5)
+size = Vector3(1, 1, 1.6)
 material = SubResource("StandardMaterial3D_jp48i")
 
 [node name="CSGTorus3D4" type="CSGTorus3D" parent="."]
@@ -68,9 +68,9 @@ sides = 16
 material = SubResource("StandardMaterial3D_jp48i")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="CSGTorus3D4"]
-transform = Transform3D(1, 0, 0, 0, 1.000002, 2.9802322e-07, 0, -2.9802322e-07, 1.000002, -0.049999982, 0.1631923, -0.0741241)
+transform = Transform3D(1, 0, 0, 0, 1.000002, 2.9802322e-07, 0, -2.9802322e-07, 1.000002, -0.049999982, 0.1631923, -0.12412429)
 operation = 2
-size = Vector3(2.5, 0.4, 1.9)
+size = Vector3(2.5, 0.4, 2)
 material = SubResource("StandardMaterial3D_jp48i")
 
 [node name="CSGTorus3D5" type="CSGTorus3D" parent="."]
@@ -80,9 +80,9 @@ sides = 16
 material = SubResource("StandardMaterial3D_jp48i")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="CSGTorus3D5"]
-transform = Transform3D(0.907814, 4.029573e-09, 0.41937286, 4.0295767e-09, 1, -1.833137e-08, -0.41937286, 1.833137e-08, 0.907814, -0.32921633, 3.259352e-09, -0.08918092)
+transform = Transform3D(0.907814, 4.029573e-09, 0.41937286, 4.0295767e-09, 1, -1.833137e-08, -0.41937286, 1.833137e-08, 0.907814, -0.35018495, 4.175922e-09, -0.13457158)
 operation = 2
-size = Vector3(2.0906982, 1, 2.7)
+size = Vector3(2.0906982, 1, 2.8)
 material = SubResource("StandardMaterial3D_jp48i")
 
 [node name="CSGTorus3D6" type="CSGTorus3D" parent="."]
@@ -92,9 +92,9 @@ sides = 16
 material = SubResource("StandardMaterial3D_jp48i")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="CSGTorus3D6"]
-transform = Transform3D(0.907814, 4.029573e-09, 0.41937286, 4.0295767e-09, 1, -1.833137e-08, -0.41937286, 1.833137e-08, 0.907814, -0.32921633, 3.259352e-09, -0.08918092)
+transform = Transform3D(0.907814, 4.0295536e-09, 0.41937286, -1.4901161e-08, 0.9999991, -1.4901161e-08, -0.41937247, -2.9802322e-08, 0.907814, -0.35018504, 5.9604645e-08, -0.13457161)
 operation = 2
-size = Vector3(2.0906982, 1, 2.7)
+size = Vector3(2.0906982, 1, 2.8)
 material = SubResource("StandardMaterial3D_jp48i")
 
 [node name="CSGTorus3D7" type="CSGTorus3D" parent="."]
@@ -104,9 +104,9 @@ sides = 16
 material = SubResource("StandardMaterial3D_jp48i")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="CSGTorus3D7"]
-transform = Transform3D(0.907814, 4.029573e-09, 0.41937286, 4.0295767e-09, 1, -1.833137e-08, -0.41937286, 1.833137e-08, 0.907814, -0.32921633, 3.259352e-09, -0.08918092)
+transform = Transform3D(0.907814, 4.0295576e-09, 0.41937286, 2.9802322e-08, 0.99999934, -1.4901161e-08, -0.41937253, 4.4703484e-08, 0.907814, -0.35018486, -1.1920929e-07, -0.13457161)
 operation = 2
-size = Vector3(2.0906982, 1, 2.7)
+size = Vector3(2.0906982, 1, 2.8)
 material = SubResource("StandardMaterial3D_jp48i")
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="."]
