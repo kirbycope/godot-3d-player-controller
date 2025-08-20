@@ -2,7 +2,6 @@ extends Node3D
 
 var player: CharacterBody3D
 
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var audio_player: AudioStreamPlayer3D = $AudioStreamPlayer3D
 
 
