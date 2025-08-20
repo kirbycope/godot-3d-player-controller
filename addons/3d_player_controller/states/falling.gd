@@ -31,10 +31,12 @@ func _input(event: InputEvent) -> void:
 
 		# Ⓐ/[Space] _pressed_ and paragliding is enabled --> Start "paragliding"
 		if event.is_action_pressed("button_0") and player.enable_paragliding and !player.is_paragliding and !player.is_on_floor():
-			# Check if the animation player is not locked
-			if !player.is_animation_locked:
-				# Start "paragliding"
-				transition(NODE_NAME, "Paragliding")
+			# Check if the player has a glider
+			if player.head_mount.get_child_count() > 0:
+				# Check if the animation player is not locked
+				if !player.is_animation_locked:
+					# Start "paragliding"
+					transition(NODE_NAME, "Paragliding")
 
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
