@@ -102,7 +102,7 @@ func follow_camera_mount(delta: float) -> void:
 		var zoom_vector = Vector3(0.0, 0.0, zoom_offset)
 		target_position = camera_mount.global_position + camera_mount.global_transform.basis * (base_offset + zoom_vector)
 		# Apply smoothing if enabled
-		if smoothing_enabled and player.raycast_below.is_colliding() and player.velocity != Vector3.ZERO and !player.is_climbing and !player.is_hanging and !player.is_shimmying:
+		if smoothing_enabled and player.raycast_below.is_colliding() and player.velocity != Vector3.ZERO and !player.is_climbing and !player.is_falling and !player.is_flying and !player.is_hanging and !player.is_shimmying:
 			# Smooth only the y-axis position
 			var current_pos = global_position
 			var smooth_y = lerp(current_pos.y, target_position.y, smoothing_speed_y * delta)
@@ -148,6 +148,8 @@ func camera_rotate_by_controller(delta: float) -> void:
 	if player.perspective == 0:
 		# Rotate the visuals opposite the camera's horizontal rotation
 		player.visuals.rotation_degrees.y = player.visuals.rotation_degrees.y + (horizontal_input * horizontal_rotation_speed * delta)
+		# Move camera to follow camera_mount after rotation
+		follow_camera_mount(delta)
 
 
 ## Rotate camera using the mouse motion.
@@ -164,6 +166,9 @@ func camera_rotate_by_mouse(event: InputEvent) -> void:
 	if player.perspective == 0 or player.is_hanging:
 		# Rotate the visuals with the camera's horizontal rotation
 		player.visuals.rotate_y(deg_to_rad(event.relative.x * look_sensitivity_mouse))
+		# Move camera to follow camera_mount after rotation (only in third person)
+		if player.perspective == 0:
+			follow_camera_mount(get_physics_process_delta_time())
 
 
 ## Update the camera to follow the character head's position (while in "first person").
