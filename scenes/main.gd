@@ -106,3 +106,11 @@ func move_dropped_items_to_initial_position() -> void:
 			$Skateboard/Area3D/CollisionShape3D.disabled = false
 			# Stop the skateboard sound effect
 			$Skateboard/AudioStreamPlayer3D.stop()
+
+
+## Called when a player enter the teleport area at the base of the tower.
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	# Check if the collider is the player
+	if body is CharacterBody3D and body.is_in_group("Player"):
+		# Teleport the player on top of the tower
+		body.position = $Tower.global_position + Vector3(0.0, $Tower.size.y/2, 0.0)

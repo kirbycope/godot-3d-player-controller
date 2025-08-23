@@ -28,6 +28,13 @@ func _process(_delta: float) -> void:
 		# Start "standing"
 		transition(NODE_NAME, "Standing")
 
+	# The player must be moving
+	else:
+		# Check if the player is not on a floor
+		if !player.is_on_floor() and !player.raycast_below.is_colliding():
+			# Start "falling"
+			transition(NODE_NAME, "Falling")
+
 	# Check if the player is "sprinting"
 	if player.is_sprinting:
 		# Play the animation

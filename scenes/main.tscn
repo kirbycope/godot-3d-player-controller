@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=57 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" uid="uid://c7agev1ouwnuu" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="Texture2D" uid="uid://e6rn4rs3cr0v" path="res://assets/kenney_nl/prototype_textures/PNG/Dark/texture_09.png" id="2_d2mly"]
@@ -191,6 +191,17 @@ uv1_triplanar = true
 albedo_texture = ExtResource("17_y6deb")
 uv1_offset = Vector3(0.5, 0, 0)
 uv1_triplanar = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y6deb"]
+size = Vector3(1, 0.5, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vxglm"]
+transparency = 1
+albedo_color = Color(0, 0.83137256, 0.83137256, 0.78431374)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2f3dj"]
+material = SubResource("StandardMaterial3D_vxglm")
+size = Vector3(1, 0.1, 1)
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_oaegt")
@@ -865,6 +876,17 @@ use_collision = true
 size = Vector3(3, 20, 3)
 material = SubResource("StandardMaterial3D_2wyq8")
 
+[node name="Area3D" type="Area3D" parent="Tower"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9.5, 2)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tower/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_y6deb")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tower"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9.95, 2)
+mesh = SubResource("BoxMesh_2f3dj")
+
 [node name="ParagliderLabel" type="Label3D" parent="."]
 transform = Transform3D(-1, 8.742278e-08, 5.463399e-15, 7.1054274e-15, -4.3711392e-08, 1, 8.742278e-08, 1, 4.3711385e-08, 0, 20.01, -20)
 text = "Double [jump]
@@ -872,3 +894,5 @@ to paraglide"
 
 [node name="Paraglider" parent="." instance=ExtResource("25_og1vs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 22, -19.5)
+
+[connection signal="body_entered" from="Tower/Area3D" to="." method="_on_area_3d_body_entered"]
