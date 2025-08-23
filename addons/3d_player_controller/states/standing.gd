@@ -245,6 +245,11 @@ func _process(_delta: float) -> void:
 
 		# Check if the player is moving
 		if player.velocity != Vector3.ZERO or player.virtual_velocity != Vector3.ZERO:
+			# Check if the player is not on a floor
+			if !player.is_on_floor() and !player.raycast_below.is_colliding():
+				# Start "falling"
+				transition(NODE_NAME, "Falling")
+
 			# Check if the player is slower than or equal to "walking"
 			if 0.0 < player.speed_current and player.speed_current <= player.speed_walking:
 				# Start "walking"

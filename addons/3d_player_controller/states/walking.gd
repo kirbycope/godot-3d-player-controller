@@ -17,6 +17,11 @@ func _process(_delta: float) -> void:
 
 	# The player must be moving
 	else:
+		# Check if the player is not on a floor
+		if !player.is_on_floor() and !player.raycast_below.is_colliding():
+			# Start "falling"
+			transition(NODE_NAME, "Falling")
+
 		# Check if the player speed is faster than "walking" but slower than or equal to "running"
 		if player.speed_walking < player.speed_current and player.speed_current <= player.speed_running:
 			# Start "running"
