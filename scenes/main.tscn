@@ -226,7 +226,7 @@ script = ExtResource("4_0ld40")
 
 [node name="Climbing" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = -1
+anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -242,7 +242,7 @@ label_settings = SubResource("LabelSettings_gqmmt")
 
 [node name="Driving" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = -1
+anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -257,7 +257,7 @@ label_settings = SubResource("LabelSettings_gqmmt")
 
 [node name="Fishing" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = -1
+anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -275,7 +275,7 @@ horizontal_alignment = 2
 
 [node name="Flying" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = -1
+anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -293,7 +293,7 @@ label_settings = SubResource("LabelSettings_gqmmt")
 
 [node name="Hanging" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = -1
+anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -309,7 +309,7 @@ label_settings = SubResource("LabelSettings_gqmmt")
 
 [node name="Holding" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = -1
+anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -327,7 +327,7 @@ label_settings = SubResource("LabelSettings_gqmmt")
 
 [node name="ItemEquipped" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = -1
+anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -342,7 +342,7 @@ label_settings = SubResource("LabelSettings_gqmmt")
 
 [node name="Rotating" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = -1
+anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -361,7 +361,7 @@ horizontal_alignment = 2
 
 [node name="Rifling" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = -1
+anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -379,7 +379,7 @@ horizontal_alignment = 2
 
 [node name="Skateboarding" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = -1
+anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -397,7 +397,7 @@ horizontal_alignment = 2
 
 [node name="Swimming" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = -1
+anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -413,7 +413,7 @@ label_settings = SubResource("LabelSettings_gqmmt")
 
 [node name="ToolEquipped" type="Label" parent="ControlsOverlay"]
 visible = false
-anchors_preset = -1
+anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -430,7 +430,7 @@ label_settings = SubResource("LabelSettings_gqmmt")
 horizontal_alignment = 2
 
 [node name="AchiementUnlocked" type="TextureRect" parent="ControlsOverlay"]
-anchors_preset = -1
+anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -205.25
@@ -638,7 +638,7 @@ text = "[Punch]
 and [Kick]"
 
 [node name="PoolLabel" type="Label3D" parent="."]
-transform = Transform3D(-1, 8.742278e-08, 0, 0, 4.371138e-08, 1, 8.742278e-08, 1, -4.371138e-08, 2.360415e-07, 0.010000118, 9.95)
+transform = Transform3D(-1, 8.742278e-08, 0, 0, 4.371138e-08, 1, 8.742278e-08, 1, -4.371138e-08, 2.360415e-07, 0.010000118, 8.95)
 text = "Walk into
 to \"swim\""
 

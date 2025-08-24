@@ -16,7 +16,7 @@ const DRIVING = preload("res://addons/3d_player_controller/states/driving.gd")
 var engine_power
 var last_mouse_move_time: float = 0.0
 var player: CharacterBody3D
-var near_driver_door: int = false
+var near_driver_door: bool = false
 
 # Barrel roll tracking
 var last_z_rotation: float = 0.0
@@ -130,6 +130,9 @@ func _input(event: InputEvent) -> void:
 					player.is_driving_in = self
 					player.is_animation_locked = true
 					player.global_position = open_driver_door.global_position
+
+					# Drop any equipment before driving
+					player.reparent_held_item()
 
 					# Make the player look at the car (similar to climbing system)
 					var car_direction = drivers_seat.global_position - player.global_position
@@ -299,9 +302,8 @@ func flip_vehicle() -> void:
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	# Check if the body is a Player
 	if body.is_in_group("Player"):
-		# Store the player
+		# Save a reference to the player
 		player = body
-
 		# Flag the player as near the driver's door
 		near_driver_door = true
 

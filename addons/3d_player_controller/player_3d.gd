@@ -33,6 +33,7 @@ const STATES = preload("res://addons/3d_player_controller/states/states.gd")
 @export var jump_velocity: float = 4.5 ## Jump velocity
 @export var lock_movement_x: bool = false ## Lock movement on the X axis
 @export var lock_movement_y: bool = false ## Lock movement on the Y axis
+@export var rotation_smoothing: float = 30.0 ## Speed of rotation smoothing interpolation
 @export var speed_climbing: float = 0.5 ## Speed while climbing
 @export var speed_crawling: float = 0.75 ## Speed while crawling
 @export var speed_current: float = 3.0 ## Current speed
@@ -654,12 +655,20 @@ func update_aux_scene_transform(delta: float) -> void:
 	if visuals_aux_scene != null:
 		# Check if AuxScene has top_level enabled
 		if visuals_aux_scene.top_level != null:
-			# Copy the visuals's global rotation
-			visuals_aux_scene.rotation = Vector3(
+			# Calculate target rotation
+			var target_rotation = Vector3(
 				visuals.global_rotation.x,
 				visuals.global_rotation.y + initial_aux_scene_transform.basis.get_euler().y,
 				visuals.global_rotation.z
 			)
+			# Convert current and target rotations to quaternions for smooth interpolation
+			var current_quat = Quaternion.from_euler(visuals_aux_scene.rotation)
+			var target_quat = Quaternion.from_euler(target_rotation)
+			# Slerp the rotation with a smooth interpolation factor
+			var smooth_quat = current_quat.slerp(target_quat, rotation_smoothing * delta)
+			# Apply the smoothed rotation
+			visuals_aux_scene.rotation = smooth_quat.get_euler()
+
 			# Calculate the target position based on player and visuals transforms
 			var target_global_position = global_position + (global_transform.basis * visuals_offset)
 			# Apply smoothing
