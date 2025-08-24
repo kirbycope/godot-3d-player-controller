@@ -438,14 +438,6 @@ func start() -> void:
 	# Set the player's velocity
 	player.velocity = Vector3.ZERO
 
-	# [Re]Set player visual rotation
-	player.visuals_aux_scene.rotation = Vector3(
-		deg_to_rad(0.0),
-		deg_to_rad(-180.0),
-		deg_to_rad(0.0)
-	)
-
-
 ## Stop "standing".
 func stop() -> void:
 	# Disable _this_ state node

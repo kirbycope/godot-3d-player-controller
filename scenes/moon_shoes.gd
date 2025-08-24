@@ -35,7 +35,7 @@ func _input(event: InputEvent) -> void:
 			# Get the equipped items from both feet
 			var left_foot_children = player.bone_attachment_left_foot.get_children()
 			var right_foot_children = player.bone_attachment_right_foot.get_children()
-			# Letting the [Hack] in main.gd handle this so the skateboard can be equipped without issues
+			# Letting main.gd handle this so the skateboard can be equipped without issues
 			for child in left_foot_children:
 				if child.name == "MoonShoes":
 					player.bone_attachment_left_foot.remove_child(child)
@@ -46,28 +46,6 @@ func _input(event: InputEvent) -> void:
 					player.bone_attachment_right_foot.remove_child(child)
 					# Reparent the item to the main scene
 					player.get_tree().current_scene.add_child(child)
-			# Remove the equipped items from both feet
-			#for child in left_foot_children:
-			#	if child.name == "MoonShoes":
-			#		child.queue_free()
-			#for child in right_foot_children:
-			#	if child.name == "MoonShoes":
-			#		child.queue_free()
-			# Create a new complete moon shoes instance to drop
-			#var scene = load("res://scenes/moon_shoes.tscn")
-			#var dropped_item = scene.instantiate()
-			# Add the complete item to the current scene first
-			#player.get_tree().current_scene.add_child(dropped_item)
-			# Now position the dropped item at position 0, 0, 0
-			#dropped_item.global_position = Vector3.ZERO
-			# Reset player properties
-			#player.position.y += 0.2
-			#player.collision_shape.position.y += 0.2
-			#player.shapecast.position.y += 0.2
-			# Restore the original collision position for the crouching system
-			#player.collision_position.y += 0.2
-			#player.jump_velocity = initial_jump_velocity
-			# Clear the references
 			player = null
 
 

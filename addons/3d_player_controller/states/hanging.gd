@@ -117,9 +117,9 @@ func play_animation() -> void:
 				# Check if the current animation is not "braced hang idle"
 				if player.animation_player.current_animation != ANIMATION_BRACED_HANG:
 					# [Hack] Adjust visuals for animation
-					player.visuals_aux_scene.position.x = 0.0
-					player.visuals_aux_scene.position.y = -0.55
-					player.visuals_aux_scene.position.z = 0.0
+					player.player_skeleton.position.x = 0.0
+					player.player_skeleton.position.y = -0.55
+					player.player_skeleton.position.z = 0.0
 					# Play the "braced hang idle" animation
 					player.animation_player.play(ANIMATION_BRACED_HANG)
 			# The player must not be braced
@@ -127,9 +127,9 @@ func play_animation() -> void:
 				# Check if playing the "hanging idle" animation
 				if player.animation_player.current_animation != ANIMATION_HANGING:
 					# [Hack] Adjust visuals for hanging
-					player.visuals_aux_scene.position.x = 0.0
-					player.visuals_aux_scene.position.y = -0.9
-					player.visuals_aux_scene.position.z = -0.35
+					player.player_skeleton.position.x = 0.0
+					player.player_skeleton.position.y = -0.9
+					player.player_skeleton.position.z = 0.35
 					# Play the "hanging idle" animation
 					player.animation_player.play(ANIMATION_HANGING)
 				else:
@@ -140,9 +140,9 @@ func play_animation() -> void:
 			# Check if the player is braced
 			if player.is_braced:
 				# [Hack] Adjust visuals for shimmying
-				player.visuals_aux_scene.position.x = 0.0
-				player.visuals_aux_scene.position.y = -1.0
-				player.visuals_aux_scene.position.z = 0.0
+				player.player_skeleton.position.x = 0.0
+				player.player_skeleton.position.y = -1.0
+				player.player_skeleton.position.z = 0.0
 				# Check if playing the "braced hang, shimmy left" animation
 				if player.animation_player.current_animation != ANIMATION_BRACED_HANG_SHIMMY_LEFT:
 					# Play the "braced hang, shimmy left" animation
@@ -152,9 +152,9 @@ func play_animation() -> void:
 				# Check if playing the "hanging, shimmy left" animation
 				if player.animation_player.current_animation != ANIMATION_HANGING_SHIMMY_LEFT:
 					# [Hack] Adjust visuals for shimmying
-					player.visuals_aux_scene.position.x = 0.0
-					player.visuals_aux_scene.position.y = -0.9
-					player.visuals_aux_scene.position.z = -0.35
+					player.player_skeleton.position.x = 0.0
+					player.player_skeleton.position.y = -0.9
+					player.player_skeleton.position.z = 0.35
 					# Play the "hanging, shimmy left" animation
 					player.animation_player.play(ANIMATION_HANGING_SHIMMY_LEFT)
 				else:
@@ -165,9 +165,9 @@ func play_animation() -> void:
 			# Check if the player is braced
 			if player.is_braced:
 				# [Hack] Adjust visuals for shimmying
-				player.visuals_aux_scene.position.x = 0.0
-				player.visuals_aux_scene.position.y = -1.0
-				player.visuals_aux_scene.position.z = 0.0
+				player.player_skeleton.position.x = 0.0
+				player.player_skeleton.position.y = -1.0
+				player.player_skeleton.position.z = 0.0
 				# Check if playing the "braced hang, shimmy right" animation
 				if player.animation_player.current_animation != ANIMATION_BRACED_HANG_SHIMMY_RIGHT:
 					# Play the "braced hang, shimmy right" animation
@@ -175,9 +175,9 @@ func play_animation() -> void:
 				# The player must not be braced
 			else:
 				# [Hack] Adjust visuals for shimmying
-				player.visuals_aux_scene.position.x = 0.0
-				player.visuals_aux_scene.position.y = -0.9
-				player.visuals_aux_scene.position.z = -0.35
+				player.player_skeleton.position.x = 0.0
+				player.player_skeleton.position.y = -0.9
+				player.player_skeleton.position.z = 0.35
 				# Check if playing the "hanging, shimmy right" animation
 				if player.animation_player.current_animation != ANIMATION_HANGING_SHIMMY_RIGHT:
 					# Play the "hanging, shimmy right" animation
@@ -277,7 +277,7 @@ func stop() -> void:
 	player.velocity.y = - player.gravity
 
 	# [Hack] Reset player visuals for animation
-	player.visuals_aux_scene.position.x = 0.0
-	player.visuals_aux_scene.position.y = 0.0
-	player.visuals_aux_scene.position.z = 0.0
+	player.player_skeleton.position.x = 0.0
+	player.player_skeleton.position.y = 0.0
+	player.player_skeleton.position.z = 0.0
 	player.animation_player.playback_default_blend_time = 0.2

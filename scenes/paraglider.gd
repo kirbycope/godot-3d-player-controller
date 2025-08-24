@@ -35,7 +35,7 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 		instance.get_node("Area3D/CollisionShape3D").disabled = true
 		# Add the instance to the player scene
 		body.head_mount.add_child(instance)
-		# [Hack] Adjust visuals
+		# [Hack] Adjust visuals (to align with `y_bot.tscn`)
 		instance.rotation.y = deg_to_rad(180)
 		instance.position.y += 0.55
 		# Remove _this_ instance

@@ -145,9 +145,9 @@ func play_animation() -> void:
 			# Check if playing the "braced hang, shimmy left" animation
 			if player.animation_player.current_animation != ANIMATION_BRACED_HANG_SHIMMY_LEFT:
 				# [Hack] Adjust visuals for shimmying
-				player.visuals_aux_scene.position.x = 0.0
-				player.visuals_aux_scene.position.y = -1.0
-				player.visuals_aux_scene.position.z = 0.0
+				player.player_skeleton.position.x = 0.0
+				player.player_skeleton.position.y = -1.0
+				player.player_skeleton.position.z = 0.0
 				# Play the "braced hang, shimmy left" animation
 				player.animation_player.play(ANIMATION_BRACED_HANG_SHIMMY_LEFT)
 			else:
@@ -160,9 +160,9 @@ func play_animation() -> void:
 			# Check if playing the "braced hang, shimmy right" animation
 			if player.animation_player.current_animation != ANIMATION_BRACED_HANG_SHIMMY_RIGHT:
 				# [Hack] Adjust visuals for shimmying
-				player.visuals_aux_scene.position.x = 0.0
-				player.visuals_aux_scene.position.y = -1.0
-				player.visuals_aux_scene.position.z = 0.0
+				player.player_skeleton.position.x = 0.0
+				player.player_skeleton.position.y = -1.0
+				player.player_skeleton.position.z = 0.0
 				# Play the "braced hang, shimmy right" animation
 				player.animation_player.play(ANIMATION_BRACED_HANG_SHIMMY_RIGHT)
 			else:
@@ -175,9 +175,9 @@ func play_animation() -> void:
 			# Check if playing the "climbing" animation
 			if player.animation_player.current_animation != ANIMATION_CLIMBING_IN_PLACE:
 				# [Hack] Adjust visuals for climbing
-				player.visuals_aux_scene.position.x = 0.0
-				player.visuals_aux_scene.position.y = -0.4
-				player.visuals_aux_scene.position.z = 0.0
+				player.player_skeleton.position.x = 0.0
+				player.player_skeleton.position.y = -0.4
+				player.player_skeleton.position.z = 0.0
 				# Play the "climbing" animation
 				player.animation_player.play(ANIMATION_CLIMBING_IN_PLACE)
 			else:
@@ -188,9 +188,9 @@ func play_animation() -> void:
 			# Check if playing the "climbing" animation
 			if player.animation_player.current_animation != ANIMATION_CLIMBING_IN_PLACE:
 				# [Hack] Adjust visuals for climbing
-				player.visuals_aux_scene.position.x = 0.0
-				player.visuals_aux_scene.position.y = -0.4 
-				player.visuals_aux_scene.position.z = 0.0
+				player.player_skeleton.position.x = 0.0
+				player.player_skeleton.position.y = -0.4 
+				player.player_skeleton.position.z = 0.0
 				# Play the "climbing" animation (backwards)
 				player.animation_player.play_backwards(ANIMATION_CLIMBING_IN_PLACE)
 			else:
@@ -261,7 +261,7 @@ func start() -> void:
 		player.visuals.look_at(player.position + wall_direction, Vector3.UP)
 
 	# [Hack] Adjust player visuals for animation
-	player.visuals_aux_scene.position.y = -0.4
+	player.player_skeleton.position.y = -0.4
 	player.animation_player.play(ANIMATION_CLIMBING_IN_PLACE)
 	player.animation_player.playback_default_blend_time = 0.0
 
@@ -284,9 +284,9 @@ func stop() -> void:
 	player.is_climbing = false
 
 	# [Hack] Reset player visuals for animation
-	player.visuals_aux_scene.position.x = 0.0
-	player.visuals_aux_scene.position.y = 0.0
-	player.visuals_aux_scene.position.z = 0.0
+	player.player_skeleton.position.x = 0.0
+	player.player_skeleton.position.y = 0.0
+	player.player_skeleton.position.z = 0.0
 	player.visuals.rotation = Vector3.ZERO
 	player.animation_player.playback_default_blend_time = 0.2
 	player.animation_player.speed_scale = 1.0

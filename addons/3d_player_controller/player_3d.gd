@@ -141,7 +141,8 @@ var virtual_velocity: Vector3 = Vector3.ZERO ## The velocity of the player if th
 @onready var look_at_modifier = player_skeleton.get_node("LookAtModifier3D")
 @onready var physical_bone_simulator = player_skeleton.get_node_or_null("PhysicalBoneSimulator3D")
 # Initial Values
-@onready var initial_position = position
+@onready var initial_aux_scene_transform: Transform3D = visuals_aux_scene.transform
+@onready var initial_position = position ## used for "Return Home" in START menu
 @onready var initial_shapecast_target_position = shapecast.target_position
 
 
@@ -195,6 +196,9 @@ func _physics_process(delta) -> void:
 
 	# Move player (physics movement)
 	move_player(delta)
+
+	# Update AuxScene position if top_level is true
+	update_aux_scene_transform(delta)
 
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -522,7 +526,7 @@ func move_player(delta: float) -> void:
 		# Adjust the position to be at the player's feet
 		shapecast.target_position.y = initial_shapecast_target_position.y
 	else:
-		# [Hack] Move the shapecast up to avoid most collisions
+		# Move the shapecast up to avoid most collisions
 		shapecast.target_position.y = 0.0
 
 	# Create a new physics query object used for checking collisions in 3D space
@@ -642,6 +646,33 @@ func reparent_equipped_head_items() -> void:
 		head_mount.remove_child(child)
 		# Reparent the item to the main scene
 		get_tree().current_scene.add_child(child)
+
+
+## Updates the AuxScene transform to follow the player when top_level is true
+func update_aux_scene_transform(delta: float) -> void:
+	# Check if AuxScene exists
+	if visuals_aux_scene != null:
+		# Check if AuxScene has top_level enabled
+		if visuals_aux_scene.top_level != null:
+			# Copy the visuals's global rotation
+			visuals_aux_scene.rotation = Vector3(
+				visuals.global_rotation.x,
+				visuals.global_rotation.y + initial_aux_scene_transform.basis.get_euler().y,
+				visuals.global_rotation.z
+			)
+			# Calculate the target position based on player and visuals transforms
+			var target_global_position = global_position + (global_transform.basis * visuals_offset)
+			# Apply smoothing
+			if raycast_below.is_colliding() and velocity != Vector3.ZERO and !is_climbing and !is_falling and !is_flying and !is_hanging and !is_jumping and !is_shimmying:
+				# Get the current position of the AuxScene
+				var current_position = visuals_aux_scene.global_position
+				# Smooth only the y-axis position
+				var smooth_y = lerp(current_position.y, target_global_position.y, 10 * delta)
+				# Set the new position based on lerp value
+				visuals_aux_scene.global_position = Vector3(target_global_position.x, smooth_y, target_global_position.z)
+			else:
+				# No smoothing, directly set position
+				visuals_aux_scene.global_position = target_global_position
 
 
 ## Toggles the noclip mode.

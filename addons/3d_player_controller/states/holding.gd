@@ -257,7 +257,7 @@ func throw_held_object() -> void:
 			if player.animation_player.current_animation != ANIMATION_STANDING_THROWING_LEFT:
 				# Play the "throwing left" animation
 				player.animation_player.play(ANIMATION_STANDING_THROWING_LEFT)
-				# [Hack] Start playing partway through the animation
+				# Start playing partway through the animation
 				var animation_length = player.animation_player.get_animation(ANIMATION_STANDING_THROWING_LEFT).length
 				player.animation_player.seek(animation_length * 0.2)
 				

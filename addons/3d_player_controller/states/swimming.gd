@@ -74,7 +74,7 @@ func play_animation() -> void:
 			if player.animation_player.current_animation != ANIMATION_TREADING_WATER:
 				# Move the collison shape to match the player
 				player.collision_shape.rotation_degrees.x = 0
-				# [Hack] Reset the player visuals position
+				# [Hack] Adjust player visuals for animation
 				player.visuals_aux_scene.position.y = 0.0
 				# Play the "treading water" animation
 				player.animation_player.play(ANIMATION_TREADING_WATER)

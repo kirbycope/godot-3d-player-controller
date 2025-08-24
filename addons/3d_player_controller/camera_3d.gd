@@ -68,44 +68,44 @@ func _input(event) -> void:
 
 ## Called each physics frame with the time since the last physics frame as argument (delta, in seconds).
 func _physics_process(delta) -> void:
-	# If the game is not paused...
+	# Handle input-driven look controls only when the game is not paused
+	var look_actions = ["look_down", "look_up", "look_left", "look_right"]
 	if !player.game_paused:
-		# Handle [look_*] using controller
-		var look_actions = ["look_down", "look_up", "look_left", "look_right"]
-
-		# Check each "look" action in the list
 		for action in look_actions:
-			# Check if the action is _pressed_ and the camera is not locked
 			if Input.is_action_pressed(action) and !player.lock_camera:
-				# Rotate camera based on controller movement
 				camera_rotate_by_controller(delta)
 
-		# Check if in "first person" perspective
-		if player.perspective == 1:
-			# Move the camera to player's head bone
-			move_camera_to_head()
-		else:
-			# In third person, follow the camera mount
-			follow_camera_mount(delta)
+	# ALWAYS update the camera position/rotation to follow the player
+	# (the follow behaviour must run even while the game is paused)
+	if player.perspective == 1:
+		move_camera_to_head()
+	else:
+		follow_camera_mount(delta)
 
-		# Update raycast position to always originate from player's head
-		update_raycast_position()
+	# Update raycast position regardless of pause state so the camera look
+	# origin stays consistent with the player's head
+	update_raycast_position()
 
 
 ## Follow the camera mount position and rotation (for third person)
 func follow_camera_mount(delta: float) -> void:
-	if camera_mount:
+	# Check if the camera mount exists
+	if camera_mount != null:
 		# Copy the camera mount's global transform for rotation
 		global_transform.basis = camera_mount.global_transform.basis
-		# Calculate the target position
+		# Get the starting position of the CameraMount
 		var base_offset = Vector3(0.0, 0.3333 * player.collision_height, 1.6666 * player.collision_height)
+		# Get the amount to offset the camera based on zoom in/out
 		var zoom_vector = Vector3(0.0, 0.0, zoom_offset)
+		# Calculate the target position
 		target_position = camera_mount.global_position + camera_mount.global_transform.basis * (base_offset + zoom_vector)
-		# Apply smoothing if enabled
-		if smoothing_enabled and player.raycast_below.is_colliding() and player.velocity != Vector3.ZERO and !player.is_climbing and !player.is_falling and !player.is_flying and !player.is_hanging and !player.is_shimmying:
+		# Apply smoothing (if enabled)
+		if smoothing_enabled and player.raycast_below.is_colliding() and player.velocity != Vector3.ZERO and !player.is_climbing and !player.is_falling and !player.is_flying and !player.is_hanging and !player.is_jumping and !player.is_shimmying:
+			# Get the current position of the Camera3D
+			var current_position = global_position
 			# Smooth only the y-axis position
-			var current_pos = global_position
-			var smooth_y = lerp(current_pos.y, target_position.y, smoothing_speed_y * delta)
+			var smooth_y = lerp(current_position.y, target_position.y, smoothing_speed_y * delta)
+			# Set the new position based on lerp value
 			global_position = Vector3(target_position.x, smooth_y, target_position.z)
 		# Smoothing must not be enabled
 		else:
@@ -183,7 +183,7 @@ func move_camera_to_head():
 	global_position = bone_world_pos
 	# Copy the camera mount's rotation for consistent look direction
 	global_rotation = camera_mount.global_rotation
-	# [Hack] Apply an offset in the camera's look direction
+	# Apply an offset in the camera's look direction
 	global_position += global_transform.basis.z * -0.1
 
 
