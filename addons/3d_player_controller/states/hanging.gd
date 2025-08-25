@@ -20,6 +20,8 @@ func _input(event: InputEvent) -> void:
 
 		# Ⓐ/[Space] button _pressed_ and the jump target is valid -> Start "mantling"
 		if event.is_action_pressed("button_0"):
+			# Force update the raycast to get current collision data
+			player.raycast_jumptarget.force_raycast_update()
 			# Check if there is a raycast collision
 			if player.raycast_jumptarget.is_colliding():
 				# Get the collision point

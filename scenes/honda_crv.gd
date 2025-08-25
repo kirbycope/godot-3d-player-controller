@@ -65,13 +65,22 @@ func _input(event: InputEvent) -> void:
 					audio_player.stop()
 					audio_player2.stop()
 
+					# Store the original global positions before reparenting
+					var player_global_pos = player.global_position
+					var _player_global_rot = player.global_rotation
+
+					# Reparent player back to the main scene
+					drivers_seat.remove_child(player)
+					get_tree().current_scene.add_child(player)
+
 					# Check if the vehicle is not on the ground
 					if !ray_cast_3d.is_colliding():
 						# Exit vehicle on top of the car
-						player.global_position = drivers_seat.global_position + Vector3(0, 1.0, 0)
+						player.global_position = player_global_pos + Vector3(0, 1.0, 0)
 						player.global_rotation = get_tree().current_scene.rotation
 						player.visuals.rotation = player.rotation
 						player.camera_mount.rotation = player.rotation
+						player.player_skeleton.rotation = player.rotation
 
 					# The vehicle must be grounded
 					else:
@@ -130,16 +139,13 @@ func _input(event: InputEvent) -> void:
 					player.is_driving_in = self
 					player.is_animation_locked = true
 					player.global_position = open_driver_door.global_position
-
 					# Drop any equipment before driving
 					player.reparent_held_item()
-
 					# Make the player look at the car (similar to climbing system)
 					var car_direction = drivers_seat.global_position - player.global_position
 					car_direction.y = 0.0
 					var look_at_target = player.global_position + car_direction.normalized()
 					player.visuals.look_at(look_at_target, Vector3.UP)
-
 					# Transition animation
 					player.velocity = Vector3.ZERO
 					player.animation_player.play("Entering_Car" + "/mixamo_com")
@@ -152,16 +158,21 @@ func _input(event: InputEvent) -> void:
 					await get_tree().create_timer(1.0).timeout
 					audio_player2.stream = sound_door_close
 					audio_player2.play()
-					player.global_position = drivers_seat.global_position
-					player.global_rotation = drivers_seat.global_rotation
+					
+					# Reparent player to the driver's seat
+					var original_parent = player.get_parent()
+					original_parent.remove_child(player)
+					drivers_seat.add_child(player)
+					
+					# Position player relative to the seat
+					player.position = Vector3.ZERO
+					player.rotation = Vector3.ZERO
 					player.collision_shape.disabled = true
 					player.animation_player.stop()
 					player.animation_player.play(DRIVING.ANIMATION_DRIVING)
 					player.is_animation_locked = false
-
 					# Get the string name of the player's current state
 					var current_state = player.base_state.get_state_name(player.current_state)
-
 					# Start "DRIVING"
 					player.base_state.transition(current_state, "Driving")
 
@@ -244,15 +255,11 @@ func _physics_process(delta: float) -> void:
 					var steering_compensation = engine_power * 0.2 * abs(steering)
 					engine_force += steering_compensation * sign(engine_force)
 
-				# Update player position and rotation
-				player.global_position = drivers_seat.global_position
-				player.visuals.global_rotation = drivers_seat.global_rotation
-
-				# Camera handling
-				if Time.get_ticks_msec() / 1000.0 - last_mouse_move_time > 2.0:
-					player.camera_mount.global_rotation.x = lerp_angle(player.camera_mount.global_rotation.x, drivers_seat.global_rotation.x, delta * 5.0)
-					player.camera_mount.global_rotation.y = lerp_angle(player.camera_mount.global_rotation.y, drivers_seat.global_rotation.y, delta * 5.0)
-					player.camera_mount.global_rotation.z = lerp_angle(player.camera_mount.global_rotation.z, drivers_seat.global_rotation.z, delta * 5.0)
+				# Update player position and rotation (player is now a child of drivers_seat)
+				if player.get_parent() == drivers_seat:
+					player.position = Vector3.ZERO
+					player.visuals_aux_scene.global_position = player.global_position
+					player.visuals_aux_scene.basis = basis
 
 				# Default to the "idle" sound
 				var target_stream: AudioStream = sound_idle
@@ -279,9 +286,15 @@ func _physics_process(delta: float) -> void:
 
 		# Handle player driving state, leaving the car
 		if player.is_driving and player.is_animation_locked:
-			# Update player position and rotation
-			player.global_position = drivers_seat.global_position
-			player.visuals.global_rotation = drivers_seat.global_rotation
+			# Update player position and rotation during exit animation
+			if player.get_parent() == drivers_seat:
+				# Player is still parented to the seat during exit animation
+				player.position = Vector3.ZERO
+				player.visuals.rotation = Vector3.ZERO
+			else:
+				# Fallback to global positioning if reparenting happened
+				player.global_position = drivers_seat.global_position
+				player.visuals.global_rotation = drivers_seat.global_rotation
 
 	# Reset barrel roll state
 	barrel_roll_done = false

@@ -198,8 +198,10 @@ func _physics_process(delta) -> void:
 	# Move player (physics movement)
 	move_player(delta)
 
-	# Update AuxScene position if top_level is true
-	update_aux_scene_transform(delta)
+	# Check if the player is not driving
+	if !is_driving:
+		# Update AuxScene position if top_level is true
+		update_aux_scene_transform(delta)
 
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -671,14 +673,15 @@ func update_aux_scene_transform(delta: float) -> void:
 
 			# Calculate the target position based on player and visuals transforms
 			var target_global_position = global_position + (global_transform.basis * visuals_offset)
-			# Apply smoothing
-			if raycast_below.is_colliding() and velocity != Vector3.ZERO and !is_climbing and !is_falling and !is_flying and !is_hanging and !is_jumping and !is_shimmying:
+			# Apply smoothing (if enabled)
+			if raycast_below.is_colliding() and velocity != Vector3.ZERO and !is_climbing and !is_driving and !is_falling and !is_flying and !is_hanging and !is_jumping and !is_shimmying:
 				# Get the current position of the AuxScene
 				var current_position = visuals_aux_scene.global_position
 				# Smooth only the y-axis position
 				var smooth_y = lerp(current_position.y, target_global_position.y, 10 * delta)
 				# Set the new position based on lerp value
 				visuals_aux_scene.global_position = Vector3(target_global_position.x, smooth_y, target_global_position.z)
+			# Smoothing must not be enabled
 			else:
 				# No smoothing, directly set position
 				visuals_aux_scene.global_position = target_global_position
