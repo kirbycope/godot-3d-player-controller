@@ -23,6 +23,7 @@ var last_z_rotation: float = 0.0
 var accumulated_z_rotation: float = 0.0
 var barrel_roll_grounded_time: float = 0.0
 var barrel_roll_done: bool = false
+var barrel_roll_cooldown: float = 0.0
 
 # Note: `@onready` variables are set when the scene is loaded.
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -118,6 +119,12 @@ func _input(event: InputEvent) -> void:
 					engine_force = 0
 					steering = 0
 
+					# Reset barrel roll state when exiting vehicle
+					barrel_roll_done = false
+					accumulated_z_rotation = 0.0
+					barrel_roll_grounded_time = 0.0
+					barrel_roll_cooldown = 0.0
+
 					# Start "standing"
 					player.base_state.transition("Driving", "Standing")
 
@@ -193,6 +200,7 @@ func _ready() -> void:
 	last_z_rotation = rotation.z
 	accumulated_z_rotation = 0.0
 	barrel_roll_done = false
+	barrel_roll_cooldown = 0.0
 
 
 ## Called during the physics processing step of the main loop.
@@ -202,7 +210,10 @@ func _physics_process(delta: float) -> void:
 		# Check if the player is DRIVING
 		if player.is_driving:
 			# Barrel roll tracking
-			if not barrel_roll_done:
+			if barrel_roll_cooldown > 0.0:
+				barrel_roll_cooldown -= delta
+			
+			if not barrel_roll_done and barrel_roll_cooldown <= 0.0:
 				var current_z = rotation.z
 				var delta_z = wrapf(current_z - last_z_rotation, -PI, PI)
 				accumulated_z_rotation += delta_z
@@ -218,6 +229,9 @@ func _physics_process(delta: float) -> void:
 				if player == null or barrel_roll_grounded_time > 3.0:
 					accumulated_z_rotation = 0.0
 					barrel_roll_grounded_time = 0.0
+					# Also reset barrel_roll_done if grounded long enough
+					if barrel_roll_grounded_time > 3.0:
+						barrel_roll_done = false
 
 				# Check for a full barrel roll (360 degrees = 2*PI radians)
 				if abs(accumulated_z_rotation) >= TAU:
@@ -227,6 +241,7 @@ func _physics_process(delta: float) -> void:
 					get_parent().get_node("ControlsOverlay/AchiementUnlocked/AnimationPlayer").play("toast")
 					accumulated_z_rotation = 0.0
 					barrel_roll_done = true
+					barrel_roll_cooldown = 2.0  # 2 second cooldown before next barrel roll can be detected
 
 			# Check if the current animation is "DRIVING" (not getting in or getting out)
 			if player.animation_player.current_animation == DRIVING.ANIMATION_DRIVING:
@@ -295,10 +310,6 @@ func _physics_process(delta: float) -> void:
 				# Fallback to global positioning if reparenting happened
 				player.global_position = drivers_seat.global_position
 				player.visuals.global_rotation = drivers_seat.global_rotation
-
-	# Reset barrel roll state
-	barrel_roll_done = false
-	accumulated_z_rotation = 0.0
 
 
 ## Flips the vehicle upright.
