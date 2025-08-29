@@ -304,14 +304,12 @@ func check_kick_collision() -> void:
 			# Check if the collider has the appropriate function
 			if stored_collider.has_method("animate_hit_low_left"):
 				# Play the appropriate hit animation
-				stored_collider.call("animate_hit_low_left")
 				stored_collider.rpc("animate_hit_low_left")
 		# Must be kicking right
 		else:
 			# Check if the collider has the appropriate function
 			if stored_collider.has_method("animate_hit_low_right"):
 				# Play the appropriate hit animation
-				stored_collider.call("animate_hit_low_right")
 				stored_collider.rpc("animate_hit_low_right")
 		# Check if controller vibration is enabled
 		if enable_vibration:
@@ -382,14 +380,12 @@ func check_punch_collision() -> void:
 			# Check if the collider has the appropriate function
 			if stored_collider.has_method("animate_hit_high_left"):
 				# Play the appropriate hit animation
-				stored_collider.call("animate_hit_high_left")
 				stored_collider.rpc("animate_hit_high_left")
 		# Must be punching right
 		else:
 			# Check if the collider has the appropriate function
 			if stored_collider.has_method("animate_hit_high_right"):
 				# Play the appropriate hit animation
-				stored_collider.call("animate_hit_high_right")
 				stored_collider.rpc("animate_hit_high_right")
 		# Check if controller vibration is enabled
 		if enable_vibration:
@@ -480,14 +476,12 @@ func check_tool_collision() -> void:
 								# Check if the body has the appropriate function
 								if stored_body.has_method("animate_hit_high_left"):
 									# Play the appropriate hit animation
-									stored_body.call("animate_hit_high_left")
 									stored_body.rpc("animate_hit_high_left")
 							# Must be swinging right
 							else:
 								# Check if the body has the appropriate function
 								if stored_body.has_method("animate_hit_high_right"):
 									# Play the appropriate hit animation
-									stored_body.call("animate_hit_high_right")
 									stored_body.rpc("animate_hit_high_right")
 							# Check if controller vibration is enabled
 							if enable_vibration:

@@ -10,18 +10,22 @@ const SFX_6 = preload("res://assets/sounds/punching_bag/594416__cashcarlo__punch
 @onready var audio_stream_player_3d: AudioStreamPlayer3D = $"../AudioStreamPlayer3D"
 
 
+@rpc("any_peer", "call_local")
 func animate_hit_low_left() -> void:
 	play_kick_sound()
 
 
+@rpc("any_peer", "call_local")
 func animate_hit_low_right() -> void:
 	play_kick_sound()
 
 
+@rpc("any_peer", "call_local")
 func animate_hit_high_left() -> void:
 	play_punch_sound()
 
 
+@rpc("any_peer", "call_local")
 func animate_hit_high_right() -> void:
 	play_punch_sound()
 

@@ -138,7 +138,6 @@ script = ExtResource("6_rpj2f")
 [node name="MicrosoftController" type="Control" parent="Debug"]
 visible = false
 layout_mode = 1
-anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -423,7 +422,6 @@ texture = ExtResource("32_w8mee")
 [node name="NintendoController" type="Control" parent="Debug"]
 visible = false
 layout_mode = 1
-anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -707,7 +705,6 @@ texture = ExtResource("54_ga23q")
 [node name="SonyController" type="Control" parent="Debug"]
 visible = false
 layout_mode = 1
-anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0

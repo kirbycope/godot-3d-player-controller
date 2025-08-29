@@ -27,23 +27,22 @@ const OLD_BV = "#322348"					# PURPLE, DARK .old-bv
 const MAX_DISTANCE := 64
 const SWIPE_DEADZONE := 8
 
-const BLACK_BUTTON_A = preload("res://addons/virtual_controller/assets/textures/game_icons/PNG/Black/2x/buttonA.png")
-const BLACK_BUTTON_B = preload("res://addons/virtual_controller/assets/textures/game_icons/PNG/Black/2x/buttonB.png")
-const BLACK_BUTTON_X = preload("res://addons/virtual_controller/assets/textures/game_icons/PNG/Black/2x/buttonX.png")
-const BLACK_BUTTON_Y = preload("res://addons/virtual_controller/assets/textures/game_icons/PNG/Black/2x/buttonY.png")
-const WHITE_BUTTON_A = preload("res://addons/virtual_controller/assets/textures/game_icons/PNG/White/2x/buttonA.png")
-const WHITE_BUTTON_B = preload("res://addons/virtual_controller/assets/textures/game_icons/PNG/White/2x/buttonB.png")
-const WHITE_BUTTON_X = preload("res://addons/virtual_controller/assets/textures/game_icons/PNG/White/2x/buttonX.png")
-const WHITE_BUTTON_Y = preload("res://addons/virtual_controller/assets/textures/game_icons/PNG/White/2x/buttonY.png")
-
-const BLACK_PLAYSTATION_BUTTON_CIRCLE = preload("res://addons/virtual_controller/assets/textures/playstation_series/Double/black_playstation_button_circle.png")
-const BLACK_PLAYSTATION_BUTTON_CROSS = preload("res://addons/virtual_controller/assets/textures/playstation_series/Double/black_playstation_button_cross.png")
-const BLACK_PLAYSTATION_BUTTON_SQUARE = preload("res://addons/virtual_controller/assets/textures/playstation_series/Double/black_playstation_button_square.png")
-const BLACK_PLAYSTATION_BUTTON_TRIANGLE = preload("res://addons/virtual_controller/assets/textures/playstation_series/Double/black_playstation_button_triangle.png")
-const WHITE_PLAYSTATION_BUTTON_CIRCLE = preload("res://addons/virtual_controller/assets/textures/playstation_series/Double/white_playstation_button_circle.png")
-const WHITE_PLAYSTATION_BUTTON_CROSS = preload("res://addons/virtual_controller/assets/textures/playstation_series/Double/white_playstation_button_cross.png")
-const WHITE_PLAYSTATION_BUTTON_SQUARE = preload("res://addons/virtual_controller/assets/textures/playstation_series/Double/white_playstation_button_square.png")
-const WHITE_PLAYSTATION_BUTTON_TRIANGLE = preload("res://addons/virtual_controller/assets/textures/playstation_series/Double/white_playstation_button_triangle.png")
+const BLACK_BUTTON_A = preload("uid://gq6lwxhonocy")
+const BLACK_BUTTON_B = preload("uid://brdf0o13vm14t")
+const BLACK_BUTTON_X = preload("uid://bbpqtu1ugpnis")
+const BLACK_BUTTON_Y = preload("uid://bb57xq2u6f5xc")
+const WHITE_BUTTON_A = preload("uid://bf7ao2r1en2cq")
+const WHITE_BUTTON_B = preload("uid://d17g6mlhk5xvx")
+const WHITE_BUTTON_X = preload("uid://cw26jjwephqik")
+const WHITE_BUTTON_Y = preload("uid://dnvya1u1n7dvw")
+const BLACK_PLAYSTATION_BUTTON_CIRCLE = preload("uid://c2yn4c21tm50k")
+const BLACK_PLAYSTATION_BUTTON_CROSS = preload("uid://mlqenpjx55f2")
+const BLACK_PLAYSTATION_BUTTON_SQUARE = preload("uid://bvcjgduexl5t1")
+const BLACK_PLAYSTATION_BUTTON_TRIANGLE = preload("uid://c0rilaeqj1cox")
+const WHITE_PLAYSTATION_BUTTON_CIRCLE = preload("uid://c3p18xrk8ilbx")
+const WHITE_PLAYSTATION_BUTTON_CROSS = preload("uid://5q2xmugddyx7")
+const WHITE_PLAYSTATION_BUTTON_SQUARE = preload("uid://h3vwbbe6qoep")
+const WHITE_PLAYSTATION_BUTTON_TRIANGLE = preload("uid://ctmht3trha3em")
 
 # Note: `@export` variables are available for editing in the property editor.
 @export var current_theme = theme.DEFAULT
@@ -104,6 +103,8 @@ var tap_initial_position = null
 
 ## Called when there is an input event.
 func _input(event: InputEvent) -> void:
+	# Do nothing if not the authority
+	if !is_multiplayer_authority(): return
 	# Check if analog sticks are not enabled
 	if not enable_analog_stick_left and not enable_analog_stick_right:
 		# Return without drawing anything
