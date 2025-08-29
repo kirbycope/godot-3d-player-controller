@@ -11,13 +11,14 @@ const NODE_NAME := "Hanging"
 
 ## Called when there is an input event.
 func _input(event: InputEvent) -> void:
+	# Do nothing if not the authority
+	if !is_multiplayer_authority(): return
 	# Check if the game is not paused
 	if !player.game_paused:
 		# Ⓨ/[Ctrl] _pressed_ -> Start "falling"
 		if event.is_action_pressed("button_3"):
 			# Start falling
 			transition(NODE_NAME, "Falling")
-
 		# Ⓐ/[Space] button _pressed_ and the jump target is valid -> Start "mantling"
 		if event.is_action_pressed("button_0"):
 			# Force update the raycast to get current collision data
@@ -50,6 +51,8 @@ func _input(event: InputEvent) -> void:
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	# Do nothing if not the authority
+	if !is_multiplayer_authority(): return
 	# Check if the player is "hanging"
 	if player.is_hanging:
 		# Check if the player has no raycast collision
@@ -57,16 +60,13 @@ func _process(_delta: float) -> void:
 			# Start falling
 			transition(NODE_NAME, "Falling")
 			return
-
 	# Check if the player is on the ground (and has no vertical velocity)
 	if player.is_on_floor() and player.velocity.y == 0.0:
 		# Start "standing"
 		transition(NODE_NAME, "Standing")
 		return
-
 	# Move the player in the current direction
 	move_character()
-
 	# Check if the player is "hanging"
 	if player.is_hanging:
 		# Play the animation
@@ -111,7 +111,6 @@ func play_animation() -> void:
 		player.is_braced = player.raycast_low.is_colliding()
 		# Check if the player is shimmying
 		player.is_shimmying = Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right")
-
 		# Check if the player is not moving -> Play "hanging" animation
 		if player.velocity == Vector3.ZERO:
 			# Check if the player is braced
@@ -136,7 +135,6 @@ func play_animation() -> void:
 					player.animation_player.play(ANIMATION_HANGING)
 				else:
 					player.animation_player.play()
-
 		# Check if the player is moving left -> Play "shimmy left" animation
 		if Input.is_action_pressed("move_left"):
 			# Check if the player is braced
@@ -161,7 +159,6 @@ func play_animation() -> void:
 					player.animation_player.play(ANIMATION_HANGING_SHIMMY_LEFT)
 				else:
 					player.animation_player.play()
-
 		# Check if the player is moving right -> Play "shimmy right" animation
 		if Input.is_action_pressed("move_right"):
 			# Check if the player is braced
@@ -192,74 +189,51 @@ func play_animation() -> void:
 func start() -> void:
 	# Enable _this_ state node
 	process_mode = PROCESS_MODE_INHERIT
-
 	# Set the player's new state
 	player.current_state = STATES.State.HANGING
-
 	# Flag the player as "hanging"
 	player.is_hanging = true
-
 	# Set the player's movement speed
 	player.speed_current = player.speed_hanging
-
 	# Get the player's height
 	var player_height = player.get_node("CollisionShape3D").shape.height
-
 	# Get the player's width
 	var player_width = player.get_node("CollisionShape3D").shape.radius * 2
-
 	# Get the collision point
 	var collision_point = player.raycast_high.get_collision_point()
-
 	# [DEBUG] Draw a debug sphere at the collision point
 	#draw_debug_sphere(collision_point, Color.RED)
-
 	# Get the collision normal
 	var collision_normal = player.raycast_high.get_collision_normal()
 	var wall_direction = - collision_normal
-	
 	# Ensure the wall direction is horizontal (remove any vertical component)
 	wall_direction.y = 0.0
 	wall_direction = wall_direction.normalized()
-
-
 	# Calculate the direction from the player to collision point
 	var direction = (collision_point - player.position).normalized()
-
 	# Calculate new point by moving back from point along the direction by the given player radius
 	collision_point = collision_point - direction * player_width
-
 	# [DEBUG] Draw a debug sphere at the collision point
 	#draw_debug_sphere(collision_point, Color.YELLOW)
-
 	# Adjust the point relative to the player's height
 	collision_point = Vector3(collision_point.x, player.position.y, collision_point.z)
-
 	# Reset velocity and virtual velocity before setting position to prevent input interference
 	player.velocity = Vector3.ZERO
 	player.virtual_velocity = Vector3.ZERO
-
 	# Move center of player to the collision point
 	player.global_position = collision_point
-
 	# [DEBUG] Draw a debug sphere at the collision point
 	#draw_debug_sphere(collision_point, Color.GREEN)
-
 	# Wait one frame to ensure position is set before continuing
 	await get_tree().process_frame
-
 	# Make the player face the wall while keeping upright
 	player.visuals.look_at(player.position + wall_direction, Vector3.UP)
-
 	# [Hack] Adjust player visuals for animation
 	player.animation_player.playback_default_blend_time = 0.0
-
 	# Flag the animation player as locked
 	player.is_animation_locked = true
-
 	# Delay execution to ensure position is properly set and no input interference
 	await get_tree().create_timer(0.2).timeout
-
 	# Flag the animation player no longer locked
 	player.is_animation_locked = false
 
@@ -268,16 +242,12 @@ func start() -> void:
 func stop() -> void:
 	# Disable _this_ state node
 	process_mode = PROCESS_MODE_DISABLED
-
 	# Flag player as not "hanging"
 	player.is_hanging = false
-
 	# Flag the player as not "shimmying"
 	player.is_shimmying = false
-
 	# Make the player start falling again
 	player.velocity.y = - player.gravity
-
 	# [Hack] Reset player visuals for animation
 	player.player_skeleton.position.x = 0.0
 	player.player_skeleton.position.y = 0.0

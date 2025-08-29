@@ -27,9 +27,7 @@ func set_message(sender: String, content: String) -> void:
 	# Set the content
 	sender_label.text = sender
 	content_label.text = content
-
 	# Start the hide timer when message is set
 	hide_timer.start(HIDE_DELAY)
-
 	# Ensure message is visible when first set
 	show()

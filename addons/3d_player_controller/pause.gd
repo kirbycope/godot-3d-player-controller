@@ -11,7 +11,6 @@ extends Control
 func _ready():
 	# Hide the "Loading..." message when scene loads
 	loading.hide()
-
 	# Connect focus signals for all controls to show visual feedback
 	for button in v_box_container.get_children():
 			button.focus_entered.connect(_on_button_focus_entered.bind(button))
@@ -19,7 +18,9 @@ func _ready():
 
 
 ## Called once for every event before _unhandled_input(), allowing you to consume some events.
-func _input(event) -> void:
+func _input(event: InputEvent) -> void:
+	# Do nothing if not the authority
+	if !is_multiplayer_authority(): return
 	# Check if the [pause] action _pressed_
 	if event.is_action_pressed("button_9"):
 		# Toggle game paused
@@ -48,10 +49,8 @@ func _on_button_focus_exited(button: Control):
 func _on_restart_button_pressed() -> void:
 	# Show the "Loading..." message
 	loading.show()
-
 	# Wait a moment to ensure the message is displayed
 	await get_tree().create_timer(0.1).timeout
-
 	# Get the current scene and reload it
 	get_tree().reload_current_scene()
 
@@ -60,7 +59,6 @@ func _on_restart_button_pressed() -> void:
 func _on_return_home_button_pressed() -> void:
 	# Return the player to the initial position
 	player.position = player.initial_position
-
 	# Toggle game paused
 	toggle_pause()
 
@@ -75,7 +73,6 @@ func _on_settings_button_pressed() -> void:
 func _on_leave_game_button_pressed() -> void:
 	# Show the "game ended" message [to web browser users]
 	quit.show()
-
 	# Close the application
 	get_tree().quit()
 
@@ -84,13 +81,10 @@ func _on_leave_game_button_pressed() -> void:
 func toggle_pause() -> void:
 	# Toggle game paused
 	player.game_paused = !player.game_paused
-
 	# Toggle mouse capture
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE if player.game_paused else Input.MOUSE_MODE_CAPTURED)
-
 	# Show the pause menu, if paused
 	visible = player.game_paused
-
 	# Set focus to first button when opening pause menu
 	if visible and v_box_container.get_child_count() > 0:
 		v_box_container.get_child(0).grab_focus()
@@ -100,9 +94,7 @@ func toggle_pause() -> void:
 func toggle_settings() -> void:
 	# Hide pause menu
 	visible = false
-
 	# Show the settings menu
 	player.menu_settings.visible = true
-
 	# Set focus to first button when opening settings menu
 	player.menu_settings.v_box_container.get_child(0).grab_focus()

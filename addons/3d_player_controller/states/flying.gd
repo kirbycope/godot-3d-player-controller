@@ -9,6 +9,8 @@ var timer_jump = 0.0 ## Timer to track time since last jump.
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	# Do nothing if not the authority
+	if !is_multiplayer_authority(): return
 	# Check if the game is not paused
 	if !player.game_paused:
 		# Ⓐ/[Space] button just _pressed_
@@ -19,76 +21,60 @@ func _process(delta: float) -> void:
 				if timer_jump == 0.0:
 					# Set the "jump timer" to the current game time
 					timer_jump = Time.get_ticks_msec()
-
 				# Check if the "jump timer" is already running
 				elif timer_jump > 0.0:
 					# Get the current game time
 					var time_now = Time.get_ticks_msec()
-
 					# Check if _this_ button press is within 200 milliseconds
 					if time_now - timer_jump < 200:
 						# Start "falling"
 						transition(NODE_NAME, "Falling")
-						
 						# Stop processing inputs (this frame)
 						return
-
 					# Either way, reset the timer
 					timer_jump = Time.get_ticks_msec()
-
 		# Ⓨ/[Ctrl] just _pressed_
 		if Input.is_action_just_pressed("button_3"):
 			# Pitch the player slightly downward
 			player.visuals.rotation.x = deg_to_rad(-6)
-		
 		# Ⓨ/[Ctrl] currently _pressed_
 		if Input.is_action_pressed("button_3"):
 			# Decrease the player's vertical position
 			player.position.y -= 5 * delta
-
 			# End ANIMATION_FLYING if collision detected below the player
 			if player.raycast_below.is_colliding():
 				# Start "standing"
 				transition(NODE_NAME, "Standing")
-		
 		# Ⓨ/[Ctrl] just _released_
 		if Input.is_action_just_released("button_3"):
 			# Reset the player's pitch
 			player.visuals.rotation.x = 0
-
 		# Ⓐ/[Space] button just _pressed_
 		if Input.is_action_just_pressed("button_0"):
 			# Pitch the player slightly downward
 			player.visuals.rotation.x = deg_to_rad(6)
-
 		# Ⓐ/[Space] button currently _pressed_
 		if Input.is_action_pressed("button_0"):
 			# Increase the player's vertical position
 			player.position.y += 5 * delta
-
 		# Ⓐ/[Space] button just _released_
 		if Input.is_action_just_released("button_0"):
 			# Reset the player's pitch
 			player.visuals.rotation.x = 0
-
 		# [sprint] button _pressed_
 		if Input.is_action_pressed("button_1"):
 			# Check if the player is not "sprinting"
 			if !player.is_sprinting:
 				# Set the player's speed
 				player.speed_current = player.speed_flying_fast
-
 				# Flag the player as "sprinting"
 				player.is_sprinting = true
-
 		# [sprint] button just _released_
 		if Input.is_action_just_released("button_1"):
 			# Set the player's speed
 			player.speed_current = player.speed_flying
-
 			# Flag the player as not "sprinting"
 			player.is_sprinting = false
-
 	# Check if the player is "flying"
 	if player.is_flying:
 		# Play the animation
@@ -105,7 +91,6 @@ func play_animation() -> void:
 			if player.animation_player.current_animation != ANIMATION_FLYING_FAST:
 				# Play the animation "ANIMATION_FLYING Fast" animation
 				player.animation_player.play(ANIMATION_FLYING_FAST)
-
 		# The player must not be "sprinting"
 		else:
 			# Check if the animation player is not already playing the appropriate animation
@@ -118,16 +103,12 @@ func play_animation() -> void:
 func start() -> void:
 	# Enable _this_ state node
 	process_mode = PROCESS_MODE_INHERIT
-
 	# Set the player's new state
 	player.current_state = STATES.State.FLYING
-
 	# Flag the player as "flying"
 	player.is_flying = true
-
 	# Set the player's speed
 	player.speed_current = player.speed_flying
-
 	# Set player properties
 	player.gravity = 0.0
 	player.motion_mode = CharacterBody3D.MOTION_MODE_FLOATING
@@ -139,10 +120,8 @@ func start() -> void:
 func stop() -> void:
 	# Disable _this_ state node
 	process_mode = PROCESS_MODE_DISABLED
-
 	# Flag the player as not "flying"
 	player.is_flying = false
-
 	# [Re]Set player properties
 	player.visuals.rotation.x = 0
 	player.gravity = ProjectSettings.get_setting("physics/3d/default_gravity")

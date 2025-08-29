@@ -9,6 +9,8 @@ var time_falling: float ## The time spent in the "falling" state.
 
 ## Called when there is an input event.
 func _input(event: InputEvent) -> void:
+	# Do nothing if not the authority
+	if !is_multiplayer_authority(): return
 	# Check if the game is not paused
 	if !player.game_paused:
 		# Ⓐ/[Space] _pressed_ and double jumping is enabled -> Start "double jumping"
@@ -21,14 +23,12 @@ func _input(event: InputEvent) -> void:
 					player.velocity.y = player.jump_velocity
 					# Set the "double jumping" flag
 					player.is_double_jumping = true
-
 		# Ⓐ/[Space] _pressed_ and flying is enabled --> Start "flying"
 		if event.is_action_pressed("button_0") and player.enable_flying and !player.is_flying and !player.is_on_floor():
 			# Check if the animation player is not locked
 			if !player.is_animation_locked:
 				# Start "flying"
 				transition(NODE_NAME, "Flying")
-
 		# Ⓐ/[Space] _pressed_ and paragliding is enabled --> Start "paragliding"
 		if event.is_action_pressed("button_0") and player.enable_paragliding and !player.is_paragliding and !player.is_on_floor():
 			# Check if the player has a glider
@@ -41,6 +41,8 @@ func _input(event: InputEvent) -> void:
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	# Do nothing if not the authority
+	if !is_multiplayer_authority(): return
 	# Check if the game is not paused
 	if !player.game_paused:
 		# Check if the player is not canceling a climb or hang
@@ -49,12 +51,10 @@ func _process(delta: float) -> void:
 			if !player.raycast_top.is_colliding() and player.raycast_high.is_colliding():
 				# Get the collision object
 				var collision_object = player.raycast_high.get_collider()
-
 				# Only proceed if the collision object is not in the "held" group and not a player
 				if !collision_object.is_in_group("held") and !collision_object is CharacterBody3D:
 					# Start "hanging"
 					transition(NODE_NAME, "Hanging")
-
 	# Check if the player is on the ground (and has no vertical velocity)
 	if player.is_on_floor() and player.velocity.y == 0.0:
 		# It would take approximately 1.43 seconds to fall 10 meters under gravity = -9.8 m/s² (ignoring air resistance and assuming initial downward velocity is zero).
@@ -64,8 +64,6 @@ func _process(delta: float) -> void:
 		else:
 			# Start "standing"
 			transition(NODE_NAME, "Standing")
-
-
 	# Check if the player is "falling"
 	if player.is_falling:
 		# Increment the time spent in the "falling" state
@@ -84,14 +82,12 @@ func play_animation() -> void:
 			if player.animation_player.current_animation != ANIMATION_JUMPING_HOLDING_RIFLE:
 				# Play the "jumping, holding a rifle" animation
 				player.animation_player.play(ANIMATION_JUMPING_HOLDING_RIFLE)
-
 		# Check if the player is "holding a tool"
 		elif player.is_holding_tool:
 			# Check if the animation player is not already playing the appropriate animation
 			if player.animation_player.current_animation != ANIMATION_JUMPING_HOLDING_TOOL:
 				# Play the "jumping, holding a tool" animation
 				player.animation_player.play(ANIMATION_JUMPING_HOLDING_TOOL)
-
 		# The player must be unarmed
 		else:
 			# Check if the animation player is not already playing the appropriate animation
@@ -104,10 +100,8 @@ func play_animation() -> void:
 func start() -> void:
 	# Enable _this_ state node
 	process_mode = PROCESS_MODE_INHERIT
-
 	# Set the player's new state
 	player.current_state = STATES.State.FALLING
-
 	# Flag the player as "falling"
 	player.is_falling = true
 
@@ -116,12 +110,9 @@ func start() -> void:
 func stop() -> void:
 	# Disable _this_ state node
 	process_mode = PROCESS_MODE_DISABLED
-
 	# Flag the player as not "falling"
 	player.is_falling = false
-
 	# Flag the player as not "double jumping"
 	player.is_double_jumping = false
-
 	# Reset the time spent falling
 	time_falling = 0.0

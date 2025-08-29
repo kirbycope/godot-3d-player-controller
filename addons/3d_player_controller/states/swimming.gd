@@ -12,6 +12,8 @@ const SWIMMING_ENTRY_LERP_DURATION: float = 0.08
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	# Do nothing if not the authority
+	if !is_multiplayer_authority(): return
 	# Check if the game is not paused
 	if !player.game_paused:
 		# Smooth entry into water
@@ -21,12 +23,10 @@ func _process(_delta: float) -> void:
 			if abs(player.position.y - swimming_entry_target_y) < 0.01 or swimming_entry_lerp_time <= 0.0:
 				player.position.y = swimming_entry_target_y
 				swimming_entry_lerp_time = 0.0
-
 		# Ⓨ/[Ctrl] just _pressed_
 		if Input.is_action_pressed("button_3"):
 			# Decrement the player's vertical position
 			player.position.y -= 0.01
-
 		# Ⓐ/[Space] button just _pressed_
 		if Input.is_action_pressed("button_0"):
 			# Check if the player is swimming in a body of water
@@ -41,12 +41,10 @@ func _process(_delta: float) -> void:
 				if player_top <= water_top:
 					# Increment the player's vertical position
 					player.position.y = new_position
-
 	# Check if the player is not "swimming"
 	if !player.is_swimming:
 		# Start "standing"
 		transition(NODE_NAME, "Standing")
-
 	# Check if the player is "swimming"
 	if player.is_swimming:
 		# Play the animation
@@ -67,7 +65,6 @@ func play_animation() -> void:
 				player.visuals_aux_scene.position.y = lerp(player.visuals_aux_scene.position.y, player.collision_height * .5, 0.1)
 				# Play the "swimming" animation
 				player.animation_player.play(ANIMATION_SWIMMING)
-
 		# The player must not be moving
 		else:
 			# Check if the animation player is not already playing the appropriate animation
@@ -84,16 +81,12 @@ func play_animation() -> void:
 func start() -> void:
 	# Enable _this_ state node
 	process_mode = PROCESS_MODE_INHERIT
-
 	# Set the player's new state
 	player.current_state = STATES.State.SWIMMING
-
 	# Flag the player as "swimming"
 	player.is_swimming = true
-
 	# Set the player's speed
 	player.speed_current = player.speed_swimming
-
 	# Set player properties
 	player.gravity = 0.0
 	player.motion_mode = CharacterBody3D.MOTION_MODE_FLOATING
@@ -121,19 +114,15 @@ func start() -> void:
 func stop() -> void:
 	# Disable _this_ state node
 	process_mode = PROCESS_MODE_DISABLED
-
 	# Flag the player as not "swimming"
 	player.is_swimming = false
-
 	# [Re]Set player properties
 	player.gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 	player.motion_mode = CharacterBody3D.MOTION_MODE_GROUNDED
 	player.velocity.y -= player.gravity
 	player.visuals.rotation.x = 0
 	player.visuals_aux_scene.position.y = 0.0
-
 	# Remove which body the player is swimming in
 	player.is_swimming_in = null
-
 	# Reset the collison shape to match the player
 	player.collision_shape.rotation_degrees.x = 0

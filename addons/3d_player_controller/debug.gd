@@ -5,12 +5,13 @@ extends Control
 
 
 ## Called once for every event before _unhandled_input(), allowing you to consume some events.
-func _input(event) -> void:
+func _input(event: InputEvent) -> void:
+	# Do nothing if not the authority
+	if !is_multiplayer_authority(): return
 	# [debug] button _pressed_
 	if event.is_action_pressed("debug"):
 		# Toggle "debug" visibility
 		visible = !visible
-
 	# [R] key to trigger ragdoll for testing (only when debug panel is visible)
 	if visible and event is InputEventKey and event.pressed:
 		if event.keycode == KEY_R:
@@ -81,7 +82,6 @@ func _process(_delta: float) -> void:
 		$Panel2/LockMovementY.button_pressed = player.lock_movement_y
 		$Panel2/LockPerspective.button_pressed = player.lock_perspective
 		$Panel2/GamePaused.button_pressed = player.game_paused
-
 		# Panel 3
 		$Coordinates.text = "[center][color=red]X:[/color]%.1f [color=green]Y:[/color]%.1f [color=blue]Z:[/color]%.1f[/center]" % [player.global_position.x, player.global_position.y, player.global_position.z]
 		$Velocity.text = "[center][color=red]X:[/color]%.1f [color=green]Y:[/color]%.1f [color=blue]Z:[/color]%.1f[/center]" % [player.velocity.x, player.velocity.y, player.velocity.z]

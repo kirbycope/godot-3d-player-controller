@@ -1,7 +1,7 @@
 class_name BaseState
 extends Node
 
-const STATES = preload("res://addons/3d_player_controller/states/states.gd")
+const STATES = preload("uid://dodroqwgmf811")
 
 # Note: `@onready` variables are set when the scene is loaded.
 @onready var player: CharacterBody3D = get_parent().get_parent() ## The player character.

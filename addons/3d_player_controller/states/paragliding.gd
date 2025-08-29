@@ -6,6 +6,8 @@ const NODE_NAME := "Paragliding"
 
 ## Called when there is an input event.
 func _input(event: InputEvent) -> void:
+	# Do nothing if not the authority
+	if !is_multiplayer_authority(): return
 	# Check if the game is not paused
 	if !player.game_paused:
 		# (D-Pad Down)/[Q] _pressed_ -> Drop paraglider
@@ -24,11 +26,12 @@ func _input(event: InputEvent) -> void:
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	# Do nothing if not the authority
+	if !is_multiplayer_authority(): return
 	# Check if the player is on the ground (and has no vertical velocity)
 	if player.is_on_floor() and player.velocity.y == 0.0:
 		# Start "standing"
 		transition(NODE_NAME, "Standing")
-
 	# Check if the player is "paragliding"
 	if player.is_paragliding:
 		# Play the animation

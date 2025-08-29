@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://ujh51l2wv1vk"]
+[gd_scene load_steps=35 format=3 uid="uid://ujh51l2wv1vk"]
 
 [ext_resource type="Script" uid="uid://2iaqywmqcahl" path="res://addons/3d_player_controller/player_3d.gd" id="1_f3dlg"]
 [ext_resource type="PackedScene" uid="uid://cx7x0f3lh4aus" path="res://addons/virtual_controller/scenes/canvas_layer.tscn" id="2_j65kv"]
@@ -30,6 +30,7 @@
 [ext_resource type="Script" uid="uid://cssr4hanw302t" path="res://addons/3d_player_controller/states/paragliding.gd" id="21_0pvj7"]
 [ext_resource type="Script" uid="uid://cdbvv0by1c45u" path="res://addons/3d_player_controller/states/pushing.gd" id="21_1p282"]
 [ext_resource type="Script" uid="uid://de38jw4t4nf84" path="res://addons/3d_player_controller/states/ragdoll.gd" id="22_vdjk1"]
+[ext_resource type="Script" uid="uid://cjasnyqqvgkqj" path="res://addons/3d_player_controller/name_label.gd" id="31_ij4ox"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5e6s3"]
 radius = 0.3
@@ -38,6 +39,29 @@ height = 1.8
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_8pp8g"]
 height = 0.1
 radius = 0.3
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_0pvj7"]
+properties/0/path = NodePath(".:current_state")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("Visuals/AuxScene/AnimationPlayer:current_animation")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("Visuals/AuxScene:position")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("Visuals/AuxScene:rotation")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath("NameLabel:text")
+properties/6/spawn = true
+properties/6/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D" groups=["Player"]]
 script = ExtResource("1_f3dlg")
@@ -78,7 +102,6 @@ visible = false
 
 [node name="ChatWindow" parent="CameraMount/Camera3D" instance=ExtResource("5_k4p2k")]
 visible = false
-anchors_preset = -1
 
 [node name="Debug" parent="CameraMount/Camera3D" instance=ExtResource("3_xex47")]
 visible = false
@@ -103,6 +126,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("CapsuleShape3D_5e6s3")
 
 [node name="Controls" parent="." instance=ExtResource("2_j65kv")]
+
+[node name="NameLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+billboard = 1
+script = ExtResource("31_ij4ox")
 
 [node name="ShapeCast3D" type="ShapeCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
@@ -221,3 +249,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 target_position = Vector3(0, 0, -1)
 
 [node name="RayCast3D_BelowPlayer" type="RayCast3D" parent="Visuals"]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_0pvj7")

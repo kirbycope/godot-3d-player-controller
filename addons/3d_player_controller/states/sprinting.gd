@@ -8,13 +8,14 @@ const NODE_NAME := "Sprinting"
 
 ## Called when there is an input event.
 func _input(event: InputEvent) -> void:
+	# Do nothing if not the authority
+	if !is_multiplayer_authority(): return
 	# Check if the game is not paused
 	if !player.game_paused:
 		# Ⓐ/[Space] _pressed_ and jumping is enabled -> Start "jumping"
 		if event.is_action_pressed("button_0") and player.enable_jumping and !player.is_animation_locked:
 			# Start "jumping"
 			transition(NODE_NAME, "Jumping")
-
 		# Ⓑ/[Shift] _released_ -> Stop "sprinting"
 		if event.is_action_released("button_1"):
 			# Start "standing" (which will check the player's speed and transition them to another state as needed)
@@ -23,18 +24,18 @@ func _input(event: InputEvent) -> void:
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	# Do nothing if not the authority
+	if !is_multiplayer_authority(): return
 	# Check if the player is not moving
 	if player.velocity == Vector3.ZERO and player.virtual_velocity == Vector3.ZERO:
 		# Start "standing"
 		transition(NODE_NAME, "Standing")
-
 	# The player must be moving
 	else:
 		# Check if the player is not on a floor
 		if !player.is_on_floor() and !player.raycast_below.is_colliding():
 			# Start "falling"
 			transition(NODE_NAME, "Falling")
-
 	# Check if the player is "sprinting"
 	if player.is_sprinting:
 		# Play the animation
@@ -47,7 +48,6 @@ func play_animation() -> void:
 	if !player.is_animation_locked:
 		# Check if in first person and moving backwards
 		var play_backwards = player.perspective == 1 and Input.is_action_pressed("move_down")
-		
 		# Check if the player is "holding a rifle"
 		if player.is_holding_rifle:
 			# Check if the animation player is not already playing the appropriate animation
@@ -57,7 +57,6 @@ func play_animation() -> void:
 					player.animation_player.play_backwards(ANIMATION_SPRINTING_HOLDING_RIFLE)
 				else:
 					player.animation_player.play(ANIMATION_SPRINTING_HOLDING_RIFLE)
-
 		# The player must be unarmed
 		else:
 			# Check if the animation player is not already playing the appropriate animation
@@ -73,13 +72,10 @@ func play_animation() -> void:
 func start() -> void:
 	# Enable _this_ state node
 	process_mode = PROCESS_MODE_INHERIT
-
 	# Set the player's new state
 	player.current_state = STATES.State.SPRINTING
-
 	# Flag the player as "sprinting"
 	player.is_sprinting = true
-
 	# Set the player's speed
 	player.speed_current = player.speed_sprinting
 
@@ -88,6 +84,5 @@ func start() -> void:
 func stop() -> void:
 	# Disable _this_ state node
 	process_mode = PROCESS_MODE_DISABLED
-
 	# Flag the player as not "sprinting"
 	player.is_sprinting = false

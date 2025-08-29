@@ -10,7 +10,6 @@ size = Vector2(27, 31)
 
 [node name="ChatWindow" type="Control"]
 layout_mode = 3
-anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 3.0

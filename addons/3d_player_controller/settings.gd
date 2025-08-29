@@ -21,7 +21,9 @@ extends Control
 
 
 ## Called once for every event before _unhandled_input(), allowing you to consume some events.
-func _input(event) -> void:
+func _input(event: InputEvent) -> void:
+	# Do nothing if not the authority
+	if !is_multiplayer_authority(): return
 	# Check if the [pause] action _pressed_ and the emotes node is not visible
 	if event.is_action_pressed("button_9"):
 		# Go back to the pause menu
@@ -34,19 +36,15 @@ func _ready() -> void:
 	for button in v_box_container.get_children():
 		button.focus_entered.connect(_on_button_focus_entered.bind(button))
 		button.focus_exited.connect(_on_button_focus_exited.bind(button))
-
 	# By default, hide anything not for all renderers
 	option_fxaa.visible = false
 	option_ssrl.visible = false
 	option_taa.visible = false
 	option_fsr.visible = false
-	
 	# Vsync - This is available in all renderers.
 	option_vsync.button_pressed = project_vsync
-
 	# Multisample antialiasing (MSAA) - This is available in all renderers.
 	option_msaa.selected = project_msaa
-
 	# Supersample antialiasing (SSAA) - This is available in all renderers.
 	if project_ssaa == 1.0:
 		option_ssaa.selected = 0
@@ -54,23 +52,19 @@ func _ready() -> void:
 		option_ssaa.selected = 1
 	elif project_ssaa == 2.0:
 		option_ssaa.selected = 2
-
 	# Check if the rendering method if "Forward+" or "Mobile"
 	if project_rendering_method == "forward_plus" or project_rendering_method == "mobile":
 		# Fast approximate antialiasing (FXAA) - This is only available in the Forward+ and Mobile renderers, not the Compatibility renderer.
 		option_fxaa.visible = true
 		option_fxaa.button_pressed = project_fxaa
-
 		# Screen-space roughness limiter - This is only available in the Forward+ and Mobile renderers, not the Compatibility renderer.
 		option_ssrl.visible = true
 		option_ssrl.button_pressed = project_ssrl
-
 	# Check if the rendering method is "Forward+"
 	if project_rendering_method == "forward_plus":
 		# Temporal antialiasing (TAA) - This is only available in the Forward+ renderer, not the Mobile or Compatibility renderers.
 		option_taa.visible = true
 		option_taa.button_pressed = project_taa
-
 		# AMD FidelityFX Super Resolution 2.2 (FSR2) - This is only available in the Forward+ renderer, not the Mobile or Compatibility renderers.
 		option_fsr.visible = true
 		option_fsr.selected = project_fsr
@@ -94,7 +88,6 @@ func _on_vsync_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		# Enable VYSNC
 		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
-
 	# The VSYNC option is toggled off
 	else:
 		# Disable VYSNC
@@ -110,7 +103,6 @@ func _on_msaa_item_selected(index: int) -> void:
 		RenderingServer.VIEWPORT_MSAA_4X,
 		RenderingServer.VIEWPORT_MSAA_8X,
 	]
-
 	# Apply to the current viewport
 	get_viewport().set_msaa_3d(msaa_values[index])
 
@@ -123,13 +115,10 @@ func _on_ssaa_item_selected(index: int) -> void:
 		1.5,
 		2.0,
 	]
-
 	# Get the current viewport
 	var viewport = get_viewport()
-
 	# Set the 3D scaling mode to bilinear (0)
 	viewport.scaling_3d_mode = Viewport.SCALING_3D_MODE_BILINEAR
-
 	# Apply the 3D scaling factor for SSAA
 	viewport.scaling_3d_scale = scale_factors[index]
 
@@ -138,12 +127,10 @@ func _on_ssaa_item_selected(index: int) -> void:
 func _on_fxaa_toggled(toggled_on: bool) -> void:
 	# Get the current viewport
 	var viewport = get_viewport()
-
 	# Check if the FXAA option is toggled on
 	if toggled_on:
 		# Enable FXAA
 		viewport.screen_space_aa = Viewport.SCREEN_SPACE_AA_FXAA
-
 	# The FXAA option is toggled off
 	else:
 		# Disable FXAA
@@ -160,7 +147,6 @@ func _on_ssrl_toggled(toggled_on: bool) -> void:
 func _on_taa_toggled(toggled_on: bool) -> void:
 	# Get the current viewport
 	var viewport = get_viewport()
-
 	# Apply the Temporal Anti-Aliasing setting
 	viewport.use_taa = toggled_on
 
@@ -169,7 +155,6 @@ func _on_taa_toggled(toggled_on: bool) -> void:
 func _on_fsr_item_selected(index: int) -> void:
 	# Get the current viewport
 	var viewport = get_viewport()
-
 	# Apply the FSR mode based on the selected index
 	viewport.scaling_3d_mode = index
 
@@ -226,9 +211,7 @@ func _on_fsr_touch_pressed() -> void:
 func _on_back_button_pressed() -> void:
 	# Hide the settings menu
 	visible = false
-
 	# Show the pause menu
 	player.menu_pause.visible = true
-
 	# Set focus to first button when opening pause menu
 	player.menu_pause.v_box_container.get_child(0).grab_focus()
