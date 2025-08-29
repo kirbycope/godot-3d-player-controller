@@ -8,5 +8,5 @@ func _ready() -> void:
 	# Set playername
 	text = str(player.get_username())
 	# Hide if alone
-	if multiplayer.get_multiplayer_peer() == null:
+	if multiplayer.get_peers().size() == 0:
 		hide()
