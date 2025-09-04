@@ -198,7 +198,7 @@ func _physics_process(delta) -> void:
 		update_aux_scene_transform(delta)
 
 
-## Called every frame. 'delta' is the elapsed time since the previous frame.
+## Called every frame. '_delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	# Do nothing if not the authority
 	if !is_multiplayer_authority(): return
@@ -502,11 +502,9 @@ func check_tool_collision() -> void:
 					is_swinging_right = false
 
 
-# Getter for the player's username (Steam, then OS environment)
+## Getter for the player's username.
 func get_username() -> String:
 	var username = ""
-	# Uncomment the next line if using GodotSteam
-	#username = str(Steam.getPersonaName())
 	if username.is_empty():
 		username = OS.get_environment("USERNAME")
 	if username.is_empty():
