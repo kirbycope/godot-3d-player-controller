@@ -88,7 +88,7 @@ func _input(event: InputEvent) -> void:
 						# Flag the animation player as locked
 						player.is_animation_locked = true
 						# Transition animation
-						player.global_position.y -= 0.15
+						player.visuals_aux_scene.global_position.y -= 0.15
 						player.animation_player.play("Exiting_Car" + "/mixamo_com")
 						await get_tree().create_timer(1.0).timeout
 						animation_player.play("door_front_driver_open")
@@ -103,6 +103,7 @@ func _input(event: InputEvent) -> void:
 						player.animation_player.stop()
 						player.animation_player.play("Standing_Idle" + "/mixamo_com")
 						player.global_position = exit_driver_door.global_position
+						player.visuals_aux_scene.global_position = exit_driver_door.global_position
 						player.rotation = exit_driver_door.rotation
 						player.visuals.rotation = exit_driver_door.rotation
 						player.camera_mount.rotation = exit_driver_door.rotation
