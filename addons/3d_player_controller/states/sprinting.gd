@@ -20,6 +20,10 @@ func _input(event: InputEvent) -> void:
 		if event.is_action_released("button_1"):
 			# Start "standing" (which will check the player's speed and transition them to another state as needed)
 			transition(NODE_NAME, "Standing")
+		# Ⓨ/[Ctrl] _pressed_ -> Start "sliding"
+		if event.is_action_pressed("button_3") and player.enable_sliding and !player.is_animation_locked:
+			# Start "sliding"
+			transition(NODE_NAME, "Sliding")
 
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.

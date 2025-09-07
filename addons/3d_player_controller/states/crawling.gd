@@ -15,8 +15,8 @@ func _input(event: InputEvent) -> void:
 		if event.is_action_pressed("button_0") and player.enable_jumping and !player.is_animation_locked:
 			# Start "jumping"
 			transition(NODE_NAME, "Jumping")
-		# Ⓧ/[E] _pressed -> Start "rolling"
-		if event.is_action_pressed("button_2") and player.enable_rolling and !player.is_animation_locked:
+		# Ⓑ/[Shift] _pressed -> Start "rolling"
+		if event.is_action_pressed("button_1") and player.enable_rolling and !player.is_animation_locked:
 			# Start "rolling"
 			transition(NODE_NAME, "Rolling")
 

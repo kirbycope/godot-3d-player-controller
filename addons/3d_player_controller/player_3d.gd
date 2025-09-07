@@ -23,6 +23,7 @@ const STATES = preload("uid://dodroqwgmf811")
 @export var enable_paragliding: bool = true ## Enable paragliding
 @export var enable_punching: bool = true ## Enable punching
 @export var enable_rolling: bool = true ## Enable rolling
+@export var enable_sliding: bool = true ## Enable sliding
 @export var enable_sprinting: bool = true ## Enable sprinting
 @export var enable_vibration: bool = false ## Enable controller vibration
 @export_group("Camera Settings")
@@ -88,6 +89,7 @@ var is_pushing: bool = false ## Is the player pushing something?
 var is_reeling: bool = false ## Is the player reeling in a fishing line?
 var is_rotating_object: bool = false ## Is the player rotating an object being held in front of them?
 var is_running: bool = false ## Is the player running?
+var is_sliding: bool = false ## Is the player sliding?
 var is_shimmying: bool = false ## Is the player shimmying along a ledge?
 var is_skateboarding: bool = false ## Is the player skateboarding?
 var is_sprinting: bool = false ## Is the player sprinting?

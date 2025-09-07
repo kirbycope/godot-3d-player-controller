@@ -16,9 +16,10 @@ enum State {
 	ROLLING,         # 11
 	RUNNING,         # 12
 	SITTING,		 # 13
-	SKATEBOARDING,   # 14
-	SPRINTING,       # 15
-	STANDING,        # 16
-	SWIMMING,        # 17
-	WALKING,         # 18
+	SLIDING,		 # 14
+	SKATEBOARDING,   # 15
+	SPRINTING,       # 16
+	STANDING,        # 17
+	SWIMMING,        # 18
+	WALKING,         # 19
 }
