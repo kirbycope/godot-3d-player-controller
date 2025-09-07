@@ -94,6 +94,7 @@ var is_swinging_left: bool = false ## Is the player swinging with the left arm?
 var is_swinging_right: bool = false ## Is the player swinging with the right arm?
 var is_swimming_in ## The Node the player is swimming in
 var is_swimming: bool = false ## Is the player swimming?
+var is_sitting: bool = false ## Is the player sitting?
 var is_using: bool = false ## Is the player using an object?
 var is_walking: bool = false ## Is the player walking?
 var virtual_velocity: Vector3 = Vector3.ZERO ## The velocity of the player if they moved, to be used when movement is locked.
@@ -153,6 +154,11 @@ func _ready() -> void:
 	$Controls.layer = -1
 	# Start "standing"
 	$States/Standing.start()
+	# Add sitting state node if not present
+	if not $States.has_node("Sitting"):
+		var sitting_node = load("res://addons/3d_player_controller/states/sitting.gd").new()
+		sitting_node.name = "Sitting"
+		$States.add_child(sitting_node)
 
 
 ## Called each physics frame with the time since the last physics frame as argument (delta, in seconds).
@@ -204,6 +210,10 @@ func _process(delta: float) -> void:
 	if !is_multiplayer_authority(): return
 	# Check if the game is not paused
 	if !game_paused:
+		# Example: Press button_8 to sit if standing and not moving
+		if Input.is_action_just_pressed("button_8") and is_standing and velocity == Vector3.ZERO and !is_animation_locked:
+			$States/Standing.stop()
+			$States/Sitting.start()
 		# Check if the noclip mode is enabled
 		if enable_noclip:
 			# [Re]Set player's movement speed
