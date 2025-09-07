@@ -1,6 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://civrt6ecmuj2m"]
+[gd_scene load_steps=8 format=3 uid="uid://civrt6ecmuj2m"]
 
 [ext_resource type="Script" uid="uid://8j38o20bvgwh" path="res://scenes/stool.gd" id="1_hxd4e"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tjidc"]
+albedo_color = Color(0.32156864, 0.32156864, 0.34117648, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5at21"]
+albedo_color = Color(0.52156866, 0.36862746, 0.25882354, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x4yrw"]
+albedo_color = Color(0.52156866, 0.36862746, 0.25882354, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2w0kg"]
+albedo_color = Color(0.52156866, 0.36862746, 0.25882354, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6xsg6"]
+albedo_color = Color(0.52156866, 0.36862746, 0.25882354, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2ypda"]
 
@@ -15,30 +30,35 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
 radius = 0.2
 height = 0.1
 sides = 16
+material = SubResource("StandardMaterial3D_tjidc")
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCylinder3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, -0.2, 0.1)
 radius = 0.025
 height = 0.3
 sides = 16
+material = SubResource("StandardMaterial3D_5at21")
 
 [node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CSGCylinder3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, -0.2, -0.1)
 radius = 0.025
 height = 0.3
 sides = 16
+material = SubResource("StandardMaterial3D_x4yrw")
 
 [node name="CSGCylinder3D3" type="CSGCylinder3D" parent="CSGCylinder3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, -0.2, -0.1)
 radius = 0.025
 height = 0.3
 sides = 16
+material = SubResource("StandardMaterial3D_2w0kg")
 
 [node name="CSGCylinder3D4" type="CSGCylinder3D" parent="CSGCylinder3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, -0.2, 0.1)
 radius = 0.025
 height = 0.3
 sides = 16
+material = SubResource("StandardMaterial3D_6xsg6")
 
 [node name="Area3D" type="Area3D" parent="."]
 

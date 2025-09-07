@@ -22,6 +22,7 @@ const STATES = preload("uid://dodroqwgmf811")
 @export var enable_noclip: bool = false ## Enable noclip
 @export var enable_paragliding: bool = true ## Enable paragliding
 @export var enable_punching: bool = true ## Enable punching
+@export var enable_rolling: bool = true ## Enable rolling
 @export var enable_sprinting: bool = true ## Enable sprinting
 @export var enable_vibration: bool = false ## Enable controller vibration
 @export_group("Camera Settings")
@@ -40,6 +41,7 @@ const STATES = preload("uid://dodroqwgmf811")
 @export var speed_flying: float = 5.0 ## Speed while flying
 @export var speed_flying_fast: float = 10.0 ## Speed while flying fast
 @export var speed_hanging: float = 0.25 ## Speed while hanging (shimmying)
+@export var speed_rolling: float = 2.0 ## Speed while rolling
 @export var speed_running: float = 3.5 ## Speed while running
 @export var speed_sprinting: float = 5.0 ## Speed while sprinting
 @export var speed_swimming: float = 3.0 ## Speed while swimming

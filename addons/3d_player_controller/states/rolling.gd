@@ -1,6 +1,6 @@
 extends BaseState
 
-const ANIMATION_ROLLING := "Stand_To_Roll_In_Place" + "/mixamo_com"
+const ANIMATION_ROLLING := "Roll_In_Place" + "/mixamo_com"
 const NODE_NAME := "Rolling"
 
 
@@ -24,6 +24,13 @@ func play_animation() -> void:
 		if player.animation_player.current_animation != ANIMATION_ROLLING:
 			# Play the "rolling" animation
 			player.animation_player.play(ANIMATION_ROLLING)
+			# Start playing partway through the animation
+			var animation_length = player.animation_player.get_animation(ANIMATION_ROLLING).length
+			# Stop the animation early after a short duration
+			var segment_duration = animation_length * 0.8  # Play for 80% of total length
+			await get_tree().create_timer(segment_duration).timeout
+			# Start "crawling"
+			transition(NODE_NAME, "Crawling")
 
 
 ## Start "rolling".
@@ -34,6 +41,12 @@ func start() -> void:
 	player.current_state = STATES.State.ROLLING
 	# Flag the player as "rolling"
 	player.is_rolling = true
+	# Set the player's speed
+	player.speed_current = player.speed_rolling
+	# Set CollisionShape3D height
+	player.get_node("CollisionShape3D").shape.height = player.collision_height / 2
+	# Set CollisionShape3D position
+	player.get_node("CollisionShape3D").position = player.collision_position / 2
 
 
 ## Stop "rolling".
@@ -42,3 +55,7 @@ func stop() -> void:
 	process_mode = PROCESS_MODE_DISABLED
 	# Flag the player as not "rolling"
 	player.is_rolling = false
+	# Reset CollisionShape3D height
+	player.get_node("CollisionShape3D").shape.height = player.collision_height
+	# Reset CollisionShape3D position
+	player.get_node("CollisionShape3D").position = player.collision_position

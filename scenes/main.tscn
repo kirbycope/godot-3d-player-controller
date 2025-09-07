@@ -896,7 +896,12 @@ to paraglide"
 [node name="Paraglider" parent="." instance=ExtResource("25_og1vs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 22, -19.5)
 
+[node name="StoolLabel" type="Label3D" parent="."]
+transform = Transform3D(-4.371139e-08, 1, -3.8213705e-15, -4.371139e-08, 0, 1, 1, 4.371139e-08, 4.3711385e-08, 3.3, 0.009999825, 2)
+text = "Press [sprint]
+to \"sit\""
+
 [node name="Stool" parent="." instance=ExtResource("25_2wyq8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 2)
 
 [connection signal="body_entered" from="Tower/Area3D" to="." method="_on_area_3d_body_entered"]
