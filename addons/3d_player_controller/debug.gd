@@ -3,6 +3,13 @@ extends Control
 # Note: `@onready` variables are set when the scene is loaded.
 @onready var player: CharacterBody3D = get_parent().get_parent().get_parent()
 
+# Track which bot model is currently loaded
+var is_using_x_bot: bool = false
+
+# Preload the bot scenes
+const X_BOT_SCENE = preload("res://addons/3d_player_controller/x_bot.tscn")
+const Y_BOT_SCENE = preload("res://addons/3d_player_controller/y_bot.tscn")
+
 
 ## Called once for every event before _unhandled_input(), allowing you to consume some events.
 func _input(event: InputEvent) -> void:
@@ -12,13 +19,18 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("debug"):
 		# Toggle "debug" visibility
 		visible = !visible
-	# [R] key to trigger ragdoll for testing (only when debug panel is visible)
+	# Check if the Debug Panel is visible and a key is pressed
 	if visible and event is InputEventKey and event.pressed:
+		# [R] key to trigger ragdoll for testing (only when debug panel is visible)
 		if event.keycode == KEY_R:
 			# Get the current state name
 			var current_state_name = player.base_state.get_state_name(player.current_state)
 			# Transition to ragdoll state
 			player.base_state.transition(current_state_name, "Ragdoll")
+		# [X] key to swap between Y_Bot and X_Bot (only when debug panel is visible)
+		elif event.keycode == KEY_X:
+			# Swap between Y_Bot and X_Bot
+			swap_bot_model()
 
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
@@ -168,3 +180,55 @@ func _on_lock_movement_y_toggled(toggled_on: bool) -> void:
 ## Called when the "lock_perspective" toggle option is changed.
 func _on_lock_perspective_toggled(toggled_on: bool) -> void:
 	player.lock_perspective = toggled_on
+
+
+## Swaps between Y_Bot and X_Bot models
+func swap_bot_model() -> void:
+	# Get the current AuxScene (bot model)
+	var current_aux_scene = player.get_node("Visuals/AuxScene")
+	# Store the current transform, rotation, and animation state BEFORE removing from tree
+	var current_global_position = current_aux_scene.global_position
+	var current_global_rotation = current_aux_scene.global_rotation
+	var current_animation = current_aux_scene.get_node("AnimationPlayer").current_animation
+
+	# Remove the current AuxScene immediately
+	player.get_node("Visuals").remove_child(current_aux_scene)
+	current_aux_scene.free()
+
+	# Instantiate the new bot scene
+	var new_scene
+	if is_using_x_bot:
+		new_scene = Y_BOT_SCENE.instantiate()
+		is_using_x_bot = false
+		print("Swapped to Y_Bot")
+	else:
+		new_scene = X_BOT_SCENE.instantiate()
+		is_using_x_bot = true
+		print("Swapped to X_Bot")
+
+	# Set the scene name
+	new_scene.name = "AuxScene"
+
+	# Add the new scene to the Visuals node first
+	player.get_node("Visuals").add_child(new_scene)
+	# Then restore transform, rotation and position
+	new_scene.global_position = current_global_position
+	new_scene.global_rotation = current_global_rotation
+	# Update all the player's references to the new AuxScene and its children
+	player.visuals_aux_scene = new_scene
+	player.visuals_aux_scene_position = new_scene.position
+	player.animation_player = new_scene.get_node("AnimationPlayer")
+
+	# Update skeleton and bone attachment references
+	var new_skeleton = new_scene.get_node("GeneralSkeleton")
+	player.player_skeleton = new_skeleton
+	player.bone_attachment_left_foot = new_skeleton.get_node("BoneAttachment3D_LeftFoot")
+	player.bone_attachment_right_foot = new_skeleton.get_node("BoneAttachment3D_RightFoot")
+	player.bone_attachment_left_hand = new_skeleton.get_node("BoneAttachment3D_LeftHand")
+	player.bone_attachment_right_hand = new_skeleton.get_node("BoneAttachment3D_RightHand")
+	player.look_at_modifier = new_skeleton.get_node("LookAtModifier3D")
+	player.physical_bone_simulator = new_skeleton.get_node_or_null("PhysicalBoneSimulator3D")
+	
+	# Restore animation if there was one playing
+	if current_animation != "" and player.animation_player != null:
+		player.animation_player.play(current_animation)
