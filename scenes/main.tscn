@@ -241,6 +241,24 @@ text = "(B) | [Shift]          Speed Up
 (Y) | [Ctrl]                     Drop"
 label_settings = SubResource("LabelSettings_gqmmt")
 
+[node name="Crawling" type="Label" parent="ControlsOverlay"]
+visible = false
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -242.0
+offset_top = -37.5
+offset_bottom = 37.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "(A) | [Space]              Jump
+(B) | [Shift]                   Roll
+(X) | [Ctrl]                     Use"
+label_settings = SubResource("LabelSettings_gqmmt")
+horizontal_alignment = 2
+
 [node name="Driving" type="Label" parent="ControlsOverlay"]
 visible = false
 anchors_preset = 6
@@ -263,9 +281,9 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = -24.5
-offset_bottom = 24.5
+offset_left = -242.0
+offset_top = -133.5
+offset_bottom = -58.5
 grow_horizontal = 0
 grow_vertical = 2
 text = "(L1) | [L-Click]               Cast
@@ -315,9 +333,9 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -204.0
-offset_top = -50.5
-offset_bottom = 50.5
+offset_left = -207.0
+offset_top = -146.5
+offset_bottom = -45.5
 grow_horizontal = 0
 grow_vertical = 2
 text = "(L1) | [L-Clk]              Throw
@@ -333,9 +351,9 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = -11.5
-offset_bottom = 11.5
+offset_left = -242.0
+offset_top = -99.5
+offset_bottom = -76.5
 grow_horizontal = 0
 grow_vertical = 2
 text = "(D-Down) | [Q]                      Drop"
@@ -348,9 +366,9 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = -24.5
-offset_bottom = 24.5
+offset_left = -331.0
+offset_top = -146.5
+offset_bottom = -45.5
 grow_horizontal = 0
 grow_vertical = 2
 text = "(R1)+(D-Up)      | [R-Clk]+[Tab]       Rotate Up
@@ -367,9 +385,9 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -202.0
-offset_top = -24.5
-offset_bottom = 24.5
+offset_left = -242.0
+offset_top = -133.5
+offset_bottom = -58.5
 grow_horizontal = 0
 grow_vertical = 2
 text = "(L2) | [R-Click]               Aim
@@ -393,6 +411,42 @@ grow_vertical = 2
 text = "(B) | [Shift]          Speed Up
 (D-Down) | [Q]               Dismount
 (Y) | [Ctrl]         Slow Down"
+label_settings = SubResource("LabelSettings_gqmmt")
+horizontal_alignment = 2
+
+[node name="Sprinting" type="Label" parent="ControlsOverlay"]
+visible = false
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -242.0
+offset_top = -37.5
+offset_bottom = 37.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "(A) | [Space]              Jump
+(X) | [Ctrl]                     Use
+(Y) | [Ctrl]                   Slide"
+label_settings = SubResource("LabelSettings_gqmmt")
+horizontal_alignment = 2
+
+[node name="Standing" type="Label" parent="ControlsOverlay"]
+visible = false
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -242.0
+offset_top = -37.5
+offset_bottom = 37.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "(A) | [Space]              Jump
+(X) | [Ctrl]                     Use
+(Y) | [Ctrl]             Croutch"
 label_settings = SubResource("LabelSettings_gqmmt")
 horizontal_alignment = 2
 
@@ -420,13 +474,51 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_left = -242.0
-offset_top = -37.5
-offset_bottom = 37.5
+offset_top = -133.5
+offset_bottom = -58.5
 grow_horizontal = 0
 grow_vertical = 2
 text = "(L2) | [R-Click]           Swing
 (R2) | [L-Click]            Block
 (D-Down) | [Q]                      Drop"
+label_settings = SubResource("LabelSettings_gqmmt")
+horizontal_alignment = 2
+
+[node name="Unarmed" type="Label" parent="ControlsOverlay"]
+visible = false
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -331.0
+offset_top = -146.5
+offset_bottom = -45.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "(L1) | [L-Clk]                                     Left Punch
+(L2) | [MB-Fwd]                                   Left Kick
+(R1) | [R-Clk]                                     Left Punch
+(R2) | [MB-Bck]                                  Right Kick"
+label_settings = SubResource("LabelSettings_gqmmt")
+horizontal_alignment = 2
+
+[node name="Walking" type="Label" parent="ControlsOverlay"]
+visible = false
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -242.0
+offset_top = -37.5
+offset_bottom = 37.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "(A) | [Space]              Jump
+(B) | [Shift]               Sprint
+(X) | [E]                         Use
+(Y) | [Ctrl]               Crouch"
 label_settings = SubResource("LabelSettings_gqmmt")
 horizontal_alignment = 2
 

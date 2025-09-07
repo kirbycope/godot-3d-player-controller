@@ -29,8 +29,13 @@ func play_animation() -> void:
 			# Stop the animation early after a short duration
 			var segment_duration = animation_length * 0.8  # Play for 80% of total length
 			await get_tree().create_timer(segment_duration).timeout
-			# Start "crawling"
-			transition(NODE_NAME, "Crawling")
+			# Check if the player is still holding the [crouch] button
+			if Input.is_action_pressed("button_1"):
+				# Transition to "Crawling"
+				transition(NODE_NAME, "Crawling")
+			else:
+				# Transition to "Standing"
+				transition(NODE_NAME, "Standing")
 
 
 ## Start "rolling".

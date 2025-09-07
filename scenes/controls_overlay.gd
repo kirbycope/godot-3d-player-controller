@@ -56,6 +56,7 @@ func _ready() -> void:
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	$Climbing.visible = player.is_climbing
+	$Crawling.visible = player.is_crawling
 	$Driving.visible = player.is_driving
 	$Fishing.visible = player.is_holding_fishing_rod
 	$Flying.visible = player.is_flying
@@ -65,8 +66,12 @@ func _process(_delta: float) -> void:
 	$Rifling.visible = player.is_holding_rifle
 	$Rotating.visible = player.is_rotating_object
 	$Skateboarding.visible = player.is_skateboarding
+	$Sprinting.visible = player.is_sprinting
+	$Standing.visible = player.is_standing
 	$Swimming.visible = player.is_swimming
 	$ToolEquipped.visible = player.is_holding_tool
+	$Unarmed.visible = !player.is_holding and !player.is_holding_rifle and !player.is_holding_tool 
+	$Walking.visible = player.is_walking or player.is_running
 
 	if emotes.visible:
 		label_dpad_down.text = "Bow"
