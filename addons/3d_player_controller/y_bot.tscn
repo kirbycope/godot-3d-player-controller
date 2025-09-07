@@ -1,4 +1,4 @@
-[gd_scene load_steps=110 format=4 uid="uid://c714y0011rxmt"]
+[gd_scene load_steps=113 format=4 uid="uid://c714y0011rxmt"]
 
 [ext_resource type="AnimationLibrary" uid="uid://c5pwswpv77h75" path="res://addons/3d_player_controller/assets/animations/Braced_Hang_Idle.fbx" id="1_0jxnk"]
 [ext_resource type="AnimationLibrary" uid="uid://cvbhfxl2l2fhl" path="res://addons/3d_player_controller/assets/animations/Braced_Hang_Shimmy_Left_In_Place.fbx" id="1_t34m8"]
@@ -66,6 +66,8 @@
 [ext_resource type="AnimationLibrary" uid="uid://b2a5fsnucibnx" path="res://addons/3d_player_controller/assets/animations/Skateboarding_Slow_In_Place.fbx" id="59_8evbw"]
 [ext_resource type="AnimationLibrary" uid="uid://bowdpfu3csgvv" path="res://addons/3d_player_controller/assets/animations/Sneaking_In_Place.fbx" id="60_yx2ca"]
 [ext_resource type="AnimationLibrary" uid="uid://bgfanw8lkglo6" path="res://addons/3d_player_controller/assets/animations/Sprinting_In_Place.fbx" id="61_b84my"]
+[ext_resource type="AnimationLibrary" uid="uid://bi2dxima1kqu5" path="res://addons/3d_player_controller/assets/animations/Running_Slide.fbx" id="61_cjsdq"]
+[ext_resource type="AnimationLibrary" uid="uid://deyfdhkywc3ck" path="res://addons/3d_player_controller/assets/animations/Sitting_Idle.fbx" id="61_otjjk"]
 [ext_resource type="AnimationLibrary" uid="uid://ckcep3ddfcc8b" path="res://addons/3d_player_controller/assets/animations/Standing_Idle.fbx" id="62_lyr1a"]
 [ext_resource type="AnimationLibrary" uid="uid://nnj37g60akh6" path="res://addons/3d_player_controller/assets/animations/Standing_1H_Magic_Attack_01_Left.fbx" id="63_u0bny"]
 [ext_resource type="AnimationLibrary" uid="uid://d2cq335tehoe1" path="res://addons/3d_player_controller/assets/animations/Standing_Melee_Attack_Downward_Left.fbx" id="63_vh4jc"]
@@ -77,6 +79,7 @@
 [ext_resource type="AnimationLibrary" uid="uid://bum8hkkptm80l" path="res://addons/3d_player_controller/assets/animations/Tool_Falling_Idle.fbx" id="66_2vhxr"]
 [ext_resource type="AnimationLibrary" uid="uid://c0bqj3kblf1yf" path="res://addons/3d_player_controller/assets/animations/Tool_Idle_Crouching.fbx" id="67_b3kdk"]
 [ext_resource type="AnimationLibrary" uid="uid://c84rlsafg4p7h" path="res://addons/3d_player_controller/assets/animations/Tool_Sprinting_In_Place.fbx" id="68_03thc"]
+[ext_resource type="AnimationLibrary" uid="uid://cclguprpe2g8k" path="res://addons/3d_player_controller/assets/animations/Stand_To_Roll_In_Place.fbx" id="69_cjsdq"]
 [ext_resource type="AnimationLibrary" uid="uid://dt03pnn54x4vv" path="res://addons/3d_player_controller/assets/animations/Tool_Standing_Idle.fbx" id="69_or33n"]
 [ext_resource type="AnimationLibrary" uid="uid://blami27td3v7b" path="res://addons/3d_player_controller/assets/animations/Throw_Object_Left.fbx" id="69_pday7"]
 [ext_resource type="AnimationLibrary" uid="uid://dhl1tnsupy2ya" path="res://addons/3d_player_controller/assets/animations/Throw_Object_Right.fbx" id="70_0jxnk"]
@@ -1347,12 +1350,15 @@ libraries = {
 &"Running_In_Place": ExtResource("53_u5v0q"),
 &"Running_In_Place_With_Sword_Left": ExtResource("54_dfwwn"),
 &"Running_In_Place_With_Sword_Right": ExtResource("55_5vs0t"),
+&"Running_Slide": ExtResource("61_cjsdq"),
+&"Sitting_Idle": ExtResource("61_otjjk"),
 &"Skateboarding": ExtResource("56_b8nik"),
 &"Skateboarding_Fast_In_Place": ExtResource("57_uk8mn"),
 &"Skateboarding_In_Place": ExtResource("58_5ekg7"),
 &"Skateboarding_Slow_In_Place": ExtResource("59_8evbw"),
 &"Sneaking_In_Place": ExtResource("60_yx2ca"),
 &"Sprinting_In_Place": ExtResource("61_b84my"),
+&"Stand_To_Roll_In_Place": ExtResource("69_cjsdq"),
 &"Standing_1H_Magic_Attack_01_Left": ExtResource("63_u0bny"),
 &"Standing_1H_Magic_Attack_01_Right": ExtResource("64_2das8"),
 &"Standing_Block_Idle_Left": ExtResource("65_pday7"),
