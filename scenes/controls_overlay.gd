@@ -70,7 +70,7 @@ func _process(_delta: float) -> void:
 	$Standing.visible = player.is_standing
 	$Swimming.visible = player.is_swimming
 	$ToolEquipped.visible = player.is_holding_tool
-	$Unarmed.visible = !player.is_holding and !player.is_holding_rifle and !player.is_holding_tool 
+	$Unarmed.visible = !player.is_holding_fishing_rod and !player.is_holding and !player.is_holding_rifle and !player.is_holding_tool 
 	$Walking.visible = player.is_walking or player.is_running
 
 	if emotes.visible:
