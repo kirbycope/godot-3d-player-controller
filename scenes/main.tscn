@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=58 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" uid="uid://c7agev1ouwnuu" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="Texture2D" uid="uid://e6rn4rs3cr0v" path="res://assets/kenney_nl/prototype_textures/PNG/Dark/texture_09.png" id="2_d2mly"]
@@ -23,6 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://cshthj42r7dng" path="res://assets/kenney_nl/prototype_textures/PNG/Purple/texture_01.png" id="17_y6deb"]
 [ext_resource type="Texture2D" uid="uid://b2gy0lssms413" path="res://assets/kenney_nl/prototype_textures/PNG/Orange/texture_01.png" id="23_pm3ni"]
 [ext_resource type="Texture2D" uid="uid://d2khik60ph8ii" path="res://assets/kenney_nl/prototype_textures/PNG/Green/texture_01.png" id="23_y6deb"]
+[ext_resource type="PackedScene" uid="uid://civrt6ecmuj2m" path="res://scenes/stool.tscn" id="25_2wyq8"]
 [ext_resource type="PackedScene" uid="uid://b5331vjncmol6" path="res://scenes/paraglider.tscn" id="25_og1vs"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_yu8tv"]
@@ -894,5 +895,8 @@ to paraglide"
 
 [node name="Paraglider" parent="." instance=ExtResource("25_og1vs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 22, -19.5)
+
+[node name="Stool" parent="." instance=ExtResource("25_2wyq8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 1)
 
 [connection signal="body_entered" from="Tower/Area3D" to="." method="_on_area_3d_body_entered"]

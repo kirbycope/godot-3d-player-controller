@@ -12,10 +12,10 @@ func _input(event: InputEvent) -> void:
 	if !player.game_paused:
 		# Stand up on [jump] or [move_*]
 		if event.is_action_pressed("button_0") \
-        or event.is_action_pressed("move_left") \
-        or event.is_action_pressed("move_right") \
-        or event.is_action_pressed("move_up") \
-        or event.is_action_pressed("move_down"):
+		or event.is_action_pressed("move_left") \
+		or event.is_action_pressed("move_right") \
+		or event.is_action_pressed("move_up") \
+		or event.is_action_pressed("move_down"):
 			transition(NODE_NAME, "Standing")
 
 

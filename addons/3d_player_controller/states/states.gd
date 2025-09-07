@@ -13,11 +13,12 @@ enum State {
 	PARAGLIDING,     # 8
 	PUSHING,         # 9
 	RAGDOLL,         # 10
-	RUNNING,         # 11
-	SKATEBOARDING,   # 12
-	SPRINTING,       # 13
-	STANDING,        # 14
-	SWIMMING,        # 15
-	WALKING,         # 16
-	SITTING          # 17
+	ROLLING,         # 11
+	RUNNING,         # 12
+	SITTING,		 # 13
+	SKATEBOARDING,   # 14
+	SPRINTING,       # 15
+	STANDING,        # 16
+	SWIMMING,        # 17
+	WALKING,         # 18
 }

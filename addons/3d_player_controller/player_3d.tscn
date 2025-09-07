@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://ujh51l2wv1vk"]
+[gd_scene load_steps=39 format=3 uid="uid://ujh51l2wv1vk"]
 
 [ext_resource type="Script" uid="uid://2iaqywmqcahl" path="res://addons/3d_player_controller/player_3d.gd" id="1_f3dlg"]
 [ext_resource type="PackedScene" uid="uid://cx7x0f3lh4aus" path="res://addons/virtual_controller/scenes/canvas_layer.tscn" id="2_j65kv"]
@@ -30,6 +30,7 @@
 [ext_resource type="Script" uid="uid://cssr4hanw302t" path="res://addons/3d_player_controller/states/paragliding.gd" id="21_0pvj7"]
 [ext_resource type="Script" uid="uid://cdbvv0by1c45u" path="res://addons/3d_player_controller/states/pushing.gd" id="21_1p282"]
 [ext_resource type="Script" uid="uid://de38jw4t4nf84" path="res://addons/3d_player_controller/states/ragdoll.gd" id="22_vdjk1"]
+[ext_resource type="Script" uid="uid://bvqnuca8jxlep" path="res://addons/3d_player_controller/states/rolling.gd" id="25_pi7mm"]
 [ext_resource type="Script" uid="uid://cvcle81qbqtdg" path="res://addons/3d_player_controller/states/sitting.gd" id="26_j6gid"]
 [ext_resource type="Script" uid="uid://cjasnyqqvgkqj" path="res://addons/3d_player_controller/name_label.gd" id="31_ij4ox"]
 
@@ -215,11 +216,16 @@ script = ExtResource("21_1p282")
 process_mode = 4
 script = ExtResource("22_vdjk1")
 
+[node name="Rolling" type="Node" parent="States"]
+process_mode = 4
+script = ExtResource("25_pi7mm")
+
 [node name="Running" type="Node" parent="States"]
 process_mode = 4
 script = ExtResource("13_4dmkx")
 
 [node name="Sitting" type="Node" parent="States"]
+process_mode = 4
 script = ExtResource("26_j6gid")
 
 [node name="Skateboarding" type="Node" parent="States"]

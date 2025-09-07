@@ -22,10 +22,8 @@ func _input(event: InputEvent) -> void:
 				if player.is_on_floor():
 					# Store the current horizontal velocity for momentum
 					stored_horizontal_velocity = Vector3(player.velocity.x, 0, player.velocity.z)
-
 					# Set the audio player's stream to the "ollie start" sound effect
 					audio_player.stream = ollie_start_sound
-
 					# Play the sound effect
 					audio_player.play()
 
@@ -38,13 +36,10 @@ func _process(_delta: float) -> void:
 		if player.velocity.y == 0 and player.is_jumping:
 			# Flag the player as not "jumping"
 			player.is_jumping = false
-
 			# Set the audio player's stream to the "ollie land" sound effect
 			audio_player.stream = ollie_land_sound
-
 			# Play the sound effect
 			audio_player.play()
-
 		# Check if the player is moving
 		if player.velocity != Vector3.ZERO:
 			# Check if the player is grounded
@@ -53,53 +48,43 @@ func _process(_delta: float) -> void:
 				if 0.0 < player.speed_current and player.speed_current <= player.speed_walking:
 					# Set the sound effect speed
 					audio_player.pitch_scale = .75
-
 				# Check if the player speed is faster than "walking" but slower than or equal to "running"
 				elif player.speed_walking < player.speed_current and player.speed_current <= player.speed_running:
 					# Set the sound effect speed
 					audio_player.pitch_scale = 1.0
-
 				# Check if the player speed is faster than "running"
 				elif player.speed_running < player.speed_current:
 					# Set the sound effect speed
 					audio_player.pitch_scale = 1.25
-
 				# Check if the audio player is not playing or if the stream is not a "skateboarding" sound effect
 				if not audio_player.playing or audio_player.stream not in [ollie_start_sound, ollie_land_sound, skateboarding_sound]:
 					# Check if the player is on the ground
 					if player.is_on_floor():
 						# Set the audio player's stream to the "skateboarding" sound effect
 						audio_player.stream = skateboarding_sound
-
 						# Play the "skateboarding" sound effect
 						audio_player.play()
-
 			# The player must be not grounded
 			else:
 					# Check if the audio player is not streaming the "ollie start" sound effect
 					if audio_player.stream != ollie_start_sound:
 						# Stop the "skateboarding" sound effect
 						audio_player.stop()
-
 						# Clear the audio player's stream
 						audio_player.stream = null
-
 		# The player must not be moving
 		else:
 			# Check if the audio player is streaming a "skateboarding" sound effect
 			if audio_player.stream in [ollie_start_sound, skateboarding_sound]:
 				# Reset the sound effect speed
 				audio_player.pitch_scale = 1.0
-
 				# Stop the "skateboarding" sound effect
 				audio_player.stop()
-
 		# Check if the player is moving really slow (between -0.1 and 0.1)
 		if abs(player.velocity.x) < 0.1 and abs(player.velocity.z) < 0.1:
 			# Stop the player
 			player.velocity.x = 0.0
 			player.velocity.z = 0.0
-
 			# Check if the audio player is streaming a "skateboarding" sound effect
 			if audio_player.stream == skateboarding_sound:
 				# Stop the "skateboarding" sound effect
