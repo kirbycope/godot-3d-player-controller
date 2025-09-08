@@ -7,8 +7,8 @@ extends Control
 var is_using_x_bot: bool = false
 
 # Preload the bot scenes
-const X_BOT_SCENE = preload("res://addons/3d_player_controller/x_bot.tscn")
-const Y_BOT_SCENE = preload("res://addons/3d_player_controller/y_bot.tscn")
+const X_BOT_SCENE = preload("uid://dsp7vcraux38l")
+const Y_BOT_SCENE = preload("uid://c714y0011rxmt")
 
 
 ## Called once for every event before _unhandled_input(), allowing you to consume some events.
@@ -198,11 +198,9 @@ func swap_bot_model() -> void:
 	if is_using_x_bot:
 		new_scene = Y_BOT_SCENE.instantiate()
 		is_using_x_bot = false
-		print("Swapped to Y_Bot")
 	else:
 		new_scene = X_BOT_SCENE.instantiate()
 		is_using_x_bot = true
-		print("Swapped to X_Bot")
 	# Set the scene name
 	new_scene.name = "AuxScene"
 	# Ensure the new AuxScene is top-level so it ignores parent transforms (matches original setup)
