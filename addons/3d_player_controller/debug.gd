@@ -184,17 +184,15 @@ func _on_lock_perspective_toggled(toggled_on: bool) -> void:
 
 ## Swaps between Y_Bot and X_Bot models
 func swap_bot_model() -> void:
-	# Get the current AuxScene (bot model)
+	# Get the current AuxScene
 	var current_aux_scene = player.get_node("Visuals/AuxScene")
-	# Store the current transform, rotation, and animation state BEFORE removing from tree
-	var current_global_position = current_aux_scene.global_position
-	var current_global_rotation = current_aux_scene.global_rotation
+	# Get the current AuxScene's animation
 	var current_animation = current_aux_scene.get_node("AnimationPlayer").current_animation
-
+	# Preserve the full global transform (position + rotation + scale) before removal
+	var saved_transform: Transform3D = current_aux_scene.global_transform
 	# Remove the current AuxScene immediately
 	player.get_node("Visuals").remove_child(current_aux_scene)
 	current_aux_scene.free()
-
 	# Instantiate the new bot scene
 	var new_scene
 	if is_using_x_bot:
@@ -205,20 +203,18 @@ func swap_bot_model() -> void:
 		new_scene = X_BOT_SCENE.instantiate()
 		is_using_x_bot = true
 		print("Swapped to X_Bot")
-
 	# Set the scene name
 	new_scene.name = "AuxScene"
-
+	# Ensure the new AuxScene is top-level so it ignores parent transforms (matches original setup)
+	new_scene.top_level = true
 	# Add the new scene to the Visuals node first
 	player.get_node("Visuals").add_child(new_scene)
-	# Then restore transform, rotation and position
-	new_scene.global_position = current_global_position
-	new_scene.global_rotation = current_global_rotation
+	# Restore the saved global transform to retain exact orientation & position
+	new_scene.global_transform = saved_transform
 	# Update all the player's references to the new AuxScene and its children
 	player.visuals_aux_scene = new_scene
 	player.visuals_aux_scene_position = new_scene.position
 	player.animation_player = new_scene.get_node("AnimationPlayer")
-
 	# Update skeleton and bone attachment references
 	var new_skeleton = new_scene.get_node("GeneralSkeleton")
 	player.player_skeleton = new_skeleton
@@ -228,7 +224,6 @@ func swap_bot_model() -> void:
 	player.bone_attachment_right_hand = new_skeleton.get_node("BoneAttachment3D_RightHand")
 	player.look_at_modifier = new_skeleton.get_node("LookAtModifier3D")
 	player.physical_bone_simulator = new_skeleton.get_node_or_null("PhysicalBoneSimulator3D")
-	
 	# Restore animation if there was one playing
 	if current_animation != "" and player.animation_player != null:
 		player.animation_player.play(current_animation)
