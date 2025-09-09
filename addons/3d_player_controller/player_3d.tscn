@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://ujh51l2wv1vk"]
+[gd_scene load_steps=43 format=3 uid="uid://ujh51l2wv1vk"]
 
 [ext_resource type="Script" uid="uid://2iaqywmqcahl" path="res://addons/3d_player_controller/player_3d.gd" id="1_f3dlg"]
 [ext_resource type="PackedScene" uid="uid://cx7x0f3lh4aus" path="res://addons/virtual_controller/scenes/canvas_layer.tscn" id="2_j65kv"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://c4wibovgpj7xy" path="res://addons/3d_player_controller/assets/textures/reticle.png" id="10_0pvj7"]
 [ext_resource type="Script" uid="uid://d31ddqb4hyuqm" path="res://addons/3d_player_controller/states/hanging.gd" id="10_eblo2"]
 [ext_resource type="Script" uid="uid://dodroqwgmf811" path="res://addons/3d_player_controller/states/states.gd" id="10_x07tl"]
+[ext_resource type="Texture2D" uid="uid://d4mgr48k52lu6" path="res://addons/3d_player_controller/assets/textures/game_icons/PNG/White/2x/audioOn.png" id="11_58nn8"]
 [ext_resource type="Script" uid="uid://cyls4atmagils" path="res://addons/3d_player_controller/states/holding.gd" id="11_ekkl0"]
 [ext_resource type="Script" uid="uid://drdtp8y8bxm65" path="res://addons/3d_player_controller/states/driving.gd" id="11_mcv3d"]
 [ext_resource type="Script" uid="uid://qvcaqop34woy" path="res://addons/3d_player_controller/states/jumping.gd" id="12_bhakt"]
@@ -38,6 +39,16 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5e6s3"]
 radius = 0.3
 height = 1.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nin8p"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("11_58nn8")
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_h7acy"]
+material = SubResource("StandardMaterial3D_nin8p")
+size = Vector2(0.3, 0.3)
 
 [sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_ij4ox"]
 
@@ -75,6 +86,9 @@ properties/7/replication_mode = 2
 properties/8/path = NodePath(".:steam_username")
 properties/8/spawn = true
 properties/8/replication_mode = 2
+properties/9/path = NodePath("ProximityChatIndicator:visible")
+properties/9/spawn = true
+properties/9/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D" groups=["Player"]]
 script = ExtResource("1_f3dlg")
@@ -149,6 +163,11 @@ shape = SubResource("CapsuleShape3D_5e6s3")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 billboard = 1
 script = ExtResource("31_ij4ox")
+
+[node name="ProximityChatIndicator" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
+visible = false
+mesh = SubResource("QuadMesh_h7acy")
 
 [node name="ProximityChatLocal" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, -0.1)
