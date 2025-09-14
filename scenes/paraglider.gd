@@ -37,7 +37,8 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 		body.head_mount.add_child(instance)
 		# [Hack] Adjust visuals (to align with `y_bot.tscn`)
 		instance.rotation.y = deg_to_rad(180)
-		instance.position.y += 0.55
+		instance.position.y -= 0.4
+		instance.position.z -= 0.2
 		# Remove _this_ instance
 		queue_free()
 		# Get the string name of the player's current state

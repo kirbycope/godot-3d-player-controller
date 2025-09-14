@@ -61,8 +61,6 @@ func play_animation() -> void:
 			if player.animation_player.current_animation != ANIMATION_SWIMMING:
 				# Move the collison shape to match the player
 				player.collision_shape.rotation_degrees.x = 90
-				# [Hack] Adjust player visuals for animation
-				player.visuals_aux_scene.position.y = lerp(player.visuals_aux_scene.position.y, player.collision_height * .5, 0.1)
 				# Play the "swimming" animation
 				player.animation_player.play(ANIMATION_SWIMMING)
 		# The player must not be moving
@@ -71,8 +69,6 @@ func play_animation() -> void:
 			if player.animation_player.current_animation != ANIMATION_TREADING_WATER:
 				# Move the collison shape to match the player
 				player.collision_shape.rotation_degrees.x = 0
-				# [Hack] Adjust player visuals for animation
-				player.visuals_aux_scene.position.y = 0.0
 				# Play the "treading water" animation
 				player.animation_player.play(ANIMATION_TREADING_WATER)
 
