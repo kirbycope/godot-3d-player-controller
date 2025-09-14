@@ -1,6 +1,7 @@
-[gd_scene load_steps=113 format=4 uid="uid://c714y0011rxmt"]
+[gd_scene load_steps=116 format=4 uid="uid://c714y0011rxmt"]
 
 [ext_resource type="AnimationLibrary" uid="uid://c5pwswpv77h75" path="res://addons/3d_player_controller/assets/animations/Braced_Hang_Idle.fbx" id="1_0jxnk"]
+[ext_resource type="AnimationLibrary" uid="uid://dyu5wrd8ti6wx" path="res://addons/3d_player_controller/assets/animations/Braced_Hang_Hop_Up.fbx" id="1_dac65"]
 [ext_resource type="AnimationLibrary" uid="uid://cvbhfxl2l2fhl" path="res://addons/3d_player_controller/assets/animations/Braced_Hang_Shimmy_Left_In_Place.fbx" id="1_t34m8"]
 [ext_resource type="AnimationLibrary" uid="uid://2usq2nacxd5s" path="res://addons/3d_player_controller/assets/animations/Braced_Hang_Shimmy_Right_In_Place.fbx" id="2_a2hwr"]
 [ext_resource type="AnimationLibrary" uid="uid://d23kmqsuqv5r4" path="res://addons/3d_player_controller/assets/animations/Button_Pushing.fbx" id="3_ipo2q"]
@@ -8,6 +9,7 @@
 [ext_resource type="AnimationLibrary" uid="uid://djwanusfr7a4e" path="res://addons/3d_player_controller/assets/animations/Climbing_Up_Wall_In_Place.fbx" id="4_d6iru"]
 [ext_resource type="AnimationLibrary" uid="uid://dy5wse6m8moax" path="res://addons/3d_player_controller/assets/animations/Crawling_In_Place.fbx" id="5_kbwyu"]
 [ext_resource type="AnimationLibrary" uid="uid://b1ktdijxiigqi" path="res://addons/3d_player_controller/assets/animations/Crouching_Idle.fbx" id="6_wpaya"]
+[ext_resource type="AnimationLibrary" uid="uid://bybcnhxog04vl" path="res://addons/3d_player_controller/assets/animations/Climbing_On.fbx" id="7_3ksdr"]
 [ext_resource type="AnimationLibrary" uid="uid://ce8470f66dniu" path="res://addons/3d_player_controller/assets/animations/Crying.fbx" id="7_ojahr"]
 [ext_resource type="AnimationLibrary" uid="uid://bhxki3v64td0k" path="res://addons/3d_player_controller/assets/animations/Driving.fbx" id="8_cgc8d"]
 [ext_resource type="AnimationLibrary" uid="uid://bncjftq7urkqp" path="res://addons/3d_player_controller/assets/animations/Entering_Car.fbx" id="9_6dfao"]
@@ -84,6 +86,7 @@
 [ext_resource type="AnimationLibrary" uid="uid://blami27td3v7b" path="res://addons/3d_player_controller/assets/animations/Throw_Object_Left.fbx" id="69_pday7"]
 [ext_resource type="AnimationLibrary" uid="uid://dhl1tnsupy2ya" path="res://addons/3d_player_controller/assets/animations/Throw_Object_Right.fbx" id="70_0jxnk"]
 [ext_resource type="AnimationLibrary" uid="uid://vaktvrtxoht5" path="res://addons/3d_player_controller/assets/animations/Tool_Walking_In_Place.fbx" id="70_jblls"]
+[ext_resource type="AnimationLibrary" uid="uid://d1luoukrukn4m" path="res://addons/3d_player_controller/assets/animations/Stand.fbx" id="71_3ksdr"]
 [ext_resource type="AnimationLibrary" uid="uid://dd05uxik7rtsk" path="res://addons/3d_player_controller/assets/animations/Treading_Water.fbx" id="71_vtr0v"]
 [ext_resource type="AnimationLibrary" uid="uid://boy31s33tmvhh" path="res://addons/3d_player_controller/assets/animations/Walk_With_Rifle_Low.fbx" id="72_bvbdb"]
 [ext_resource type="AnimationLibrary" uid="uid://norscvtccifp" path="res://addons/3d_player_controller/assets/animations/Walking_In_Place.fbx" id="73_y0jo6"]
@@ -1290,11 +1293,13 @@ shape = SubResource("CapsuleShape3D_bseh8")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_w5ayq"),
+&"Braced_Hang_Hop_Up": ExtResource("1_dac65"),
 &"Braced_Hang_Idle": ExtResource("1_0jxnk"),
 &"Braced_Hang_Shimmy_Left_In_Place": ExtResource("1_t34m8"),
 &"Braced_Hang_Shimmy_Right_In_Place": ExtResource("2_a2hwr"),
 &"Button_Pushing": ExtResource("3_ipo2q"),
 &"Clapping": ExtResource("3_pg3ga"),
+&"Climbing_On": ExtResource("7_3ksdr"),
 &"Climbing_Up_Wall_In_Place": ExtResource("4_d6iru"),
 &"Crawling_In_Place": ExtResource("5_kbwyu"),
 &"Crouching_Idle": ExtResource("6_wpaya"),
@@ -1358,6 +1363,7 @@ libraries = {
 &"Skateboarding_Slow_In_Place": ExtResource("59_8evbw"),
 &"Sneaking_In_Place": ExtResource("60_yx2ca"),
 &"Sprinting_In_Place": ExtResource("61_b84my"),
+&"Stand": ExtResource("71_3ksdr"),
 &"Stand_To_Roll_In_Place": ExtResource("69_cjsdq"),
 &"Standing_1H_Magic_Attack_01_Left": ExtResource("63_u0bny"),
 &"Standing_1H_Magic_Attack_01_Right": ExtResource("64_2das8"),

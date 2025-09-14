@@ -6,6 +6,7 @@ const ANIMATION_BRACED_HANG_SHIMMY_RIGHT := "Braced_Hang_Shimmy_Right_In_Place" 
 const ANIMATION_HANGING := "Hanging_Idle" + "/mixamo_com"
 const ANIMATION_HANGING_SHIMMY_LEFT := "Hanging_Shimmy_Left_In_Place" + "/mixamo_com"
 const ANIMATION_HANGING_SHIMMY_RIGHT := "Hanging_Shimmy_Right_In_Place" + "/mixamo_com"
+const ANIMATION_MANTLE := "Climbing_On" + "/mixamo_com"
 const NODE_NAME := "Hanging"
 
 
@@ -25,6 +26,11 @@ func _input(event: InputEvent) -> void:
 			player.raycast_jumptarget.force_raycast_update()
 			# Check if there is a raycast collision
 			if player.raycast_jumptarget.is_colliding():
+				# Flag the animation player as locked
+				player.is_animation_locked = true
+				# Play the "mantle" animation
+				player.animation_player.play(ANIMATION_MANTLE)
+				await player.animation_player.animation_finished
 				# Get the collision point
 				var collision_point = player.raycast_jumptarget.get_collision_point()
 				# Temporarily disable player collision to avoid physics interference during mantle
@@ -33,18 +39,24 @@ func _input(event: InputEvent) -> void:
 				player.velocity = Vector3.ZERO
 				player.virtual_velocity = Vector3.ZERO
 				# Set the player's position to the collision point
-				var tween = get_tree().create_tween()
-				tween.tween_property(player, "position", collision_point, 0.2)
+				player.global_position = collision_point
+				#var tween = get_tree().create_tween()
+				#tween.tween_property(player, "position", collision_point, 0.2)
 				# Wait for the tween to complete
-				await tween.finished
+				#await tween.finished
 				# Wait an additional frame for physics to settle
-				await get_tree().physics_frame
+				#await get_tree().physics_frame
 				# Re-enable collision after positioning is complete
 				player.collision_shape.disabled = false
+				# Play the "stand" animation
+				player.animation_player.play("Stand" + "/mixamo_com")
+				await player.animation_player.animation_finished
 				# Check if the player is in first-person perspective
 				if player.perspective == 1:
 					# Rotate the body to match the camera_mount
 					player.visuals.rotation = Vector3(0.0, player.camera_mount.rotation.y, player.camera_mount.rotation.z)
+				# Flag the animation player as unlocked
+				player.is_animation_locked = false
 				# Start "standing"
 				transition(NODE_NAME, "Standing")
 
