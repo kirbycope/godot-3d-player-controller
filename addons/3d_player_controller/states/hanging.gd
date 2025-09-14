@@ -30,27 +30,25 @@ func _input(event: InputEvent) -> void:
 				player.is_animation_locked = true
 				# Play the "mantle" animation
 				player.animation_player.play(ANIMATION_MANTLE)
+				# Tween the player camera to follow the player during the mantle
+				var camera_tween = create_tween()
+				camera_tween.tween_property(player.camera, "global_position:y", player.camera.global_position.y + 1.2, 2.6678)
 				await player.animation_player.animation_finished
+				# Play the "stand" animation
+				player.animation_player.play("Stand" + "/mixamo_com", 0.0, 1.5)
 				# Get the collision point
 				var collision_point = player.raycast_jumptarget.get_collision_point()
 				# Temporarily disable player collision to avoid physics interference during mantle
 				player.collision_shape.disabled = true
+				# Set the player's position to the collision point
+				player.global_position = collision_point
 				# Reset velocity to prevent unwanted movement
 				player.velocity = Vector3.ZERO
 				player.virtual_velocity = Vector3.ZERO
-				# Set the player's position to the collision point
-				player.global_position = collision_point
-				#var tween = get_tree().create_tween()
-				#tween.tween_property(player, "position", collision_point, 0.2)
-				# Wait for the tween to complete
-				#await tween.finished
 				# Wait an additional frame for physics to settle
-				#await get_tree().physics_frame
+				await get_tree().physics_frame
 				# Re-enable collision after positioning is complete
 				player.collision_shape.disabled = false
-				# Play the "stand" animation
-				player.animation_player.play("Stand" + "/mixamo_com")
-				await player.animation_player.animation_finished
 				# Check if the player is in first-person perspective
 				if player.perspective == 1:
 					# Rotate the body to match the camera_mount
