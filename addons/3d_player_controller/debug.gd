@@ -6,10 +6,6 @@ extends Control
 # Track which bot model is currently loaded
 var is_using_x_bot: bool = false
 
-# Preload the bot scenes
-const X_BOT_SCENE = preload("uid://dsp7vcraux38l")
-const Y_BOT_SCENE = preload("uid://c714y0011rxmt")
-
 
 ## Called once for every event before _unhandled_input(), allowing you to consume some events.
 func _input(event: InputEvent) -> void:
@@ -25,12 +21,12 @@ func _input(event: InputEvent) -> void:
 		if event.keycode == KEY_R:
 			# Get the current state name
 			var current_state_name = player.base_state.get_state_name(player.current_state)
-			# Transition to ragdoll state
-			player.base_state.transition(current_state_name, "Ragdoll")
+			# Transition to ragdoll state and replicate to all clients
+			trigger_ragdoll.rpc(current_state_name)
 		# [X] key to swap between Y_Bot and X_Bot (only when debug panel is visible)
 		elif event.keycode == KEY_X:
-			# Swap between Y_Bot and X_Bot
-			swap_bot_model()
+			# Transition models and replicate to all clients
+			trigger_swap_model.rpc(!is_using_x_bot)
 
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
@@ -182,8 +178,27 @@ func _on_lock_perspective_toggled(toggled_on: bool) -> void:
 	player.lock_perspective = toggled_on
 
 
-## Swaps between Y_Bot and X_Bot models
-func swap_bot_model() -> void:
+## Changes the player's model across the network
+@rpc("any_peer", "call_local")
+func trigger_swap_model(use_x_bot: bool) -> void:
+	# Update the exported variable that will be replicated
+	is_using_x_bot = use_x_bot
+	# Call the actual model swapping function
+	_perform_bot_model_swap()
+
+
+## Triggers ragdoll state and replicates to all clients
+@rpc("any_peer", "call_local")
+func trigger_ragdoll(current_state_name: String) -> void:
+	# Transition to ragdoll state
+	player.base_state.transition(current_state_name, "Ragdoll")
+
+
+## Performs the actual bot model swap locally
+func _perform_bot_model_swap() -> void:
+	# Preload the bot scenes
+	const X_BOT_SCENE = preload("res://addons/3d_player_controller/x_bot.tscn")
+	const Y_BOT_SCENE = preload("res://addons/3d_player_controller/y_bot.tscn")
 	# Get the current AuxScene
 	var current_aux_scene = player.get_node("Visuals/AuxScene")
 	# Get the current AuxScene's animation
@@ -196,11 +211,9 @@ func swap_bot_model() -> void:
 	# Instantiate the new bot scene
 	var new_scene
 	if is_using_x_bot:
-		new_scene = Y_BOT_SCENE.instantiate()
-		is_using_x_bot = false
-	else:
 		new_scene = X_BOT_SCENE.instantiate()
-		is_using_x_bot = true
+	else:
+		new_scene = Y_BOT_SCENE.instantiate()
 	# Set the scene name
 	new_scene.name = "AuxScene"
 	# Ensure the new AuxScene is top-level so it ignores parent transforms (matches original setup)

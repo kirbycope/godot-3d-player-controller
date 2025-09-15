@@ -88,7 +88,10 @@ properties/8/spawn = true
 properties/8/replication_mode = 2
 properties/9/path = NodePath("ProximityChatIndicator:visible")
 properties/9/spawn = true
-properties/9/replication_mode = 1
+properties/9/replication_mode = 2
+properties/10/path = NodePath(".:is_using_x_bot")
+properties/10/spawn = true
+properties/10/replication_mode = 2
 
 [node name="Player" type="CharacterBody3D" groups=["Player"]]
 script = ExtResource("1_f3dlg")

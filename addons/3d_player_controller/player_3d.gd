@@ -87,6 +87,7 @@ var is_punching_left: bool = false ## Is the player punching with the left hand?
 var is_punching_right: bool = false ## Is the player punching with the right hand?
 var is_pushing: bool = false ## Is the player pushing something?
 var is_reeling: bool = false ## Is the player reeling in a fishing line?
+var is_rolling: bool = false ## Is the player rolling?
 var is_rotating_object: bool = false ## Is the player rotating an object being held in front of them?
 var is_running: bool = false ## Is the player running?
 var is_sliding: bool = false ## Is the player sliding?
@@ -99,8 +100,8 @@ var is_swinging_right: bool = false ## Is the player swinging with the right arm
 var is_swimming_in ## The Node the player is swimming in
 var is_swimming: bool = false ## Is the player swimming?
 var is_sitting: bool = false ## Is the player sitting?
-var is_rolling: bool = false ## Is the player rolling?
 var is_using: bool = false ## Is the player using an object?
+var is_using_x_bot: bool = false ## Is the player using the X_Bot model?
 var is_walking: bool = false ## Is the player walking?
 var virtual_velocity: Vector3 = Vector3.ZERO ## The velocity of the player if they moved, to be used when movement is locked.
 
