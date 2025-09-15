@@ -96,12 +96,13 @@ func move_character() -> void:
 	var distance = player.raycast_high.global_position.distance_to(collision_point)
 	if distance > player.collision_radius + 0.2:
 		# Move the player to 0.2 away from the wall
-		player.position += wall_direction * (distance - (player.collision_radius + 0.2))
+		player.position += wall_direction * (distance - (player.collision_radius + 0.35))
 	# Make the player face the wall while keeping upright
-	var forward = -wall_normal
+	var forward = wall_normal
 	var right = Vector3.UP.cross(forward).normalized()
 	var adjusted_up = forward.cross(right).normalized()
-	player.visuals.look_at(player.position + forward, adjusted_up)
+	#player.visuals.look_at(player.position - forward, adjusted_up)
+	player.visuals_aux_scene.look_at(player.position + forward, adjusted_up)
 	# Apply movement
 	player.velocity = move_direction * speed_current_scaled
 	player.move_and_slide()
