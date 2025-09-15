@@ -22,7 +22,7 @@ func _input(event: InputEvent) -> void:
 			# Get the current state name
 			var current_state_name = player.base_state.get_state_name(player.current_state)
 			# Transition to ragdoll state and replicate to all clients
-			trigger_ragdoll.rpc(current_state_name)
+			player.get_node("States/Ragdoll").trigger_ragdoll_start.rpc(current_state_name)
 		# [X] key to swap between Y_Bot and X_Bot (only when debug panel is visible)
 		elif event.keycode == KEY_X:
 			# Transition models and replicate to all clients
@@ -185,13 +185,6 @@ func trigger_swap_model(use_x_bot: bool) -> void:
 	is_using_x_bot = use_x_bot
 	# Call the actual model swapping function
 	_perform_bot_model_swap()
-
-
-## Triggers ragdoll state and replicates to all clients
-@rpc("any_peer", "call_local")
-func trigger_ragdoll(current_state_name: String) -> void:
-	# Transition to ragdoll state
-	player.base_state.transition(current_state_name, "Ragdoll")
 
 
 ## Performs the actual bot model swap locally

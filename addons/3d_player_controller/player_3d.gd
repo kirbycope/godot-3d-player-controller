@@ -115,8 +115,8 @@ var virtual_velocity: Vector3 = Vector3.ZERO ## The velocity of the player if th
 @onready var camera_mount = $CameraMount
 @onready var camera = camera_mount.get_node("Camera3D")
 # UI Elements
-@onready var emotes_menu = camera.get_node("Emotes")
 @onready var chat_window = camera.get_node("ChatWindow")
+@onready var emotes_menu = camera.get_node("Emotes")
 @onready var menu_pause = camera.get_node("Pause")
 @onready var menu_settings = menu_pause.get_node("../Settings")
 # Collision and Physics
@@ -160,11 +160,6 @@ func _ready() -> void:
 	$Controls.layer = -1
 	# Start "standing"
 	$States/Standing.start()
-	# Add sitting state node if not present
-	if not $States.has_node("Sitting"):
-		var sitting_node = load("res://addons/3d_player_controller/states/sitting.gd").new()
-		sitting_node.name = "Sitting"
-		$States.add_child(sitting_node)
 
 
 ## Called each physics frame with the time since the last physics frame as argument (delta, in seconds).

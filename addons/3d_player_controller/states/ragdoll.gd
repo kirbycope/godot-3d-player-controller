@@ -5,13 +5,14 @@ const NODE_NAME := "Ragdoll"
 var time_ragdoll: float = 0.0 ## The time spent in the "ragdoll" state."
 
 
+## Called once for every event before _unhandled_input(), allowing you to consume some events.
 func _input(event: InputEvent) -> void:
 	# Do nothing if not the authority
 	if !is_multiplayer_authority(): return
 	# (A)/[Space] _pressed_ after 3 seconds -> Stop ragdoll state
 	if event.is_action_pressed("button_0") and time_ragdoll > 3.0:
-		# Start standing
-		transition(NODE_NAME, "Standing")
+		# Stop ragdoll and replicate to all clients
+		trigger_ragdoll_stop.rpc()
 
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -23,6 +24,20 @@ func _process(delta: float) -> void:
 		time_ragdoll += delta
 		# Move the player to their bones
 		player.global_position = player.player_skeleton.get_node("PhysicalBoneSimulator3D/Physical Bone Hips").global_position
+
+
+## Triggers ragdoll state and replicates to all clients
+@rpc("any_peer", "call_local")
+func trigger_ragdoll_start(current_state_name: String) -> void:
+	# Transition to ragdoll state
+	transition(current_state_name, NODE_NAME)
+
+
+## Triggers ragdoll stop state and replicates to all clients
+@rpc("any_peer", "call_local")
+func trigger_ragdoll_stop() -> void:
+	# Transition from ragdoll to standing state
+	transition(NODE_NAME, "Standing")
 
 
 ## Start ragdoll state
