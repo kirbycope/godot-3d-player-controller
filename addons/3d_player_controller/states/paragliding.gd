@@ -28,6 +28,13 @@ func _input(event: InputEvent) -> void:
 func _process(_delta: float) -> void:
 	# Do nothing if not the authority
 	if !is_multiplayer_authority(): return
+	# Check if the player is about to land
+	if player.raycast_below.is_colliding() and player.velocity.y <= 0.0:
+		# Get the distance to the collision point
+		var collision_distance = player.raycast_below.global_position.distance_to(player.raycast_below.get_collision_point())
+		if collision_distance <= 0.2:
+			# Start "standing"
+			transition(NODE_NAME, "Standing")
 	# Check if the player is on the ground (and has no vertical velocity)
 	if player.is_on_floor() and player.velocity.y == 0.0:
 		# Start "standing"

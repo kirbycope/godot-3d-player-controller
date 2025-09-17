@@ -27,6 +27,7 @@ const STATES = preload("uid://dodroqwgmf811")
 @export var enable_sprinting: bool = true ## Enable sprinting
 @export var enable_vibration: bool = false ## Enable controller vibration
 @export_group("Camera Settings")
+@export var enable_smoothing: bool = true ## Enable camera smoothing?
 @export var lock_camera: bool = false ## Lock the camera
 @export var lock_perspective: bool = false ## Lock the camera perspective
 @export var perspective: int = 0 ## 0 = Third Person, 1 = First Person
@@ -116,6 +117,7 @@ var virtual_velocity: Vector3 = Vector3.ZERO ## The velocity of the player if th
 @onready var camera = camera_mount.get_node("Camera3D")
 # UI Elements
 @onready var chat_window = camera.get_node("ChatWindow")
+@onready var debug_menu = camera.get_node("Debug")
 @onready var emotes_menu = camera.get_node("Emotes")
 @onready var menu_pause = camera.get_node("Pause")
 @onready var menu_settings = menu_pause.get_node("../Settings")

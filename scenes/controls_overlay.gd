@@ -55,14 +55,23 @@ func _ready() -> void:
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	if player.debug_menu:
+		visible = !player.debug_menu.visible
+
 	$Climbing.visible = player.is_climbing
 	$Crawling.visible = player.is_crawling
 	$Driving.visible = player.is_driving
+	$Falling.visible = player.is_falling
 	$Fishing.visible = player.is_holding_fishing_rod
 	$Flying.visible = player.is_flying
 	$Hanging.visible = player.is_hanging
 	$Holding.visible = player.is_holding and !player.is_rotating_object
 	$ItemEquipped.visible = (player.bone_attachment_left_foot.get_children().size() > 0) or (player.bone_attachment_right_foot.get_children().size() > 0)
+	$Jumping.visible = player.is_jumping
+	if player.enable_double_jump and !player.is_double_jumping:
+		$Jumping.text = "(A) | [Space]       Double-Jump"
+	if player.enable_flying and !player.is_flying:
+		$Jumping.text = "(A) | [Space]               Fly"
 	$Rifling.visible = player.is_holding_rifle
 	$Rotating.visible = player.is_rotating_object
 	$Skateboarding.visible = player.is_skateboarding

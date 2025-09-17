@@ -13,6 +13,13 @@ func _input(event: InputEvent) -> void:
 	if !is_multiplayer_authority(): return
 	# Check if the game is not paused
 	if !player.game_paused:
+		# Ⓐ/[Space] _pressed_ and climbing is enabled -> Start "climbing"
+		if event.is_action_pressed("button_0") and player.enable_climbing and !player.is_climbing:
+			# Check if the player is facing a climbable surface
+			if player.raycast_middle.is_colliding():
+				# Start "climbing"
+				transition(NODE_NAME, "Climbing")
+				return
 		# Ⓐ/[Space] _pressed_ and double jumping is enabled -> Start "double jumping"
 		if event.is_action_pressed("button_0") and player.enable_double_jump and !player.is_double_jumping:
 			# Check if the animation player is not locked

@@ -7,7 +7,6 @@ extends Camera3D
 @export var zoom_max: float = 1.0
 @export var zoom_min: float = 1.0
 @export var zoom_speed: float = 0.2
-@export var smoothing_enabled: bool = true
 @export var smoothing_speed_y: float = 8.0
 
 # Note: `@onready` variables are set when the scene is loaded.
@@ -97,7 +96,7 @@ func follow_camera_mount(delta: float) -> void:
 		# Calculate the target position
 		target_position = camera_mount.global_position + camera_mount.global_transform.basis * (base_offset + zoom_vector)
 		# Apply smoothing (if enabled)
-		if smoothing_enabled and player.raycast_below.is_colliding() and player.velocity != Vector3.ZERO and !player.is_climbing and !player.is_driving and !player.is_falling and !player.is_flying and !player.is_jumping:
+		if player.enable_smoothing and player.raycast_below.is_colliding() and player.velocity != Vector3.ZERO and !player.is_climbing and !player.is_driving and !player.is_falling and !player.is_flying and !player.is_jumping:
 			# Get the current position of the Camera3D
 			var current_position = global_position
 			# Smooth only the y-axis position

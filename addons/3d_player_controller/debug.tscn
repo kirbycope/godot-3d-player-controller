@@ -605,7 +605,7 @@ anchors_preset = -1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -216.0
-offset_bottom = 528.0
+offset_bottom = 560.0
 grow_horizontal = 0
 
 [node name="EnableChat" type="CheckButton" parent="Panel2"]
@@ -687,67 +687,75 @@ offset_right = 216.0
 offset_bottom = 315.0
 text = "enable_rolling"
 
-[node name="EnableSprinting" type="CheckButton" parent="Panel2"]
+[node name="EnableSmoothing" type="CheckButton" parent="Panel2"]
 layout_mode = 0
-offset_left = 36.0
+offset_left = 26.0
 offset_top = 315.0
 offset_right = 216.0
 offset_bottom = 346.0
-text = "enable_sprinting"
+text = "enable_smoothing"
 
-[node name="EnableVibration" type="CheckButton" parent="Panel2"]
+[node name="EnableSprinting" type="CheckButton" parent="Panel2"]
 layout_mode = 0
 offset_left = 36.0
 offset_top = 346.0
 offset_right = 216.0
 offset_bottom = 377.0
-text = "enable_vibration"
+text = "enable_sprinting"
 
-[node name="LockCamera" type="CheckButton" parent="Panel2"]
+[node name="EnableVibration" type="CheckButton" parent="Panel2"]
 layout_mode = 0
 offset_left = 36.0
 offset_top = 377.0
 offset_right = 216.0
 offset_bottom = 408.0
+text = "enable_vibration"
+
+[node name="LockCamera" type="CheckButton" parent="Panel2"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 408.0
+offset_right = 216.0
+offset_bottom = 439.0
 text = "lock_camera"
 
 [node name="LockMovementX" type="CheckButton" parent="Panel2"]
 layout_mode = 0
 offset_left = 30.0
-offset_top = 408.0
+offset_top = 439.0
 offset_right = 216.0
-offset_bottom = 439.0
+offset_bottom = 470.0
 text = "lock_movement_x"
 
 [node name="LockMovementY" type="CheckButton" parent="Panel2"]
 layout_mode = 0
 offset_left = 30.0
-offset_top = 440.0
+offset_top = 471.0
 offset_right = 216.0
-offset_bottom = 471.0
+offset_bottom = 502.0
 text = "lock_movement_y"
 
 [node name="LockPerspective" type="CheckButton" parent="Panel2"]
 layout_mode = 0
 offset_left = 30.0
-offset_top = 471.0
+offset_top = 502.0
 offset_right = 216.0
-offset_bottom = 502.0
+offset_bottom = 533.0
 text = "lock_perspective"
 
 [node name="GamePaused" type="CheckBox" parent="Panel2"]
 layout_mode = 0
 offset_left = 192.0
-offset_top = 502.0
+offset_top = 533.0
 offset_right = 216.0
-offset_bottom = 526.0
+offset_bottom = 557.0
 
 [node name="Label28" type="Label" parent="Panel2"]
 layout_mode = 0
 offset_left = 9.0
-offset_top = 502.0
+offset_top = 533.0
 offset_right = 179.0
-offset_bottom = 525.0
+offset_bottom = 556.0
 text = "game_paused"
 
 [node name="Coordinates" type="RichTextLabel" parent="."]
@@ -808,6 +816,7 @@ text = "FPS: 0000"
 [connection signal="toggled" from="Panel2/EnableParagliding" to="." method="_on_enable_paragliding_toggled"]
 [connection signal="toggled" from="Panel2/EnablePunching" to="." method="_on_enable_punching_toggled"]
 [connection signal="toggled" from="Panel2/EnableRolling" to="." method="_on_enable_rolling_toggled"]
+[connection signal="toggled" from="Panel2/EnableSmoothing" to="." method="_on_enable_smoothing_toggled"]
 [connection signal="toggled" from="Panel2/EnableSprinting" to="." method="_on_enable_sprinting_toggled"]
 [connection signal="toggled" from="Panel2/EnableVibration" to="." method="_on_enable_vibration_toggled"]
 [connection signal="toggled" from="Panel2/LockCamera" to="." method="_on_lock_camera_toggled"]

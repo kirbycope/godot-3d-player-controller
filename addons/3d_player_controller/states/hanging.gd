@@ -77,8 +77,10 @@ func _process(_delta: float) -> void:
 		# Start "standing"
 		transition(NODE_NAME, "Standing")
 		return
-	# Move the player in the current direction
-	move_character()
+	# Check if the animation player is not locked and the game is not paused
+	if !player.is_animation_locked and !player.game_paused:
+		# Move the player in the current direction
+		move_character()
 	# Check if the player is "hanging"
 	if player.is_hanging:
 		# Play the animation
@@ -139,38 +141,40 @@ func play_animation() -> void:
 					player.animation_player.play(ANIMATION_HANGING)
 				else:
 					player.animation_player.play()
-		# Check if the player is moving left -> Play "shimmy left" animation
-		if Input.is_action_pressed("move_left"):
-			# Check if the player is braced
-			if player.is_braced:
-				# Check if playing the "braced hang, shimmy left" animation
-				if player.animation_player.current_animation != ANIMATION_BRACED_HANG_SHIMMY_LEFT:
-					# Play the "braced hang, shimmy left" animation
-					player.animation_player.play(ANIMATION_BRACED_HANG_SHIMMY_LEFT)
-			# The player must not be braced
-			else:
-				# Check if playing the "hanging, shimmy left" animation
-				if player.animation_player.current_animation != ANIMATION_HANGING_SHIMMY_LEFT:
-					# Play the "hanging, shimmy left" animation
-					player.animation_player.play(ANIMATION_HANGING_SHIMMY_LEFT)
-				else:
-					player.animation_player.play()
-		# Check if the player is moving right -> Play "shimmy right" animation
-		if Input.is_action_pressed("move_right"):
-			# Check if the player is braced
-			if player.is_braced:
-				# Check if playing the "braced hang, shimmy right" animation
-				if player.animation_player.current_animation != ANIMATION_BRACED_HANG_SHIMMY_RIGHT:
-					# Play the "braced hang, shimmy right" animation
-					player.animation_player.play(ANIMATION_BRACED_HANG_SHIMMY_RIGHT)
+		# Check if the game is not paused
+		if !player.game_paused:
+			# Check if the player is moving left -> Play "shimmy left" animation
+			if Input.is_action_pressed("move_left"):
+				# Check if the player is braced
+				if player.is_braced:
+					# Check if playing the "braced hang, shimmy left" animation
+					if player.animation_player.current_animation != ANIMATION_BRACED_HANG_SHIMMY_LEFT:
+						# Play the "braced hang, shimmy left" animation
+						player.animation_player.play(ANIMATION_BRACED_HANG_SHIMMY_LEFT)
 				# The player must not be braced
-			else:
-				# Check if playing the "hanging, shimmy right" animation
-				if player.animation_player.current_animation != ANIMATION_HANGING_SHIMMY_RIGHT:
-					# Play the "hanging, shimmy right" animation
-					player.animation_player.play(ANIMATION_HANGING_SHIMMY_RIGHT)
 				else:
-					player.animation_player.play()
+					# Check if playing the "hanging, shimmy left" animation
+					if player.animation_player.current_animation != ANIMATION_HANGING_SHIMMY_LEFT:
+						# Play the "hanging, shimmy left" animation
+						player.animation_player.play(ANIMATION_HANGING_SHIMMY_LEFT)
+					else:
+						player.animation_player.play()
+			# Check if the player is moving right -> Play "shimmy right" animation
+			if Input.is_action_pressed("move_right"):
+				# Check if the player is braced
+				if player.is_braced:
+					# Check if playing the "braced hang, shimmy right" animation
+					if player.animation_player.current_animation != ANIMATION_BRACED_HANG_SHIMMY_RIGHT:
+						# Play the "braced hang, shimmy right" animation
+						player.animation_player.play(ANIMATION_BRACED_HANG_SHIMMY_RIGHT)
+					# The player must not be braced
+				else:
+					# Check if playing the "hanging, shimmy right" animation
+					if player.animation_player.current_animation != ANIMATION_HANGING_SHIMMY_RIGHT:
+						# Play the "hanging, shimmy right" animation
+						player.animation_player.play(ANIMATION_HANGING_SHIMMY_RIGHT)
+					else:
+						player.animation_player.play()
 
 
 ## Start "hanging".

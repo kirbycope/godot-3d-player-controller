@@ -57,8 +57,10 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_released("button_1"):
 		# Make the player climb normal speed
 		player.speed_current = player.speed_climbing
-	# Move the player in the current direction
-	move_character()
+	# Check if the animation player is not locked and the game is not paused
+	if !player.is_animation_locked and !player.game_paused:
+		# Move the player in the current direction
+		move_character()
 	# Check if the player is "climbing"
 	if player.is_climbing:
 		# Play the animation
@@ -124,46 +126,48 @@ func play_animation() -> void:
 		# Check if the player's current speed -> Adjust animation speed
 		if player.speed_current == player.speed_crawling:
 			# The player is "sprinting" while climbing
-			player.animation_player.speed_scale = 2.25
+			player.animation_player.speed_scale = 2
 		else:
 			# The player is climbing "normally"
 			player.animation_player.speed_scale = 1.5
-		# Check if the player is moving left -> Play "shimmy left" animation
-		if Input.is_action_pressed("move_left"):
-			# Check if playing the "braced hang, shimmy left" animation
-			if player.animation_player.current_animation != ANIMATION_BRACED_HANG_SHIMMY_LEFT:
-				# Play the "braced hang, shimmy left" animation
-				player.animation_player.play(ANIMATION_BRACED_HANG_SHIMMY_LEFT)
-			else:
-				player.animation_player.play()
-			# Return early so that up/down animations are skipped
-			return
-		# Check if the player is moving right -> Play "shimmy right" animation
-		if Input.is_action_pressed("move_right"):
-			# Check if playing the "braced hang, shimmy right" animation
-			if player.animation_player.current_animation != ANIMATION_BRACED_HANG_SHIMMY_RIGHT:
-				# Play the "braced hang, shimmy right" animation
-				player.animation_player.play(ANIMATION_BRACED_HANG_SHIMMY_RIGHT)
-			else:
-				player.animation_player.play()
-			# Return early so that up/down animations are skipped
-			return
-		# Check if the player is moving up -> Play "climbing up" animation
-		if Input.is_action_pressed("move_up"):
-			# Check if playing the "climbing" animation
-			if player.animation_player.current_animation != ANIMATION_CLIMBING_IN_PLACE:
-				# Play the "climbing" animation
-				player.animation_player.play(ANIMATION_CLIMBING_IN_PLACE)
-			else:
-				player.animation_player.play()
-		# Check if the player is moving down -> Play "climbing down" animation
-		if Input.is_action_pressed("move_down"):
-			# Check if playing the "climbing" animation
-			if player.animation_player.current_animation != ANIMATION_CLIMBING_IN_PLACE:
-				# Play the "climbing" animation (backwards)
-				player.animation_player.play_backwards(ANIMATION_CLIMBING_IN_PLACE)
-			else:
-				player.animation_player.play_backwards()
+		# Check if the game is not paused
+		if !player.game_paused:
+			# Check if the player is moving left -> Play "shimmy left" animation
+			if Input.is_action_pressed("move_left"):
+				# Check if playing the "braced hang, shimmy left" animation
+				if player.animation_player.current_animation != ANIMATION_BRACED_HANG_SHIMMY_LEFT:
+					# Play the "braced hang, shimmy left" animation
+					player.animation_player.play(ANIMATION_BRACED_HANG_SHIMMY_LEFT)
+				else:
+					player.animation_player.play()
+				# Return early so that up/down animations are skipped
+				return
+			# Check if the player is moving right -> Play "shimmy right" animation
+			if Input.is_action_pressed("move_right"):
+				# Check if playing the "braced hang, shimmy right" animation
+				if player.animation_player.current_animation != ANIMATION_BRACED_HANG_SHIMMY_RIGHT:
+					# Play the "braced hang, shimmy right" animation
+					player.animation_player.play(ANIMATION_BRACED_HANG_SHIMMY_RIGHT)
+				else:
+					player.animation_player.play()
+				# Return early so that up/down animations are skipped
+				return
+			# Check if the player is moving up -> Play "climbing up" animation
+			if Input.is_action_pressed("move_up"):
+				# Check if playing the "climbing" animation
+				if player.animation_player.current_animation != ANIMATION_CLIMBING_IN_PLACE:
+					# Play the "climbing" animation
+					player.animation_player.play(ANIMATION_CLIMBING_IN_PLACE)
+				else:
+					player.animation_player.play()
+			# Check if the player is moving down -> Play "climbing down" animation
+			if Input.is_action_pressed("move_down"):
+				# Check if playing the "climbing" animation
+				if player.animation_player.current_animation != ANIMATION_CLIMBING_IN_PLACE:
+					# Play the "climbing" animation (backwards)
+					player.animation_player.play_backwards(ANIMATION_CLIMBING_IN_PLACE)
+				else:
+					player.animation_player.play_backwards()
 
 
 ## Start "climbing".
