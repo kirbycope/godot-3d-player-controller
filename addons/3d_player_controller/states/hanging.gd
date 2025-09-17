@@ -35,12 +35,9 @@ func _input(event: InputEvent) -> void:
 				var final_camera_position = collision_point + camera_offset
 				# Play the "mantle" animation
 				player.animation_player.play(ANIMATION_MANTLE)
-				# Tween the player camera to follow the player during the mantle
-				var camera_tween = create_tween()
-				var animation_length = player.animation_player.get_animation(ANIMATION_MANTLE).length
-				camera_tween.tween_property(player.camera, "global_position", final_camera_position, animation_length)
+				# Wait for the animation to finish
 				await player.animation_player.animation_finished
-				# Play the "stand" animation
+				# Play the "stand" animation (sped up a bit)
 				player.animation_player.play("Stand" + "/mixamo_com", 0.0, 1.5)
 				# Temporarily disable player collision to avoid physics interference during mantle
 				player.collision_shape.disabled = true
