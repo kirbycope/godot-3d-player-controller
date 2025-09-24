@@ -22,6 +22,7 @@ const STATES = preload("uid://dodroqwgmf811")
 @export var enable_noclip: bool = false ## Enable noclip
 @export var enable_paragliding: bool = true ## Enable paragliding
 @export var enable_punching: bool = true ## Enable punching
+@export var enable_pushing: bool = true ## Enable pushing
 @export var enable_rolling: bool = true ## Enable rolling
 @export var enable_sliding: bool = true ## Enable sliding
 @export var enable_sprinting: bool = true ## Enable sprinting

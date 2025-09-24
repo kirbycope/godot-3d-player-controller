@@ -87,6 +87,7 @@ func _process(_delta: float) -> void:
 		$Panel2/EnableKicking.button_pressed = player.enable_kicking
 		$Panel2/EnableParagliding.button_pressed = player.enable_paragliding
 		$Panel2/EnablePunching.button_pressed = player.enable_punching
+		$Panel2/EnablePushing.button_pressed = player.enable_pushing
 		$Panel2/EnableRolling.button_pressed = player.enable_rolling
 		$Panel2/EnableSmoothing.button_pressed = player.enable_smoothing
 		$Panel2/EnableSprinting.button_pressed = player.enable_sprinting
@@ -137,6 +138,7 @@ func _on_enable_kicking_toggled(toggled_on: bool) -> void:
 	player.enable_kicking = toggled_on
 
 
+## Called when the "enable_paragliding" toggle option is changed.
 func _on_enable_paragliding_toggled(toggled_on: bool) -> void:
 	player.enable_paragliding = toggled_on
 
@@ -144,6 +146,11 @@ func _on_enable_paragliding_toggled(toggled_on: bool) -> void:
 ## Called when the "enable_punching" toggle option is changed.
 func _on_enable_punching_toggled(toggled_on: bool) -> void:
 	player.enable_punching = toggled_on
+
+
+## Called when the "enable_pushing" toggle option is changed.
+func _on_enable_pushing_toggled(toggled_on: bool) -> void:
+	player.enable_pushing = toggled_on
 
 
 ## Called when the "enable_rolling" toggle option is changed.
