@@ -2,6 +2,8 @@ extends Control
 
 # Note: `@onready` variables are set when the scene is loaded.
 @onready var player: CharacterBody3D = get_parent().get_parent().get_parent()
+@onready var x_bot = player.get_node("Visuals/XBot")
+@onready var y_bot = player.get_node("Visuals/YBot")
 
 # Track which bot model is currently loaded
 var is_using_x_bot: bool = false
@@ -195,9 +197,6 @@ func trigger_swap_model(use_x_bot: bool) -> void:
 
 ## Performs the actual bot model swap locally
 func _perform_bot_model_swap() -> void:
-	# Preload the bot scenes
-	const X_BOT_SCENE = preload("res://addons/3d_player_controller/x_bot.tscn")
-	const Y_BOT_SCENE = preload("res://addons/3d_player_controller/y_bot.tscn")
 	# Get the current AuxScene
 	var current_aux_scene = player.get_node("Visuals/AuxScene")
 	# Get the current AuxScene's animation
@@ -207,12 +206,14 @@ func _perform_bot_model_swap() -> void:
 	# Remove the current AuxScene immediately
 	player.get_node("Visuals").remove_child(current_aux_scene)
 	current_aux_scene.free()
-	# Instantiate the new bot scene
+	# Create a duplicate of the existing bot node
 	var new_scene
 	if is_using_x_bot:
-		new_scene = X_BOT_SCENE.instantiate()
+		new_scene = x_bot.duplicate()
 	else:
-		new_scene = Y_BOT_SCENE.instantiate()
+		new_scene = y_bot.duplicate()
+	# Set the scene visibility
+	new_scene.visible = true
 	# Set the scene name
 	new_scene.name = "AuxScene"
 	# Ensure the new AuxScene is top-level so it ignores parent transforms (matches original setup)

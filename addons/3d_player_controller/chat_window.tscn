@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://oatiyge81y5c"]
+[gd_scene load_steps=5 format=3 uid="uid://oatiyge81y5c"]
 
 [ext_resource type="Script" uid="uid://dwahsbadwpsep" path="res://addons/3d_player_controller/chat_window.gd" id="1_8y6ow"]
+[ext_resource type="PackedScene" uid="uid://bg4y0xmf13rf5" path="res://addons/3d_player_controller/message.tscn" id="2_rcq7q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8y6ow"]
 size = Vector2(47, 31)
@@ -10,6 +11,7 @@ size = Vector2(27, 31)
 
 [node name="ChatWindow" type="Control"]
 layout_mode = 3
+anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 3.0
@@ -62,6 +64,10 @@ text = " X "
 [node name="TouchScreenButton" type="TouchScreenButton" parent="VBoxContainer/InputContainer/CancelButton"]
 position = Vector2(14, 15)
 shape = SubResource("RectangleShape2D_rcq7q")
+
+[node name="Message" parent="." instance=ExtResource("2_rcq7q")]
+visible = false
+layout_mode = 0
 
 [connection signal="mouse_entered" from="VBoxContainer/ChatDisplay" to="." method="_on_chat_display_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer/ChatDisplay" to="." method="_on_chat_display_mouse_exited"]
