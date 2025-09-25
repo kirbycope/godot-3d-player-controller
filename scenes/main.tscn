@@ -478,7 +478,8 @@ grow_horizontal = 0
 grow_vertical = 2
 text = "(A) | [Space]              Jump
 (X) | [Ctrl]                     Use
-(Y) | [Ctrl]             Croutch"
+(Y) | [Ctrl]             Croutch
+(D-Down) | [Tab]          Auto-Run"
 label_settings = SubResource("LabelSettings_gqmmt")
 horizontal_alignment = 2
 
@@ -550,7 +551,7 @@ grow_vertical = 2
 text = "(A) | [Space]              Jump
 (B) | [Shift]               Sprint
 (X) | [E]                         Use
-(Y) | [Ctrl]               Crouch"
+(Y) | [Ctrl]              Croutch"
 label_settings = SubResource("LabelSettings_gqmmt")
 horizontal_alignment = 2
 
@@ -594,15 +595,16 @@ width = 350.0
 
 [node name="BodyLabel" type="Label3D" parent="ControlsOnFootController"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, 1.234, 0.056)
-text = "(L2)          Left Kick
-(L1)          Left Punch
-(L)            Zoom In
-(L-Stick)  Move
-(Select)   View
+text = "(L2)           Left Kick
+(L1)           Left Punch
+(L)              Zoom In
+(L-Stick)    Move
+(Select)     View
 
+(D-Up)       Auto-Run
 (D-Down) Drop
-(D-Left)    Emotes
-(D-Right) Chat
+(D-Left)     Emotes
+(D-Right)   Chat
 "
 font_size = 20
 horizontal_alignment = 0
@@ -617,7 +619,8 @@ text = "(R2)           Right Kick
 (R)             Zoom Out
 (R-Stick)   Look
 (Start)      Pause
- (Y)             Crouch
+
+ (Y)            Croutch
  (A)             Jump
  (X)             Use
  (B)             Sprint"
@@ -645,6 +648,7 @@ text = "(MB3)       Left Kick
 (WASD)    Move
 (F3)           Debug
 (F5)           View
+(Tab)        Auto-Run
 (Q)            Drop
 (B)            Emotes
 (T)            Chat"
@@ -656,15 +660,17 @@ width = 220.0
 
 [node name="BodyLabel2" type="Label3D" parent="ControlsOnFootKeyboard"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.049999975, 1.234, 0.056)
-text = "(MB4)       Right Kick
+text = "(MB4)        Right Kick
 (L-Clk)       Right Punch
 (Scr-Dn)    Zoom Out
 (Mouse)    Look
 (Esc)          Pause
- (Ctrl)         Crouch
+
+ (Ctrl)         Croutch
  (Space)      Jump
  (E)              Use
- (Shift)        Sprint"
+ (Shift)        Sprint
+"
 font_size = 20
 horizontal_alignment = 0
 line_spacing = -5.0

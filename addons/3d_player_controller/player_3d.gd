@@ -63,6 +63,7 @@ const STATES = preload("uid://dodroqwgmf811")
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") ## Default gravity value
 var is_aiming: bool = false ## Is the player aiming?
 var is_animation_locked: bool = false ## Is the animation player locked?
+var is_auto_running: bool = false ## Is the player auto-running?
 var is_braced: bool = false ## Is the player braced against a wall when hanging?
 var is_blocking_left: bool = false ## Is the player blocking with their left arm?
 var is_blocking_right: bool = false ## Is the player blocking with their right arm?
@@ -163,6 +164,41 @@ func _ready() -> void:
 	$Controls.layer = -1
 	# Start "standing"
 	$States/Standing.start()
+
+
+## Called when there is an input event.
+func _input(event: InputEvent) -> void:
+	# Do nothing if not the authority
+	if !is_multiplayer_authority(): return
+	# Check if the game is not paused
+	if !game_paused:
+		# (DPad-Up)/[Tab] _pressed_ -> Start "auto-run"
+		if event.is_action_pressed("button_12") and !is_auto_running:
+			# Flag the player as "auto-running"
+			is_auto_running = true
+			# Get the string name of the player's current state
+			var from_state = base_state.get_state_name(current_state)
+			# Start "running"
+			base_state.transition(from_state, "Running")
+		elif is_auto_running:
+			# Player input _pressed_ -> Stop "auto-run"
+			if event.is_action_pressed("button_0") \
+			or event.is_action_pressed("button_1") \
+			or event.is_action_pressed("button_2") \
+			or event.is_action_pressed("button_3") \
+			or event.is_action_pressed("button_4") \
+			or event.is_action_pressed("button_5") \
+			or event.is_action_pressed("button_6") \
+			or event.is_action_pressed("button_7") \
+			or event.is_action_pressed("button_8") \
+			or event.is_action_pressed("button_9") \
+			or event.is_action_pressed("button_10") \
+			or event.is_action_pressed("button_11") \
+			or event.is_action_pressed("button_12") \
+			or event.is_action_pressed("button_13") \
+			or event.is_action_pressed("button_14"):
+				# Flag the player as no longer "auto-running"
+				is_auto_running = false
 
 
 ## Called each physics frame with the time since the last physics frame as argument (delta, in seconds).
@@ -707,7 +743,13 @@ func update_velocity() -> void:
 		# Don't process any input when paused
 		return
 	# Get an input vector by specifying four actions for the positive and negative X and Y axes
-	var input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	var input_dir = Vector2.ZERO
+	if is_auto_running:
+		# Auto-run forward in the direction the player is facing
+		input_dir = Vector2(0, -1)
+	else:
+		# Normal movement input from left-analog stick or WASD/Arrow keys
+		input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	# Create a normalized 3D direction vector from the 2D input
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	# Calculate the input magnitude (intensity of the left-analog stick)

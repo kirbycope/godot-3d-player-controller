@@ -27,6 +27,17 @@ func _input(event: InputEvent) -> void:
 func _process(_delta: float) -> void:
 	# Do nothing if not the authority
 	if !is_multiplayer_authority(): return
+	# Check if the game is not paused
+	if !player.game_paused:
+		# Check if the player is "auto-running"
+		if player.is_auto_running:
+			# Check for player input
+			if Input.is_action_pressed("move_up") \
+			or Input.is_action_pressed("move_down") \
+			or Input.is_action_pressed("move_left") \
+			or Input.is_action_pressed("move_right"):
+				# Disable "auto-running"
+				player.is_auto_running = false
 	# Check if the player is not moving
 	if player.velocity == Vector3.ZERO and player.virtual_velocity == Vector3.ZERO:
 		# Start "standing"		
