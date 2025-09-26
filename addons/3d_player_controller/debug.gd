@@ -79,9 +79,10 @@ func _process(_delta: float) -> void:
 		$Panel1/Swinging/IsSwingingLeft.button_pressed = player.is_swinging_left
 		$Panel1/Swinging/IsSwingingRight.button_pressed = player.is_swinging_right
 		# Panel 2
-		$Panel2/EnableCrouching.button_pressed = player.enable_crouching
-		$Panel2/EnableClimbing.button_pressed = player.enable_climbing
 		$Panel2/EnableChat.button_pressed = player.enable_chat
+		$Panel2/EnableClickToMove.button_pressed = player.enable_click_to_move
+		$Panel2/EnableClimbing.button_pressed = player.enable_climbing
+		$Panel2/EnableCrouching.button_pressed = player.enable_crouching
 		$Panel2/EnableDoubleJump.button_pressed = player.enable_double_jump
 		$Panel2/EnableFlying.button_pressed = player.enable_flying
 		$Panel2/EnableJumping.button_pressed = player.enable_jumping
