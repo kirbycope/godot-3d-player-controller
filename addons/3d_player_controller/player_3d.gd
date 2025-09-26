@@ -224,9 +224,6 @@ func _input(event: InputEvent) -> void:
 					is_navigating = true
 					navigation_agent.target_position = cursor_position
 					navigate_to_next_position()
-					# Start "running"
-					var from_state = base_state.get_state_name(current_state)
-					base_state.transition(from_state, "Running")
 
 
 ## Called each physics frame with the time since the last physics frame as argument (delta, in seconds).

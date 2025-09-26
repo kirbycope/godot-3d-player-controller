@@ -204,6 +204,10 @@ func _process(_delta: float) -> void:
 	if !is_multiplayer_authority(): return
 	# Check if the game is not paused
 	if !player.game_paused:
+		# Check if the player is "navigating"
+		if player.is_navigating:
+			# Start "running"
+			transition(NODE_NAME, "Running")
 		# Ⓨ/[Ctrl] _pressed_ and crouching is enabled -> Start "crouching"
 		if Input.is_action_pressed("button_3") and player.enable_crouching and !player.is_crouching:
 			# Check if the animation player is not locked
