@@ -41,24 +41,6 @@
 radius = 0.3
 height = 1.8
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nin8p"]
-transparency = 1
-shading_mode = 0
-albedo_texture = ExtResource("11_58nn8")
-billboard_mode = 1
-
-[sub_resource type="QuadMesh" id="QuadMesh_h7acy"]
-material = SubResource("StandardMaterial3D_nin8p")
-size = Vector2(0.3, 0.3)
-
-[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_ij4ox"]
-
-[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_j6gid"]
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_8pp8g"]
-height = 0.1
-radius = 0.3
-
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_0pvj7"]
 properties/0/path = NodePath(".:current_state")
 properties/0/spawn = true
@@ -93,6 +75,24 @@ properties/9/replication_mode = 2
 properties/10/path = NodePath(".:is_using_x_bot")
 properties/10/spawn = true
 properties/10/replication_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nin8p"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("11_58nn8")
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_h7acy"]
+material = SubResource("StandardMaterial3D_nin8p")
+size = Vector2(0.3, 0.3)
+
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_ij4ox"]
+
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_j6gid"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_8pp8g"]
+height = 0.1
+radius = 0.3
 
 [node name="Player" type="CharacterBody3D" groups=["Player"]]
 script = ExtResource("1_f3dlg")
@@ -162,10 +162,15 @@ shape = SubResource("CapsuleShape3D_5e6s3")
 
 [node name="Controls" parent="." instance=ExtResource("2_j65kv")]
 
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_0pvj7")
+
 [node name="NameLabel" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 billboard = 1
 script = ExtResource("31_ij4ox")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
 [node name="ProximityChatIndicator" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
@@ -318,5 +323,4 @@ target_position = Vector3(0, 0, -1)
 
 [node name="RayCast3D_BelowPlayer" type="RayCast3D" parent="Visuals"]
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_0pvj7")
+[connection signal="navigation_finished" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_navigation_finished"]

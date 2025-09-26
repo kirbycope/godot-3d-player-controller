@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://b702fehqxslqf"]
+[gd_scene load_steps=59 format=3 uid="uid://b702fehqxslqf"]
 
 [ext_resource type="Script" uid="uid://c7agev1ouwnuu" path="res://scenes/main.gd" id="1_oaegt"]
 [ext_resource type="Texture2D" uid="uid://e6rn4rs3cr0v" path="res://assets/kenney_nl/prototype_textures/PNG/Dark/texture_09.png" id="2_d2mly"]
@@ -38,9 +38,94 @@ background_mode = 2
 sky = SubResource("Sky_g3d2a")
 tonemap_mode = 2
 
+[sub_resource type="NavigationMesh" id="NavigationMesh_og1vs"]
+vertices = PackedVector3Array(-5.75, 0.5, -16, -2.5, 0.5, -16, -2, 0.5, -18, -2, 0.5, -21.75, -63.5, 0.5, -13.75, -6, 0.5, -13.75, 0, 0.5, -22, 0, 0.5, -63.5, -63.5, 0.5, -63.5, 2, 0.5, -22, 2.25, 0.5, -20.25, 63.5, 0.5, -20.5, 63.5, 0.5, -63.5, -1, 20.5, -21, -1, 20.5, -19, 1, 20.5, -19, 1, 20.5, -21, -0.75, 0.5, -20.75, -0.75, 0.5, -19, 1, 0.5, -19, 1, 0.5, -20.75, 1.75, 0.5, -8, 3.5, 0.5, -8, 3.75, 0.5, -8.5, -2, 0.5, -15.75, 1.75, 0.5, -17.75, -1.75, 0.5, -7.5, 1.75, 0.75, -7.5, 2.25, 0.5, -18.25, -1.5, 0.5, -11.25, 6.5, 0.5, -8.5, -2, 0.5, -11.75, 6.75, 0.5, -7, 63.5, 0.5, -7, -4.5, 0.5, -14.75, -4.5, 0.5, -13, -3.5, 0.5, -13, -3.5, 0.5, -14.75, -5.75, 0.5, -4.75, -5.5, 0.5, -5.75, -6, 0.5, -6, -6.75, 0.5, -4.5, -63.5, 0.5, -3, -6.75, 0.5, -3.5, -5.75, 0.5, -8, -6.5, 0.5, -8.75, -6.25, 0.5, -3.25, -3.25, 6, -8.5, -2.5, 6, -9.25, -2.5, 6, -10.75, -4.75, 6, -11.5, -5.5, 6, -10.75, -5.25, 6, -8.75, -3.25, 6, -11.5, -2.75, 0.5, -9.5, -3.5, 0.5, -11.25, -5.25, 0.5, -10.5, -5.25, 0.5, -9.5, -4.5, 0.5, -8.75, -3.5, 0.5, -8.75, -4.5, 0.5, -11.25, -2.75, 0.5, -10.5, -5.25, 0.5, -4.5, 5.25, 2.5, -6.25, 5.5, 2.5, -7.5, 4.5, 2.5, -7.5, 4.25, 2.5, -7, 4.25, 2.5, -6.75, 1.75, 0.75, -7, 1.75, 0.5, -5.75, 1.75, 0.75, -6.75, -1.75, 0.5, -6.25, -5.25, 0.5, -3.5, -5.75, 0.5, -3.25, -4, 0.5, -2.25, -3.75, 0.5, -2.75, 3.75, 0.5, -4.75, 3.5, 0.5, -5.75, 4, 0.5, -2.5, 4.75, 0.5, -4, -2.25, 0.5, -5.75, 4.75, 0.5, -7.25, 4.75, 0.5, -6.5, 5.5, 0.5, -6.5, 5.5, 0.5, -7.25, 5.5, 0.5, -4, 4, 0.5, -1.5, 6.25, 0.5, -4.75, 5.5, 0.5, 4.75, 63.5, 0.5, 4.75, 4.5, 0.5, 3, 3.5, 0.5, -1.25, 3.75, 0.5, 3, -3.75, 0.5, -1.25, -3.25, 0.5, 9.25, -2.5, 0.5, 5.5, -2.5, 0.5, 4.5, -2, 0.5, 9, -2, 0.5, 5.75, -3.25, 0.5, 10.75, -63.5, 0.5, 10.5, -2, 0.5, 4.25, -2, 0.5, -1.25, 2.25, 0.5, 4.25, 2.5, 0.5, 4.75, 3, 0.5, 4.5, 3, 0.5, 3.5, -1.25, 0.5, 4.5, 1.25, 0.5, 4.5, 1.25, 0.5, 5.5, -1.25, 0.5, 5.5, 2, 0.5, 9, 2, 0.5, 5.75, 2.5, 0.5, 5.5, 4.25, 0.5, 5.5, 5, 0.5, 5.5, 3.25, 0.5, 9.25, 3.25, 0.5, 18.5, 63.5, 0.5, 18.75, -2.25, 2.5, 10, -2.25, 2.5, 19.25, 2.25, 2.5, 19.25, 2.25, 2.5, 10, -1.75, 0.5, 10.25, -1.75, 0.5, 19, 2, 0.5, 19, 2, 0.5, 10.25, -63.5, 0.5, 18.75, -3.25, 0.5, 18.5, -1.75, 0.5, 63.5, -1.5, 0.5, 20.25, -3.25, 0.5, 20, -63.5, 0.5, 63.5, 3, 0.5, 20.25, 1.5, 0.5, 20.25, 1.75, 0.5, 63.5, 63.5, 0.5, 63.5)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(0, 5, 4), PackedInt32Array(7, 6, 3), PackedInt32Array(3, 0, 7), PackedInt32Array(7, 0, 8), PackedInt32Array(8, 0, 4), PackedInt32Array(9, 6, 7), PackedInt32Array(9, 7, 10), PackedInt32Array(10, 7, 11), PackedInt32Array(11, 7, 12), PackedInt32Array(16, 15, 13), PackedInt32Array(13, 15, 14), PackedInt32Array(20, 19, 17), PackedInt32Array(17, 19, 18), PackedInt32Array(23, 22, 21), PackedInt32Array(1, 2, 24), PackedInt32Array(24, 2, 25), PackedInt32Array(21, 27, 26), PackedInt32Array(25, 28, 29), PackedInt32Array(29, 28, 23), PackedInt32Array(23, 28, 30), PackedInt32Array(31, 24, 29), PackedInt32Array(29, 24, 25), PackedInt32Array(21, 26, 23), PackedInt32Array(23, 26, 29), PackedInt32Array(33, 32, 30), PackedInt32Array(28, 10, 30), PackedInt32Array(30, 10, 11), PackedInt32Array(30, 11, 33), PackedInt32Array(37, 36, 34), PackedInt32Array(34, 36, 35), PackedInt32Array(39, 38, 40), PackedInt32Array(40, 38, 41), PackedInt32Array(41, 43, 42), PackedInt32Array(44, 40, 45), PackedInt32Array(45, 40, 41), PackedInt32Array(45, 41, 42), PackedInt32Array(45, 42, 4), PackedInt32Array(4, 5, 45), PackedInt32Array(42, 43, 46), PackedInt32Array(48, 47, 49), PackedInt32Array(49, 47, 52), PackedInt32Array(49, 52, 51), PackedInt32Array(49, 51, 50), PackedInt32Array(50, 53, 49), PackedInt32Array(59, 58, 54), PackedInt32Array(54, 58, 57), PackedInt32Array(54, 57, 56), PackedInt32Array(54, 56, 55), PackedInt32Array(56, 60, 55), PackedInt32Array(55, 61, 54), PackedInt32Array(62, 38, 39), PackedInt32Array(66, 65, 67), PackedInt32Array(67, 65, 64), PackedInt32Array(67, 64, 63), PackedInt32Array(26, 27, 68), PackedInt32Array(71, 70, 69), PackedInt32Array(75, 74, 72), PackedInt32Array(72, 74, 73), PackedInt32Array(70, 71, 68), PackedInt32Array(68, 71, 26), PackedInt32Array(69, 77, 76), PackedInt32Array(76, 79, 78), PackedInt32Array(75, 72, 62), PackedInt32Array(68, 66, 70), PackedInt32Array(70, 66, 67), PackedInt32Array(80, 71, 75), PackedInt32Array(75, 71, 69), PackedInt32Array(75, 69, 76), PackedInt32Array(75, 76, 78), PackedInt32Array(62, 39, 75), PackedInt32Array(75, 39, 80), PackedInt32Array(84, 83, 81), PackedInt32Array(81, 83, 82), PackedInt32Array(79, 85, 78), PackedInt32Array(78, 85, 86), PackedInt32Array(87, 32, 88), PackedInt32Array(88, 32, 33), PackedInt32Array(88, 33, 89), PackedInt32Array(85, 87, 86), PackedInt32Array(86, 87, 90), PackedInt32Array(90, 87, 88), PackedInt32Array(91, 86, 92), PackedInt32Array(92, 86, 90), PackedInt32Array(46, 73, 74), PackedInt32Array(74, 93, 46), PackedInt32Array(46, 93, 96), PackedInt32Array(46, 96, 95), PackedInt32Array(46, 95, 94), PackedInt32Array(98, 97, 95), PackedInt32Array(95, 97, 94), PackedInt32Array(94, 99, 46), PackedInt32Array(46, 99, 42), PackedInt32Array(42, 99, 100), PackedInt32Array(101, 96, 102), PackedInt32Array(102, 96, 93), PackedInt32Array(104, 103, 105), PackedInt32Array(105, 103, 106), PackedInt32Array(107, 101, 108), PackedInt32Array(108, 101, 92), PackedInt32Array(92, 101, 91), PackedInt32Array(91, 101, 102), PackedInt32Array(106, 103, 108), PackedInt32Array(92, 106, 108), PackedInt32Array(109, 112, 110), PackedInt32Array(110, 112, 98), PackedInt32Array(98, 112, 111), PackedInt32Array(98, 111, 97), PackedInt32Array(110, 107, 109), PackedInt32Array(109, 107, 108), PackedInt32Array(104, 105, 113), PackedInt32Array(113, 105, 114), PackedInt32Array(115, 88, 116), PackedInt32Array(116, 88, 117), PackedInt32Array(117, 88, 89), PackedInt32Array(117, 89, 118), PackedInt32Array(112, 113, 114), PackedInt32Array(114, 115, 112), PackedInt32Array(112, 115, 116), PackedInt32Array(112, 116, 111), PackedInt32Array(122, 121, 119), PackedInt32Array(119, 121, 120), PackedInt32Array(126, 125, 123), PackedInt32Array(123, 125, 124), PackedInt32Array(128, 127, 99), PackedInt32Array(99, 127, 100), PackedInt32Array(130, 129, 131), PackedInt32Array(131, 129, 132), PackedInt32Array(131, 132, 127), PackedInt32Array(127, 128, 131), PackedInt32Array(135, 134, 133), PackedInt32Array(133, 117, 135), PackedInt32Array(135, 117, 118), PackedInt32Array(135, 118, 136), PackedInt32Array(130, 134, 129), PackedInt32Array(129, 134, 135)]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j64gc"]
 albedo_texture = ExtResource("2_d2mly")
 uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dp3eg"]
+albedo_texture = ExtResource("17_muem4")
+uv1_offset = Vector3(0.5, 0.25, 0)
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y6deb"]
+albedo_texture = ExtResource("23_pm3ni")
+uv1_offset = Vector3(0.5, 0.25, 0)
+uv1_triplanar = true
+
+[sub_resource type="PrismMesh" id="PrismMesh_og1vs"]
+size = Vector3(3, 5.5, 3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_og1vs"]
+albedo_texture = ExtResource("23_y6deb")
+uv1_offset = Vector3(0, 0.25, 0.5)
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5he1u"]
+albedo_color = Color(0.7199062, 0.87451965, 0.9983962, 1)
+metallic = 1.0
+roughness = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qkbxv"]
+albedo_texture = ExtResource("7_uwbdk")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1jjce"]
+albedo_texture = ExtResource("8_px2wr")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o5lsk"]
+albedo_texture = ExtResource("17_y6deb")
+uv1_triplanar = true
+stencil_flags = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2wyq8"]
+albedo_texture = ExtResource("17_y6deb")
+uv1_offset = Vector3(0.5, 0, 0)
+uv1_triplanar = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y6deb"]
+size = Vector3(1, 0.5, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vxglm"]
+transparency = 1
+albedo_color = Color(0, 0.83137256, 0.83137256, 0.78431374)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2f3dj"]
+material = SubResource("StandardMaterial3D_vxglm")
+size = Vector3(1, 0.1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f0ihw"]
+albedo_color = Color(0.490196, 0.490196, 0.490196, 1)
+albedo_texture = ExtResource("11_h4p86")
+uv1_triplanar = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jbj1t"]
+size = Vector3(0.2, 1.1, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_muem4"]
+albedo_color = Color(0.443137, 0.443137, 0.443137, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dp3eg"]
+material = SubResource("StandardMaterial3D_muem4")
+size = Vector3(0.2, 1, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0ld40"]
+albedo_color = Color(0.788235, 0, 0.145098, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_gqmmt"]
+material = SubResource("StandardMaterial3D_0ld40")
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gqmmt"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_yc10j"]
+material = SubResource("StandardMaterial3D_gqmmt")
+height = 0.001
 
 [sub_resource type="LabelSettings" id="LabelSettings_gqmmt"]
 outline_size = 8
@@ -111,32 +196,6 @@ _data = {
 font_size = 48
 font_color = Color(0.827451, 0.7882353, 0.7647059, 1)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_jbj1t"]
-size = Vector3(0.2, 1.1, 0.2)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_muem4"]
-albedo_color = Color(0.443137, 0.443137, 0.443137, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_dp3eg"]
-material = SubResource("StandardMaterial3D_muem4")
-size = Vector3(0.2, 1, 0.2)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0ld40"]
-albedo_color = Color(0.788235, 0, 0.145098, 1)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_gqmmt"]
-material = SubResource("StandardMaterial3D_0ld40")
-top_radius = 0.1
-bottom_radius = 0.1
-height = 0.1
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gqmmt"]
-albedo_color = Color(0, 0, 0, 1)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_yc10j"]
-material = SubResource("StandardMaterial3D_gqmmt")
-height = 0.001
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_3tkmj"]
 size = Vector3(0.69, 0.69, 0.69)
 
@@ -149,61 +208,6 @@ uv1_triplanar = true
 material = SubResource("StandardMaterial3D_y8jba")
 size = Vector3(0.69, 0.69, 0.69)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qkbxv"]
-albedo_texture = ExtResource("7_uwbdk")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1jjce"]
-albedo_texture = ExtResource("8_px2wr")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o5lsk"]
-albedo_texture = ExtResource("17_y6deb")
-uv1_triplanar = true
-stencil_flags = 2
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f0ihw"]
-albedo_color = Color(0.490196, 0.490196, 0.490196, 1)
-albedo_texture = ExtResource("11_h4p86")
-uv1_triplanar = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5he1u"]
-albedo_color = Color(0.7199062, 0.87451965, 0.9983962, 1)
-metallic = 1.0
-roughness = 0.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dp3eg"]
-albedo_texture = ExtResource("17_muem4")
-uv1_offset = Vector3(0.5, 0.25, 0)
-uv1_triplanar = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y6deb"]
-albedo_texture = ExtResource("23_pm3ni")
-uv1_offset = Vector3(0.5, 0.25, 0)
-uv1_triplanar = true
-
-[sub_resource type="PrismMesh" id="PrismMesh_og1vs"]
-size = Vector3(3, 5.5, 3)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_og1vs"]
-albedo_texture = ExtResource("23_y6deb")
-uv1_offset = Vector3(0, 0.25, 0.5)
-uv1_triplanar = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2wyq8"]
-albedo_texture = ExtResource("17_y6deb")
-uv1_offset = Vector3(0.5, 0, 0)
-uv1_triplanar = true
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_y6deb"]
-size = Vector3(1, 0.5, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vxglm"]
-transparency = 1
-albedo_color = Color(0, 0.83137256, 0.83137256, 0.78431374)
-
-[sub_resource type="BoxMesh" id="BoxMesh_2f3dj"]
-material = SubResource("StandardMaterial3D_vxglm")
-size = Vector3(1, 0.1, 1)
-
 [node name="Main" type="Node3D"]
 script = ExtResource("1_oaegt")
 
@@ -214,11 +218,345 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_lhrw0")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_og1vs")
+
+[node name="Ground" type="CSGBox3D" parent="NavigationRegion3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 use_collision = true
 size = Vector3(128, 1, 128)
 material = SubResource("StandardMaterial3D_j64gc")
+
+[node name="ClimbingWall" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2.75, -7)
+use_collision = true
+size = Vector3(3, 5.5, 1)
+material = SubResource("StandardMaterial3D_dp3eg")
+
+[node name="ClimbingCylinder" type="CSGCylinder3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2.75, -10)
+use_collision = true
+radius = 2.0
+height = 5.5
+sides = 32
+material = SubResource("StandardMaterial3D_y6deb")
+
+[node name="ClimbingMesh" type="CSGMesh3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2.75, -14)
+use_collision = true
+mesh = SubResource("PrismMesh_og1vs")
+material = SubResource("StandardMaterial3D_og1vs")
+
+[node name="HangingBar" type="Node3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+
+[node name="StraightBar" type="CSGCylinder3D" parent="NavigationRegion3D/HangingBar"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 2.2, 0)
+use_collision = true
+radius = 0.05
+height = 4.0
+sides = 16
+material = SubResource("StandardMaterial3D_5he1u")
+
+[node name="Post" type="CSGBox3D" parent="NavigationRegion3D/HangingBar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.949, 1.1, 0)
+use_collision = true
+size = Vector3(0.1, 2.2, 0.1)
+
+[node name="Post2" type="CSGBox3D" parent="NavigationRegion3D/HangingBar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.949, 1.1, 0)
+use_collision = true
+size = Vector3(0.1, 2.2, 0.1)
+
+[node name="BarLabel" type="Label3D" parent="NavigationRegion3D/HangingBar"]
+transform = Transform3D(-1, -8.742278e-08, 0, 0, -4.371139e-08, 1, -8.742277e-08, 1, 4.371139e-08, 0, 0.01, 0)
+text = "Press [jump]
+to \"hang\""
+
+[node name="Stool" parent="NavigationRegion3D" instance=ExtResource("25_2wyq8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 2)
+
+[node name="Pool" parent="NavigationRegion3D" instance=ExtResource("14_y6deb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9999999, 14.6)
+
+[node name="PunchingBag" parent="NavigationRegion3D" instance=ExtResource("11_kmb1v")]
+transform = Transform3D(-0.7071067, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, -0.7071067, 4, 0, 4)
+
+[node name="BagLabel" type="Label3D" parent="NavigationRegion3D/PunchingBag"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.009999991, 0.7)
+text = "[Punch]
+and [Kick]"
+
+[node name="Stairs" type="Node3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -3)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D/Stairs"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.788086, 0.111139, -3.99806)
+use_collision = true
+size = Vector3(1, 0.197, 0.254)
+material = SubResource("StandardMaterial3D_qkbxv")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="NavigationRegion3D/Stairs/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107719, 0.0199409)
+use_collision = true
+size = Vector3(1, 0.019, 0.254)
+material = SubResource("StandardMaterial3D_1jjce")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="NavigationRegion3D/Stairs"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.02184, 0.307715, -3.99806)
+use_collision = true
+size = Vector3(1, 0.197, 0.254)
+material = SubResource("StandardMaterial3D_qkbxv")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="NavigationRegion3D/Stairs/CSGBox3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107719, 0.0199409)
+use_collision = true
+size = Vector3(1, 0.019, 0.254)
+material = SubResource("StandardMaterial3D_1jjce")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="NavigationRegion3D/Stairs"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.25616, 0.504908, -3.99806)
+use_collision = true
+size = Vector3(1, 0.197, 0.254)
+material = SubResource("StandardMaterial3D_qkbxv")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="NavigationRegion3D/Stairs/CSGBox3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107719, 0.0199409)
+use_collision = true
+size = Vector3(1, 0.019, 0.254)
+material = SubResource("StandardMaterial3D_1jjce")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="NavigationRegion3D/Stairs"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.48991, 0.701484, -3.99806)
+use_collision = true
+size = Vector3(1, 0.197, 0.254)
+material = SubResource("StandardMaterial3D_qkbxv")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="NavigationRegion3D/Stairs/CSGBox3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107719, 0.0199409)
+use_collision = true
+size = Vector3(1, 0.019, 0.254)
+material = SubResource("StandardMaterial3D_1jjce")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="NavigationRegion3D/Stairs"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.72415, 0.898131, -3.99806)
+use_collision = true
+size = Vector3(1, 0.197, 0.254)
+material = SubResource("StandardMaterial3D_qkbxv")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="NavigationRegion3D/Stairs/CSGBox3D5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107719, 0.0199409)
+use_collision = true
+size = Vector3(1, 0.019, 0.254)
+material = SubResource("StandardMaterial3D_1jjce")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="NavigationRegion3D/Stairs"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.9579, 1.09471, -3.99806)
+use_collision = true
+size = Vector3(1, 0.197, 0.254)
+material = SubResource("StandardMaterial3D_qkbxv")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="NavigationRegion3D/Stairs/CSGBox3D6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107719, 0.0199409)
+use_collision = true
+size = Vector3(1, 0.019, 0.254)
+material = SubResource("StandardMaterial3D_1jjce")
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="NavigationRegion3D/Stairs"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.19223, 1.2919, -3.99806)
+use_collision = true
+size = Vector3(1, 0.197, 0.254)
+material = SubResource("StandardMaterial3D_qkbxv")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="NavigationRegion3D/Stairs/CSGBox3D7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107719, 0.0199409)
+use_collision = true
+size = Vector3(1, 0.019, 0.254)
+material = SubResource("StandardMaterial3D_1jjce")
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="NavigationRegion3D/Stairs"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.42598, 1.48848, -3.99806)
+use_collision = true
+size = Vector3(1, 0.197, 0.254)
+material = SubResource("StandardMaterial3D_qkbxv")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="NavigationRegion3D/Stairs/CSGBox3D8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107719, 0.0199409)
+use_collision = true
+size = Vector3(1, 0.019, 0.254)
+material = SubResource("StandardMaterial3D_1jjce")
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="NavigationRegion3D/Stairs"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.66025, 1.68586, -3.99806)
+use_collision = true
+size = Vector3(1, 0.197, 0.254)
+material = SubResource("StandardMaterial3D_qkbxv")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="NavigationRegion3D/Stairs/CSGBox3D9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107719, 0.0199409)
+use_collision = true
+size = Vector3(1, 0.019, 0.254)
+material = SubResource("StandardMaterial3D_1jjce")
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="NavigationRegion3D/Stairs"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.894, 1.88244, -3.99806)
+use_collision = true
+size = Vector3(1, 0.197, 0.254)
+material = SubResource("StandardMaterial3D_qkbxv")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="NavigationRegion3D/Stairs/CSGBox3D10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107719, 0.0199409)
+use_collision = true
+size = Vector3(1, 0.019, 0.254)
+material = SubResource("StandardMaterial3D_1jjce")
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="NavigationRegion3D/Stairs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, -4)
+use_collision = true
+size = Vector3(2, 2, 2)
+material = SubResource("StandardMaterial3D_o5lsk")
+
+[node name="Tower" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -20)
+use_collision = true
+size = Vector3(3, 20, 3)
+material = SubResource("StandardMaterial3D_2wyq8")
+
+[node name="Area3D" type="Area3D" parent="NavigationRegion3D/Tower"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9.5, 2)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Tower/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_y6deb")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Tower"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9.95, 2)
+mesh = SubResource("BoxMesh_2f3dj")
+
+[node name="GreenPipe" type="CSGCylinder3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.55, -5.3)
+use_collision = true
+height = 1.1
+material = SubResource("StandardMaterial3D_f0ihw")
+
+[node name="GreenPipeEnd" type="CSGCylinder3D" parent="NavigationRegion3D/GreenPipe"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.40099996, 0)
+use_collision = true
+radius = 0.6
+height = 0.3
+material = SubResource("StandardMaterial3D_f0ihw")
+
+[node name="ControlsOnFootController" parent="NavigationRegion3D" instance=ExtResource("4_dp3eg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
+
+[node name="TitleLabel" type="Label3D" parent="NavigationRegion3D/ControlsOnFootController"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.93, 0.056)
+double_sided = false
+text = "Controller - On Foot"
+autowrap_mode = 3
+width = 350.0
+
+[node name="BodyLabel" type="Label3D" parent="NavigationRegion3D/ControlsOnFootController"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, 1.234, 0.056)
+text = "(L2)           Left Kick
+(L1)           Left Punch
+(L)              Zoom In
+(L-Stick)    Move
+(Select)     View
+
+(D-Up)       Auto-Run
+(D-Down) Drop
+(D-Left)     Emotes
+(D-Right)   Chat
+"
+font_size = 20
+horizontal_alignment = 0
+line_spacing = -5.0
+autowrap_mode = 3
+width = 220.0
+
+[node name="BodyLabel2" type="Label3D" parent="NavigationRegion3D/ControlsOnFootController"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.049999975, 1.234, 0.056)
+text = "(R2)           Right Kick
+(R1)           Right Punch
+(R)             Zoom Out
+(R-Stick)   Look
+(Start)      Pause
+
+ (Y)             Crouch
+ (A)             Jump
+ (X)             Use
+ (B)             Sprint"
+font_size = 20
+horizontal_alignment = 0
+line_spacing = -5.0
+autowrap_mode = 3
+width = 220.0
+
+[node name="ControlsOnFootKeyboard" parent="NavigationRegion3D" instance=ExtResource("4_dp3eg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -2)
+
+[node name="TitleLabel" type="Label3D" parent="NavigationRegion3D/ControlsOnFootKeyboard"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.93, 0.056)
+double_sided = false
+text = "Keyboard - On Foot"
+autowrap_mode = 3
+width = 350.0
+
+[node name="BodyLabel" type="Label3D" parent="NavigationRegion3D/ControlsOnFootKeyboard"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, 1.234, 0.056)
+text = "(MB3)       Left Kick
+(R-Clk)      Left Punch
+(Scr-Up)   Zoom In
+(WASD)    Move
+(F3)           Debug
+(F5)           View
+(Tab)        Auto-Run
+(Q)            Drop
+(B)            Emotes
+(T)            Chat"
+font_size = 20
+horizontal_alignment = 0
+line_spacing = -5.0
+autowrap_mode = 3
+width = 220.0
+
+[node name="BodyLabel2" type="Label3D" parent="NavigationRegion3D/ControlsOnFootKeyboard"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.049999975, 1.234, 0.056)
+text = "(MB4)        Right Kick
+(L-Clk)       Right Punch
+(Scr-Dn)    Zoom Out
+(Mouse)    Look
+(Esc)          Pause
+
+ (Ctrl)          Crouch
+ (Space)      Jump
+ (E)              Use
+ (Shift)        Sprint
+"
+font_size = 20
+horizontal_alignment = 0
+line_spacing = -5.0
+autowrap_mode = 3
+width = 220.0
+
+[node name="Button" type="StaticBody3D" parent="NavigationRegion3D" groups=["Usable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.5, -4)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Button"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+shape = SubResource("BoxShape3D_jbj1t")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Button"]
+mesh = SubResource("BoxMesh_dp3eg")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="NavigationRegion3D/Button"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("CylinderMesh_gqmmt")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="NavigationRegion3D/Button"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.49, 0)
+mesh = SubResource("CylinderMesh_yc10j")
 
 [node name="Player" parent="." instance=ExtResource("3_wj83s")]
 
@@ -391,6 +729,21 @@ text = "(A) | [Space]            Action"
 label_settings = SubResource("LabelSettings_gqmmt")
 horizontal_alignment = 2
 
+[node name="Paragliding" type="Label" parent="ControlsOverlay"]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "(B) | [Shift]                 Fall"
+label_settings = SubResource("LabelSettings_gqmmt")
+horizontal_alignment = 2
+
 [node name="Rotating" type="Label" parent="ControlsOverlay"]
 visible = false
 anchors_preset = 6
@@ -478,7 +831,7 @@ grow_horizontal = 0
 grow_vertical = 2
 text = "(A) | [Space]              Jump
 (X) | [Ctrl]                     Use
-(Y) | [Ctrl]             Croutch
+(Y) | [Ctrl]              Crouch
 (D-Down) | [Tab]          Auto-Run"
 label_settings = SubResource("LabelSettings_gqmmt")
 horizontal_alignment = 2
@@ -551,7 +904,7 @@ grow_vertical = 2
 text = "(A) | [Space]              Jump
 (B) | [Shift]               Sprint
 (X) | [E]                         Use
-(Y) | [Ctrl]              Croutch"
+(Y) | [Ctrl]               Crouch"
 label_settings = SubResource("LabelSettings_gqmmt")
 horizontal_alignment = 2
 
@@ -583,124 +936,12 @@ label_settings = SubResource("LabelSettings_chjal")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ControlsOnFootController" parent="." instance=ExtResource("4_dp3eg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
-
-[node name="TitleLabel" type="Label3D" parent="ControlsOnFootController"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.93, 0.056)
-double_sided = false
-text = "Controller - On Foot"
-autowrap_mode = 3
-width = 350.0
-
-[node name="BodyLabel" type="Label3D" parent="ControlsOnFootController"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, 1.234, 0.056)
-text = "(L2)           Left Kick
-(L1)           Left Punch
-(L)              Zoom In
-(L-Stick)    Move
-(Select)     View
-
-(D-Up)       Auto-Run
-(D-Down) Drop
-(D-Left)     Emotes
-(D-Right)   Chat
-"
-font_size = 20
-horizontal_alignment = 0
-line_spacing = -5.0
-autowrap_mode = 3
-width = 220.0
-
-[node name="BodyLabel2" type="Label3D" parent="ControlsOnFootController"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.049999975, 1.234, 0.056)
-text = "(R2)           Right Kick
-(R1)           Right Punch
-(R)             Zoom Out
-(R-Stick)   Look
-(Start)      Pause
-
- (Y)            Croutch
- (A)             Jump
- (X)             Use
- (B)             Sprint"
-font_size = 20
-horizontal_alignment = 0
-line_spacing = -5.0
-autowrap_mode = 3
-width = 220.0
-
-[node name="ControlsOnFootKeyboard" parent="." instance=ExtResource("4_dp3eg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -2)
-
-[node name="TitleLabel" type="Label3D" parent="ControlsOnFootKeyboard"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.93, 0.056)
-double_sided = false
-text = "Keyboard - On Foot"
-autowrap_mode = 3
-width = 350.0
-
-[node name="BodyLabel" type="Label3D" parent="ControlsOnFootKeyboard"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, 1.234, 0.056)
-text = "(MB3)       Left Kick
-(R-Clk)      Left Punch
-(Scr-Up)   Zoom In
-(WASD)    Move
-(F3)           Debug
-(F5)           View
-(Tab)        Auto-Run
-(Q)            Drop
-(B)            Emotes
-(T)            Chat"
-font_size = 20
-horizontal_alignment = 0
-line_spacing = -5.0
-autowrap_mode = 3
-width = 220.0
-
-[node name="BodyLabel2" type="Label3D" parent="ControlsOnFootKeyboard"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.049999975, 1.234, 0.056)
-text = "(MB4)        Right Kick
-(L-Clk)       Right Punch
-(Scr-Dn)    Zoom Out
-(Mouse)    Look
-(Esc)          Pause
-
- (Ctrl)         Croutch
- (Space)      Jump
- (E)              Use
- (Shift)        Sprint
-"
-font_size = 20
-horizontal_alignment = 0
-line_spacing = -5.0
-autowrap_mode = 3
-width = 220.0
-
 [node name="ButtonLabel" type="Label3D" parent="."]
 transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5, 0.009999912, -4)
 text = "Stand in circle
 and face button.
 Press (use)
 to \"interact\""
-
-[node name="Button" type="StaticBody3D" parent="." groups=["Usable"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.5, -4)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Button"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
-shape = SubResource("BoxShape3D_jbj1t")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Button"]
-mesh = SubResource("BoxMesh_dp3eg")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Button"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("CylinderMesh_gqmmt")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Button"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.49, 0)
-mesh = SubResource("CylinderMesh_yc10j")
 
 [node name="FoamSwordLabel" type="Label3D" parent="."]
 transform = Transform3D(-4.371139e-08, -1, 0, -4.371139e-08, 0, 1, -1, 4.371139e-08, -4.3711385e-08, -5, 0.009999825, 2)
@@ -760,155 +1001,15 @@ to \"equip\""
 [node name="MoonShoes" parent="." instance=ExtResource("10_5q0nq")]
 transform = Transform3D(-4.371139e-08, 1, -4.371138e-08, 8.742276e-08, 4.3711392e-08, 1, 1, 4.371138e-08, -8.742277e-08, -6.2, 0.29999983, 6)
 
-[node name="PunchingBag" parent="." instance=ExtResource("11_kmb1v")]
-transform = Transform3D(-0.7071067, 0, -0.7071068, 0, 1, 0, 0.7071068, 0, -0.7071067, 4, 0, 4)
-
-[node name="BagLabel" type="Label3D" parent="PunchingBag"]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.009999991, 0.7)
-text = "[Punch]
-and [Kick]"
-
 [node name="PoolLabel" type="Label3D" parent="."]
 transform = Transform3D(-1, 8.742278e-08, 0, 0, 4.371138e-08, 1, 8.742278e-08, 1, -4.371138e-08, 2.360415e-07, 0.010000118, 8.95)
 text = "Walk into
 to \"swim\""
 
-[node name="Pool" parent="." instance=ExtResource("14_y6deb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9999999, 14.6)
-
 [node name="StairsLabel" type="Label3D" parent="."]
 transform = Transform3D(-4.371139e-08, -1, 0, -4.371137e-08, -7.1054274e-15, 1, -1, 4.371139e-08, -4.371137e-08, 6.25, 0.01, -7)
 text = "Press [jump]
 to \"hang\""
-
-[node name="Stairs" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -3)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Stairs"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.788086, 0.111139, -3.99806)
-use_collision = true
-size = Vector3(1, 0.197, 0.254)
-material = SubResource("StandardMaterial3D_qkbxv")
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Stairs/CSGBox3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107719, 0.0199409)
-use_collision = true
-size = Vector3(1, 0.019, 0.254)
-material = SubResource("StandardMaterial3D_1jjce")
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Stairs"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.02184, 0.307715, -3.99806)
-use_collision = true
-size = Vector3(1, 0.197, 0.254)
-material = SubResource("StandardMaterial3D_qkbxv")
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Stairs/CSGBox3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107719, 0.0199409)
-use_collision = true
-size = Vector3(1, 0.019, 0.254)
-material = SubResource("StandardMaterial3D_1jjce")
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="Stairs"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.25616, 0.504908, -3.99806)
-use_collision = true
-size = Vector3(1, 0.197, 0.254)
-material = SubResource("StandardMaterial3D_qkbxv")
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Stairs/CSGBox3D3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107719, 0.0199409)
-use_collision = true
-size = Vector3(1, 0.019, 0.254)
-material = SubResource("StandardMaterial3D_1jjce")
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="Stairs"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.48991, 0.701484, -3.99806)
-use_collision = true
-size = Vector3(1, 0.197, 0.254)
-material = SubResource("StandardMaterial3D_qkbxv")
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Stairs/CSGBox3D4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107719, 0.0199409)
-use_collision = true
-size = Vector3(1, 0.019, 0.254)
-material = SubResource("StandardMaterial3D_1jjce")
-
-[node name="CSGBox3D5" type="CSGBox3D" parent="Stairs"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.72415, 0.898131, -3.99806)
-use_collision = true
-size = Vector3(1, 0.197, 0.254)
-material = SubResource("StandardMaterial3D_qkbxv")
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Stairs/CSGBox3D5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107719, 0.0199409)
-use_collision = true
-size = Vector3(1, 0.019, 0.254)
-material = SubResource("StandardMaterial3D_1jjce")
-
-[node name="CSGBox3D6" type="CSGBox3D" parent="Stairs"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.9579, 1.09471, -3.99806)
-use_collision = true
-size = Vector3(1, 0.197, 0.254)
-material = SubResource("StandardMaterial3D_qkbxv")
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Stairs/CSGBox3D6"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107719, 0.0199409)
-use_collision = true
-size = Vector3(1, 0.019, 0.254)
-material = SubResource("StandardMaterial3D_1jjce")
-
-[node name="CSGBox3D7" type="CSGBox3D" parent="Stairs"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.19223, 1.2919, -3.99806)
-use_collision = true
-size = Vector3(1, 0.197, 0.254)
-material = SubResource("StandardMaterial3D_qkbxv")
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Stairs/CSGBox3D7"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107719, 0.0199409)
-use_collision = true
-size = Vector3(1, 0.019, 0.254)
-material = SubResource("StandardMaterial3D_1jjce")
-
-[node name="CSGBox3D8" type="CSGBox3D" parent="Stairs"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.42598, 1.48848, -3.99806)
-use_collision = true
-size = Vector3(1, 0.197, 0.254)
-material = SubResource("StandardMaterial3D_qkbxv")
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Stairs/CSGBox3D8"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107719, 0.0199409)
-use_collision = true
-size = Vector3(1, 0.019, 0.254)
-material = SubResource("StandardMaterial3D_1jjce")
-
-[node name="CSGBox3D9" type="CSGBox3D" parent="Stairs"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.66025, 1.68586, -3.99806)
-use_collision = true
-size = Vector3(1, 0.197, 0.254)
-material = SubResource("StandardMaterial3D_qkbxv")
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Stairs/CSGBox3D9"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107719, 0.0199409)
-use_collision = true
-size = Vector3(1, 0.019, 0.254)
-material = SubResource("StandardMaterial3D_1jjce")
-
-[node name="CSGBox3D10" type="CSGBox3D" parent="Stairs"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.894, 1.88244, -3.99806)
-use_collision = true
-size = Vector3(1, 0.197, 0.254)
-material = SubResource("StandardMaterial3D_qkbxv")
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Stairs/CSGBox3D10"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107719, 0.0199409)
-use_collision = true
-size = Vector3(1, 0.019, 0.254)
-material = SubResource("StandardMaterial3D_1jjce")
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, -7)
-use_collision = true
-size = Vector3(2, 2, 2)
-material = SubResource("StandardMaterial3D_o5lsk")
 
 [node name="CatLabel" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, -3.8213705e-15, -4.371138e-08, 1, 0, -1, -4.371138e-08, 4.999999, 0.01, -4.4500003)
@@ -917,19 +1018,6 @@ to \"interact\""
 
 [node name="Cat" parent="." instance=ExtResource("4_7pvfh")]
 transform = Transform3D(0.883883, 0, -0.883883, 0, 1.25, 0, 0.883883, 0, 0.883883, 4.9682274, 1.1172673, -5.2830944)
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.55, -5.3)
-use_collision = true
-height = 1.1
-material = SubResource("StandardMaterial3D_f0ihw")
-
-[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.951, -5.3)
-use_collision = true
-radius = 0.6
-height = 0.3
-material = SubResource("StandardMaterial3D_f0ihw")
 
 [node name="CarLabel" type="Label3D" parent="."]
 transform = Transform3D(-4.371139e-08, 1, 0, 4.3711378e-08, 0, 1, 1, 4.371139e-08, -4.3711378e-08, 6.762807, 0.01, -0.3500002)
@@ -955,69 +1043,6 @@ transform = Transform3D(1, -2.1175826e-22, 0, 3.5527133e-15, -4.371138e-08, 1, 0
 text = "Press [jump]
 to \"mantle\""
 
-[node name="HangingBar" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
-
-[node name="StraightBar" type="CSGCylinder3D" parent="HangingBar"]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 2.2, 0)
-use_collision = true
-radius = 0.05
-height = 4.0
-sides = 16
-material = SubResource("StandardMaterial3D_5he1u")
-
-[node name="Post" type="CSGBox3D" parent="HangingBar"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.949, 1.1, 0)
-use_collision = true
-size = Vector3(0.1, 2.2, 0.1)
-
-[node name="Post2" type="CSGBox3D" parent="HangingBar"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.949, 1.1, 0)
-use_collision = true
-size = Vector3(0.1, 2.2, 0.1)
-
-[node name="BarLabel" type="Label3D" parent="HangingBar"]
-transform = Transform3D(-1, -8.742278e-08, 0, 0, -4.371139e-08, 1, -8.742277e-08, 1, 4.371139e-08, 0, 0.01, 0)
-text = "Press [jump]
-to \"hang\""
-
-[node name="ClimbingWall" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2.75, -7)
-use_collision = true
-size = Vector3(3, 5.5, 1)
-material = SubResource("StandardMaterial3D_dp3eg")
-
-[node name="ClimbingCylinder" type="CSGCylinder3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2.75, -10)
-use_collision = true
-radius = 2.0
-height = 5.5
-sides = 32
-material = SubResource("StandardMaterial3D_y6deb")
-
-[node name="ClimbingMesh" type="CSGMesh3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2.75, -14)
-use_collision = true
-mesh = SubResource("PrismMesh_og1vs")
-material = SubResource("StandardMaterial3D_og1vs")
-
-[node name="Tower" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, -20)
-use_collision = true
-size = Vector3(3, 20, 3)
-material = SubResource("StandardMaterial3D_2wyq8")
-
-[node name="Area3D" type="Area3D" parent="Tower"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9.5, 2)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Tower/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
-shape = SubResource("BoxShape3D_y6deb")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Tower"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9.95, 2)
-mesh = SubResource("BoxMesh_2f3dj")
-
 [node name="ParagliderLabel" type="Label3D" parent="."]
 transform = Transform3D(-1, 8.742278e-08, 5.463399e-15, 7.1054274e-15, -4.3711392e-08, 1, 8.742278e-08, 1, 4.3711385e-08, 0, 20.01, -20)
 text = "Double [jump]
@@ -1031,7 +1056,6 @@ transform = Transform3D(-4.371139e-08, 1, -3.8213705e-15, -4.371139e-08, 0, 1, 1
 text = "Press [sprint]
 to \"sit\""
 
-[node name="Stool" parent="." instance=ExtResource("25_2wyq8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 2)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 
-[connection signal="body_entered" from="Tower/Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_entered" from="NavigationRegion3D/Tower/Area3D" to="." method="_on_area_3d_body_entered"]

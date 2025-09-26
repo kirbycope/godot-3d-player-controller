@@ -13,6 +13,7 @@ const STATES = preload("uid://dodroqwgmf811")
 @export_group("Toggle Features")
 @export var enable_chat: bool = true ## Enable the chat window
 @export var enable_emotes: bool = true ## Enable emotes
+@export var enable_click_to_move: bool = false ## Enable click-to-move
 @export var enable_climbing: bool = true ## Enable climbing
 @export var enable_crouching: bool = true ## Enable crouching
 @export var enable_double_jump: bool = false ## Enable double jump
@@ -85,6 +86,7 @@ var is_holding_tool: bool = false ## Is the player holding a tool?
 var is_jumping: bool = false ## Is the player jumping?
 var is_kicking_left: bool = false ## Is the player kicking with the left foot?
 var is_kicking_right: bool = false ## Is the player kicking with the right foot?
+var is_navigating: bool = false ## Is the player navigating to a target position?
 var is_paragliding: bool = false ## Is the player paragliding?
 var is_punching_left: bool = false ## Is the player punching with the left hand?
 var is_punching_right: bool = false ## Is the player punching with the right hand?
@@ -128,6 +130,7 @@ var virtual_velocity: Vector3 = Vector3.ZERO ## The velocity of the player if th
 @onready var collision_height = collision_shape.shape.height
 @onready var collision_position = collision_shape.position
 @onready var collision_radius = collision_shape.shape.radius
+@onready var navigation_agent = $NavigationAgent3D
 @onready var shapecast = $ShapeCast3D
 # RayCasts
 @onready var raycast_lookat = camera.get_node("RayCast3D")
@@ -199,6 +202,31 @@ func _input(event: InputEvent) -> void:
 			or event.is_action_pressed("button_14"):
 				# Flag the player as no longer "auto-running"
 				is_auto_running = false
+		# Check for player input while "navigating"
+		if is_navigating:
+			# Check for player input
+			if Input.is_action_pressed("move_up") \
+			or Input.is_action_pressed("move_down") \
+			or Input.is_action_pressed("move_left") \
+			or Input.is_action_pressed("move_right"):
+				# Disable "navigating"
+				navigation_agent.target_position = global_position
+		# [Left Mouse Button] _pressed_ -> Start "navigating"
+		if event is InputEventMouseButton and enable_click_to_move and !is_driving and !is_swimming:
+			if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+				# Find out where to click
+				var from = camera.project_ray_origin(event.position)
+				var to = from + camera.project_ray_normal(event.position) * 10000
+				var cursor_position = Plane(Vector3.UP, transform.origin.y).intersects_ray(from, to)
+				if cursor_position:
+					#base_state.draw_debug_sphere(cursor_position, Color.RED) # Debug: visualize input position
+					# Flag the player as "navigating"
+					is_navigating = true
+					navigation_agent.target_position = cursor_position
+					navigate_to_next_position()
+					# Start "running"
+					var from_state = base_state.get_state_name(current_state)
+					base_state.transition(from_state, "Running")
 
 
 ## Called each physics frame with the time since the last physics frame as argument (delta, in seconds).
@@ -591,14 +619,14 @@ func move_player(delta: float) -> void:
 	if shapecast.is_colliding() and velocity.y <= 0.0 and !result and shapecast.get_collision_normal(0).angle_to(Vector3.UP) < floor_max_angle:
 		# Set the character's Y position to match the collision point (likely the ground)
 		global_position.y = shapecast.get_collision_point(0).y
-
 		# Stop vertical movement by zeroing the Y velocity
 		velocity.y = 0.0
 	# Handle noclip mode
 	if enable_noclip:
 		velocity.y = 0.0
-	# Moves the body based on velocity.
+	# Check the player is not driving
 	if !is_driving:
+		# Moves the body based on velocity
 		move_and_slide()
 
 
@@ -728,13 +756,13 @@ func toggle_noclip() -> void:
 
 ## Update the player's velocity based on input and status.
 func update_velocity() -> void:
+	# Scale the speed based on the player's size for consistent stopping
+	var speed_current_scaled = speed_current * scale.x
 	# If the game is paused, gradually stop horizontal movement but preserve vertical physics
 	if game_paused:
 		# Only stop horizontal movement if the player is on the ground
 		# This preserves jump momentum and allows natural jump arcs to complete
 		if is_on_floor():
-			# Scale the speed based on the player's size for consistent stopping
-			var speed_current_scaled = speed_current * scale.x
 			# Gradually reduce horizontal velocity to zero
 			velocity.x = move_toward(velocity.x, 0, speed_current_scaled)
 			velocity.z = move_toward(velocity.z, 0, speed_current_scaled)
@@ -742,74 +770,79 @@ func update_velocity() -> void:
 		virtual_velocity = Vector3.ZERO
 		# Don't process any input when paused
 		return
-	# Get an input vector by specifying four actions for the positive and negative X and Y axes
-	var input_dir = Vector2.ZERO
-	if is_auto_running:
-		# Auto-run forward in the direction the player is facing
-		input_dir = Vector2(0, -1)
+	# Check if the player is currently navigating to a target position
+	if !navigation_agent.is_navigation_finished():
+		navigate_to_next_position()
+	# The player must have control of their character
 	else:
-		# Normal movement input from left-analog stick or WASD/Arrow keys
-		input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	# Create a normalized 3D direction vector from the 2D input
-	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	# Calculate the input magnitude (intensity of the left-analog stick)
-	var input_magnitude = input_dir.length()
-	# Set the player's movement speed based on the input magnitude
-	if speed_current == 0.0 and input_magnitude != 0.0:
-		#speed_current = input_magnitude * speed_running 
-		speed_current = speed_running # ToDo: Fine tune walking with the left-analog stick
-	# Scale the speed based on the player's size
-	var speed_current_scaled = speed_current * scale.x
-	# Check for directional movement
-	if direction:
-		# Check if the animation player is unlocked
-		if !is_animation_locked:
-			# Check if the player is not in "third person" perspective and not climbing/hanging
-			if perspective == 0 and !is_climbing and !is_hanging:
-				# Update the camera to look in the direction based on player input
-				visuals.look_at(position + direction)
-			# Check if movement along the x-axis is locked
-			if lock_movement_x:
-				# Update [virtual] horizontal velocity
-				virtual_velocity.x = direction.x * speed_current_scaled
-			# The x-axis movement not locked
+		# Get an input vector by specifying four actions for the positive and negative X and Y axes
+		var input_dir = Vector2.ZERO
+		if is_auto_running:
+			# Auto-run forward in the direction the player is facing
+			input_dir = Vector2(0, -1)
+		else:
+			# Normal movement input from left-analog stick or WASD/Arrow keys
+			input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+		# Create a normalized 3D direction vector from the 2D input
+		var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+		# Calculate the input magnitude (intensity of the left-analog stick)
+		var input_magnitude = input_dir.length()
+		# Set the player's movement speed based on the input magnitude
+		if speed_current == 0.0 and input_magnitude != 0.0:
+			#speed_current = input_magnitude * speed_running 
+			speed_current = speed_running # ToDo: Fine tune walking with the left-analog stick
+		# Scale the speed based on the player's size
+		speed_current_scaled = speed_current * scale.x
+		# Check for directional movement
+		if direction:
+			# Check if the animation player is unlocked
+			if !is_animation_locked:
+				# Check if the player is not in "third person" perspective and not climbing/hanging
+				if perspective == 0 and !is_climbing and !is_hanging:
+					# Update the camera to look in the direction based on player input
+					visuals.look_at(position + direction)
+				# Check if movement along the x-axis is locked
+				if lock_movement_x:
+					# Update [virtual] horizontal velocity
+					virtual_velocity.x = direction.x * speed_current_scaled
+				# The x-axis movement not locked
+				else:
+					# Update horizontal velocity
+					velocity.x = direction.x * speed_current_scaled
+				# Check if movement along the z-axis is locked
+				if lock_movement_y:
+					# Update vertical velocity
+					virtual_velocity.z = direction.z * speed_current_scaled
+				# The y-axis movement not locked
+				else:
+					# Update vertical velocity
+					velocity.z = direction.z * speed_current_scaled
+		# No movement detected
+		else:
+			# Check if the player is skateboarding and grounded
+			if is_skateboarding and is_on_floor():
+				# Set the friction to the skateboarding friction
+				var friction_current = friction_skateboarding
+				# Ⓨ/[Ctrl] action _pressed_
+				if is_crouching:
+					# Slow down the player, more than usual
+					friction_current = friction_current * 10
+				# Apply gradual deceleration when skating
+				velocity.x = move_toward(velocity.x, 0, speed_current_scaled * friction_current)
+				velocity.z = move_toward(velocity.z, 0, speed_current_scaled * friction_current)
+			# Check if the player is skateboarding but in the air (preserve momentum)
+			elif is_skateboarding and !is_on_floor():
+				# Preserve horizontal momentum while skateboarding in the air
+				# Don't modify velocity.x and velocity.z to maintain jump momentum
+				pass
+			# The player is not skateboarding (on the ground)
 			else:
 				# Update horizontal velocity
-				velocity.x = direction.x * speed_current_scaled
-			# Check if movement along the z-axis is locked
-			if lock_movement_y:
+				velocity.x = move_toward(velocity.x, 0, speed_current_scaled)
 				# Update vertical velocity
-				virtual_velocity.z = direction.z * speed_current_scaled
-			# The y-axis movement not locked
-			else:
-				# Update vertical velocity
-				velocity.z = direction.z * speed_current_scaled
-	# No movement detected
-	else:
-		# Check if the player is skateboarding and grounded
-		if is_skateboarding and is_on_floor():
-			# Set the friction to the skateboarding friction
-			var friction_current = friction_skateboarding
-			# Ⓨ/[Ctrl] action _pressed_
-			if is_crouching:
-				# Slow down the player, more than usual
-				friction_current = friction_current * 10
-			# Apply gradual deceleration when skating
-			velocity.x = move_toward(velocity.x, 0, speed_current_scaled * friction_current)
-			velocity.z = move_toward(velocity.z, 0, speed_current_scaled * friction_current)
-		# Check if the player is skateboarding but in the air (preserve momentum)
-		elif is_skateboarding and !is_on_floor():
-			# Preserve horizontal momentum while skateboarding in the air
-			# Don't modify velocity.x and velocity.z to maintain jump momentum
-			pass
-		# The player is not skateboarding (on the ground)
-		else:
-			# Update horizontal velocity
-			velocity.x = move_toward(velocity.x, 0, speed_current_scaled)
-			# Update vertical velocity
-			velocity.z = move_toward(velocity.z, 0, speed_current_scaled)
-			# Update [virtual] velocity
-			virtual_velocity = Vector3.ZERO
+				velocity.z = move_toward(velocity.z, 0, speed_current_scaled)
+				# Update [virtual] velocity
+				virtual_velocity = Vector3.ZERO
 	# Check for collisions with RigidBody3D objects during movement
 	handle_rigidbody_collisions()
 
@@ -838,3 +871,22 @@ func handle_rigidbody_collisions() -> void:
 			var impulse = push_direction * push_force * velocity_factor * force_pushing_multiplier
 			# Apply the impulse to the SoftBody3D
 			collider.apply_central_impulse(impulse)
+
+
+## Navigate to the next position in the path. Called during physics process if navigating.
+func navigate_to_next_position() -> void:
+	var next_point = navigation_agent.get_next_path_position()
+	var new_velocity = (next_point - global_position).normalized() * speed_running
+	velocity.x = new_velocity.x
+	velocity.z = new_velocity.z
+	virtual_velocity = Vector3(velocity.x, 0, velocity.z)
+	# Face the direction of movement
+	visuals.look_at(position + Vector3(velocity.x, 0, velocity.z), Vector3.UP)
+
+
+## Called when the NavigationAgent3D has reached its target position.
+func _on_navigation_agent_3d_navigation_finished() -> void:
+	is_navigating = false
+	velocity.x = 0.0
+	velocity.z = 0.0
+	virtual_velocity = Vector3.ZERO

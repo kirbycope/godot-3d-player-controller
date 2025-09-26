@@ -81,8 +81,10 @@ func _on_leave_game_button_pressed() -> void:
 func toggle_pause() -> void:
 	# Toggle game paused
 	player.game_paused = !player.game_paused
-	# Toggle mouse capture
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE if player.game_paused else Input.MOUSE_MODE_CAPTURED)
+	# Check if Click-To-Move is enabled
+	if !player.enable_click_to_move:
+		# Toggle mouse capture
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE if player.game_paused else Input.MOUSE_MODE_CAPTURED)
 	# Show the pause menu, if paused
 	visible = player.game_paused
 	# Set focus to first button when opening pause menu

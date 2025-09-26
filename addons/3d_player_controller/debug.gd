@@ -49,6 +49,7 @@ func _process(_delta: float) -> void:
 		$Panel1/IsJumping.button_pressed = player.is_jumping
 		$Panel1/IsKickingLeft.button_pressed = player.is_kicking_left
 		$Panel1/IsKickingRight.button_pressed = player.is_kicking_right
+		$Panel1/IsNavigating.button_pressed = player.is_navigating
 		$Panel1/IsParagliding.button_pressed = player.is_paragliding
 		$Panel1/IsPunchingLeft.button_pressed = player.is_punching_left
 		$Panel1/IsPunchingRight.button_pressed = player.is_punching_right
@@ -106,6 +107,12 @@ func _process(_delta: float) -> void:
 ## Called when the "enable_chat" toggle option is changed.
 func _on_enable_chat_toggled(toggled_on: bool) -> void:
 	player.enable_chat = toggled_on
+
+
+## Called when the "enable_click_to_move" toggle option is changed.
+func _on_enable_click_to_move_toggled(toggled_on: bool) -> void:
+	player.enable_click_to_move = toggled_on
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE if player.game_paused else Input.MOUSE_MODE_CAPTURED)
 
 
 ## Called when the "enable_climbing" toggle option is changed.

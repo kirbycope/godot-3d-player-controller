@@ -11,6 +11,8 @@ extends Node3D
 
 ## Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# Hide the mouse
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	# Rotate the Portal gun
 	$"PortalGun/AnimationPlayer".play("rotate")
 
@@ -113,4 +115,4 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 	# Check if the collider is the player
 	if body is CharacterBody3D and body.is_in_group("Player"):
 		# Teleport the player on top of the tower
-		body.position = $Tower.global_position + Vector3(0.0, $Tower.size.y/2, 0.0)
+		body.position = $NavigationRegion3D/Tower.global_position + Vector3(0.0, $NavigationRegion3D/Tower.size.y/2, 0.0)

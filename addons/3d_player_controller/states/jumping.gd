@@ -59,11 +59,14 @@ func _process(_delta: float) -> void:
 	if player.velocity.y < 0.0:
 		# Check if "climbing" is enabled and the player is not currently climbing:
 		if player.enable_climbing and !player.is_climbing:
-			# Check if the player is facing a climbable surface
+			# Check if the player is facing a surface
 			if player.raycast_middle.is_colliding():
-				# Start "climbing"
-				transition(NODE_NAME, "Climbing")
-				return
+				# Check if the surface is climbable
+				var collider = player.raycast_middle.get_collider()
+				if collider and not collider.is_in_group("NotClimbable"):
+					# Start "climbing"
+					transition(NODE_NAME, "Climbing")
+					return
 		# Start "falling"
 		transition(NODE_NAME, "Falling")
 	# Check if the player is "jumping"

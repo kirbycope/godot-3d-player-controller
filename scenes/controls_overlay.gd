@@ -72,6 +72,7 @@ func _process(_delta: float) -> void:
 		$Jumping.text = "(A) | [Space]       Double-Jump"
 	if player.enable_flying and !player.is_flying:
 		$Jumping.text = "(A) | [Space]               Fly"
+	$Paragliding.visible = player.is_paragliding
 	$Rifling.visible = player.is_holding_rifle
 	$Rotating.visible = player.is_rotating_object
 	$Skateboarding.visible = player.is_skateboarding

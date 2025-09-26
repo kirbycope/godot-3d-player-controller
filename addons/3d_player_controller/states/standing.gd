@@ -28,8 +28,6 @@ func _input(event: InputEvent) -> void:
 	if !is_multiplayer_authority(): return
 	# Check if the game is not paused
 	if !player.game_paused:
-		# Web fix - Input is required before the mouse can be captured so onready wont work
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		# Ⓐ/[Space] _pressed_ and jumping is enabled -> Start "jumping"
 		if event.is_action_pressed("button_0") and player.enable_jumping and !player.is_animation_locked:
 			# Start "jumping"

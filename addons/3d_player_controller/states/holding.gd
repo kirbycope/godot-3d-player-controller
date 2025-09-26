@@ -39,7 +39,7 @@ func _input(event: InputEvent) -> void:
 				# Get the object the RayCast is colliding with
 				var collider = player.raycast_lookat.get_collider()
 				# Check if the collider is a RigidBody3D
-				if collider is RigidBody3D and collider is not VehicleBody3D:
+				if collider is RigidBody3D and collider is not VehicleBody3D and not collider.is_in_group("Static"):
 					# Flag the RigidBody3D as being "held"
 					collider.add_to_group("held")
 					# Move the collider to Layer 2

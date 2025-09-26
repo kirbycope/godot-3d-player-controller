@@ -46,6 +46,12 @@ func _input(event: InputEvent) -> void:
 			if event.is_action_pressed("button_11"):
 				# Move the camera away from the player, slightly
 				zoom_offset = clamp(zoom_offset - zoom_speed, -zoom_max, zoom_max)
+		# Check if Click-To-Move is enabled
+		if player.enable_click_to_move:
+			if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+				Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+			elif Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+				Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		# Check for mouse motion and the camera is not locked
 		if event is InputEventMouseMotion and !player.lock_camera:
 			# Check if the mouse is captured

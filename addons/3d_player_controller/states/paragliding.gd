@@ -10,6 +10,10 @@ func _input(event: InputEvent) -> void:
 	if !is_multiplayer_authority(): return
 	# Check if the game is not paused
 	if !player.game_paused:
+		# Ⓑ/[Shift] _pressed_ -> Stop paragliding and start "falling"
+		if event.is_action_pressed("button_1"):
+			# Start falling
+			transition(NODE_NAME, "Falling")
 		# (D-Pad Down)/[Q] _pressed_ -> Drop paraglider
 		if event.is_action_pressed("button_13"):
 			# Reparent the paraglider from the player to current scene

@@ -25,6 +25,8 @@ window/stretch/aspect="expand"
 [global_group]
 
 TouchScreenButton=""
+Static=""
+NotClimbable=""
 
 [input_devices]
 
