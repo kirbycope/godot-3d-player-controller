@@ -163,8 +163,8 @@ var virtual_velocity: Vector3 = Vector3.ZERO ## The velocity of the player if th
 
 ## Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# Set the canvas layer behind all other Control nodes
-	$Controls.layer = -1
+	# Set AuxScene as top level
+	visuals_aux_scene.set_as_top_level(true)
 	# Start "standing"
 	$States/Standing.start()
 

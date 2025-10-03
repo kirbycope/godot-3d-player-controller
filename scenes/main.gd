@@ -15,7 +15,6 @@ func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	# Rotate the Portal gun
 	$"PortalGun/AnimationPlayer".play("rotate")
-
 	# Get the transform of the not held items
 	foam_sword_initial_transform = $FoamSword.global_transform
 	fishing_rod_initial_transform = $FishingRod.global_transform
