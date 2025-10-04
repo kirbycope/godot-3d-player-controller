@@ -79,6 +79,7 @@ func _process(_delta: float) -> void:
 		$Panel1/Swinging/IsSwingingLeft.button_pressed = player.is_swinging_left
 		$Panel1/Swinging/IsSwingingRight.button_pressed = player.is_swinging_right
 		# Panel 2
+		$Panel2/EnableCapes.button_pressed = player.enable_capes
 		$Panel2/EnableChat.button_pressed = player.enable_chat
 		$Panel2/EnableClickToMove.button_pressed = player.enable_click_to_move
 		$Panel2/EnableClimbing.button_pressed = player.enable_climbing
@@ -103,6 +104,12 @@ func _process(_delta: float) -> void:
 		$Coordinates.text = "[center][color=red]X:[/color]%.1f [color=green]Y:[/color]%.1f [color=blue]Z:[/color]%.1f[/center]" % [player.global_position.x, player.global_position.y, player.global_position.z]
 		$Velocity.text = "[center][color=red]X:[/color]%.1f [color=green]Y:[/color]%.1f [color=blue]Z:[/color]%.1f[/center]" % [player.velocity.x, player.velocity.y, player.velocity.z]
 		$FPS.text = "FPS: " + str(int(Engine.get_frames_per_second()))
+
+
+## Called when the "enable_capes" toggle option is changed.
+func _on_enable_capes_toggled(toggled_on: bool) -> void:
+	player.enable_capes = toggled_on
+	player.toggle_cape(toggled_on)
 
 
 ## Called when the "enable_chat" toggle option is changed.

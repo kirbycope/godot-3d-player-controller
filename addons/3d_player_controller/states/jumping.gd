@@ -51,8 +51,8 @@ func _process(_delta: float) -> void:
 			if !player.raycast_top.is_colliding() and player.raycast_high.is_colliding():
 				# Get the collision object
 				var collision_object = player.raycast_high.get_collider()
-				# Only proceed if the collision object is not in the "held" group and not a player
-				if !collision_object.is_in_group("held") and !collision_object is CharacterBody3D:
+				# Only proceed if the collision object is not in the "held" group and not a SoftBody3D
+				if !collision_object.is_in_group("held") and !collision_object is CharacterBody3D and collision_object is not SoftBody3D:
 					# Start "hanging"
 					transition(NODE_NAME, "Hanging")
 	# Check if the player is falling
@@ -61,9 +61,10 @@ func _process(_delta: float) -> void:
 		if player.enable_climbing and !player.is_climbing:
 			# Check if the player is facing a surface
 			if player.raycast_middle.is_colliding():
-				# Check if the surface is climbable
-				var collider = player.raycast_middle.get_collider()
-				if collider and not collider.is_in_group("NotClimbable"):
+				# Get the collision object
+				var collision_object = player.raycast_middle.get_collider()
+				# Only proceed if the collision object is not in the "NotClimbable" group and not a SoftBody3D
+				if !collision_object.is_in_group("NotClimbable") and !collision_object is CharacterBody3D and collision_object is not SoftBody3D:
 					# Start "climbing"
 					transition(NODE_NAME, "Climbing")
 					return

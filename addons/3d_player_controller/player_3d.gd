@@ -13,6 +13,7 @@ const STATES = preload("uid://dodroqwgmf811")
 @export_group("Toggle Features")
 @export var enable_chat: bool = true ## Enable the chat window
 @export var enable_emotes: bool = true ## Enable emotes
+@export var enable_capes: bool = false ## Enable physics-based capes
 @export var enable_click_to_move: bool = false ## Enable click-to-move
 @export var enable_climbing: bool = true ## Enable climbing
 @export var enable_crouching: bool = true ## Enable crouching
@@ -148,13 +149,14 @@ var virtual_velocity: Vector3 = Vector3.ZERO ## The velocity of the player if th
 @onready var visuals_offset = visuals.position
 @onready var visuals_aux_scene = visuals.get_node("AuxScene")
 @onready var visuals_aux_scene_position = visuals_aux_scene.position
+@onready var visuals_aux_scene_cape = visuals_aux_scene.get_node_or_null("Cape") # Cape is optional
 @onready var player_skeleton = visuals_aux_scene.get_node("GeneralSkeleton")
 @onready var bone_attachment_left_foot = player_skeleton.get_node("BoneAttachment3D_LeftFoot")
 @onready var bone_attachment_right_foot = player_skeleton.get_node("BoneAttachment3D_RightFoot")
 @onready var bone_attachment_left_hand = player_skeleton.get_node("BoneAttachment3D_LeftHand")
 @onready var bone_attachment_right_hand = player_skeleton.get_node("BoneAttachment3D_RightHand")
 @onready var look_at_modifier = player_skeleton.get_node("LookAtModifier3D")
-@onready var physical_bone_simulator = player_skeleton.get_node_or_null("PhysicalBoneSimulator3D")
+@onready var physical_bone_simulator = player_skeleton.get_node_or_null("PhysicalBoneSimulator3D") # Ragdoll is optional
 # Initial Values
 @onready var initial_aux_scene_transform: Transform3D = visuals_aux_scene.transform
 @onready var initial_position = position ## used for "Return Home" in START menu
@@ -167,6 +169,8 @@ func _ready() -> void:
 	visuals_aux_scene.set_as_top_level(true)
 	# Start "standing"
 	$States/Standing.start()
+	# Show capes, if enabled
+	toggle_cape(enable_capes)
 
 
 ## Called when there is an input event.
@@ -743,6 +747,11 @@ func update_aux_scene_transform(delta: float) -> void:
 			else:
 				# No smoothing, directly set position
 				visuals_aux_scene.global_position = target_global_position
+
+
+## Toggles the physics-based cape.
+func toggle_cape(active: bool) -> void:
+	visuals_aux_scene_cape.visible = active
 
 
 ## Toggles the noclip mode.

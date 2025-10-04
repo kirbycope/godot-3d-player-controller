@@ -58,8 +58,8 @@ func _process(delta: float) -> void:
 			if !player.raycast_top.is_colliding() and player.raycast_high.is_colliding():
 				# Get the collision object
 				var collision_object = player.raycast_high.get_collider()
-				# Only proceed if the collision object is not in the "held" group and not a player
-				if !collision_object.is_in_group("held") and !collision_object is CharacterBody3D:
+				# Only proceed if the collision object is not in the "held" group and not a SoftBody3D
+				if !collision_object.is_in_group("held") and !collision_object is CharacterBody3D and collision_object is not SoftBody3D:
 					# Start "hanging"
 					transition(NODE_NAME, "Hanging")
 	# Check if the player is on the ground (and has no vertical velocity)
