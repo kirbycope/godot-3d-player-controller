@@ -1,8 +1,7 @@
 extends Node3D
 
 @onready var player: CharacterBody3D = $Player
-@onready var x_bot = player.get_node("Visuals/XBot")
-@onready var y_bot = player.get_node("Visuals/YBot")
+
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

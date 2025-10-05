@@ -151,7 +151,6 @@ var virtual_velocity: Vector3 = Vector3.ZERO ## The velocity of the player if th
 @onready var visuals_offset = visuals.position
 @onready var visuals_aux_scene = visuals.get_node("AuxScene")
 @onready var visuals_aux_scene_position = visuals_aux_scene.position
-@onready var visuals_aux_scene_cape = visuals_aux_scene.get_node_or_null("Cape") # Cape is optional
 @onready var player_skeleton = visuals_aux_scene.get_node("GeneralSkeleton")
 @onready var bone_attachment_left_foot = player_skeleton.get_node("BoneAttachment3D_LeftFoot")
 @onready var bone_attachment_right_foot = player_skeleton.get_node("BoneAttachment3D_RightFoot")
@@ -171,6 +170,10 @@ func _ready() -> void:
 	visuals_aux_scene.set_as_top_level(true)
 	# Start "standing"
 	$States/Standing.start()
+	# Wait one frame to ensure everything is initialized
+	await get_tree().process_frame
+	# Show cape if enabled
+	toggle_cape(enable_capes)
 
 
 ## Called when there is an input event.
@@ -759,9 +762,9 @@ func update_aux_scene_transform(delta: float) -> void:
 
 ## Toggles the physics-based cape.
 func toggle_cape(active: bool) -> void:
-	if visuals_aux_scene_cape:
-		visuals_aux_scene_cape.process_mode = Node3D.PROCESS_MODE_INHERIT if active else Node3D.PROCESS_MODE_DISABLED
-		visuals_aux_scene_cape.visible = active
+	if visuals_aux_scene.get_node_or_null("Cape"):
+		visuals_aux_scene.get_node("Cape").process_mode = Node3D.PROCESS_MODE_INHERIT if active else Node3D.PROCESS_MODE_DISABLED
+		visuals_aux_scene.get_node("Cape").visible = active
 
 
 ## Toggles the noclip mode.

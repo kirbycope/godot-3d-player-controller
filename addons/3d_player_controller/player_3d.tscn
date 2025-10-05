@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://ujh51l2wv1vk"]
+[gd_scene load_steps=43 format=3 uid="uid://ujh51l2wv1vk"]
 
 [ext_resource type="Script" uid="uid://2iaqywmqcahl" path="res://addons/3d_player_controller/player_3d.gd" id="1_f3dlg"]
 [ext_resource type="PackedScene" uid="uid://cx7x0f3lh4aus" path="res://addons/virtual_controller/scenes/canvas_layer.tscn" id="2_j65kv"]
@@ -35,7 +35,6 @@
 [ext_resource type="Script" uid="uid://cvcle81qbqtdg" path="res://addons/3d_player_controller/states/sitting.gd" id="26_j6gid"]
 [ext_resource type="Script" uid="uid://b3iodd70omtwq" path="res://addons/3d_player_controller/states/sliding.gd" id="28_ypjv0"]
 [ext_resource type="Script" uid="uid://cjasnyqqvgkqj" path="res://addons/3d_player_controller/name_label.gd" id="31_ij4ox"]
-[ext_resource type="PackedScene" uid="uid://dsp7vcraux38l" path="res://addons/3d_player_controller/x_bot.tscn" id="36_nin8p"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5e6s3"]
 radius = 0.3
@@ -284,14 +283,6 @@ script = ExtResource("16_70kcl")
 
 [node name="AuxScene" parent="Visuals" instance=ExtResource("4_swcjt")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
-
-[node name="XBot" parent="Visuals" instance=ExtResource("36_nin8p")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
-visible = false
-
-[node name="YBot" parent="Visuals" instance=ExtResource("4_swcjt")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
-visible = false
 
 [node name="FootMount" type="Node3D" parent="Visuals"]
 

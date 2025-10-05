@@ -2,8 +2,8 @@ extends Control
 
 # Note: `@onready` variables are set when the scene is loaded.
 @onready var player: CharacterBody3D = get_parent().get_parent().get_parent()
-@onready var x_bot = player.get_node("Visuals/XBot")
-@onready var y_bot = player.get_node("Visuals/YBot")
+@onready var x_bot = preload("res://addons/3d_player_controller/x_bot.tscn")
+@onready var y_bot = preload("res://addons/3d_player_controller/y_bot.tscn")
 
 # Track which bot model is currently loaded
 var is_using_x_bot: bool = false
@@ -234,12 +234,12 @@ func _perform_bot_model_swap() -> void:
 	# Remove the current AuxScene immediately
 	player.get_node("Visuals").remove_child(current_aux_scene)
 	current_aux_scene.free()
-	# Create a duplicate of the existing bot node
+	# Create an instance of the bot node
 	var new_scene
 	if is_using_x_bot:
-		new_scene = x_bot.duplicate()
+		new_scene = x_bot.instantiate()
 	else:
-		new_scene = y_bot.duplicate()
+		new_scene = y_bot.instantiate()
 	# Set the scene visibility
 	new_scene.visible = true
 	# Set the scene name
@@ -266,3 +266,5 @@ func _perform_bot_model_swap() -> void:
 	# Restore animation if there was one playing
 	if current_animation != "" and player.animation_player != null:
 		player.animation_player.play(current_animation)
+	# Show the cape, based on player setting
+	player.toggle_cape(player.enable_capes)
