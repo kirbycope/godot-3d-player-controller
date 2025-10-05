@@ -1,0 +1,63 @@
+[gd_scene load_steps=12 format=3 uid="uid://duebtkucv4p70"]
+
+[ext_resource type="Script" uid="uid://dxrhtl7xcdo8b" path="res://scenes/test.gd" id="1_74lek"]
+[ext_resource type="Texture2D" uid="uid://2watixnx5axe" path="res://assets/textures/2k_moon.jpg" id="1_errlg"]
+[ext_resource type="Texture2D" uid="uid://n8ooimqxt11o" path="res://assets/textures/plain_starfield_1.png" id="1_iyx0m"]
+[ext_resource type="PackedScene" uid="uid://ujh51l2wv1vk" path="res://addons/3d_player_controller/player_3d.tscn" id="2_bl13t"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_74lek"]
+panorama = ExtResource("1_iyx0m")
+
+[sub_resource type="Sky" id="Sky_j5jx5"]
+sky_material = SubResource("PanoramaSkyMaterial_74lek")
+
+[sub_resource type="Environment" id="Environment_lpvoh"]
+background_mode = 2
+sky = SubResource("Sky_j5jx5")
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.25
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_bl13t"]
+radius = 14.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iyx0m"]
+albedo_texture = ExtResource("1_errlg")
+
+[sub_resource type="SphereMesh" id="SphereMesh_74lek"]
+material = SubResource("StandardMaterial3D_iyx0m")
+radius = 14.0
+height = 28.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_74lek"]
+radius = 21.0
+
+[node name="Test" type="Node3D"]
+script = ExtResource("1_74lek")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_lpvoh")
+
+[node name="TheMoon" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TheMoon"]
+shape = SubResource("SphereShape3D_bl13t")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TheMoon"]
+mesh = SubResource("SphereMesh_74lek")
+
+[node name="GravityArea" type="Area3D" parent="TheMoon"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TheMoon/GravityArea"]
+shape = SubResource("SphereShape3D_74lek")
+
+[node name="Player" parent="." instance=ExtResource("2_bl13t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.028339, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 4.5, 0)
+
+[connection signal="body_entered" from="TheMoon/GravityArea" to="." method="_on_gravity_area_body_entered"]
+[connection signal="body_exited" from="TheMoon/GravityArea" to="." method="_on_gravity_area_body_exited"]

@@ -88,6 +88,7 @@ func _process(_delta: float) -> void:
 		$Panel2/EnableFlying.button_pressed = player.enable_flying
 		$Panel2/EnableJumping.button_pressed = player.enable_jumping
 		$Panel2/EnableKicking.button_pressed = player.enable_kicking
+		$Panel2/EnableLocalGravity.button_pressed = player.enable_local_gravity
 		$Panel2/EnableParagliding.button_pressed = player.enable_paragliding
 		$Panel2/EnablePunching.button_pressed = player.enable_punching
 		$Panel2/EnablePushing.button_pressed = player.enable_pushing
@@ -95,11 +96,11 @@ func _process(_delta: float) -> void:
 		$Panel2/EnableSmoothing.button_pressed = player.enable_smoothing
 		$Panel2/EnableSprinting.button_pressed = player.enable_sprinting
 		$Panel2/EnableVibration.button_pressed = player.enable_vibration
-		$Panel2/LockCamera.button_pressed = player.lock_camera
-		$Panel2/LockMovementX.button_pressed = player.lock_movement_x
-		$Panel2/LockMovementY.button_pressed = player.lock_movement_y
-		$Panel2/LockPerspective.button_pressed = player.lock_perspective
-		$Panel2/GamePaused.button_pressed = player.game_paused
+		$Panel2/Locks/LockCamera.button_pressed = player.lock_camera
+		$Panel2/Locks/LockMovementX.button_pressed = player.lock_movement_x
+		$Panel2/Locks/LockMovementY.button_pressed = player.lock_movement_y
+		$Panel2/Locks/LockPerspective.button_pressed = player.lock_perspective
+		$Panel2/Locks/GamePaused.button_pressed = player.game_paused
 		# Panel 3
 		$Coordinates.text = "[center][color=red]X:[/color]%.1f [color=green]Y:[/color]%.1f [color=blue]Z:[/color]%.1f[/center]" % [player.global_position.x, player.global_position.y, player.global_position.z]
 		$Velocity.text = "[center][color=red]X:[/color]%.1f [color=green]Y:[/color]%.1f [color=blue]Z:[/color]%.1f[/center]" % [player.velocity.x, player.velocity.y, player.velocity.z]
@@ -151,6 +152,11 @@ func _on_enable_jumping_toggled(toggled_on: bool) -> void:
 ## Called when the "enable_kicking" toggle option is changed.
 func _on_enable_kicking_toggled(toggled_on: bool) -> void:
 	player.enable_kicking = toggled_on
+
+
+## Called when the "enable_local_gravity" toggle option is changed.
+func _on_enable_local_gravity_toggled(toggled_on: bool) -> void:
+	player.enable_local_gravity = toggled_on
 
 
 ## Called when the "enable_paragliding" toggle option is changed.

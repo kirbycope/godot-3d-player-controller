@@ -21,6 +21,7 @@ const STATES = preload("uid://dodroqwgmf811")
 @export var enable_flying: bool = false ## Enable flying
 @export var enable_jumping: bool = true ## Enable jumping
 @export var enable_kicking: bool = true ## Enable kicking
+@export var enable_local_gravity: bool = false ## Enable local gravity towards specific objects
 @export var enable_noclip: bool = false ## Enable noclip
 @export var enable_paragliding: bool = true ## Enable paragliding
 @export var enable_punching: bool = true ## Enable punching
@@ -79,6 +80,7 @@ var is_driving_in ## The Node the player is driving in.
 var is_falling: bool = false ## Is the player falling?
 var is_firing: bool = false ## Is the player firing a weapon?
 var is_flying: bool = false ## Is the player flying?
+var is_gravitating_towards ## The object the player is gravitating towards (for local gravity)
 var is_hanging: bool = false ## Is the player hanging from a ledge?
 var is_holding: bool = false ## Is the player holding an object in front of them?
 var is_holding_fishing_rod: bool = false ## Is the player holding a fishing rod?
@@ -169,8 +171,6 @@ func _ready() -> void:
 	visuals_aux_scene.set_as_top_level(true)
 	# Start "standing"
 	$States/Standing.start()
-	# Show capes, if enabled
-	toggle_cape(enable_capes)
 
 
 ## Called when there is an input event.
@@ -243,6 +243,14 @@ func _physics_process(delta) -> void:
 		if is_swimming or enable_noclip:
 			# Ignore the gravity
 			velocity.y = 0.0
+		# Check if local gravity is enabled and we have a gravity target
+		elif enable_local_gravity and is_gravitating_towards:
+			# Calculate direction to the gravity source
+			var gravity_direction = (is_gravitating_towards.global_position - global_position).normalized()
+			# Scale the gravity based on the player's size
+			var gravity_scaled = gravity * scale.y
+			# Apply gravity towards the target object
+			velocity += gravity_direction * gravity_scaled * delta
 		# The player must not be "swimming" or using noclip mode
 		else:
 			# Scale the gravity based on the player's size
@@ -751,7 +759,9 @@ func update_aux_scene_transform(delta: float) -> void:
 
 ## Toggles the physics-based cape.
 func toggle_cape(active: bool) -> void:
-	visuals_aux_scene_cape.visible = active
+	if visuals_aux_scene_cape:
+		visuals_aux_scene_cape.process_mode = Node3D.PROCESS_MODE_INHERIT if active else Node3D.PROCESS_MODE_DISABLED
+		visuals_aux_scene_cape.visible = active
 
 
 ## Toggles the noclip mode.

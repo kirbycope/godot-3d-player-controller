@@ -22,6 +22,7 @@ func _ready() -> void:
 	portal_gun_initial_transform = $PortalGun.global_transform
 	moon_shoes_initial_transform = $MoonShoes.global_transform
 	skateboard_initial_transform = $Skateboard.global_transform
+	player.toggle_cape(false)
 
 
 ## Called every frame. '_delta' is the elapsed time since the previous frame.

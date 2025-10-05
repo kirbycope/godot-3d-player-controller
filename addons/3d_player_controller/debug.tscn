@@ -621,7 +621,7 @@ anchors_preset = -1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -216.0
-offset_bottom = 650.0
+offset_bottom = 532.0
 grow_horizontal = 0
 
 [node name="EnableCapes" type="CheckButton" parent="Panel2"]
@@ -695,108 +695,117 @@ offset_right = 216.0
 offset_bottom = 284.0
 text = "enable_kicking"
 
+[node name="EnableLocalGravity" type="CheckButton" parent="Panel2"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 285.0
+offset_right = 216.0
+offset_bottom = 316.0
+text = "enable_local_gravity"
+
 [node name="EnableParagliding" type="CheckButton" parent="Panel2"]
 layout_mode = 0
 offset_left = 22.0
-offset_top = 284.0
+offset_top = 316.0
 offset_right = 216.0
-offset_bottom = 315.0
+offset_bottom = 347.0
 text = "enable_paragliding"
 
 [node name="EnablePunching" type="CheckButton" parent="Panel2"]
 layout_mode = 0
 offset_left = 36.0
-offset_top = 316.0
+offset_top = 348.0
 offset_right = 216.0
-offset_bottom = 347.0
+offset_bottom = 379.0
 text = "enable_punching"
 
 [node name="EnablePushing" type="CheckButton" parent="Panel2"]
 layout_mode = 0
 offset_left = 36.0
-offset_top = 344.0
+offset_top = 376.0
 offset_right = 216.0
-offset_bottom = 375.0
+offset_bottom = 407.0
 text = "enable_pushing"
 
 [node name="EnableRolling" type="CheckButton" parent="Panel2"]
 layout_mode = 0
 offset_left = 36.0
-offset_top = 376.0
+offset_top = 408.0
 offset_right = 216.0
-offset_bottom = 407.0
+offset_bottom = 439.0
 text = "enable_rolling"
 
 [node name="EnableSmoothing" type="CheckButton" parent="Panel2"]
 layout_mode = 0
 offset_left = 26.0
-offset_top = 407.0
+offset_top = 439.0
 offset_right = 216.0
-offset_bottom = 438.0
+offset_bottom = 470.0
 text = "enable_smoothing"
 
 [node name="EnableSprinting" type="CheckButton" parent="Panel2"]
 layout_mode = 0
 offset_left = 36.0
-offset_top = 438.0
+offset_top = 470.0
 offset_right = 216.0
-offset_bottom = 469.0
+offset_bottom = 501.0
 text = "enable_sprinting"
 
 [node name="EnableVibration" type="CheckButton" parent="Panel2"]
 layout_mode = 0
 offset_left = 36.0
-offset_top = 469.0
+offset_top = 501.0
 offset_right = 216.0
-offset_bottom = 500.0
+offset_bottom = 532.0
 text = "enable_vibration"
 
-[node name="LockCamera" type="CheckButton" parent="Panel2"]
+[node name="Locks" type="Panel" parent="Panel2"]
 layout_mode = 0
-offset_left = 36.0
-offset_top = 500.0
+offset_left = -218.0
+offset_right = -2.0
+offset_bottom = 124.0
+
+[node name="LockCamera" type="CheckButton" parent="Panel2/Locks"]
+layout_mode = 0
 offset_right = 216.0
-offset_bottom = 531.0
+offset_bottom = 31.0
 text = "lock_camera"
 
-[node name="LockMovementX" type="CheckButton" parent="Panel2"]
+[node name="LockMovementX" type="CheckButton" parent="Panel2/Locks"]
 layout_mode = 0
-offset_left = 30.0
-offset_top = 531.0
+offset_top = 24.0
 offset_right = 216.0
-offset_bottom = 562.0
+offset_bottom = 55.0
 text = "lock_movement_x"
 
-[node name="LockMovementY" type="CheckButton" parent="Panel2"]
+[node name="LockMovementY" type="CheckButton" parent="Panel2/Locks"]
 layout_mode = 0
-offset_left = 30.0
-offset_top = 563.0
+offset_top = 48.0
 offset_right = 216.0
-offset_bottom = 594.0
+offset_bottom = 79.0
 text = "lock_movement_y"
 
-[node name="LockPerspective" type="CheckButton" parent="Panel2"]
+[node name="LockPerspective" type="CheckButton" parent="Panel2/Locks"]
 layout_mode = 0
-offset_left = 30.0
-offset_top = 594.0
+offset_top = 72.0
 offset_right = 216.0
-offset_bottom = 625.0
+offset_bottom = 103.0
 text = "lock_perspective"
 
-[node name="GamePaused" type="CheckBox" parent="Panel2"]
+[node name="Label28" type="Label" parent="Panel2/Locks"]
 layout_mode = 0
-offset_left = 192.0
-offset_top = 625.0
+offset_left = 6.0
+offset_top = 96.0
 offset_right = 216.0
-offset_bottom = 649.0
-
-[node name="Label28" type="Label" parent="Panel2"]
-layout_mode = 0
-offset_left = 9.0
-offset_top = 625.0
-offset_right = 179.0
-offset_bottom = 648.0
+offset_bottom = 119.0
 text = "game_paused"
+
+[node name="GamePaused" type="CheckBox" parent="Panel2/Locks"]
+layout_mode = 0
+offset_left = 182.0
+offset_top = 96.0
+offset_right = 206.0
+offset_bottom = 120.0
 
 [node name="Coordinates" type="RichTextLabel" parent="."]
 clip_contents = false
@@ -855,6 +864,7 @@ text = "FPS: 0000"
 [connection signal="toggled" from="Panel2/EnableFlying" to="." method="_on_enable_flying_toggled"]
 [connection signal="toggled" from="Panel2/EnableJumping" to="." method="_on_enable_jumping_toggled"]
 [connection signal="toggled" from="Panel2/EnableKicking" to="." method="_on_enable_kicking_toggled"]
+[connection signal="toggled" from="Panel2/EnableLocalGravity" to="." method="_on_enable_local_gravity_toggled"]
 [connection signal="toggled" from="Panel2/EnableParagliding" to="." method="_on_enable_paragliding_toggled"]
 [connection signal="toggled" from="Panel2/EnablePunching" to="." method="_on_enable_punching_toggled"]
 [connection signal="toggled" from="Panel2/EnablePushing" to="." method="_on_enable_pushing_toggled"]
@@ -862,7 +872,7 @@ text = "FPS: 0000"
 [connection signal="toggled" from="Panel2/EnableSmoothing" to="." method="_on_enable_smoothing_toggled"]
 [connection signal="toggled" from="Panel2/EnableSprinting" to="." method="_on_enable_sprinting_toggled"]
 [connection signal="toggled" from="Panel2/EnableVibration" to="." method="_on_enable_vibration_toggled"]
-[connection signal="toggled" from="Panel2/LockCamera" to="." method="_on_lock_camera_toggled"]
-[connection signal="toggled" from="Panel2/LockMovementX" to="." method="_on_lock_movement_x_toggled"]
-[connection signal="toggled" from="Panel2/LockMovementY" to="." method="_on_lock_movement_y_toggled"]
-[connection signal="toggled" from="Panel2/LockPerspective" to="." method="_on_lock_perspective_toggled"]
+[connection signal="toggled" from="Panel2/Locks/LockCamera" to="." method="_on_lock_camera_toggled"]
+[connection signal="toggled" from="Panel2/Locks/LockMovementX" to="." method="_on_lock_movement_x_toggled"]
+[connection signal="toggled" from="Panel2/Locks/LockMovementY" to="." method="_on_lock_movement_y_toggled"]
+[connection signal="toggled" from="Panel2/Locks/LockPerspective" to="." method="_on_lock_perspective_toggled"]
