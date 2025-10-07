@@ -151,6 +151,7 @@ var virtual_velocity: Vector3 = Vector3.ZERO ## The velocity of the player if th
 @onready var visuals_offset = visuals.position
 @onready var visuals_aux_scene = visuals.get_node("AuxScene")
 @onready var visuals_aux_scene_position = visuals_aux_scene.position
+@onready var visuals_aux_scene_rotation = visuals_aux_scene.rotation
 @onready var player_skeleton = visuals_aux_scene.get_node("GeneralSkeleton")
 @onready var bone_attachment_left_foot = player_skeleton.get_node("BoneAttachment3D_LeftFoot")
 @onready var bone_attachment_right_foot = player_skeleton.get_node("BoneAttachment3D_RightFoot")
@@ -224,7 +225,7 @@ func _input(event: InputEvent) -> void:
 				# Find out where to click
 				var from = camera.project_ray_origin(event.position)
 				var to = from + camera.project_ray_normal(event.position) * 10000
-				var cursor_position = Plane(Vector3.UP, transform.origin.y).intersects_ray(from, to)
+				var cursor_position = Plane(up_direction, transform.origin.y).intersects_ray(from, to)
 				if cursor_position:
 					#base_state.draw_debug_sphere(cursor_position, Color.RED) # Debug: visualize input position
 					# Flag the player as "navigating"
@@ -240,20 +241,36 @@ func _physics_process(delta) -> void:
 	# Don't process physics if in ragdoll state - let the physics bones handle everything
 	if current_state == STATES.State.RAGDOLL:
 		return
-	# Apply gravity (but not if climbing, driving, hanging, swimming, or noclip)
-	if !is_climbing and !is_driving and !is_hanging:
+	# Check if using local gravity and we have a gravity target
+	if enable_local_gravity and is_gravitating_towards:
+		# Calculate direction to the gravity source center
+		var gravity_center = is_gravitating_towards.global_position
+		# Calculate direction to the gravity source center
+		var gravity_direction = (gravity_center - global_position).normalized()
+		# Scale the gravity based on the player's size
+		var gravity_scaled = gravity * scale.y
+		# Apply gravity towards the target object's center
+		velocity += gravity_direction * gravity_scaled * delta
+		# Align the player's up direction to point away from the planet's center
+		var planet_up = -gravity_direction
+		var current_up = transform.basis.y
+		# Set the CharacterBody3D's up_direction for physics calculations
+		up_direction = planet_up
+		
+		# Rotate the player to align with the new up direction
+		var target_basis = Basis()
+		target_basis.y = planet_up
+		target_basis.x = -transform.basis.z.cross(planet_up).normalized()
+		target_basis.z = target_basis.x.cross(planet_up).normalized()
+		target_basis = target_basis.orthonormalized()
+		transform.basis = target_basis
+
+	# Apply global gravity (but not if climbing, driving, hanging, swimming, or noclip)
+	elif !is_climbing and !is_driving and !is_hanging:
 		# Check if the player is "swimming" or noclip mode is enabled
 		if is_swimming or enable_noclip:
 			# Ignore the gravity
 			velocity.y = 0.0
-		# Check if local gravity is enabled and we have a gravity target
-		elif enable_local_gravity and is_gravitating_towards:
-			# Calculate direction to the gravity source
-			var gravity_direction = (is_gravitating_towards.global_position - global_position).normalized()
-			# Scale the gravity based on the player's size
-			var gravity_scaled = gravity * scale.y
-			# Apply gravity towards the target object
-			velocity += gravity_direction * gravity_scaled * delta
 		# The player must not be "swimming" or using noclip mode
 		else:
 			# Scale the gravity based on the player's size
@@ -603,16 +620,15 @@ func move_player(delta: float) -> void:
 	# Don't move the player if in ragdoll state - let physics bones handle movement
 	if current_state == STATES.State.RAGDOLL:
 		return
-	# Set the shapecast position to the player's potential new position
-	shapecast.global_position.x = global_position.x + velocity.x * delta
-	shapecast.global_position.z = global_position.z + velocity.z * delta
+	# Set the shapecast position to the player's potential new position (in global space)
+	shapecast.global_position = global_position + velocity * delta
 	# Check if the player is grounded
 	if is_on_floor():
-		# Adjust the position to be at the player's feet
-		shapecast.target_position.y = initial_shapecast_target_position.y
+		# Adjust the position to be at the player's feet (in local space, respecting rotation)
+		shapecast.target_position = transform.basis * Vector3(0, initial_shapecast_target_position.y, 0)
 	else:
 		# Move the shapecast up to avoid most collisions
-		shapecast.target_position.y = 0.0
+		shapecast.target_position = Vector3.ZERO
 	# Create a new physics query object used for checking collisions in 3D space
 	var query = PhysicsShapeQueryParameters3D.new()
 	# Tell the physics query to ignore _this_ node when checking for collisions
@@ -628,9 +644,13 @@ func move_player(delta: float) -> void:
 		# Force the shapecast to update its state
 		shapecast.force_shapecast_update()
 	# Check if the shapecast is colliding, the player is moving down (or not at all), no direct collision was found, and the angle of the slope isn't too great
-	if shapecast.is_colliding() and velocity.y <= 0.0 and !result and shapecast.get_collision_normal(0).angle_to(Vector3.UP) < floor_max_angle:
-		# Set the character's Y position to match the collision point (likely the ground)
-		global_position.y = shapecast.get_collision_point(0).y
+	# Use up_direction to handle local gravity correctly
+	if shapecast.is_colliding() and velocity.y <= 0.0 and !result and shapecast.get_collision_normal(0).angle_to(up_direction) < floor_max_angle:
+		# Project the collision point onto the player's up direction and set position accordingly
+		var collision_point = shapecast.get_collision_point(0)
+		var offset = collision_point - global_position
+		var projected_offset = offset.project(up_direction)
+		global_position += projected_offset
 		# Stop vertical movement by zeroing the Y velocity
 		velocity.y = 0.0
 	# Handle noclip mode
@@ -743,7 +763,6 @@ func update_aux_scene_transform(delta: float) -> void:
 			var smooth_quat = current_quat.slerp(target_quat, rotation_smoothing * delta)
 			# Apply the smoothed rotation
 			visuals_aux_scene.rotation = smooth_quat.get_euler()
-
 			# Calculate the target position based on player and visuals transforms
 			var target_global_position = global_position + (global_transform.basis * visuals_offset)
 			# Apply smoothing (if enabled)
@@ -784,6 +803,7 @@ func update_velocity() -> void:
 		if is_on_floor():
 			# Gradually reduce horizontal velocity to zero
 			velocity.x = move_toward(velocity.x, 0, speed_current_scaled)
+			velocity.y = move_toward(velocity.y, 0, speed_current_scaled)
 			velocity.z = move_toward(velocity.z, 0, speed_current_scaled)
 		# Update [virtual] velocity to zero as well
 		virtual_velocity = Vector3.ZERO
@@ -900,7 +920,7 @@ func navigate_to_next_position() -> void:
 	velocity.z = new_velocity.z
 	virtual_velocity = Vector3(velocity.x, 0, velocity.z)
 	# Face the direction of movement
-	visuals.look_at(position + Vector3(velocity.x, 0, velocity.z), Vector3.UP)
+	visuals.look_at(position + Vector3(velocity.x, 0, velocity.z), up_direction)
 
 
 ## Called when the NavigationAgent3D has reached its target position.

@@ -71,6 +71,9 @@ func _process(delta: float) -> void:
 		else:
 			# Start "standing"
 			transition(NODE_NAME, "Standing")
+	elif player.is_on_floor():
+		# Start "standing"
+		transition(NODE_NAME, "Standing")
 	# Check if the player is "falling"
 	if player.is_falling:
 		# Increment the time spent in the "falling" state
