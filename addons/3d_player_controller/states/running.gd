@@ -39,8 +39,8 @@ func _process(_delta: float) -> void:
 				# Disable "auto-running"
 				player.is_auto_running = false
 	# Check if the player is not moving
-	if player.velocity == Vector3.ZERO and player.virtual_velocity == Vector3.ZERO:
-		# Start "standing"		
+	if abs(player.velocity).length() < 0.2 and abs(player.virtual_velocity).length() < 0.2:
+		# Start "standing"
 		transition(NODE_NAME, "Standing")
 	# The player must be moving
 	else:

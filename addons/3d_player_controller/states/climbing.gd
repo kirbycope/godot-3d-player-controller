@@ -118,7 +118,7 @@ func play_animation() -> void:
 		# Check if the player is shimmying
 		player.is_shimmying = Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right")
 		# Check if the player is not moving -> Pause current animation
-		if player.velocity == Vector3.ZERO:
+		if abs(player.velocity).length() < 0.2 and abs(player.virtual_velocity).length() < 0.2:
 			# Pause the animation player
 			player.animation_player.pause()
 			# Stop processing animations

@@ -253,7 +253,6 @@ func _perform_bot_model_swap() -> void:
 	new_scene.global_transform = saved_transform
 	# Update all the player's references to the new AuxScene and its children
 	player.visuals_aux_scene = new_scene
-	player.visuals_aux_scene_position = new_scene.position
 	player.animation_player = new_scene.get_node("AnimationPlayer")
 	# Update skeleton and bone attachment references
 	var new_skeleton = new_scene.get_node("GeneralSkeleton")

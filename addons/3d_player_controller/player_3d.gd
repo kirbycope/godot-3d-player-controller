@@ -150,8 +150,6 @@ var virtual_velocity: Vector3 = Vector3.ZERO ## The velocity of the player if th
 @onready var head_mount = visuals.get_node("HeadMount")
 @onready var visuals_offset = visuals.position
 @onready var visuals_aux_scene = visuals.get_node("AuxScene")
-@onready var visuals_aux_scene_position = visuals_aux_scene.position
-@onready var visuals_aux_scene_rotation = visuals_aux_scene.rotation
 @onready var player_skeleton = visuals_aux_scene.get_node("GeneralSkeleton")
 @onready var bone_attachment_left_foot = player_skeleton.get_node("BoneAttachment3D_LeftFoot")
 @onready var bone_attachment_right_foot = player_skeleton.get_node("BoneAttachment3D_RightFoot")
@@ -161,7 +159,7 @@ var virtual_velocity: Vector3 = Vector3.ZERO ## The velocity of the player if th
 @onready var physical_bone_simulator = player_skeleton.get_node_or_null("PhysicalBoneSimulator3D") # Ragdoll is optional
 # Initial Values
 @onready var initial_aux_scene_transform: Transform3D = visuals_aux_scene.transform
-@onready var initial_position = position ## used for "Return Home" in START menu
+@onready var initial_position = position ## Used for "Return Home" in START menu
 @onready var initial_shapecast_target_position = shapecast.target_position
 
 
@@ -620,39 +618,38 @@ func move_player(delta: float) -> void:
 	# Don't move the player if in ragdoll state - let physics bones handle movement
 	if current_state == STATES.State.RAGDOLL:
 		return
-	# Set the shapecast position to the player's potential new position (in global space)
-	shapecast.global_position = global_position + velocity * delta
-	# Check if the player is grounded
-	if is_on_floor():
-		# Adjust the position to be at the player's feet (in local space, respecting rotation)
-		shapecast.target_position = transform.basis * Vector3(0, initial_shapecast_target_position.y, 0)
-	else:
-		# Move the shapecast up to avoid most collisions
-		shapecast.target_position = Vector3.ZERO
-	# Create a new physics query object used for checking collisions in 3D space
-	var query = PhysicsShapeQueryParameters3D.new()
-	# Tell the physics query to ignore _this_ node when checking for collisions
-	query.exclude = [self]
-	# Set the collision shape to match the "shapecast" object's shape
-	query.shape = shapecast.shape
-	# Set the position and rotation (transform) to match where the shapecast is in global space
-	query.transform = shapecast.global_transform
-	# Get the current 3D world, give direct access to the physics engine, and check if the shape intersects with anything (limited to 1 result)
-	var result = get_world_3d().direct_space_state.intersect_shape(query, 1)
-	# Check if no collisions were detected
-	if !result:
-		# Force the shapecast to update its state
-		shapecast.force_shapecast_update()
-	# Check if the shapecast is colliding, the player is moving down (or not at all), no direct collision was found, and the angle of the slope isn't too great
-	# Use up_direction to handle local gravity correctly
-	if shapecast.is_colliding() and velocity.y <= 0.0 and !result and shapecast.get_collision_normal(0).angle_to(up_direction) < floor_max_angle:
-		# Project the collision point onto the player's up direction and set position accordingly
-		var collision_point = shapecast.get_collision_point(0)
-		var offset = collision_point - global_position
-		var projected_offset = offset.project(up_direction)
-		global_position += projected_offset
-		# Stop vertical movement by zeroing the Y velocity
-		velocity.y = 0.0
+	# Check if not using local gravity
+	if  not enable_local_gravity and is_gravitating_towards == null:
+		# Set the shapecast position to the player's potential new position
+		shapecast.global_position.x = global_position.x + velocity.x * delta
+		shapecast.global_position.z = global_position.z + velocity.z * delta
+		# Check if the player is grounded
+		if is_on_floor():
+			# Adjust the position to be at the player's feet
+			shapecast.target_position.y = initial_shapecast_target_position.y
+		else:
+			# Move the shapecast up to avoid most collisions
+			shapecast.target_position.y = 0.0
+		# Create a new physics query object used for checking collisions in 3D space
+		var query = PhysicsShapeQueryParameters3D.new()
+		# Tell the physics query to ignore _this_ node when checking for collisions
+		query.exclude = [self]
+		# Set the collision shape to match the "shapecast" object's shape
+		query.shape = shapecast.shape
+		# Set the position and rotation (transform) to match where the shapecast is in global space
+		query.transform = shapecast.global_transform
+		# Get the current 3D world, give direct access to the physics engine, and check if the shape intersects with anything (limited to 1 result)
+		var result = get_world_3d().direct_space_state.intersect_shape(query, 1)
+		# Check if no collisions were detected
+		if !result:
+			# Force the shapecast to update its state
+			shapecast.force_shapecast_update()
+		# Check if the shapecast is colliding, the player is moving down (or not at all), no direct collision was found, and the angle of the slope isn't too great
+		if shapecast.is_colliding() and velocity.y <= 0.0 and !result and shapecast.get_collision_normal(0).angle_to(Vector3.UP) < floor_max_angle:
+			# Set the character's Y position to match the collision point (likely the ground)
+			global_position.y = shapecast.get_collision_point(0).y
+			# Stop vertical movement by zeroing the Y velocity
+			velocity.y = 0.0
 	# Handle noclip mode
 	if enable_noclip:
 		velocity.y = 0.0
@@ -749,7 +746,7 @@ func update_aux_scene_transform(delta: float) -> void:
 	# Check if AuxScene exists
 	if visuals_aux_scene != null:
 		# Check if AuxScene has top_level enabled
-		if visuals_aux_scene.top_level != null:
+		if visuals_aux_scene.top_level:
 			# Calculate target rotation
 			var target_rotation = Vector3(
 				visuals.global_rotation.x,

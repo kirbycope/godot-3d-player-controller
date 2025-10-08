@@ -123,7 +123,7 @@ func play_animation() -> void:
 		# Check if the player is shimmying
 		player.is_shimmying = Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right")
 		# Check if the player is not moving -> Play "hanging" animation
-		if player.velocity == Vector3.ZERO:
+		if abs(player.velocity).length() < 0.2 and abs(player.virtual_velocity).length() < 0.2:
 			# Check if the player is braced
 			if player.is_braced:
 				# Check if the current animation is not "braced hang idle"
