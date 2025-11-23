@@ -1,3 +1,12 @@
+# DEPRECATION #
+
+Use [v2](https://github.com/kirbycope/godot-3d-player-controller-v2) instead.
+
+----
+
+<details>
+<summary>Show V1 (old) Readme</summary>
+	
 ![Thumbnail](/ci/thumbnail.png)
 
 # godot-3d-player-controller
@@ -87,6 +96,7 @@ The player's appearance comes from the imported scene, `$Visuals/AuxScene`. [Ret
 1. From the FileSystem, drag your new scene into the Player scene tree under "Visuals"
 1. Rename it to `AuxScene` so the existing scripts don't break
 	- Or change the path `@onready var visuals_aux_scene = ...` in the [player.gd](/addons/3d_player_controller/player_3d.gd) script.
+</details>
 
 ----
 
