@@ -6,7 +6,7 @@ Use the [addon](https://github.com/kirbycope/godot-3d-player-controller-addon) i
 
 <details>
 
-<summary>Show V1 (old) Readme</summary>
+<summary>Show [old] Readme</summary>
 	
 ![Thumbnail](/ci/thumbnail.png)
 
