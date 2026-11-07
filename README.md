@@ -1,6 +1,6 @@
 # DEPRECATION #
 
-Use [v2](https://github.com/kirbycope/godot-3d-player-controller-v2) instead.
+Use the [addon]([https://github.com/kirbycope/godot-3d-player-controller-v2](https://github.com/kirbycope/godot-3d-player-controller-addon)) instead.
 
 ----
 
